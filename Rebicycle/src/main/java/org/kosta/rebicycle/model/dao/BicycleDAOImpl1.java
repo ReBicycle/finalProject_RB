@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public class BicycleDAOImpl1 implements BicycleDAO {
 	@Resource
 	private SqlSessionTemplate template;
+	
+	
 }

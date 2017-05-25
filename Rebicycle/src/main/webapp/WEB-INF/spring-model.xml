@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+ <context:component-scan base-package="org.kosta"> </context:component-scan>
+	 <!-- dbcp 설정 -->
+<bean id="dbcp" class="org.apache.commons.dbcp.BasicDataSource">
+   <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+   <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+   <property name="username" value="scott" />
+   <property name="password" value="tiger" />
+   <property name="maxActive" value="20"></property>
+</bean>
+<!-- spring과 mybatis 연동 설정 -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+   <property name="dataSource" ref="dbcp" />
+   <property name="configLocation" value="classpath:mybatis/config/SqlSessionConfig.xml" />
+</bean>
+<!-- SqlSessionTemplate : 자동 커밋 모드로 코드 작업량을 줄이고
+      이후 AOP 방식의 선언적 방식의 트랜잭션 처리를 제공한다.
+ -->
+<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+   <constructor-arg ref="sqlSessionFactory" />
+</bean>
+<!-- Transaction 설정-->
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dbcp"></property>
+</bean>
+<!--  어노테이션기반 트랜잭션 관리 설정 
+<tx:annotation-driven transaction-manager="transactionManager"/> -->
+</beans>

@@ -2,6 +2,8 @@ package org.kosta.rebicycle.model.vo;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BicycleVO {
 	private int bicycleNo;
 	private MemberVO memberVO; //자전거 소유인
@@ -16,17 +18,17 @@ public class BicycleVO {
 	private String category;
 	private String detail;
 	
-	private String photo1;
-	private String photo2;
-	private String photo3;
+	private List<MultipartFile> file;
+
 	
 	
 	public BicycleVO() {
 		super();
 	}
+	
+	
 	public BicycleVO(int bicycleNo, MemberVO memberVO, List<CalendarVO> possibleList, int rentPrice, String address,
-			String latitude, String longitude, int purPrice, String category, String detail, String photo1,
-			String photo2, String photo3) {
+			String latitude, String longitude, int purPrice, String category, String detail, List<MultipartFile> file) {
 		super();
 		this.bicycleNo = bicycleNo;
 		this.memberVO = memberVO;
@@ -38,10 +40,10 @@ public class BicycleVO {
 		this.purPrice = purPrice;
 		this.category = category;
 		this.detail = detail;
-		this.photo1 = photo1;
-		this.photo2 = photo2;
-		this.photo3 = photo3;
+		this.file = file;
 	}
+
+
 	public int getBicycleNo() {
 		return bicycleNo;
 	}
@@ -102,30 +104,25 @@ public class BicycleVO {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public String getPhoto1() {
-		return photo1;
+
+
+	public List<MultipartFile> getFile() {
+		return file;
 	}
-	public void setPhoto1(String photo1) {
-		this.photo1 = photo1;
+
+
+	public void setFile(List<MultipartFile> file) {
+		this.file = file;
 	}
-	public String getPhoto2() {
-		return photo2;
-	}
-	public void setPhoto2(String photo2) {
-		this.photo2 = photo2;
-	}
-	public String getPhoto3() {
-		return photo3;
-	}
-	public void setPhoto3(String photo3) {
-		this.photo3 = photo3;
-	}
+
+
 	@Override
 	public String toString() {
 		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
 				+ ", rentPrice=" + rentPrice + ", address=" + address + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", purPrice=" + purPrice + ", category=" + category + ", detail=" + detail + ", photo1="
-				+ photo1 + ", photo2=" + photo2 + ", photo3=" + photo3 + "]";
+				+ longitude + ", purPrice=" + purPrice + ", category=" + category + ", detail=" + detail + ", file="
+				+ file + "]";
 	}
+	
 		
 }

@@ -10,7 +10,10 @@ drop table rb_report;
 drop table rb_review;
 
 insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null')
+select * from rb_member
 
+select id,password,name,phone,address,email,account from rb_member		
+where id='java' and password='1234'
 
 create table rb_member(
    id varchar2(100) primary key,
@@ -104,4 +107,11 @@ create table rb_review(
 	reviewDate date not null,
 	constraint pkpk_review primary key(reviewerId, rentNo)
 )
+---------------------------------------------------------------
+------------종봉---------------------------------------------
+insert into CATEGORY values(category_seq.nextval,'미니벨로')
+select * from category
 
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
+
+------------종봉----------------------------------------------

@@ -1,5 +1,7 @@
 package org.kosta.rebicycle.model.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberVO {
 	private String id;
 	private String password;
@@ -8,7 +10,7 @@ public class MemberVO {
 	private String address;
 	private String email;
 	private String account;
-	private String picture;
+	private MultipartFile picture;
 	
 	public MemberVO() {
 		super();
@@ -20,7 +22,7 @@ public class MemberVO {
 	}
 
 	public MemberVO(String id, String password, String name, String phone, String address, String email, String account,
-			String picture) {
+			MultipartFile picture) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -88,11 +90,11 @@ public class MemberVO {
 		this.account = account;
 	}
 
-	public String getPicture() {
+	public MultipartFile getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String picture) {
+	public void setPicture(MultipartFile picture) {
 		this.picture = picture;
 	}
 
@@ -101,6 +103,6 @@ public class MemberVO {
 		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", phone=" + phone + ", address="
 				+ address + ", email=" + email + ", account=" + account + ", picture=" + picture + "]";
 	}
-	
+
 	
 }

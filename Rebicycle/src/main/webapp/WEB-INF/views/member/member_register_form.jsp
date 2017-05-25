@@ -91,17 +91,18 @@ $(document).ready(function(){
 					<strong>JOIN</strong>
 				</div>
 				<div class="panel-body">
-					<form id = "memberRegisterForm" class="form-horizontal" enctype="multipart/form-data" 
+					<form id = "memberRegisterForm" class="form-horizontal" 
 					 action="${pageContext.request.contextPath}/memberRegister.do" method="POST">
 					
 					
 						<div class="row">
 							<div class="center-block">
-							<input type="file" name="picture" id = "picture" style="display: none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
+							<input type="text" name="picture" id = "picture" style="display: none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
 
 								<abbr title="프로필 이미지를 등록하시려면 클릭해주세요!"><img class="profile-img"
 									src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"
 									alt=""></abbr>
+							<input type = "file" name="" id="" > 		
 							</div>
 						</div>
 						

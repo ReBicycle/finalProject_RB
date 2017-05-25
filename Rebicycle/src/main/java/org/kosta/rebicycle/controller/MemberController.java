@@ -23,9 +23,9 @@ public class MemberController {
 		if(loginVO !=null){
 			session.setAttribute("mvo", loginVO);
 			System.out.println("로그인성공");
-			//path = "redirect:home.do";
+			path = "redirect:home.do";
 		}else{
-			//path = "member/login_fail";
+			path = "member/login_fail";
 		}
 		return path;
 	}

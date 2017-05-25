@@ -14,7 +14,7 @@
                         <h3>Search for bicycles for you.</h3><br>
                         <span style="color:black">
                         <form action="${pageContext.request.contextPath}/bicycle/bicycle_search_list.do" >
-                       <input type="search" name="search" size="30" value="input location"> <input type="date" name="startDate"><input type="date" name="endDate">
+                       <input type="search" name="address" size="30" value="input location"> <input type="date" name="startDate"><input type="date" name="endDate">
                        <input type="submit" value="검색">
                       	</form>
                        </span>

@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 -->
 <configuration>	
 	<typeAliases>
-		<package name="org.kosta.rebicycle.model.vo"/>
+		<package name="org.kosta.rebicycle.model"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/config/member.xml"/>

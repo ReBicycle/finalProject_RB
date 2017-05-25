@@ -10,7 +10,7 @@ public class MemberVO {
 	private String address;
 	private String email;
 	private String account;
-	private MultipartFile picture;
+	private String picture;
 	
 	public MemberVO() {
 		super();
@@ -22,7 +22,7 @@ public class MemberVO {
 	}
 
 	public MemberVO(String id, String password, String name, String phone, String address, String email, String account,
-			MultipartFile picture) {
+			String picture) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -90,11 +90,11 @@ public class MemberVO {
 		this.account = account;
 	}
 
-	public MultipartFile getPicture() {
+	public String getPicture() {
 		return picture;
 	}
 
-	public void setPicture(MultipartFile picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 

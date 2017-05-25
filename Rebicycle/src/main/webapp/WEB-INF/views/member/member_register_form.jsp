@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="/Example.Modal.js"></script>
+<script type="text/javascript">
+
 $(document).ready(function(){
-	var checkResultId="";		
+	var checkResultId="";	
+	var fileModal = new Example.Model({
+		id="fileModal";
+	});
+	
 	$("#memberRegisterForm").submit(function(){				
 		if(checkResultId==""){
 			alert("아이디 중복확인을 하세요");
@@ -16,6 +23,7 @@ $(document).ready(function(){
 		//document.all.file1.click(); document.all.file2.value=document.all.file1.value'
 		//$(“#my_image”).attr(“src”,“second.jpg”);#docum
 		//$("#picture").
+		fileModal.show();
 	});
 	$("#password").keyup(function(){
 		$("#confirm").val("");
@@ -91,25 +99,22 @@ $(document).ready(function(){
 					<strong>JOIN</strong>
 				</div>
 				<div class="panel-body">
-					<form id = "memberRegisterForm" class="form-horizontal" 
+					<form id = "memberRegisterForm" enctype="multipart/form-data" class="form-horizontal" 
 					 action="${pageContext.request.contextPath}/memberRegister.do" method="POST">
 					
 					
 						<div class="row">
 							<div class="center-block">
-							<input type="text" name="picture" id = "picture" style="display: none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
-
+							<!-- <input type="text" name="picture" id ="picture" style="display:none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
+ -->
 								<abbr title="프로필 이미지를 등록하시려면 클릭해주세요!"><img class="profile-img"
 									src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"
 									alt=""></abbr>
-							<input type = "file" name="" id="" > 		
+							<input type = "file" name="picture" id="picture" >
 							</div>
 						</div>
 						
-						<!--  	<div class="form-group">
-									<label for="email" class="cols-sm-2 control-label">Your
-										Email</label>
-									<div class="cols-sm-10">-->
+				
 						
 						<div class="row">
 					
@@ -271,4 +276,9 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+</div>
+
+<div id="fileModal">
+	<h3>파일업로드</h3>
+	
 </div>

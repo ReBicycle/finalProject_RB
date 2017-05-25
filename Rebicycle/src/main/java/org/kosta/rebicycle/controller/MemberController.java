@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MemberController {
+	private String uploadPath;
+	
 	@Resource
 	private MemberService memberService;
 	
@@ -43,8 +45,10 @@ public class MemberController {
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value = "memberRegister.do")
-	public String memberRegister(MemberVO vo){
-		System.out.println(vo);
+	public String memberRegister(MemberVO vo, HttpServletRequest request){
+		//System.out.println(vo);
+		uploadPath = "C:\\Users\\소영\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";		
+		
 		memberService.registerMember(vo);
 		return "redirect:home.do";
 	}

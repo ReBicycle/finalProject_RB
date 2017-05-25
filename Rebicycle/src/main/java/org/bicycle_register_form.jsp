@@ -14,7 +14,7 @@
 				    <div id="div_id_memberId" class="form-group required"> 
 				        <label for="id_memberId" class="control-label col-md-4  requiredField">아이디</label> 
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberID" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" />
 				        </div>
 				    </div>
 				    
@@ -22,12 +22,12 @@
 				    <div id="div_id_category" class="form-group required">
 				        <label for="id_category"  class="control-label col-md-4  requiredField">종류</label>
 				        <div class="controls col-md-8 "  style="margin-bottom: 10px">
-				            <label class="radio-inline"><input type="radio" name="category" id="id_category_1" value="mtb" style="margin-bottom: 10px">MTB</label>
-				            <label class="radio-inline"><input type="radio" name="category" id="id_category_2" value="road" style="margin-bottom: 10px">로드</label>
-				            <label class="radio-inline"><input type="radio" name="category" id="id_category_3" value="fixie" style="margin-bottom: 10px">픽시</label>
-				            <label class="radio-inline"><input type="radio" name="category" id="id_category_4" value="record" style="margin-bottom: 10px">레코드용</label>
-				            <label class="radio-inline"><input type="radio" name="category" id="id_category_5" value="child" style="margin-bottom: 10px">어린이용</label>
-				            <label class="radio-inline"><input type="radio" name="category" id="id_category_6" value="other"  style="margin-bottom: 10px">기타</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_1" value="1" style="margin-bottom: 10px">MTB</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_2" value="2" style="margin-bottom: 10px">로드</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_3" value="3" style="margin-bottom: 10px">픽시</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_4" value="4" style="margin-bottom: 10px">레코드용</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_5" value="5" style="margin-bottom: 10px">어린이용</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6"  style="margin-bottom: 10px">기타</label>
 				        </div>
 				    </div>
 				    

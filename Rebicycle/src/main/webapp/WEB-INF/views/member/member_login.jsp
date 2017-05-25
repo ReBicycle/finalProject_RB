@@ -31,7 +31,7 @@
 						<strong> Sign in to continue</strong>
 					</div>
 					<div class="panel-body">
-						<form role="form" action="#" method="POST">
+						<form role="form" action="${pageContext.request.contextPath}/login.do" method="POST">
 								<div class="row">
 									<div class="center-block">
 										<img class="profile-img"
@@ -39,7 +39,7 @@
 									</div>
 								</div>
 								<div class="row">
-
+	
 									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
 
 									<form method = "post" action = "${pageContext.request.contextPath}/login.do">

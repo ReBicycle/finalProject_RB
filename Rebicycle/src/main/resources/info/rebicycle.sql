@@ -10,7 +10,10 @@ drop table rb_report;
 drop table rb_review;
 
 insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null')
+select * from rb_member
 
+select id,password,name,phone,address,email,account from rb_member		
+where id='java' and password='1234'
 
 create table rb_member(
    id varchar2(100) primary key,
@@ -97,5 +100,24 @@ create table rb_review(
 	reviewDate date not null,
 	constraint pkpk_review primary key(reviewerId, rentNo)
 )
+---------------------------------------------------------------
+------------종봉---------------------------------------------
+insert into CATEGORY values(category_seq.nextval,'미니벨로')
+select * from category
 
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
+insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
+insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-28','yyyy/mm/dd'),to_date('2017-05-30','yyyy/mm/dd'));
+insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(2,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
+select bicycleNo,to_char(startDay) from POSSIBLE_DAY;
+delete from possible_day where bicycleNo=1;
+select * from possible_day where to_date('2017-05-28')>=startDay and to_date('2017-05-29')<=endDay ;
+
+select * from bicycle where address='판교';
+select * from bicycle b, possible_day p where address like '%'||'판교'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay;
+select * from bicycle b, possible_day p where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay;
+
+
+------------종봉----------------------------------------------
 alter table );

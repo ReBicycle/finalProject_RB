@@ -13,6 +13,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberVO login(MemberVO mvo) {
+		System.out.println(mvo);
 		return template.selectOne("member.login", mvo);
 	}
 }

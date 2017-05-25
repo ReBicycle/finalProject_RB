@@ -23,8 +23,9 @@ public class HomeController {
 		@RequestMapping("bicycle/bicycle_search_list.do")
 		public ModelAndView bicycleList(String address,String startDate,String endDate){
 			System.out.println("검색 컨트롤러실행"+address+startDate+endDate);
-			BicycleVO bike=new BicycleVO(1, null,null , 5000, "판교", "37", "121", 100000, "미니벨로", "애끼는자전거", "","","");
-			System.out.println(bike);
-			return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",bike);
+			//BicycleVO bike=new BicycleVO(1, null,null , 5000, "판교", "37", "121", 100000, "미니벨로", "애끼는자전거", "","","");
+			//System.out.println(bike);
+			//return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",bike);
+			return new ModelAndView("bicycle/bicycle_search_list.tiles");
 		}
 }

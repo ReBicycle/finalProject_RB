@@ -12,7 +12,7 @@ public class BicycleVO {
 	private String latitude; //자전거 위치 위도
 	private String longitude; //자전거 위치 경도
 	
-	private int purPrice; //purchasePrice 구매가격
+	private int purchasePrice; //purchasePrice 구매가격
 	private String category;
 	private String detail;
 	
@@ -25,7 +25,7 @@ public class BicycleVO {
 		super();
 	}
 	public BicycleVO(int bicycleNo, MemberVO memberVO, List<CalendarVO> possibleList, int rentPrice, String address,
-			String latitude, String longitude, int purPrice, String category, String detail, String photo1,
+			String latitude, String longitude, int purchasePrice, String category, String detail, String photo1,
 			String photo2, String photo3) {
 		super();
 		this.bicycleNo = bicycleNo;
@@ -35,7 +35,7 @@ public class BicycleVO {
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.purPrice = purPrice;
+		this.purchasePrice = purchasePrice;
 		this.category = category;
 		this.detail = detail;
 		this.photo1 = photo1;
@@ -84,11 +84,11 @@ public class BicycleVO {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	public int getPurPrice() {
-		return purPrice;
+	public int getpurchasePrice() {
+		return purchasePrice;
 	}
-	public void setPurPrice(int purPrice) {
-		this.purPrice = purPrice;
+	public void setpurchasePrice(int purchasePrice) {
+		this.purchasePrice = purchasePrice;
 	}
 	public String getCategory() {
 		return category;
@@ -124,7 +124,7 @@ public class BicycleVO {
 	public String toString() {
 		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
 				+ ", rentPrice=" + rentPrice + ", address=" + address + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", purPrice=" + purPrice + ", category=" + category + ", detail=" + detail + ", photo1="
+				+ longitude + ", purchasePrice=" + purchasePrice + ", category=" + category + ", detail=" + detail + ", photo1="
 				+ photo1 + ", photo2=" + photo2 + ", photo3=" + photo3 + "]";
 	}
 		

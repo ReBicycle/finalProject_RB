@@ -32,7 +32,6 @@
 					</div>
 					<div class="panel-body">
 						<form role="form" action="#" method="POST">
-							<fieldset>
 								<div class="row">
 									<div class="center-block">
 										<img class="profile-img"
@@ -40,7 +39,9 @@
 									</div>
 								</div>
 								<div class="row">
+
 									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
+
 									<form method = "post" action = "${pageContext.request.contextPath}/login.do">
 											<div class="form-group">
 												<div class="input-group">
@@ -54,7 +55,7 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon">
-														<i class="glyphicon glyphicon-lock"></i>
+						 									<i class="glyphicon glyphicon-lock"></i>
 													</span>
 													<input class="form-control" placeholder="Password" name="password" type="password" value="">
 												</div>

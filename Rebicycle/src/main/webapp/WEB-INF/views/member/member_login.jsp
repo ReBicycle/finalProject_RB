@@ -41,14 +41,13 @@
 								<div class="row">
 	
 									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
-
-									<form method = "post" action = "${pageContext.request.contextPath}/login.do">
+									
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon">
 														<i class="glyphicon glyphicon-user"></i>
 													</span>
-														<input class="form-control" placeholder="Username" name="id" type="text" autofocus>
+														<input class="form-control" placeholder="id" name="id" type="text" autofocus>
 	
 												</div>
 											</div>
@@ -62,11 +61,11 @@
 											</div>
 											<div class="form-group">
 												<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
-											</div>
-									</form>
+											</div> 
+									
 									</div>
 								</div>
-							</fieldset>
+						
 						</form>
 					</div>
 					<div class="panel-footer ">

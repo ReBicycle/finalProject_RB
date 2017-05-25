@@ -5,11 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 
  <mapper namespace="member">   
- 	<sql id="findMember">
-		select id,password,name,phone,address,email,account
-	</sql>
+ 	
 	<select id="login" parameterType="memberVO" resultType="memberVO">
-		<include refid="findMember" />
+		select id,password,name,phone,address,email,account 
+		from rb_member		
 		where id=#{id} and password=#{password}
 	</select>	
  </mapper>

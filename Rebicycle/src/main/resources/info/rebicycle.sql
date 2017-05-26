@@ -120,4 +120,17 @@ select * from bicycle b, possible_day p where address like '%'||'판'||'%' and b
 
 
 ------------종봉----------------------------------------------
-alter table );
+
+
+
+-----------------------태형--------------------------------
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '레코드용');
+insert into category(categoryNo, categoryName) values(5, '어린이용');
+
+insert into category(categoryNo, categoryName) values(7, '기타');
+
+select * from bicycle;
+-----------------------태형-----------------------------------------

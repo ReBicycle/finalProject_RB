@@ -130,7 +130,9 @@ insert into category(categoryNo, categoryName) values(3, '픽시');
 insert into category(categoryNo, categoryName) values(4, '레코드용');
 insert into category(categoryNo, categoryName) values(5, '어린이용');
 
-insert into category(categoryNo, categoryName) values(7, '기타');
+insert into category(categoryNo, categoryName) values(6, '기타');
 
 select * from bicycle;
+select min(rentPrice) from bicycle;
+select round(avg(rentPrice), 1) from bicycle;
 -----------------------태형-----------------------------------------

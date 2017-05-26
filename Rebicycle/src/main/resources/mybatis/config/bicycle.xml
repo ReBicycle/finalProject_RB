@@ -15,10 +15,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="findCategoryByNo" resultType="string">
  		select categoryName from category where categoryNo=#{categoryNo}
  	</select>
+ 	<select id="calculateMinPrice" resultType="int">
+ 		select min(rentPrice) from bicycle where categoryNo=#{value}
+ 	</select>
+ 	<select id="calculateMaxPrice" resultType="int">
+ 		select max(rentPrice) from bicycle where categoryNo=#{value}
+ 	</select> 
+ 	<select id="calculateAvgPrice" resultType="double">
+ 		select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
+ 	</select>
+ 	<insert id="insertPossibleDate" parameterType="calendarVO">
+		insert into possible_day(bicycleNo, startDay, endDay)
+		values(#{bicycleNo}, #{startDay}, #{endDay})
+ 	</insert>
  </mapper>
-
- 
- 
  
  
  

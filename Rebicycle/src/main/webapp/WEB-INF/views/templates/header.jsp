@@ -69,14 +69,10 @@
                         <a href="${pageContext.request.contextPath}/bicycle/bicycle_search_list_test.do">자전거리스트 테스트</a>
                     </li>
                     
-<<<<<<< HEAD
-                     <li class="page-scroll">
+				  <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=1">자전거상세보기</a>
                     </li>
-=======
-                    
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-                </ul>
+			</ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>

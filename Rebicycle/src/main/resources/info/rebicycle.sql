@@ -8,11 +8,12 @@ drop table rent;
 drop table donation;
 drop table rb_report;
 drop table rb_review;
+delete table RB_MEMBER;
 
 insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null');
 select * from rb_member
 
-select id,password,name,phone,address,email,account from rb_member		
+select id,password,name,phone,address,email,account,picture from rb_member		
 where id='java' and password='1234'
 
 create table rb_member(
@@ -98,6 +99,7 @@ create table rb_review(
 	rentNo number constraint fk_rentNooo references rent(rentNo),
 	star number default 0,
 	reviewDate date not null,
+	comment clob not null,
 	constraint pkpk_review primary key(reviewerId, rentNo)
 )
 ---------------------------------------------------------------
@@ -152,7 +154,9 @@ insert into category(categoryNo, categoryName) values(3, '픽시');
 insert into category(categoryNo, categoryName) values(4, '레코드용');
 insert into category(categoryNo, categoryName) values(5, '어린이용');
 
-insert into category(categoryNo, categoryName) values(7, '기타');
+insert into category(categoryNo, categoryName) values(6, '기타');
 
 select * from bicycle;
+select min(rentPrice) from bicycle;
+select round(avg(rentPrice), 1) from bicycle;
 -----------------------태형-----------------------------------------

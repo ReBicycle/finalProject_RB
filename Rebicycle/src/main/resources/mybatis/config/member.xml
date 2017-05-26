@@ -7,10 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <mapper namespace="member">   
  	
 	<select id="login" parameterType="memberVO" resultType="memberVO">
-		
-		select id,password,name,phone,address,email,account from rb_member
+		select id,name from rb_member
 		where id=#{id} and password=#{password}
-		
 	</select>	
 	
 	<insert id="registerMember" parameterType="memberVO">
@@ -21,6 +19,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idcheck" resultType="int">
 		select count(*) from rb_member where id=#{value}
 	</select>
+	
+	<select id="findMemberById" resultType = "memberVO">
+		select id,password,name,phone,address,email,account,picture from rb_member	
+		where id = #{value}
+	</select>
+	
+	<update id="memberModify" parameterType="memberVO">
+		update rb_member
+		set password=#{password},name=#{name},phone=#{phone},address=#{address},email=#{email},account=#{account}, picture=#{picture}
+		where id=#{id}
+	</update>
  </mapper>
  
  

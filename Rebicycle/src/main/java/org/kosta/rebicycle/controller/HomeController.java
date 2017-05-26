@@ -24,8 +24,8 @@ public class HomeController {
 			return dirName + "/" + viewName + ".tiles";
 		}
 		@RequestMapping("bicycle/bicycle_search_list.do")
-		public ModelAndView bicycleList(String address,String startDate,String endDate){
-			System.out.println("검색 컨트롤러실행"+address+startDate+endDate);
+		public ModelAndView getBicycleListByAddressAndDay(String address,String startDay,String endDay){
+			System.out.println("검색 컨트롤러실행"+address+startDay+endDay);
 			//BicycleVO bike=new BicycleVO(1, null,null , 5000, "판교", "37", "121", 100000, "미니벨로", "애끼는자전거", "","","");
 			//System.out.println(bike);
 			//return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",bike);

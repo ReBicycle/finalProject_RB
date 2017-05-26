@@ -130,10 +130,24 @@ select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.deta
 from bicycle b, possible_day p, bicycle_photo bp 
 where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=bp.bicycleNo;
 
+<<<<<<< HEAD
 	select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,c.photo1,c.photo2,c.photo3
 		from bicycle b, possible_day p, bicycle_photo c  
 		where b.address like '%' ||'판교'|| '%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=c.bicycleNo
  	
+=======
+
+	select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,c.photo1,c.photo2,c.photo3
+		from bicycle b, possible_day p, bicycle_photo c  
+		where b.address like '%' ||'판교'|| '%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=c.bicycleNo
+ 	
+
+
+--좌표까지 조회
+
+
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 ------------종봉----------------------------------------------
@@ -150,4 +164,6 @@ insert into category(categoryNo, categoryName) values(5, '어린이용');
 insert into category(categoryNo, categoryName) values(6, '기타');
 
 select * from bicycle;
+select min(rentPrice) from bicycle;
+select round(avg(rentPrice), 1) from bicycle;
 -----------------------태형-----------------------------------------

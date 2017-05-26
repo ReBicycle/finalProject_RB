@@ -20,11 +20,11 @@
             		<div class="form-group registration-date" style="width:800px; margin-left:16%;">
             		<div class="input-group registration-date-time"  >
             		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
-            		<input class="form-control" name="registration_address" id="" type="text" size="15">
+            		<input class="form-control" name="address" id="" type="text" size="15">
             		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-            		<input class="form-control" name="registration_startDate" id="" type="date" size="">
+            		<input class="form-control" name="startDay" id="" type="date" size="">
             		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-            		<input class="form-control" name="registration_endDate" id="" type="date"size="">
+            		<input class="form-control" name="endDay" id="" type="date"size="">
             		<span class="input-group-btn">
                     	<button class="btn btn-default" type="button" onclick="searchNow()"> Search &nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     </span>

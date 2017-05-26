@@ -63,15 +63,22 @@
 				        </div>
 				    </div>
 				    
-				    
-				    <!-- 
-				    
-				    <div id="div_id_company" class="form-group required"> 
-				        <label for="id_company" class="control-label col-md-4  requiredField"> company name<span class="asteriskField">*</span> </label>
+				    <!-- 달력 -->
+				    <div id="div_id_date" class="form-group required"> 
+				        <label for="id_date" class="control-label col-md-4  requiredField">시작일</label>
 				        <div class="controls col-md-8 "> 
-				             <input class="input-md textinput textInput form-control" id="id_company" name="company" placeholder="your company name" style="margin-bottom: 10px" type="text" />
+							<input type="date" name="startDate" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>
 				    </div> 
+				    <div id="div_id_date" class="form-group required"> 
+				        <label for="id_date" class="control-label col-md-4  requiredField">종료일</label>
+				        <div class="controls col-md-8 ">
+							<input type="date" name="endDate" class="input-md textinput textInput form-control" id="id_detail">
+				        </div>
+				    </div>
+				    <!-- 
+				    
+				    
 				    
 				    <div id="div_id_catagory" class="form-group required">
 				        <label for="id_catagory" class="control-label col-md-4  requiredField"> catagory<span class="asteriskField">*</span> </label>

@@ -11,4 +11,5 @@ public class BoardDAOImpl {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
+	
 }

@@ -15,8 +15,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="findCategoryByNo" resultType="string">
  		select categoryName from category where categoryNo=#{categoryNo}
  	</select>
- 	<select id="findBicycleByNo" resultType="bicycleVO">
- 		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo from bicycle where bicycleNo=#{bicycleNo}
+ 	<!-- 현근 -->
+ 	<resultMap type="bicycleVO" id="bicycleRM">
+ 		<result column="memberId" property="memberVO.id"/>
+ 	</resultMap>
+ 	<select id="findBicycleByNo" resultMap="bicycleRM" parameterType="int">
+ 		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo 
+ 		from bicycle where bicycleNo=#{value}
  	</select>
  </mapper>
 

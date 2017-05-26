@@ -58,7 +58,7 @@
                     </li>
                     
                      <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do">자전거상세보기</a>
+                        <a href="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=1">자전거상세보기</a>
                     </li>
                 </ul>
             </div>

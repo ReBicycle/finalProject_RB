@@ -334,6 +334,7 @@ section.awSlider>img {
 			</div>
 		</section>
 		<hr>
+		
 		<div class="row">
 			<div class="col-sm-6">
 				<h3 class="title text-center">July 2014</h3>
@@ -635,8 +636,8 @@ section.awSlider>img {
 									<div
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="name">Name</label>
-										<h4 align="left">Name</h4>
-										<p class="help-block text-danger"></p>
+										<h4 align="left">ID</h4> 
+										<p class="help-block text-danger">${findBicycleResult.memberVO.id}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -644,7 +645,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="name">Price</label>
 										<h4 align="left">Price</h4>
-										<p class="help-block text-danger"></p>
+										<p class="help-block text-danger">${findBicycleResult.rentPrice}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -668,7 +669,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="message">Detail</label>
 										<h4 align="left">Detail</h4>
-										<p class="help-block text-danger"></p>
+										<p class="help-block text-danger">${findBicycleResult.detail}</p>
 									</div>
 								</div>
 								<br>

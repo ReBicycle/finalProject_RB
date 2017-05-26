@@ -42,7 +42,19 @@ public class BicycleVO {
 		this.detail = detail;
 		this.file = file;
 	}
-
+	
+	//bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+	public BicycleVO(int bicycleNo, MemberVO memberVO, int rentPrice, String address, int purchasePrice, int categoryNo,
+			String detail) {
+		super();
+		this.bicycleNo = bicycleNo;
+		this.memberVO = memberVO;
+		this.rentPrice = rentPrice;
+		this.address = address;
+		this.purchasePrice = purchasePrice;
+		this.categoryNo = categoryNo;
+		this.detail = detail;
+	}
 
 	public int getBicycleNo() {
 		return bicycleNo;

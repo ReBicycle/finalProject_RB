@@ -45,6 +45,17 @@
                         <li class="page-scroll">
 						<a href="${pageContext.request.contextPath}/memberModifyForm.do">회원정보수정</a>
                       </li>
+                       <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
+	                    </li>
+	                     <li class="page-scroll">
+	                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do">자전거상세보기</a>
+	                    </li>
+	                    
+	                    <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a>
+                   		</li>
+                     
 					</c:otherwise>
 					</c:choose> 
 					 <li class="page-scroll">
@@ -53,17 +64,12 @@
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board/board_list.do">board</a>
                     </li>
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
-                    </li>
                     
                      <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_search_list_test.do">자전거상세보기</a>
+                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_search_list_test.do">자전거리스트 테스트</a>
                     </li>
                     
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do">자전거상세보기</a>
-                    </li>
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

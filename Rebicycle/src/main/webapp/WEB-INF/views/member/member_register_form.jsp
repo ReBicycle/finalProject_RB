@@ -12,7 +12,15 @@ $(document).ready(function(){
 		if(checkResultId==""){
 			alert("아이디 중복확인을 하세요");
 			return false;
-		}		
+		}
+		//alert($("#email").val().indexOf("@"));
+		
+		if($("#email").val().indexOf("@") == -1){
+			alert("이메일 형식이 올바르지 않습니다!");
+			$("#email").val("");
+			$("#email").focus();
+			return false;
+		}
 	});
 	
 

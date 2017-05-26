@@ -24,13 +24,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="calculateAvgPrice" resultType="double">
  		select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
  	</select>
+<<<<<<< HEAD
  	<insert id="registerPossibleDate" parameterType="calendarVO">
  		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
 			select bicycle_seq from dual
 		</selectKey>
+=======
+
+ 	<select id="getBicycleListByAddressAndDay" parameterType="map" resultType="bicycleVO">
+ 		select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,to_char(p.startDay) as startDay,to_char(p.endDay) as endDay ,c.photo1,c.photo2,c.photo3
+		from bicycle b, possible_day p, bicycle_photo c  
+		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]> and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and b.bicycleNo=c.bicycleNo
+ 	</select>
+
+ 	<insert id="insertPossibleDate" parameterType="calendarVO">
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 		insert into possible_day(bicycleNo, startDay, endDay)
 		values(#{bicycleNo}, #{startDay}, #{endDay})
  	</insert>
+
  </mapper>
  
  

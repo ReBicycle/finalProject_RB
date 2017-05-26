@@ -16,7 +16,7 @@
                         <h2 style="color: ">Search a bike for you</h2><br>
                         	<div  style="margin-top:30px;">
 								<div class="row">
-        			<form action="" method="post">
+        			<form action="${pageContext.request.contextPath}/bicycle/bicycle_search_list.do" method="post">
             		<div class="form-group registration-date" style="width:800px; margin-left:16%;">
             		<div class="input-group registration-date-time"  >
             		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
@@ -26,7 +26,9 @@
             		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
             		<input class="form-control" name="endDay" id="" type="date"size="">
             		<span class="input-group-btn">
-                    	<button class="btn btn-default" type="button" onclick="searchNow()"> Search &nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    	<!-- <button class="btn btn-default" type="button" onclick="searchNow()"> Search &nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
+                    	<input type="submit" class="btn btn-default" value="Search">%nbsp;<button  class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    	
                     </span>
             	</div>
             </div>

@@ -21,6 +21,6 @@ public class BicycleDAOImpl5 implements BicycleDAO{
 			map.put("endDay", endDay);
 			List<BicycleVO> list=template.selectList("bicycle.getBicycleListByAddressAndDay", map);
 			System.out.println(list);
-			return null;
+			return list;
 		}
 }

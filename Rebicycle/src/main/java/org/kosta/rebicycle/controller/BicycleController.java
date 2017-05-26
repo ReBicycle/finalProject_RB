@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BicycleController {
+	
 	@Resource
 	private BicycleServiceImpl1 serviceImpl1;
-	
+	@Resource
+	private BicycleServiceImpl2 serviceImpl2;
+	//정태형//////////////////
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo, String memberId, int categoryNo){
 		bvo.setMemberVO(new MemberVO(memberId));
@@ -32,6 +36,12 @@ public class BicycleController {
 		calList = serviceImpl1.calculatePrice(categoryNo);
 		return calList;
 	}
+	//정태형////////////////////////////////////////////////////////////////////////////////////////
+	///김종봉////////////////////////////////////////////////////////////////////////////////////////
+		
 	
 	
+	
+	///김종봉////////////////////////////////////////////////////////////////////////////////////////
+		
 }

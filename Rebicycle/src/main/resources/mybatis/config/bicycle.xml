@@ -15,7 +15,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="findCategoryByNo" resultType="string">
  		select categoryName from category where categoryNo=#{categoryNo}
  	</select>
-<<<<<<< HEAD
  	<select id="calculateMinPrice" resultType="int">
  		select min(rentPrice) from bicycle where categoryNo=#{value}
  	</select>
@@ -29,11 +28,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into possible_day(bicycleNo, startDay, endDay)
 		values(#{bicycleNo}, #{startDay}, #{endDay})
  	</insert>
-=======
- 	<select id="findBicycleByNo" resultType="bicycleVO">
- 		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo from bicycle where bicycleNo=#{bicycleNo}
- 	</select>
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
  </mapper>
  
  

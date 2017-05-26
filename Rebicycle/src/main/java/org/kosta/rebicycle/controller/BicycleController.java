@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
+//@Controller
 public class BicycleController {
-	@Resource
+	/*@Resource
 	private BicycleServiceImpl1 serviceImpl1;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
@@ -23,5 +23,5 @@ public class BicycleController {
 		serviceImpl1.registerBicycle(bvo);
 		return "bicycle/bicycle_register_result.tiles";
 	}
-	
+	*/
 }

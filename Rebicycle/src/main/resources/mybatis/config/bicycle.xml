@@ -18,6 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="findBicycleByNo" resultType="bicycleVO">
  		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo from bicycle where bicycleNo=#{bicycleNo}
  	</select>
+ 	<select id="getBicycleListByAddressAndDay" parameterType="map" resultType="bicycleVO">
+ 		select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,bp.photo1,bp.photo2,bp.photo3
+		from bicycle b, possible_day p, bicycle_photo bp  
+		where b.address like '%'||${address}||'%' and b.bicycleNo=p.bicycleNo and to_date(${startDay})>=p.startDay and to_date(${endDay})<=p.endDay and b.bicycleNo=bp.bicycleNo
+ 	</select>
  </mapper>
 
  

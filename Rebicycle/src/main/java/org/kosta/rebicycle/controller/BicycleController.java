@@ -1,27 +1,47 @@
 package org.kosta.rebicycle.controller;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BicycleController {
+	
 	@Resource
 	private BicycleServiceImpl1 serviceImpl1;
-	
+	@Resource
+	private BicycleServiceImpl2 serviceImpl2;
+	//정태형//////////////////
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo, String memberId, int categoryNo){
-		System.out.println(categoryNo);
 		bvo.setMemberVO(new MemberVO(memberId));
 		bvo.setCategoryNo(categoryNo);
-		System.out.println(bvo);
 		serviceImpl1.registerBicycle(bvo);
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "calculatePrice.do")
+	@ResponseBody
+	public ArrayList<Object> calculatePrice(int categoryNo){
+		ArrayList<Object> calList = new ArrayList<Object>();
+		calList = serviceImpl1.calculatePrice(categoryNo);
+		return calList;
+	}
+	//정태형////////////////////////////////////////////////////////////////////////////////////////
+	///김종봉////////////////////////////////////////////////////////////////////////////////////////
+		
+	
+	
+	
+	///김종봉////////////////////////////////////////////////////////////////////////////////////////
+		
 }

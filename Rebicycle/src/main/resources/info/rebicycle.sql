@@ -8,11 +8,12 @@ drop table rent;
 drop table donation;
 drop table rb_report;
 drop table rb_review;
+delete table RB_MEMBER;
 
 insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null');
 select * from rb_member
 
-select id,password,name,phone,address,email,account from rb_member		
+select id,password,name,phone,address,email,account,picture from rb_member		
 where id='java' and password='1234'
 
 create table rb_member(
@@ -128,7 +129,26 @@ select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.deta
 select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,bp.photo1,bp.photo2,bp.photo3
 from bicycle b, possible_day p, bicycle_photo bp 
 where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=bp.bicycleNo;
+
+<<<<<<< HEAD
+	select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,c.photo1,c.photo2,c.photo3
+		from bicycle b, possible_day p, bicycle_photo c  
+		where b.address like '%' ||'판교'|| '%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=c.bicycleNo
+ 	
+=======
+
+	select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,c.photo1,c.photo2,c.photo3
+		from bicycle b, possible_day p, bicycle_photo c  
+		where b.address like '%' ||'판교'|| '%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=c.bicycleNo
+ 	
+
+
 --좌표까지 조회
+
+
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 
 ------------종봉----------------------------------------------
 
@@ -141,7 +161,9 @@ insert into category(categoryNo, categoryName) values(3, '픽시');
 insert into category(categoryNo, categoryName) values(4, '레코드용');
 insert into category(categoryNo, categoryName) values(5, '어린이용');
 
-insert into category(categoryNo, categoryName) values(7, '기타');
+insert into category(categoryNo, categoryName) values(6, '기타');
 
 select * from bicycle;
+select min(rentPrice) from bicycle;
+select round(avg(rentPrice), 1) from bicycle;
 -----------------------태형-----------------------------------------

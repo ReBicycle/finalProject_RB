@@ -19,4 +19,15 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 	public void registerBicycle(BicycleVO bvo){
 		template.insert("bicycle.registerBicycle", bvo);
 	}
+	
+	public int calculateMinPrice(int categoryNo){
+		System.out.println(categoryNo);
+		return template.selectOne("bicycle.calculateMinPrice", categoryNo);
+	}
+	public int calculateMaxPrice(int categoryNo){
+		return template.selectOne("bicycle.calculateMaxPrice", categoryNo);
+	}
+	public double calculateAvgPrice(int categoryNo){
+		return template.selectOne("bicycle.calculateAvgPrice", categoryNo);
+	}
 }

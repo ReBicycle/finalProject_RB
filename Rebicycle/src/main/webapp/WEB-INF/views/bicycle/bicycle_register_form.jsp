@@ -1,5 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(":radio[name='categoryNo']").change(function(){
+			//alert($(":radio[name='categoryNo']:checked").val());
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				url:"${pageContext.request.contextPath }/calculatePrice.do",
+				data:"categoryNo="+$(":radio[name='categoryNo']:checked").val(),
+				success:function(data){
+					var info="";
+					info+="<font color=blue>최저가 ";
+					info+=data[0] + "원 </font>";
+					info+="<font color=red>최대가 ";
+					info+=data[1] + "원 </font>";
+					info+="<font color=green>평균가 ";
+					info+=data[2] + "원 </font>";
+					$("#calResult").html(info);
+				} //success
+			});//ajax
+		});
+	});
+</script>
+
+
 <div class="container">
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
@@ -27,7 +53,8 @@
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_3" value="3" style="margin-bottom: 10px">픽시</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_4" value="4" style="margin-bottom: 10px">레코드용</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_5" value="5" style="margin-bottom: 10px">어린이용</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6"  style="margin-bottom: 10px">기타</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6"  style="margin-bottom: 10px">기타</label><br>
+				            <span id="calResult"></span>
 				        </div>
 				    </div>
 				    

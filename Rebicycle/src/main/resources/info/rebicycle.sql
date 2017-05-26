@@ -98,6 +98,7 @@ create table rb_review(
 	rentNo number constraint fk_rentNooo references rent(rentNo),
 	star number default 0,
 	reviewDate date not null,
+	contents clob not null,
 	constraint pkpk_review primary key(reviewerId, rentNo)
 )
 ---------------------------------------------------------------

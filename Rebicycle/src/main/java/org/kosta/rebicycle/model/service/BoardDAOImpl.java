@@ -9,7 +9,4 @@ import org.springframework.stereotype.Repository;
 public class BoardDAOImpl {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate sqlSessionTemplate;
-	
-	//@Override
-	
 }

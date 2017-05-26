@@ -9,7 +9,7 @@ drop table donation;
 drop table rb_report;
 drop table rb_review;
 
-insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null')
+insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null');
 select * from rb_member
 
 select id,password,name,phone,address,email,account from rb_member		
@@ -120,4 +120,17 @@ select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.deta
 
 
 ------------종봉----------------------------------------------
-alter table );
+
+
+
+-----------------------태형--------------------------------
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '레코드용');
+insert into category(categoryNo, categoryName) values(5, '어린이용');
+
+insert into category(categoryNo, categoryName) values(7, '기타');
+
+select * from bicycle;
+-----------------------태형-----------------------------------------

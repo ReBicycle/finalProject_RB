@@ -8,11 +8,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
 	<select id="login" parameterType="memberVO" resultType="memberVO">
 		
-		select id,password
-		from rb_member
+		select id,password,name,phone,address,email,account from rb_member
 		where id=#{id} and password=#{password}
 		
 	</select>	
+	
+	<insert id="registerMember" parameterType="memberVO">
+		insert into rb_member 
+		values(#{id},#{password},#{name},#{phone},#{address},#{email},#{account},#{picture})
+	</insert>
+	
+	<select id="idcheck" resultType="int">
+		select count(*) from rb_member where id=#{value}
+	</select>
  </mapper>
  
  

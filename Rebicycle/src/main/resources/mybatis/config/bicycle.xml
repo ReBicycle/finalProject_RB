@@ -6,12 +6,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <mapper namespace="bicycle">   
  	<insert id="registerBicycle" parameterType="bicycleVO">
- 		<selectKey keyProperty="bicycleNo" resultType="string" order="BEFORE">
+ 		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
 			select bicycle_seq.nextval from dual
 		</selectKey>
  		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo) 
  		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryNo})
  	</insert>
+ 	<select id="findCategoryByNo" resultType="string">
+ 		select categoryName from category where categoryNo=#{categoryNo}
+ 	</select>
  </mapper>
 
  

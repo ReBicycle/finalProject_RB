@@ -16,4 +16,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.login(mvo);
 	}
 
+	@Override
+	public void registerMember(MemberVO vo) {
+		memberDAO.registerMember(vo);
+		
+	}
+
+	@Override
+	public int idcheck(String id){
+		return memberDAO.idcheck(id);
+	}
+
 }

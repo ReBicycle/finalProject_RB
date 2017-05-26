@@ -14,8 +14,8 @@ public class BicycleVO {
 	private String latitude; //자전거 위치 위도
 	private String longitude; //자전거 위치 경도
 	
-	private int purPrice; //purchasePrice 구매가격
-	private String category;
+	private int purchasePrice; //purchasePrice 구매가격
+	private int categoryNo;
 	private String detail;
 	
 	private List<MultipartFile> file;
@@ -28,7 +28,7 @@ public class BicycleVO {
 	
 	
 	public BicycleVO(int bicycleNo, MemberVO memberVO, List<CalendarVO> possibleList, int rentPrice, String address,
-			String latitude, String longitude, int purPrice, String category, String detail, List<MultipartFile> file) {
+			String latitude, String longitude, int purchasePrice, int categoryNo, String detail, List<MultipartFile> file) {
 		super();
 		this.bicycleNo = bicycleNo;
 		this.memberVO = memberVO;
@@ -37,8 +37,8 @@ public class BicycleVO {
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.purPrice = purPrice;
-		this.category = category;
+		this.purchasePrice = purchasePrice;
+		this.categoryNo = categoryNo;
 		this.detail = detail;
 		this.file = file;
 	}
@@ -86,17 +86,17 @@ public class BicycleVO {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	public int getPurPrice() {
-		return purPrice;
+	public int getPurchasePrice() {
+		return purchasePrice;
 	}
-	public void setPurPrice(int purPrice) {
-		this.purPrice = purPrice;
+	public void setPurchasePrice(int purchasePrice) {
+		this.purchasePrice = purchasePrice;
 	}
-	public String getCategory() {
-		return category;
+	public int getCategoryNo() {
+		return categoryNo;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 	public String getDetail() {
 		return detail;
@@ -120,7 +120,7 @@ public class BicycleVO {
 	public String toString() {
 		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
 				+ ", rentPrice=" + rentPrice + ", address=" + address + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", purPrice=" + purPrice + ", category=" + category + ", detail=" + detail + ", file="
+				+ longitude + ", purchasePrice=" + purchasePrice + ", categoryNo=" + categoryNo + ", detail=" + detail + ", file="
 				+ file + "]";
 	}
 	

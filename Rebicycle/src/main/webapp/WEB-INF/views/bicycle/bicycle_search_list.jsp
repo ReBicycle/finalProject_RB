@@ -8,6 +8,8 @@
                 <div class="col-lg-12" >
                     <div>
 						${requestScope.bicycleList}
+						
+						
 					</div>
                 </div>
             </div>

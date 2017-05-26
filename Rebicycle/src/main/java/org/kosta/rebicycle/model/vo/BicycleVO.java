@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class BicycleVO {
 	private int bicycleNo;
 	private MemberVO memberVO; //자전거 소유인
+	private String memberId;
 	private List<CalendarVO> possibleList; //대여가능일
 	private int rentPrice; //일일렌트가격
 	
@@ -17,21 +18,25 @@ public class BicycleVO {
 	private int purchasePrice; //purchasePrice 구매가격
 	private int categoryNo;
 	private String detail;
-	
 	private List<MultipartFile> file;
-
-	
-	
+	private String photo1;
+	private String photo2;
+	private String photo3;
+	private String startDay;
+	private String endDay;
 	public BicycleVO() {
 		super();
 	}
-	
-	
-	public BicycleVO(int bicycleNo, MemberVO memberVO, List<CalendarVO> possibleList, int rentPrice, String address,
-			String latitude, String longitude, int purchasePrice, int categoryNo, String detail, List<MultipartFile> file) {
+
+
+
+	public BicycleVO(int bicycleNo, MemberVO memberVO, String memberId, List<CalendarVO> possibleList, int rentPrice,
+			String address, String latitude, String longitude, int purchasePrice, int categoryNo, String detail,
+			List<MultipartFile> file, String photo1, String photo2, String photo3, String startDay, String endDay) {
 		super();
 		this.bicycleNo = bicycleNo;
 		this.memberVO = memberVO;
+		this.memberId = memberId;
 		this.possibleList = possibleList;
 		this.rentPrice = rentPrice;
 		this.address = address;
@@ -41,6 +46,48 @@ public class BicycleVO {
 		this.categoryNo = categoryNo;
 		this.detail = detail;
 		this.file = file;
+		this.photo1 = photo1;
+		this.photo2 = photo2;
+		this.photo3 = photo3;
+		this.startDay = startDay;
+		this.endDay = endDay;
+	}
+
+	
+	public BicycleVO(int bicycleNo, String memberId, int rentPrice,String address, String latitude, String longitude, int purchasePrice, int categoryNo, String detail,
+			 String photo1, String photo2, String photo3, String startDay, String endDay) {
+		super();
+		this.bicycleNo = bicycleNo;
+		this.memberId = memberId;
+		this.rentPrice = rentPrice;
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.purchasePrice = purchasePrice;
+		this.categoryNo = categoryNo;
+		this.detail = detail;
+		this.photo1 = photo1;
+		this.photo2 = photo2;
+		this.photo3 = photo3;
+		this.startDay = startDay;
+		this.endDay = endDay;
+	}
+	
+	public BicycleVO(int bicycleNo, String memberId, int rentPrice,String address, int purchasePrice, int categoryNo, String detail,
+			 String photo1, String photo2, String photo3, String startDay, String endDay) {
+		super();
+		this.bicycleNo = bicycleNo;
+		this.memberId = memberId;
+		this.rentPrice = rentPrice;
+		this.address = address;
+		this.purchasePrice = purchasePrice;
+		this.categoryNo = categoryNo;
+		this.detail = detail;
+		this.photo1 = photo1;
+		this.photo2 = photo2;
+		this.photo3 = photo3;
+		this.startDay = startDay;
+		this.endDay = endDay;
 	}
 	
 	//bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
@@ -128,13 +175,72 @@ public class BicycleVO {
 	}
 
 
+	public String getPhoto1() {
+		return photo1;
+	}
+
+
+	public void setPhoto1(String photo1) {
+		this.photo1 = photo1;
+	}
+
+
+	public String getPhoto2() {
+		return photo2;
+	}
+
+
+	public void setPhoto2(String photo2) {
+		this.photo2 = photo2;
+	}
+
+
+	public String getPhoto3() {
+		return photo3;
+	}
+
+
+	public void setPhoto3(String photo3) {
+		this.photo3 = photo3;
+	}
+
+
+	public String getStartDay() {
+		return startDay;
+	}
+
+	public void setStartDay(String startDay) {
+		this.startDay = startDay;
+	}
+
+	public String getEndDay() {
+		return endDay;
+	}
+	public void setEndDay(String endDay) {
+		this.endDay = endDay;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
-				+ ", rentPrice=" + rentPrice + ", address=" + address + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", purchasePrice=" + purchasePrice + ", categoryNo=" + categoryNo + ", detail=" + detail + ", file="
-				+ file + "]";
+		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", memberId=" + memberId
+				+ ", possibleList=" + possibleList + ", rentPrice=" + rentPrice + ", address=" + address + ", latitude="
+				+ latitude + ", longitude=" + longitude + ", purchasePrice=" + purchasePrice + ", categoryNo="
+				+ categoryNo + ", detail=" + detail + ", file=" + file + ", photo1=" + photo1 + ", photo2=" + photo2
+				+ ", photo3=" + photo3 + ", startDay=" + startDay + ", endDay=" + endDay + "]";
 	}
+
+	
+	
 	
 		
 }

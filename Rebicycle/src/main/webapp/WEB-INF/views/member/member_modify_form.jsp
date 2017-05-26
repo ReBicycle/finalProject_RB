@@ -6,15 +6,8 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var checkResultId="";	
-	
 	$("#memberRegisterForm").submit(function(){				
-		if(checkResultId==""){
-			alert("아이디 중복확인을 하세요");
-			return false;
-		}
-		//alert($("#email").val().indexOf("@"));
-		
+			
 		if($("#email").val().indexOf("@") == -1){
 			alert("이메일 형식이 올바르지 않습니다!");
 			$("#email").val("");
@@ -23,13 +16,6 @@ $(document).ready(function(){
 		}
 	});
 	
-
-	$(".profile-img").click(function(){
-		//document.all.file1.click(); document.all.file2.value=document.all.file1.value'
-		//$(“#my_image”).attr(“src”,“second.jpg”);#docum
-		//$("#picture").
-		
-	});
 	$("#password").keyup(function(){
 		$("#confirm").val("");
 		$("#passwordCheckView").html("");
@@ -46,30 +32,8 @@ $(document).ready(function(){
 			
 	});
 	
-	$("#id").keyup(function(){
-		var id=$("#id").val().trim();
-		if(id.length<4 || id.length>10){
-			$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css(
-					"background","pink");
-			checkResultId="";
-			return;
-		}			
-		$.ajax({
-			type:"POST",
-			url:"${pageContext.request.contextPath}/memberIdcheckAjax.do",				
-			data:"id="+id,	
-			success:function(data){		
-				if(data=="fail"){
-				$("#idCheckView").html(id+" 사용불가!").css("background","red");
-					checkResultId="";
-				}else{						
-					$("#idCheckView").html(id+" 사용가능!").css(
-							"background","yellow");		
-					checkResultId=id;
-				}					
-			}//callback			
-		});//ajax
-	});//keyup
+	
+	
 });//ready
 </script>
 
@@ -129,28 +93,22 @@ $(document).ready(function(){
 					<strong>JOIN</strong>
 				</div>
 				<div class="panel-body">
-					<form id = "memberRegisterForm" enctype="multipart/form-data" class="form-horizontal" 
-					 action="${pageContext.request.contextPath}/memberRegister.do" method="POST">
+					<form id = "memberRegisterForm" class="form-horizontal" 
+					 action="${pageContext.request.contextPath}/memberModify.do" method="POST">
 					
 					
 						<div class="row">
 							<div class="center-block">
-						<!-- 	<input type="text" name="picture" id ="picture" style="display:none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
- -->
-								<abbr title="프로필 이미지를 등록하시려면 클릭해주세요!"><img class="profile-img"
-									src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"
+						
+								<abbr title="프로필 이미지를 변경하시려면 클릭해주세요!"><img class="profile-img"
+									src="${pageContext.request.contextPath}/resources/upload/member/${modifyVO.picture}"
 									alt=""></abbr>
+								<input type = "hidden" name = "picture" value = "${modifyVO.picture}">
 							
 							</div>
 						</div>
 						
-						<div class="row">
-							<div class="center-block">
-								<label id = "fileLabel" for="uploadFile">파일 업로드</label> 
-
-							 	<input type = "file" id = "uploadFile" name="uploadFile" id="picture"> 
-							</div>
-						</div>
+					
 						
 						<div class="row">
 					
@@ -165,20 +123,11 @@ $(document).ready(function(){
 											<span class="input-group-addon">
 											 <i	class="fa fa-user fa" aria-hidden="true"></i>
 											</span> 
-											<input type="text" class="form-control" name="id" id="id" placeholder="Enter your id" required="required"/>
+											<input type="text" class="form-control" name="id" id="id" value="${modifyVO.id}" readonly="readonly"/>
 										
 										</div>
 									</div>
-									
-									
-									<label for="name" class="cols-sm-2 control-label"></label>
-										<div class="input-group">
-											<!-- <button style="margin-top: 5px" class = "btn btn-primary btn-md btn-block login-button" value = "중복확인">중복확인</button> -->
-											<span id = "idCheckView"></span>
-										</div> 
-										
-									
-									
+	
 								</div>
 								
 								
@@ -192,7 +141,7 @@ $(document).ready(function(){
 													<span class="input-group-addon"><i
 														class="fa fa-lock fa-lg" aria-hidden="true"></i></span> <input
 														type="password" class="form-control" name="password"
-														id="password" placeholder="Enter your Password" required="required"/>
+														id="password" value="${modifyVO.password}" required="required"/>
 												</div>
 											</div>
 										</div>
@@ -237,7 +186,7 @@ $(document).ready(function(){
 													<span class="input-group-addon"><i
 														class="fa fa-users fa" aria-hidden="true"></i></span> <input
 														type="text" class="form-control" name="name"
-														id="name" placeholder="Enter your name" required="required"/>
+														id="name" value="${modifyVO.name}" required="required"/>
 												</div>
 											</div>
 										</div>
@@ -252,7 +201,7 @@ $(document).ready(function(){
 											<span class="input-group-addon"><i
 												class="fa fa-phone fa" aria-hidden="true"></i></span> <input
 												type="text" class="form-control" name="phone"
-												id="phone" placeholder="Enter your phone number" required="required"/>
+												id="phone" value="${modifyVO.phone}" required="required"/>
 										</div>
 									</div>
 											
@@ -269,7 +218,7 @@ $(document).ready(function(){
 											<span class="input-group-addon"> <i
 												class="fa fa-envelope fa" aria-hidden="true"></i>
 											</span> <input type="text" class="form-control" name="email"
-												id="email" placeholder="Enter your Email" required="required"/>
+												id="email" value="${modifyVO.email}" required="required"/>
 										</div>
 									</div>
 								</div>
@@ -282,7 +231,7 @@ $(document).ready(function(){
 											<span class="input-group-addon"> <i
 												class="fa fa-edit fa" aria-hidden="true"></i>
 											</span> <input type="text" class="form-control" name="address"
-												id="address" placeholder="Enter your address" required="required"/>
+												id="address" value="${modifyVO.address}" required="required"/>
 										</div>
 									</div>
 								</div>
@@ -295,13 +244,13 @@ $(document).ready(function(){
 											<span class="input-group-addon"> <i
 												class="fa fa-money fa" aria-hidden="true"></i>
 											</span> <input type="text" class="form-control" name="account"
-												id="account" placeholder="Enter your account" required="required"/>
+												id="account" value="${modifyVO.account}" required="required"/>
 										</div>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<input type = "submit" id = "memberRegisterBtn" type="button" class="btn btn-primary btn-lg btn-block login-button" value = "JOIN"/>
+									<input type = "submit" id = "memberRegisterBtn" type="button" class="btn btn-primary btn-lg btn-block login-button" value = "회원정보수정"/>
 								</div>
 	
 							</div>
@@ -313,5 +262,4 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
-
 

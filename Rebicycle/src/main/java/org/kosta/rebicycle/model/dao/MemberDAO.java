@@ -10,4 +10,8 @@ public interface MemberDAO {
 
 	int idcheck(String id);
 
+	MemberVO findMemberById(String id);
+
+	void memberModify(MemberVO vo);
+
 }

@@ -8,11 +8,12 @@ drop table rent;
 drop table donation;
 drop table rb_report;
 drop table rb_review;
+delete table RB_MEMBER;
 
 insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null');
 select * from rb_member
 
-select id,password,name,phone,address,email,account from rb_member		
+select id,password,name,phone,address,email,account,picture from rb_member		
 where id='java' and password='1234'
 
 create table rb_member(

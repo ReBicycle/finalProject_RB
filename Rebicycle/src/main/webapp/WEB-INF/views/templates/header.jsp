@@ -41,6 +41,10 @@
                       <li class="page-scroll">
 						<a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
                       </li>
+                      
+                        <li class="page-scroll">
+						<a href="${pageContext.request.contextPath}/memberModifyForm.do">회원정보수정</a>
+                      </li>
 					</c:otherwise>
 					</c:choose> 
 					 <li class="page-scroll">

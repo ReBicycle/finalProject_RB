@@ -10,4 +10,8 @@ public interface MemberService {
 
 	int idcheck(String id);
 
+	MemberVO findMemberById(String id);
+
+	void memberModify(MemberVO vo);
+
 }

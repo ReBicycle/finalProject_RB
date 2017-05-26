@@ -10,5 +10,4 @@ public class BoardDAOImpl {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	
 }

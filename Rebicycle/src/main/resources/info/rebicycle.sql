@@ -166,4 +166,8 @@ insert into category(categoryNo, categoryName) values(6, '기타');
 select * from bicycle;
 select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
+select bicycle_seq.currval from dual;
+
+
+
 -----------------------태형-----------------------------------------

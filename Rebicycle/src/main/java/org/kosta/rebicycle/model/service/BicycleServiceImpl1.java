@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl1;
 import org.kosta.rebicycle.model.vo.BicycleVO;
+import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +31,9 @@ public class BicycleServiceImpl1 implements BicycleService {
 		calList.add(max);
 		calList.add(avg);
 		return calList;
+	}
+	
+	public void registerPossibleDate(CalendarVO cvo){
+		daoImpl1.registerPossibleDate(cvo);
 	}
 }

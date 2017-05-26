@@ -7,9 +7,6 @@
 
 $(document).ready(function(){
 	var checkResultId="";	
-	var fileModal = new Example.Model({
-		id="fileModal";
-	});
 	
 	$("#memberRegisterForm").submit(function(){				
 		if(checkResultId==""){
@@ -87,6 +84,33 @@ $(document).ready(function(){
 	-webkit-border-radius: 50%;
 	border-radius: 50%;
 }
+ input[type="file"] { 
+/* 파일 필드 숨기기 */ 
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0; 
+}
+#fileLabel { 
+	display: inline-block; 
+	padding: .5em .75em;
+	 color: #999; 
+	 font-size: inherit; 
+	 line-height: normal; 
+	 vertical-align: middle; 
+	 background-color: #fdfdfd; 
+	 cursor: pointer; 
+	 border: 1px solid #ebebeb; 
+	 border-bottom-color: #e2e2e2; 
+	 border-radius: .25em; 
+ }
+
+출처: http://webdir.tistory.com/435 [WEBDIR]
+출처: http://webdir.tistory.com/435 [WEBDIR]
 </style>
 
 <br>
@@ -105,16 +129,22 @@ $(document).ready(function(){
 					
 						<div class="row">
 							<div class="center-block">
-							<!-- <input type="text" name="picture" id ="picture" style="display:none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
+						<!-- 	<input type="text" name="picture" id ="picture" style="display:none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
  -->
 								<abbr title="프로필 이미지를 등록하시려면 클릭해주세요!"><img class="profile-img"
 									src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"
 									alt=""></abbr>
-							<input type = "file" name="picture" id="picture" >
+							
 							</div>
 						</div>
 						
-				
+						<div class="row">
+							<div class="center-block">
+								<label id = "fileLabel" for="uploadFile">파일 업로드</label> 
+
+							 	<input type = "file" id = "uploadFile" name="uploadFile" "id="picture"> 
+							</div>
+						</div>
 						
 						<div class="row">
 					

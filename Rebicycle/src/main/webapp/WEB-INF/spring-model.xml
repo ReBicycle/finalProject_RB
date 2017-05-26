@@ -32,6 +32,6 @@
 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	<property name="dataSource" ref="dbcp"></property>
 </bean>
-<!--  어노테이션기반 트랜잭션 관리 설정 
-<tx:annotation-driven transaction-manager="transactionManager"/> -->
+<!--  어노테이션기반 트랜잭션 관리 설정 -->
+<tx:annotation-driven transaction-manager="transactionManager"/> 
 </beans>

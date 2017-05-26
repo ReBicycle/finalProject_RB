@@ -24,7 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="calculateAvgPrice" resultType="double">
  		select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
  	</select>
- 	<insert id="insertPossibleDate" parameterType="calendarVO">
+ 	<insert id="registerPossibleDate" parameterType="calendarVO">
+ 		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
+			select bicycle_seq from dual
+		</selectKey>
 		insert into possible_day(bicycleNo, startDay, endDay)
 		values(#{bicycleNo}, #{startDay}, #{endDay})
  	</insert>

@@ -28,7 +28,7 @@
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<strong> Sign in to continue</strong>
+						<strong> LOGIN</strong>
 					</div>
 					<div class="panel-body">
 						<form role="form" action="${pageContext.request.contextPath}/login.do" method="POST">
@@ -69,7 +69,7 @@
 						</form>
 					</div>
 					<div class="panel-footer ">
-						Don't have an account! <a href="#" onClick=""> Sign Up Here </a>
+						Don't have an account! <a href="${pageContext.request.contextPath}/member/member_register_form.do" onClick=""> Sign Up Here </a>
 					</div>
 					
                 </div>

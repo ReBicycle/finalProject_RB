@@ -116,8 +116,21 @@ select * from possible_day where to_date('2017-05-28')>=startDay and to_date('20
 
 select * from bicycle where address='판교';
 select * from bicycle b, possible_day p where address like '%'||'판교'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay;
-select * from bicycle b, possible_day p where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay;
+select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay from bicycle b, possible_day p where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay;
 
 
 ------------종봉----------------------------------------------
-alter table );
+
+
+
+-----------------------태형--------------------------------
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '레코드용');
+insert into category(categoryNo, categoryName) values(5, '어린이용');
+
+insert into category(categoryNo, categoryName) values(7, '기타');
+
+select * from bicycle;
+-----------------------태형-----------------------------------------

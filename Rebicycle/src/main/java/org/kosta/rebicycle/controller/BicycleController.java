@@ -18,7 +18,7 @@ public class BicycleController {
 	public String registerBicycle(BicycleVO bvo, String memberId, int categoryNo){
 		System.out.println(categoryNo);
 		bvo.setMemberVO(new MemberVO(memberId));
-		bvo.setCategory(serviceImpl1.findCategoryByNo(categoryNo));
+		bvo.setCategoryNo(categoryNo);
 		System.out.println(bvo);
 		serviceImpl1.registerBicycle(bvo);
 		return "bicycle/bicycle_register_result.tiles";

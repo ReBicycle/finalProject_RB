@@ -52,6 +52,11 @@
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
                     </li>
+                    
+                     <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_search_list_test.do">자전거상세보기</a>
+                    </li>
+                    
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do">자전거상세보기</a>
                     </li>

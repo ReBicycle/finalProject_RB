@@ -23,7 +23,19 @@ $(document).ready(function(){
 		}
 	});
 	
-
+	$("#uploadFile").on("change", function(){
+		readURL(this);
+	});
+	function readURL(input){
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#imgView").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
 	$(".profile-img").click(function(){
 		//document.all.file1.click(); document.all.file2.value=document.all.file1.value'
 		//$(“#my_image”).attr(“src”,“second.jpg”);#docum
@@ -137,10 +149,9 @@ $(document).ready(function(){
 							<div class="center-block">
 						<!-- 	<input type="text" name="picture" id ="picture" style="display:none" value = "http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"> 
  -->
-								<abbr title="프로필 이미지를 등록하시려면 클릭해주세요!"><img class="profile-img"
-									src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png"
-									alt=""></abbr>
-							
+								<abbr title="프로필 이미지를 등록하시려면 클릭해주세요!"><img id = "imgView" class="profile-img"
+									src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png" alt=""></abbr>
+								<!-- http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Plus-icon.png -->
 							</div>
 						</div>
 						
@@ -148,7 +159,7 @@ $(document).ready(function(){
 							<div class="center-block">
 								<label id = "fileLabel" for="uploadFile">파일 업로드</label> 
 
-							 	<input type = "file" id = "uploadFile" name="uploadFile" id="picture"> 
+							 	<input type = "file" id = "uploadFile" name="uploadFile" required="required"> 
 							</div>
 						</div>
 						

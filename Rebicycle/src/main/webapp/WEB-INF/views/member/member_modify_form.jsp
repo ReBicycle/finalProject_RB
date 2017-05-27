@@ -6,8 +6,9 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	document.getElementById("uploadFile").disabled = true;
 	$("#memberRegisterForm").submit(function(){				
-			
+		
 		if($("#email").val().indexOf("@") == -1){
 			alert("이메일 형식이 올바르지 않습니다!");
 			$("#email").val("");
@@ -32,6 +33,27 @@ $(document).ready(function(){
 			
 	});
 	
+	$("#fileLabel").click(function(){
+		document.getElementById("uploadFile").disabled = false;
+		
+	});
+	
+
+	$("#uploadFile").on("change", function(){
+		readURL(this);
+	});
+	
+	
+	
+	function readURL(input){
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#imgView").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 	
 	
 });//ready
@@ -69,7 +91,7 @@ $(document).ready(function(){
 }
 #fileLabel { 
 	display: inline-block; 
-	padding: .5em .75em;
+	 padding: .5em .75em;
 	 color: #999; 
 	 font-size: inherit; 
 	 line-height: normal; 
@@ -80,6 +102,8 @@ $(document).ready(function(){
 	 border-bottom-color: #e2e2e2; 
 	 border-radius: .25em; 
  }
+ 
+ 
 
 </style>
 
@@ -90,24 +114,30 @@ $(document).ready(function(){
 		<div class="col-sm-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<strong>JOIN</strong>
+					<strong>회원정보수정</strong>
 				</div>
 				<div class="panel-body">
-					<form id = "memberRegisterForm" class="form-horizontal" 
+					<form id = "memberRegisterForm" class="form-horizontal" enctype="multipart/form-data"
 					 action="${pageContext.request.contextPath}/memberModify.do" method="POST">
 					
 					
 						<div class="row">
 							<div class="center-block">
-						
-								<abbr title="프로필 이미지를 변경하시려면 클릭해주세요!"><img class="profile-img"
+								
+								<abbr title="프로필 이미지를 변경하시려면 클릭해주세요!"><img id = "imgView"  class="profile-img" 
 									src="${pageContext.request.contextPath}/resources/upload/member/${modifyVO.picture}"
-									alt=""></abbr>
-								<input type = "hidden" name = "picture" value = "${modifyVO.picture}">
-							
+									alt=""></abbr> 
 							</div>
 						</div>
-						
+						<input type = "hidden" name = "picture" value = "${modifyVO.picture}">
+					
+						<div class="row">
+							<div class="center-block">
+								<label id = "fileLabel" for="uploadFile">파일 변경</label> 
+								<div id = "fileView"></div>
+							 	<input type = "file" id = "uploadFile" name="uploadFile">
+							</div>
+						</div>
 					
 						
 						<div class="row">

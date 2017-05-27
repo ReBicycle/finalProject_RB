@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,9 +8,9 @@
       <title>네이버 지도 API - 주소로 지도 표시하기</title>
       
       <style>
-.container {
+.content {
   position: relative;
-  width: 50%;
+  width: 100%;
 }
 
 .image {
@@ -31,7 +32,7 @@
   transparent: 50%;
 }
 
-.container:hover .overlay {
+.content:hover .overlay {
   bottom: 0;
   height: 100%;
 }
@@ -48,14 +49,15 @@
   -ms-transform: translate(-50%, -50%);
 }
 </style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   
   <body >
   <%--지도 --%>
-   <div class="col-sm-6" id="map" style="height:500px;"></div>
+   <div class="col-sm-7" id="map" style="height:700px;"></div>
    <%--지도 --%>
    <%-- 검색 리스트 --%>
-   <div class="col-sm-6" style="height:500px;background-color:#F0FFFF;overflow:auto;overflow-x:hidden;" >
+   <div class="col-sm-5" style="height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
 <%--       <section id="portfolio">
            <div class="container">
               <!--  <div class="row"> -->
@@ -112,49 +114,70 @@
                
            </div>
        </section>  --%>
-<section id="portfolio">
-<div class="w3-container w3-teal w3-margin-top">
+ <section id="portfolio"> 
+<div class="w3-container w3-teal " >
   <h1>Bicycle List</h1>
 </div>
 
 <div class="w3-row-padding w3-margin-top " >
-  <div class="w3-third col-sm-6">
-    <div class="w3-card-2">
+	<c:forEach items="${requestScope.bicycleList}" var="list" >
+  <div class="w3-second col-sm-6 w3-margin-top ">
+     <div class="w3-card-2 content ">
+      <img src="${pageContext.request.contextPath}/resources/upload/${list.photo1}" style="width:100%">
+      <div class="overlay" >
+     	 <span class="text">
+        		아이디:${list.memberId}<br>
+                대여료:${list.rentPrice}<br>
+             </span>
+      </div>
+    </div> 
+  </div>
+</c:forEach>
+     <%-- <div class="w3-second col-sm-6  w3-margin-top">
+    <div class="w3-card-2 content" >
       <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" style="width:100%">
-      <div class="w3-container caption" >
-        아이디:${requestScope.bicycleList[0].memberId}<br>
+      <div class="overlay">
+      <span class="text">
+        아이디:${requestScope.bicycleList[0].memberId}2<br>
                                 대여료:${requestScope.bicycleList[0].rentPrice}<br>
+       </span>
       </div>
     </div>
   </div>
 
-   <div class="w3-third col-sm-6">
-    <div class="w3-card-2" width="50%" height="50%">
+       <div class="w3-second col-sm-6  w3-margin-top">
+    <div class="w3-card-2 content" >
       <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" style="width:100%">
-      <div class="w3-container caption">
-        아이디:${requestScope.bicycleList[0].memberId}<br>
+      <div class="overlay">
+      <span class="text">
+        아이디:${requestScope.bicycleList[0].memberId}3<br>
                                 대여료:${requestScope.bicycleList[0].rentPrice}<br>
+		</span>
       </div>
     </div>
   </div>
 
-     <div class="w3-third col-sm-6">
-    <div class="w3-card-2" width="50%" height="50%">
+
+
+      <div class="w3-second col-sm-6  w3-margin-top">
+    <div class="w3-card-2 content" >
       <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" style="width:100%">
-      <div class="w3-container caption">
-        아이디:${requestScope.bicycleList[0].memberId}<br>
+      <div class="overlay">
+      <span class="text">
+        아이디:${requestScope.bicycleList[0].memberId}4<br>
                                 대여료:${requestScope.bicycleList[0].rentPrice}<br>
+		</span>
       </div>
     </div>
   </div>
-</div>
-
-
-       
-       </section>
+   --%>
+  
+  
+</div><%-- 자전거리스트 css --%>
+      </section>  
    </div><%--리스트 전체 div --%>
    <%-- 검색 리스트 --%>
-   
+   <!-- <div class="col-sm-12" style="height:200px;background-color:#F0FFFF;"></div> -->
    <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461"></script>
    <script>
       var container = document.getElementById('map');

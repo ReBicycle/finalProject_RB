@@ -6,7 +6,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(":radio[name='categoryNo']").change(function(){
-			//alert($(":radio[name='categoryNo']:checked").val());
 			$.ajax({
 				type:"get",
 				dataType:"json",
@@ -81,6 +80,7 @@
 
 
 <div class="container">
+<br><br><br>
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -89,6 +89,17 @@
             <div class="panel-body" > 
 				<form  class="form-horizontal" method="post" action="${pageContext.request.contextPath }/registerBicycle.do">
 				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
+				    
+				    
+				    <!-- 사진 -->
+				    <div id="div_id_photo" class="form-group required"> 
+				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
+				        <div class="controls col-md-8 "> 
+							<input type="file" name="file[0]"><br>
+							<input type="file" name="file[1]"><br>
+							<input type="file" name="file[2]"><br>
+				        </div>
+				    </div>
 				    
 				    <!-- 아이디 -->
 				    <div id="div_id_memberId" class="form-group required"> 

@@ -10,6 +10,7 @@ drop table rb_report;
 drop table rb_review;
 delete table RB_MEMBER;
 
+select * from CATEGORY;
 insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null');
 select * from rb_member
 
@@ -105,11 +106,21 @@ create table rb_review(
 ---------------------------------------------------------------
 ------------종봉---------------------------------------------
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
+<<<<<<< HEAD
+select * from bicycle
+=======
 select * from category
 
 select * from BICYCLE
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 --자전거 등록
+<<<<<<< HEAD
+insert into category values(category_seq.nextval,'MTB')
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+=======
 insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 --대여가능일 등록
 insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
@@ -219,5 +230,17 @@ where bicycleNo=1 and b.memberId=m.id
 select * from possible_day
 insert into possible_day values(1,'2017-05-27','2017-05-29')
 
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+<<<<<<< HEAD
+-----------------------소영------------------------------------------
+
+select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
+from bicycle b, category c
+where b.categoryNo = c.categoryNo and memberId='java'
+
+select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+from bicycle
+where memberId='java'
+=======
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

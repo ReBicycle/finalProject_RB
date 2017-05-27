@@ -63,7 +63,7 @@ public class MemberController {
               fileExt = fileName.substring(i);
               fileName = fileName.substring(0,i);
         }
-		uploadPath += "member\\"+vo.getId() + fileExt;
+		uploadPath += "member\\"+ vo.getId() + fileExt;
 		//System.out.println(uploadPath);
 		if(file.isEmpty()==false){
 			File uploadFile = new File(uploadPath);

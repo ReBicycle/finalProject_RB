@@ -21,7 +21,7 @@ create table rb_member(
    password varchar2(100) not null,
    name varchar2(100) not null,
    phone varchar2(100) not null,
-   address varchar2(100) not null,
+   address varchar2(300) not null,
    email varchar2(100) not null,
    account varchar2(100),
    picture varchar2(300) not null
@@ -106,8 +106,10 @@ create table rb_review(
 ------------종봉---------------------------------------------
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
 select * from category
+
+select * from BICYCLE
 --자전거 등록
-insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
+insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 --대여가능일 등록
 insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
@@ -176,17 +178,46 @@ select * from bicycle;
 select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
 select * from possible_day;
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+
+
+-----------------------태형-----------------------------------------
+=======
+=======
 alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 -----------------------태형-----------------------------------------
-
-
------------------------현근-----------------------------------------
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id
 
+<<<<<<< HEAD
+
+
+ id varchar2(100) primary key,
+   password varchar2(100) not null,
+   name varchar2(100) not null,
+   phone varchar2(100) not null,
+   address varchar2(100) not null,
+   email varchar2(100) not null,
+   account varchar2(100),
+   picture varchar2(300) not null
+
+
+
+
+
+
+
+
+
+
+=======
 select * from possible_day
 insert into possible_day values(1,'2017-05-27','2017-05-29')
 
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

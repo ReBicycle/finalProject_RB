@@ -48,12 +48,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 현근 -->
 	<resultMap type="bicycleVO" id="bicycleRM">
 		<result column="memberId" property="memberVO.id" />
+		<result column="phone" property="memberVO.phone" />
+		<result column="address" property="memberVO.address" />
 	</resultMap>
 
 	<select id="findBicycleByNo" resultMap="bicycleRM"
 		parameterType="int">
-		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
-		from bicycle where bicycleNo=#{value}
+		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
+		from bicycle b,rb_member m 
+		where bicycleNo=#{value} and b.memberId=m.id
 	</select>
 	
 </mapper>

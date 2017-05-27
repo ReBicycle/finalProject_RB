@@ -172,34 +172,14 @@ select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
 select * from possible_day;
 
-<<<<<<< HEAD
+-----------------------태형-----------------------------------------
 
 
------------------------태형-----------------------------------------
-=======
------------------------태형-----------------------------------------
+-----------------------현근-----------------------------------------
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id
 
+select * from possible_day
+insert into possible_day values(1,'2017-05-27','2017-05-29')
 
-
- id varchar2(100) primary key,
-   password varchar2(100) not null,
-   name varchar2(100) not null,
-   phone varchar2(100) not null,
-   address varchar2(100) not null,
-   email varchar2(100) not null,
-   account varchar2(100),
-   picture varchar2(300) not null
-
-
-
-
-
-
-
-
-
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

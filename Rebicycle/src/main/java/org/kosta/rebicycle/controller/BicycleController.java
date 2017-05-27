@@ -28,10 +28,13 @@ public class BicycleController {
 	private BicycleServiceImpl3 serviceImpl3;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
-	public String registerBicycle(BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo){
+	public String registerBicycle(BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress){
 		bvo.setMemberVO(new MemberVO(memberId));
 		bvo.setCategoryNo(categoryNo);
+		String address = roadAddress + "," + jibunAddress + "/" + detailAddress;
+		bvo.setAddress(address);
 		serviceImpl1.registerBicycle(bvo, cvo);
+		System.out.println(cvo);
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	

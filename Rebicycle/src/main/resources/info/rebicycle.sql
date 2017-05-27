@@ -121,3 +121,26 @@ select * from bicycle b, possible_day p where address like '%'||'판'||'%' and b
 
 ------------종봉----------------------------------------------
 alter table );
+
+-----------------------------석희---------------------------------
+select * from rb_report;
+
+create table rb_report(
+	reportNo number primary key,
+	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
+	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
+	contents clob not null,
+	reportDate date not null
+)
+
+select * from rb_report
+
+SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+		SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reporterId,blackId,contents,
+		to_char(reportDate,'YYYY.MM.DD') as reportDate
+		FROM rb_report
+		) r, rb_report order by reportNo desc
+		
+insert into rb_report(reportNo,reporterId,blackId,contents,reportDate)
+ 		values(1,'java','java','hhhhh',sysdate)
+-----------------------------석희---------------------------------

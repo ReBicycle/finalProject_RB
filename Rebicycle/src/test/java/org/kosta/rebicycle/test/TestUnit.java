@@ -8,12 +8,8 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-<<<<<<< HEAD
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl3;
-=======
-import org.kosta.rebicycle.model.dao.BicycleDAOImpl5;
 import org.kosta.rebicycle.model.vo.BicycleVO;
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,23 +17,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring-model.xml" })
 public class TestUnit {
-<<<<<<< HEAD
-	@Resource
+@Resource
 	private SqlSessionTemplate template;
 	@Resource
 	private BicycleDAOImpl3 BicycleDAOImpl3;
 	@Test
-	public void test() {
+	public void test1() {
 		System.out.println(BicycleDAOImpl3.findBicycleByNo(1));
 	}
-=======
-@Resource
-private SqlSessionTemplate t;
 
 /*@Resource
+private SqlSessionTemplate t;
+
+@Resource
 private BicycleDAOImpl5 dao;
 *
-*/
+
 
 public List<BicycleVO> getBicycleListByAddressAndDay(String address,String startDay,String endDay){
 	Map<String,String> map=new HashMap<String,String>();
@@ -50,7 +45,7 @@ public List<BicycleVO> getBicycleListByAddressAndDay(String address,String start
 }
 
 @Test
-public void test(){
+public void test2(){
 	System.out.println("하이");
 	Map<String,String> map=new HashMap<String,String>();
 	map.put("address", "판교");
@@ -62,5 +57,5 @@ public void test(){
 	
 System.out.println("바이");
 }
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+*/
 }

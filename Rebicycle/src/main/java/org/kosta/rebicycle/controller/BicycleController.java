@@ -5,16 +5,14 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
-import org.springframework.ui.Model;
-=======
 import org.springframework.transaction.annotation.Transactional;
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;

@@ -30,9 +30,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
 
  	<insert id="registerPossibleDate" parameterType="calendarVO">
- 		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
-			select bicycle_seq from dual
-		</selectKey>
 		insert into possible_day(bicycleNo, startDay, endDay)
 		values(#{bicycleNo}, #{startDay}, #{endDay})
 	</insert>

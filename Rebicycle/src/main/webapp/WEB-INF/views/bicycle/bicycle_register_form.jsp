@@ -40,7 +40,7 @@
 				    <div id="div_id_memberId" class="form-group required"> 
 				        <label for="id_memberId" class="control-label col-md-4  requiredField">아이디</label> 
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" value="${sessionScope.mvo.id }"/>
 				        </div>
 				    </div>
 				    
@@ -94,13 +94,13 @@
 				    <div id="div_id_date" class="form-group required"> 
 				        <label for="id_date" class="control-label col-md-4  requiredField">시작일</label>
 				        <div class="controls col-md-8 "> 
-							<input type="date" name="startDate" class="input-md textinput textInput form-control" id="id_detail">
+							<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>
 				    </div> 
 				    <div id="div_id_date" class="form-group required"> 
 				        <label for="id_date" class="control-label col-md-4  requiredField">종료일</label>
 				        <div class="controls col-md-8 ">
-							<input type="date" name="endDate" class="input-md textinput textInput form-control" id="id_detail">
+							<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>
 				    </div>
 				    <!-- 

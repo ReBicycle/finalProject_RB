@@ -42,6 +42,102 @@ public class BicycleVO {
 		super();
 	}
 
+	public int getBicycleNo() {
+		return bicycleNo;
+	}
+
+	public void setBicycleNo(int bicycleNo) {
+		this.bicycleNo = bicycleNo;
+	}
+
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
+
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
+
+	public List<CalendarVO> getPossibleList() {
+		return possibleList;
+	}
+
+	public void setPossibleList(List<CalendarVO> possibleList) {
+		this.possibleList = possibleList;
+	}
+
+	public int getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(int purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+
+	public int getRentPrice() {
+		return rentPrice;
+	}
+
+	public void setRentPrice(int rentPrice) {
+		this.rentPrice = rentPrice;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public MapVO getMapVO() {
+		return mapVO;
+	}
+
+	public void setMapVO(MapVO mapVO) {
+		this.mapVO = mapVO;
+	}
+
+	public List<MultipartFile> getFile() {
+		return file;
+	}
+
+	public void setFile(List<MultipartFile> file) {
+		this.file = file;
+	}
+
+	public PhotoVO getPhotoVO() {
+		return photoVO;
+	}
+
+	public void setPhotoVO(PhotoVO photoVO) {
+		this.photoVO = photoVO;
+	}
+
+	public CategoryVO getCategoryVO() {
+		return categoryVO;
+	}
+
+	public void setCategoryVO(CategoryVO categoryVO) {
+		this.categoryVO = categoryVO;
+	}
+
+	@Override
+	public String toString() {
+		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
+				+ ", purchasePrice=" + purchasePrice + ", rentPrice=" + rentPrice + ", detail=" + detail + ", address="
+				+ address + ", mapVO=" + mapVO + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO="
+				+ categoryVO + "]";
+	}
+	
 	
 	
 	

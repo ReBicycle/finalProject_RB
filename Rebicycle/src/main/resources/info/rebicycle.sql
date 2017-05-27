@@ -36,7 +36,7 @@ create sequence category_seq;
 create table bicycle(
    bicycleNo number primary key,
    memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
-   address varchar2(100) not null,
+   address varchar2(300) not null,
    purchasePrice number not null,
    rentPrice number not null,
    detail clob not null,

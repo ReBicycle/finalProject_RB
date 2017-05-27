@@ -8,6 +8,12 @@ public class CalendarVO {
 	public CalendarVO() {
 		super();
 	}
+	
+	public CalendarVO(String startDay, String endDay) {
+		super();
+		this.startDay = startDay;
+		this.endDay = endDay;
+	}
 
 	public CalendarVO(int bicycleNo, String startDay, String endDay) {
 		super();

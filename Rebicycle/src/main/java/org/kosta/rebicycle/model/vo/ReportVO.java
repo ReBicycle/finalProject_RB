@@ -1,19 +1,28 @@
 package org.kosta.rebicycle.model.vo;
 
 public class ReportVO {
+	private int reportNo;
 	private String reporterId;
 	private String blackId;
 	private String contents;
 	private String reportDate;
 	public ReportVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	public ReportVO(String reporterId, String blackId, String contents, String reportDate) {
+	public ReportVO(int reportNo, String reporterId, String blackId, String contents, String reportDate) {
 		super();
+		this.reportNo = reportNo;
 		this.reporterId = reporterId;
 		this.blackId = blackId;
 		this.contents = contents;
 		this.reportDate = reportDate;
+	}
+	public int getReportNo() {
+		return reportNo;
+	}
+	public void setReportNo(int reportNo) {
+		this.reportNo = reportNo;
 	}
 	public String getReporterId() {
 		return reporterId;
@@ -41,9 +50,7 @@ public class ReportVO {
 	}
 	@Override
 	public String toString() {
-		return "ReportVO [reporterId=" + reporterId + ", blackId=" + blackId + ", contents=" + contents
-				+ ", reportDate=" + reportDate + "]";
+		return "ReportVO [reportNo=" + reportNo + ", reporterId=" + reporterId + ", blackId=" + blackId + ", contents="
+				+ contents + ", reportDate=" + reportDate + "]";
 	}
-	
-	
 }

@@ -36,7 +36,7 @@ create sequence category_seq;
 create table bicycle(
    bicycleNo number primary key,
    memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
-   address varchar2(100) not null,
+   address varchar2(300) not null,
    purchasePrice number not null,
    rentPrice number not null,
    detail clob not null,
@@ -130,7 +130,10 @@ select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.deta
 from bicycle b, possible_day p, bicycle_photo bp 
 where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=bp.bicycleNo;
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 	select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,c.photo1,c.photo2,c.photo3
 		from bicycle b, possible_day p, bicycle_photo c  
@@ -141,8 +144,13 @@ where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017
 --좌표까지 조회
 
 <<<<<<< HEAD
+
+
+=======
+<<<<<<< HEAD
 =======
 
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
@@ -162,30 +170,16 @@ insert into category(categoryNo, categoryName) values(6, '기타');
 select * from bicycle;
 select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
-select bicycle_seq.currval from dual;
+select * from possible_day;
 
 -----------------------태형-----------------------------------------
+
+
+-----------------------현근-----------------------------------------
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id
 
-
-
- id varchar2(100) primary key,
-   password varchar2(100) not null,
-   name varchar2(100) not null,
-   phone varchar2(100) not null,
-   address varchar2(100) not null,
-   email varchar2(100) not null,
-   account varchar2(100),
-   picture varchar2(300) not null
-
-
-
-
-
-
-
-
-
+select * from possible_day
+insert into possible_day values(1,'2017-05-27','2017-05-29')
 

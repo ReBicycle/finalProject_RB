@@ -44,7 +44,7 @@
 		<%-- 	<div id="right" class="col-sm-2 sidenav"><tiles:insertAttribute name="right"/></div> --%>
 			<!-- </div> -->
 			</div>
-			<footer id="footer" class="text-center"><tiles:insertAttribute name="footer"/></footer>
+			<footer id="footer" class="text-center" ><tiles:insertAttribute name="footer"/></footer>
 			<!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 

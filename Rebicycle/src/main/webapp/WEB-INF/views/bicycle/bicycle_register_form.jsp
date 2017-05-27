@@ -25,8 +25,10 @@
 			});//ajax
 		});
 	});//ready
-	
-	function daumPostcode() {
+</script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function daumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -55,9 +57,9 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('sample4_roadAddress').value = fullRoadAddr;
-                document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
+                document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('roadAddress').value = fullRoadAddr;
+                document.getElementById('jibunAddress').value = data.jibunAddress;
 
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
@@ -74,7 +76,7 @@
                 }
             }
         }).open();
-    }//DaumPostcode
+    }
 </script>
 
 
@@ -90,7 +92,7 @@
 				    
 				    <!-- 아이디 -->
 				    <div id="div_id_memberId" class="form-group required"> 
-				        <label for="id_memberId" class="control-label col-md-4  requiredField">아이디</label> 
+				        <label for="id_memberId" class="control-label col-md-3  requiredField">아이디</label> 
 				        <div class="controls col-md-8 "> 
 				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" value="${sessionScope.mvo.id }"/>
 				        </div>
@@ -98,7 +100,7 @@
 				    
 				    <!-- 카테고리 -->
 				    <div id="div_id_category" class="form-group required">
-				        <label for="id_category"  class="control-label col-md-4  requiredField">종류</label>
+				        <label for="id_category"  class="control-label col-md-3  requiredField">종류</label>
 				        <div class="controls col-md-8 "  style="margin-bottom: 10px">
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_1" value="1" style="margin-bottom: 10px">MTB</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_2" value="2" style="margin-bottom: 10px">로드</label>
@@ -112,19 +114,27 @@
 				    
 				    <!-- 주소 -->
 				    <div id="div_id_address" class="form-group required">
-				        <label for="id_address" class="control-label col-md-4  requiredField">주소</label>
-				        <div class="controls col-md-8 ">
+				        <label for="id_address" class="control-label col-md-3  requiredField">주소</label>
+				        <div class="controls col-md-4">
+				        	<input type="text" class="input-md emailinput form-control" id="postcode" placeholder="우편번호">
+				        </div>
+				        <div class="controls col-md-4">
+							<input type="button" class="input-md emailinput form-control" onclick="daumPostcode()" value="우편번호 찾기">
+				        </div>
+				        <label for="id_address" class="control-label col-md-3  requiredField"></label>
+				   	 	<div class="controls col-md-8 ">
 				            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->
-				            <input type="text" id="sample4_postcode" placeholder="우편번호">
-							<input type="button" onclick="daumPostcode()" value="우편번호 찾기"><br>
-							<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-							<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+							<input type="text" class="input-md emailinput form-control" id="roadAddress" placeholder="도로명주소">
+							<input type="text" class="input-md emailinput form-control" id="jibunAddress" placeholder="지번주소">
+							<input type="text" class="input-md emailinput form-control" id="detailAddress" placeholder="상세주소">
+							<span id="guide" style="color:#999"></span>
 				        </div>
 				    </div>
 				    
+				    
 				    <!-- 구매가 -->
 				    <div id="div_id_purchasePrice" class="form-group required">
-				        <label for="id_purchasePrice" class="control-label col-md-4  requiredField">구매가</label>
+				        <label for="id_purchasePrice" class="control-label col-md-3  requiredField">구매가</label>
 				        <div class="controls col-md-8 ">
 				            <input class="input-md emailinput form-control" id="id_purchasePrice" name="purchasePrice" placeholder="구매가를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" />
 				        </div>     
@@ -132,7 +142,7 @@
 				    
 				    <!-- 대여료 -->
 				    <div id="div_id_rentPrice" class="form-group required">
-				        <label for="id_rentPrice" class="control-label col-md-4  requiredField">대여료</label>
+				        <label for="id_rentPrice" class="control-label col-md-3 requiredField">대여료</label>
 				        <div class="controls col-md-8 "> 
 				            <input class="input-md textinput textInput form-control" id="id_rentPrice" name="rentPrice" placeholder="대여료를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" />
 				        </div>
@@ -140,7 +150,7 @@
 				    
 				    <!-- Detail -->
 				    <div id="div_id_detail" class="form-group required">
-				         <label for="id_detail" class="control-label col-md-4  requiredField">Detail</label>
+				         <label for="id_detail" class="control-label col-md-3  requiredField">Detail</label>
 				         <div class="controls col-md-8 ">
 				            <input class="input-md textinput textInput form-control" id="id_detail" name="detail" placeholder="추가정보를 입력하세요" style="margin-bottom: 10px" type="text" />
 				        </div>
@@ -148,13 +158,13 @@
 				    
 				    <!-- 달력 -->
 				    <div id="div_id_date" class="form-group required"> 
-				        <label for="id_date" class="control-label col-md-4  requiredField">시작일</label>
+				        <label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
 				        <div class="controls col-md-8 "> 
 							<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>
 				    </div> 
 				    <div id="div_id_date" class="form-group required"> 
-				        <label for="id_date" class="control-label col-md-4  requiredField">종료일</label>
+				        <label for="id_date" class="control-label col-md-3  requiredField">종료일</label>
 				        <div class="controls col-md-8 ">
 							<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>

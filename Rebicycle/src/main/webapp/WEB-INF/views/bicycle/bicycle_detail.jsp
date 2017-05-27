@@ -284,8 +284,6 @@ section.awSlider>img {
 		});
 	});
 </script>
-</head>
-<body>
 	<div class="container">
 		<section class="awSlider">
 			<div class="carousel slide" data-ride="carousel">
@@ -334,10 +332,11 @@ section.awSlider>img {
 			</div>
 		</section>
 		<hr>
-		
+		<!-- 달력 -->
 		<div class="row">
 			<div class="col-sm-6">
 				<h3 class="title text-center">July 2014</h3>
+				<br><br><br>
 				<div class="calendar" data-toggle="calendar" class="col-sm-6">
 					<div class="row">
 						<div class="col-xs-12 calendar-day calendar-no-current-month">
@@ -597,7 +596,6 @@ section.awSlider>img {
 			<!-- 예약 부분 -->
 			<div class="col-sm-6">
 				<h3 class="title text-center">Reservation</h3>
-				<br> <br> <br>
 				<div align="center">
 
 
@@ -613,7 +611,7 @@ section.awSlider>img {
 									<!-- start date -->
 									<div id="div_id_date" class="form-group required">
 										<label for="id_date"
-											class="control-label col-md-3  requiredField"><h4 align="left">Start Date</h4></label>
+											class="control-label col-md-6  requiredField"><h4 align="left">Start Date</h4></label>
 										<div class="controls col-md-5">
 											<input type="date" name="startDate"
 												class="input-md textinput textInput form-control"
@@ -623,7 +621,7 @@ section.awSlider>img {
 									<!-- end date -->
 									<div id="div_id_date" class="form-group required">
 										<label for="id_date"
-											class="control-label col-md-3  requiredField"><h4 align="left">End Date</h4></label>
+											class="control-label col-md-6  requiredField"><h4 align="left">End Date</h4></label>
 										<div class="controls col-md-5">
 											<input type="date" name="endDate"
 												class="input-md textinput textInput form-control"
@@ -635,7 +633,7 @@ section.awSlider>img {
 								<div class="row control-group">
 									<div
 										class="form-group col-xs-12 floating-label-form-group controls">
-										<label for="name">Name</label>
+										<label for="name">ID</label>
 										<h4 align="left">ID</h4> 
 										<p class="help-block text-danger">${findBicycleResult.memberVO.id}</p>
 									</div>
@@ -653,7 +651,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="email">Email Address</label>
 										<h4 align="left">Email Address</h4>
-										<p class="help-block text-danger"></p>
+										<p class="help-block text-danger">${findBicycleResult.memberVO.address}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -661,7 +659,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="phone">Phone Number</label>
 										<h4 align="left">Phone Number</h4>
-										<p class="help-block text-danger"></p>
+										<p class="help-block text-danger">${findBicycleResult.memberVO.phone}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -685,4 +683,6 @@ section.awSlider>img {
 				</div>
 			</div>
 		</div>
+		</div>
+		
 		<br> <br> <br> <br>

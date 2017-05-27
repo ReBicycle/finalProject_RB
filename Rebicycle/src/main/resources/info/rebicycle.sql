@@ -140,6 +140,10 @@ where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017
 
 --좌표까지 조회
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 ------------종봉----------------------------------------------
@@ -160,6 +164,28 @@ select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
 select bicycle_seq.currval from dual;
 
-
-
 -----------------------태형-----------------------------------------
+select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
+from bicycle b,rb_member m 
+where bicycleNo=1 and b.memberId=m.id
+
+
+
+ id varchar2(100) primary key,
+   password varchar2(100) not null,
+   name varchar2(100) not null,
+   phone varchar2(100) not null,
+   address varchar2(100) not null,
+   email varchar2(100) not null,
+   account varchar2(100),
+   picture varchar2(300) not null
+
+
+
+
+
+
+
+
+
+

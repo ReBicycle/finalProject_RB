@@ -9,43 +9,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
 			select bicycle_seq.nextval from dual
 		</selectKey>
-		insert into bicycle(bicycleNo, memberId, address, purchasePrice,
-		rentPrice, detail, categoryNo)
-		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice},
-		#{detail}, #{categoryNo})
-	</insert>
+ 		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo) 
+ 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryNo})
+ 	</insert>
+ 	
+ 	<select id="findCategoryByNo" resultType="string">
+ 		select categoryName from category where categoryNo=#{categoryNo}
+ 	</select>
+ 	
+ 	<select id="calculateMinPrice" resultType="int">
+ 		select min(rentPrice) from bicycle where categoryNo=#{value}
+ 	</select>
 	
-	<select id="findCategoryByNo" resultType="string">
-		select categoryName from category where categoryNo=#{categoryNo}
-	</select>
-	
-	<select id="calculateMinPrice" resultType="int">
-		select min(rentPrice) from bicycle where categoryNo=#{value}
-	</select>
+ 	<select id="calculateMaxPrice" resultType="int">
+ 		select max(rentPrice) from bicycle where categoryNo=#{value}
+ 	</select> 
+ 	
+ 	<select id="calculateAvgPrice" resultType="double">
+ 		select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
+ 	</select>
 
-	<!-- 현근 -->
-	<resultMap type="bicycleVO" id="bicycleRM">
-		<result column="memberId" property="memberVO.id" />
-	</resultMap>
-
-	<select id="findBicycleByNo" resultMap="bicycleRM"
-		parameterType="int">
-		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
-		from bicycle where bicycleNo=#{value}
-	</select>
-	<select id="calculateMaxPrice" resultType="int">
-		select max(rentPrice) from bicycle where categoryNo=#{value}
-	</select>
-
-	<select id="calculateAvgPrice" resultType="double">
-		select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
-
-	</select>
-
-	<insert id="registerPossibleDate" parameterType="calendarVO">
-		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
+ 	<insert id="registerPossibleDate" parameterType="calendarVO">
+ 		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
 			select bicycle_seq from dual
 		</selectKey>
+		insert into possible_day(bicycleNo, startDay, endDay)
+		values(#{bicycleNo}, #{startDay}, #{endDay})
 	</insert>
 
 	<select id="getBicycleListByAddressAndDay" parameterType="map"
@@ -59,13 +48,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		b.bicycleNo=c.bicycleNo
 	</select>
 
-	<insert id="insertPossibleDate" parameterType="calendarVO">
+	<!-- 현근 -->
+	<resultMap type="bicycleVO" id="bicycleRM">
+		<result column="memberId" property="memberVO.id" />
+	</resultMap>
 
-		insert into possible_day(bicycleNo, startDay, endDay)
-		values(#{bicycleNo}, #{startDay}, #{endDay})
-	</insert>
-
+	<select id="findBicycleByNo" resultMap="bicycleRM"
+		parameterType="int">
+		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+		from bicycle where bicycleNo=#{value}
+	</select>
+	
 </mapper>
+
  
  
  

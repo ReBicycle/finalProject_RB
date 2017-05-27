@@ -52,8 +52,6 @@ public class BicycleController {
 	public String findBicycleByNo(String bicycleNo,Model model){
 		int no=Integer.parseInt(bicycleNo);
 		BicycleVO vo=serviceImpl3.findBicycleByNo(no);
-		System.out.println("아이디    "+vo.getMemberVO().getId());
-		//System.out.println("아이디            "+vo.getMemberVO().getId());
 		model.addAttribute("findBicycleResult", serviceImpl3.findBicycleByNo(no));
 		return "bicycle/bicycle_detail.tiles";
 	}

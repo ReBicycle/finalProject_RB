@@ -8,6 +8,7 @@ import org.kosta.rebicycle.model.dao.BicycleDAOImpl1;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BicycleServiceImpl1 implements BicycleService {
@@ -18,8 +19,11 @@ public class BicycleServiceImpl1 implements BicycleService {
 		return daoImpl1.findCategoryByNo(categoryNo);
 	}
 	
-	public void registerBicycle(BicycleVO bvo){
+	@Transactional
+	public void registerBicycle(BicycleVO bvo, CalendarVO cvo){
 		daoImpl1.registerBicycle(bvo);
+		cvo.setBicycleNo(bvo.getBicycleNo());
+		daoImpl1.registerPossibleDate(cvo);
 	}
 	
 	public ArrayList<Object> calculatePrice(int categoryNo){
@@ -33,7 +37,5 @@ public class BicycleServiceImpl1 implements BicycleService {
 		return calList;
 	}
 	
-	public void registerPossibleDate(CalendarVO cvo){
-		daoImpl1.registerPossibleDate(cvo);
-	}
+	
 }

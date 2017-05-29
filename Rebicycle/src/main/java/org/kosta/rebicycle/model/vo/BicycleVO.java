@@ -16,7 +16,7 @@ public class BicycleVO {
 	private String detail;//상세정보
 	private String address; //자전거 위치 주소
 	
-	private MapVO mapVO;
+	
 	/*//위치VO?
 	private String latitude; //자전거 위치 위도
 	private String longitude; //자전거 위치 경도
@@ -31,6 +31,7 @@ public class BicycleVO {
 	private String photo3;
 	*/
 	private CategoryVO categoryVO;
+	
 	/*
 	//categoryVO
 	private int categoryNo;
@@ -98,13 +99,6 @@ public class BicycleVO {
 		this.address = address;
 	}
 
-	public MapVO getMapVO() {
-		return mapVO;
-	}
-
-	public void setMapVO(MapVO mapVO) {
-		this.mapVO = mapVO;
-	}
 
 	public List<MultipartFile> getFile() {
 		return file;
@@ -134,7 +128,7 @@ public class BicycleVO {
 	public String toString() {
 		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
 				+ ", purchasePrice=" + purchasePrice + ", rentPrice=" + rentPrice + ", detail=" + detail + ", address="
-				+ address + ", mapVO=" + mapVO + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO="
+				+ address + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO="
 				+ categoryVO + "]";
 	}
 	

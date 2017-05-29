@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
+
+<mapper namespace="bicycle">
+	<insert id="registerBicycle" parameterType="bicycleVO">
+		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
+			select bicycle_seq.nextval from dual
+		</selectKey>
+ 		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo) 
+ 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryNo})
+ 	</insert>
+ 	
+ 	<select id="findCategoryByNo" resultType="string">
+ 		select categoryName from category where categoryNo=#{categoryNo}
+ 	</select>
+ 	
+ 	<select id="calculateMinPrice" resultType="int">
+ 		select min(rentPrice) from bicycle where categoryNo=#{value}
+ 	</select>
+	
+ 	<select id="calculateMaxPrice" resultType="int">
+ 		select max(rentPrice) from bicycle where categoryNo=#{value}
+ 	</select> 
+ 	
+ 	<select id="calculateAvgPrice" resultType="double">
+ 		select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
+ 	</select>
+
+ 	<insert id="registerPossibleDate" parameterType="calendarVO">
+		insert into possible_day(bicycleNo, startDay, endDay)
+		values(#{bicycleNo}, #{startDay}, #{endDay})
+	</insert>
+
+	<select id="getBicycleListByAddressAndDay" parameterType="map"
+		resultType="bicycleVO">
+		select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice
+		,b.rentPrice , b.detail ,b.categoryNo,to_char(p.startDay) as
+		startDay,to_char(p.endDay) as endDay ,c.photo1,c.photo2,c.photo3
+		from bicycle b, possible_day p, bicycle_photo c
+		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+		b.bicycleNo=c.bicycleNo
+	</select>
+
+	<!-- 현근 -->
+	<resultMap type="bicycleVO" id="bicycleRM">
+		<result column="memberId" property="memberVO.id" />
+		<result column="phone" property="memberVO.phone" />
+		<result column="address" property="memberVO.address" />
+	</resultMap>
+
+	<select id="findBicycleByNo" resultMap="bicycleRM"
+		parameterType="int">
+		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
+		from bicycle b,rb_member m 
+		where bicycleNo=#{value} and b.memberId=m.id
+	</select>
+	
+	<!-- 소영-mypage관련 -->
+	<select id="findBicycleById" resultType="bicycleVO">
+		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+		from bicycle
+		where memberId=#{value}
+	</select>
+	
+</mapper>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

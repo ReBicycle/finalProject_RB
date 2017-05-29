@@ -66,6 +66,9 @@
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=1">자전거상세보기</a>
                     </li>
+                    <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/bicycle/calendar.do">달력</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

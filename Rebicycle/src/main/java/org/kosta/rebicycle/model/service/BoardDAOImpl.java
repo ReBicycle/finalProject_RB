@@ -25,6 +25,11 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 	@Override
 	public List<ReportVO> getReportList(PagingBean pagingBean){
+		System.out.println("pagingBean     "+pagingBean.getStartRowNumber()+"     "+pagingBean.getEndRowNumber());
 		return sqlSessionTemplate.selectList("board.getReportList",pagingBean);
+	}
+	@Override
+	public ReportVO boardDetail(int reportNo){
+		return (ReportVO)sqlSessionTemplate.selectOne("board.boardDetail",reportNo);
 	}
 }

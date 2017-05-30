@@ -9,24 +9,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			select
  			report_seq.nextval from dual
  		</selectKey>
- 		insert into rb_report(reportNo,reporterId,blackId,contents,reportDate)
- 		values(#{reportNo},#{reporterId},#{blackId},#{contents},sysdate)
+ 		insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+ 		values(#{reportNo},#{reportTitle},#{reporterId},#{blackId},#{contents},sysdate)
  	</insert>
- 	<resultMap type="reportVO" id="reportRM">
-		<result property="reportDate" column="reportDate" />
-	</resultMap>
- 	<select id="getReportList" resultMap="reportRM" parameterType="pagingBean">
-		SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
-		SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reporterId,blackId,contents,
-		to_char(reportDate,'YYYY.MM.DD') as reportDate
-		FROM rb_report
-		) r, rb_report order by reportNo desc
-		<!--  rnum between #{startRowNumber} and #{endRowNumber}
-		order by no desc -->
+ 	<select id="getReportList" resultType="reportVO" parameterType="pagingBean">
+			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
+			to_char(reportDate,'YYYY.MM.DD') as reportDate 
+			FROM rb_report
+			) r where rnum between #{startRowNumber} and #{endRowNumber} order by reportNo desc
 	</select>
 	<select id="getTotalContentCount" resultType="int">
 		select count(*) from
 		rb_report
+	</select>
+	<select id="boardDetail" resultType="reportVO">
+		select
+		b.reportNo,b.reportTitle,reporterId,blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
+		reportDate,b.contents from rb_report 
+		b where reportNo=${value}
 	</select>
  </mapper>
  

@@ -16,7 +16,7 @@ public class BicycleVO {
 	private int rentPrice; //일일렌트가격
 	private String detail;//상세정보
 	private String address; //자전거 위치 주소
-	
+	private MapVO map;
 	
 	/*//위치VO?
 	private String latitude; //자전거 위치 위도
@@ -43,7 +43,7 @@ public class BicycleVO {
 	public BicycleVO() {
 		super();
 	}
-
+	
 	public int getBicycleNo() {
 		return bicycleNo;
 	}
@@ -127,14 +127,23 @@ public class BicycleVO {
 	public void setCategoryVO(CategoryVO categoryVO) {
 		this.categoryVO = categoryVO;
 	}
+	
+	public MapVO getMap() {
+		return map;
+	}
+
+	public void setMap(MapVO map) {
+		this.map = map;
+	}
 
 	@Override
 	public String toString() {
 		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
 				+ ", purchasePrice=" + purchasePrice + ", rentPrice=" + rentPrice + ", detail=" + detail + ", address="
-				+ address + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO="
-				+ categoryVO + "]";
+				+ address + ", map=" + map + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO=" + categoryVO
+				+ "]";
 	}
+
 	
 	
 	

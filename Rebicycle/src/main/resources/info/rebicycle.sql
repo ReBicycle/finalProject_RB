@@ -109,24 +109,46 @@ create sequence donation_seq;
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
 
 select * from bicycle
+<<<<<<< HEAD
 
 select * from bicycle
 
+=======
+
+select * from bicycle
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 select * from category
 
 select * from BICYCLE
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 --자전거 등록
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+<<<<<<< HEAD
 
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 
-insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
+=======
 
+insert into category values(category_seq.nextval,'MTB')
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 --대여가능일 등록
 insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
@@ -240,7 +262,11 @@ where b.categoryNo = c.categoryNo and memberId='java'
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
 where memberId='java'
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 -----------------------소영------------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
@@ -249,6 +275,7 @@ where b.categoryNo = c.categoryNo and memberId='java'
 
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
+<<<<<<< HEAD
 where memberId='java'
 
 
@@ -258,3 +285,14 @@ where memberId='java'
 
 
 
+=======
+where memberId='java'
+
+
+
+
+
+
+
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

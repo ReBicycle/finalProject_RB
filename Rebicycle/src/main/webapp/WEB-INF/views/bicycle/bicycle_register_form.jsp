@@ -87,7 +87,7 @@
                 <div class="panel-title">자전거 등록</div>
             </div>
             <div class="panel-body" > 
-				<form  class="form-horizontal" method="post" action="${pageContext.request.contextPath }/registerBicycle.do">
+				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/registerBicycle.do">
 				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
 				    
 				    

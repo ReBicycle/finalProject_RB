@@ -1,9 +1,12 @@
 package org.kosta.rebicycle.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.PhotoVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +36,9 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 	
 	public void registerPossibleDate(CalendarVO cvo){
 		template.insert("bicycle.registerPossibleDate", cvo);
+	}
+
+	public void registerFile(PhotoVO pvo) {
+		template.insert("bicycle.registerFile",pvo);
 	}
 }

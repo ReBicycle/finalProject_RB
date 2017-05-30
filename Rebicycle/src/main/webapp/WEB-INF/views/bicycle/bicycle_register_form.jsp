@@ -92,14 +92,14 @@
 				    
 				    
 				    <!-- 사진 -->
-				    <div id="div_id_photo" class="form-group required"> 
+				    <!-- <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
 				        <div class="controls col-md-8 "> 
 							<input type="file" name="file[0]"><br>
 							<input type="file" name="file[1]"><br>
 							<input type="file" name="file[2]"><br>
 				        </div>
-				    </div>
+				    </div> -->
 				    
 				    <!-- 아이디 -->
 				    <div id="div_id_memberId" class="form-group required"> 

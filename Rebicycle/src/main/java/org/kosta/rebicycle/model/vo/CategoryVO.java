@@ -9,6 +9,12 @@ public class CategoryVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public CategoryVO(int categoryNo) {
+		super();
+		this.categoryNo = categoryNo;
+	}
 
 
 	public CategoryVO(int categoryNo, String categoryName) {

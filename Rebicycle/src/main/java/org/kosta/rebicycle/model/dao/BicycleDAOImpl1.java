@@ -22,7 +22,6 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 	}
 	
 	public int calculateMinPrice(int categoryNo){
-		System.out.println(categoryNo);
 		return template.selectOne("bicycle.calculateMinPrice", categoryNo);
 	}
 	public int calculateMaxPrice(int categoryNo){

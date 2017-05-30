@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl4;
 import org.kosta.rebicycle.model.vo.BicycleVO;
+import org.kosta.rebicycle.model.vo.RentVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +16,10 @@ public class BicycleServiceImpl4 implements BicycleService {
 
 	public List<BicycleVO> findBicycleById(String id) {
 		return bicycleDAOImpl4.findBicycleById(id);
+	}
+	
+	public List<RentVO> findRentById(String id) {
+		return bicycleDAOImpl4.findRentById(id);
 	}
 
 }

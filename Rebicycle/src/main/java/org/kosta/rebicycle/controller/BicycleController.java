@@ -1,6 +1,7 @@
 package org.kosta.rebicycle.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,16 +31,12 @@ public class BicycleController {
 	private BicycleServiceImpl3 serviceImpl3;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
-	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress,HttpServletRequest request){
-		System.out.println("자전거 등록");
-		System.out.println(memberId);
-		System.out.println(bvo);
+	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
+		String stArr[] = request.getParameterValues("startDay");
+		String endArr[] = request.getParameterValues("endDay");
 		bvo.setMemberVO(new MemberVO(memberId));
-		//bvo.setCategoryNo(categoryNo);
-		//System.out.println(categoryNo);
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
-		System.out.println(bvo.getCategoryVO().getCategoryNo());
 		String address = roadAddress + "," + jibunAddress + "/" + detailAddress;
 		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
@@ -49,9 +46,16 @@ public class BicycleController {
 		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
 		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
-		serviceImpl1.registerBicycle(bvo, cvo, uploadPath);
-		System.out.println(cvo);
 		
+		//가능일 등록
+		List<CalendarVO> calList = new ArrayList<CalendarVO>();
+		for(int i=0 ; i<stArr.length ; i++) {
+			calList.add(new CalendarVO(stArr[i], endArr[i]));
+		}
+		
+		serviceImpl1.registerBicycle(bvo, calList, uploadPath);
+		System.out.println(bvo);
+		System.out.println(cvo);
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	

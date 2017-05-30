@@ -77,7 +77,38 @@
         }).open();
     }
 </script>
+<script type="text/javascript">
+var oTbl;
+//Row 추가
+function insRow() {
+  	oTbl = document.getElementById("addTable");
+  	var oRow = oTbl.insertRow();
+  	oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
+  	var oCell = oRow.insertCell();
 
+  	//삽입될 Form Tag'
+  	var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail>";
+  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
+  	oCell.innerHTML = frmTag;
+}
+//Row 삭제
+function removeRow() {
+	oTbl.deleteRow(oTbl.clickedRowIndex);
+}
+
+function frmCheck() {
+  	var frm = document.form;
+  	for( var i = 0; i <= frm.elements.length - 1; i++ ){
+    	if( frm.elements[i].name == "addText[]" ) {
+         	if( !frm.elements[i].value ){
+             	alert("텍스트박스에 값을 입력하세요!");
+             	frm.elements[i].focus();
+             	return;
+          	}
+      	}
+   	}
+}
+</script>
 
 <div class="container">
 <br><br><br>
@@ -135,9 +166,9 @@
 				        <label for="id_address" class="control-label col-md-3  requiredField"></label>
 				   	 	<div class="controls col-md-8 ">
 				            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->
-							<input type="text" class="input-md emailinput form-control" id="roadAddress" placeholder="도로명주소">
-							<input type="text" class="input-md emailinput form-control" id="jibunAddress" placeholder="지번주소">
-							<input type="text" class="input-md emailinput form-control" id="detailAddress" placeholder="상세주소">
+							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
+							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
 							<span id="guide" style="color:#999"></span>
 				        </div>
 				    </div>
@@ -168,18 +199,36 @@
 				    </div>
 				    
 				    <!-- 달력 -->
-				    <div id="div_id_date" class="form-group required"> 
+				    <!-- <div id="div_id_date" class="form-group required"> 
 				        <label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
 				        <div class="controls col-md-8 "> 
 							<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>
-				    </div> 
-				    <div id="div_id_date" class="form-group required"> 
 				        <label for="id_date" class="control-label col-md-3  requiredField">종료일</label>
 				        <div class="controls col-md-8 ">
 							<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>
-				    </div>
+				    </div> -->
+				 
+				 	<!-- 추가 -->
+					<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
+					<table id="addTable">
+						<tr>
+							<td>
+								<label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
+						        <div class="controls col-md-8 "> 
+									<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
+						        </div>
+						        <label for="id_date" class="control-label col-md-3  requiredField">종료일</label>
+						        <div class="controls col-md-8 ">
+									<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
+						        </div>
+							</td>
+						</tr>
+					</table>
+						
+				    
+				    
 				    <!-- 
 				    
 				    

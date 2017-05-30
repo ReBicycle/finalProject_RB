@@ -29,4 +29,9 @@ public class BoardServiceImpl implements BoardService{
 			pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
 		return new ListVO(boardDAO.getReportList(pagingBean),pagingBean);
 	}
+	@Override
+	public ReportVO boardDetail(int reportNo){
+		boardDAO.boardDetail(reportNo);
+		return boardDAO.boardDetail(reportNo);
+	}
 }

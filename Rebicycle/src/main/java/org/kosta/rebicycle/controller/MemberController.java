@@ -147,6 +147,4 @@ public class MemberController {
 		session.setAttribute("mvo", newVO);
 		return "redirect:home.do";
 	}
-	
-	
 }

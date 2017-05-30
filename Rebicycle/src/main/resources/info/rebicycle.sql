@@ -88,6 +88,7 @@ create sequence donation_seq;
 
 create table rb_report(
 	reportNo number primary key,
+	reportTitle varchar2(100) not null,
 	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
 	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
 	contents clob not null,
@@ -95,12 +96,12 @@ create table rb_report(
 )
 
 create table rb_review(
-	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-	rentNo number constraint fk_rentNooo references rent(rentNo),
+	reviewerId varchar2(100) constraint fk_reviewer_id references rb_member(id),
+	rentNo number constraint fk_rentNo references rent(rentNo),
 	star number default 0,
 	reviewDate date not null,
 	comment clob not null,
-	constraint pkpk_review primary key(reviewerId, rentNo)
+	constraint pk_review primary key(reviewerId, rentNo)
 )
 ---------------------------------------------------------------
 ------------종봉---------------------------------------------
@@ -163,6 +164,7 @@ select * from rb_report;
 
 create table rb_report(
 	reportNo number primary key,
+	reportTitle varchar2(100) not null,
 	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
 	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
 	contents clob not null,
@@ -170,17 +172,31 @@ create table rb_report(
 )
 
 select * from rb_report
+================================= 등록 테스트 =================================
 
-SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
-		SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reporterId,blackId,contents,
-		to_char(reportDate,'YYYY.MM.DD') as reportDate
-		FROM rb_report
-		) r, rb_report order by reportNo desc
-		
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+ 		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
+
+--------------------------------- 성공 -----------------------------------------------------
+			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
+			to_char(reportDate,'YYYY.MM.DD') as reportDate 
+			FROM rb_report
+			) r where rnum between 1 and 5 order by reportNo desc;
+============================================================================================
+
 insert into rb_report(reportNo,reporterId,blackId,contents,reportDate)
  		values(1,'java','java','hhhhh',sysdate)
+ 		
+insert into RB_MEMBER values('jobman','1234','정석희','01040051481','수내','anjemo1481@gmail.com', '1002132258973', 'null');
+
+create sequence report_seq;
+-------------------------- board_detail select --------------------------------
+select
+b.reportNo,b.reportTitle,reporterId,blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
+reportDate,b.contents from rb_report 
+b where reportNo=26
 -----------------------------석희---------------------------------
-=======
 
 
 

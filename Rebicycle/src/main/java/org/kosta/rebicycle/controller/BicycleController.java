@@ -45,8 +45,7 @@ public class BicycleController {
 		//종봉
 		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-<<<<<<< HEAD
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 		
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -56,15 +55,7 @@ public class BicycleController {
 		
 		serviceImpl1.registerBicycle(bvo, calList, uploadPath);
 		System.out.println(bvo);
-=======
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
-		serviceImpl1.registerBicycle(bvo, cvo, uploadPath);
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 		System.out.println(cvo);
-		
-		
-		
-		
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	

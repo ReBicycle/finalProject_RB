@@ -20,6 +20,7 @@ public class BicycleDAOImpl5 implements BicycleDAO{
 			map.put("startDay", startDay);
 			map.put("endDay", endDay);
 			List<BicycleVO> list=template.selectList("bicycle.getBicycleListByAddressAndDay", map);
+			System.out.println("리스트 사이즈"+list.size());
 			System.out.println(list);
 			return list;
 		}

@@ -77,9 +77,15 @@ public class BicycleController {
 	public String findBicycleByNo(String bicycleNo,Model model){
 		System.out.println("findBicycleByNo 컨트롤러");
 		int no=Integer.parseInt(bicycleNo);
+		
+		
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 		System.out.println("clist"+cList);
+		
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
+		
+		
+		
 		
 		bvo.setPossibleList(cList);
 		System.out.println("findBvo" + bvo);

@@ -123,10 +123,10 @@
 	<c:forEach items="${requestScope.bicycleList}" var="list" >
   <div class="w3-second col-sm-6 w3-margin-top ">
      <div class="w3-card-2 content ">
-      <img src="${pageContext.request.contextPath}/resources/upload/${list.photo1}" style="width:100%">
+      <img src="${pageContext.request.contextPath}/resources/upload/${list.photoVO.photo1}" style="width:100%">
       <div class="overlay" >
      	 <span class="text">
-        		아이디:${list.memberId}<br>
+        		아이디:${list.memberVO.id}<br>
                 대여료:${list.rentPrice}<br>
              </span>
       </div>
@@ -185,8 +185,31 @@
          center: new daum.maps.LatLng(33.450701, 126.570667),
          level: 3
       };
-
       var map = new daum.maps.Map(container, options);
+      geocoder.addr2coord('판교역', function(status, result) {
+
+    	    // 정상적으로 검색이 완료됐으면 
+    	     if (status === daum.maps.services.Status.OK) {
+
+    	        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+    			alert("좌표는"+coords);
+    	        // 결과값으로 받은 위치를 마커로 표시합니다
+    	        var marker = new daum.maps.Marker({
+    	            map: map,
+    	            position: coords
+    	        });
+
+    	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+    	       /*  var infowindow = new daum.maps.InfoWindow({
+    	            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+    	        }); */
+    	        infowindow.open(map, marker);
+
+    	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    	        map.setCenter(coords);
+    	    } 
+    	});    
+      
    </script>
 </body>
 </html>

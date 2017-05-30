@@ -336,7 +336,7 @@ section.awSlider>img {
 		<!-- 달력 -->
 		<div class="row">
 			<div class="col-sm-6">
-				<h3 class="title text-center">July 2014<9/h3>
+				<h3 class="title text-center">July 2014</h3>
 				<br><br><br>
 				<div class="calendar" data-toggle="calendar" class="col-sm-6">
 					<div class="row">

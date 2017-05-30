@@ -32,19 +32,24 @@ public class BicycleController {
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress,HttpServletRequest request){
 		System.out.println("자전거 등록");
+		System.out.println(memberId);
 		System.out.println(bvo);
 		bvo.setMemberVO(new MemberVO(memberId));
 		//bvo.setCategoryNo(categoryNo);
-		System.out.println(categoryNo);
+		//System.out.println(categoryNo);
 		bvo.setCategoryVO(new CategoryVO());
-		bvo.getCategoryVO().setCategoryNo(categoryNo);		
+		bvo.getCategoryVO().setCategoryNo(categoryNo);
+		System.out.println(bvo.getCategoryVO().getCategoryNo());
 		String address = roadAddress + "," + jibunAddress + "/" + detailAddress;
 		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
-		serviceImpl1.registerBicycle(bvo, cvo,uploadPath);
+		//종봉
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//태형
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		serviceImpl1.registerBicycle(bvo, cvo, uploadPath);
 		System.out.println(cvo);
 		
 		return "bicycle/bicycle_register_result.tiles";

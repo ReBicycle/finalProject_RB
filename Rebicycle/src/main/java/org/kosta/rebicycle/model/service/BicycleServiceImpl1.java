@@ -31,6 +31,7 @@ public class BicycleServiceImpl1 implements BicycleService {
 		daoImpl1.registerPossibleDate(cvo);
 		PhotoVO pvo=new PhotoVO();
 		List<String> list=uploadFile(bvo.getFile(),uploadPath,bvo.getBicycleNo());
+		System.out.println(list.size());
 		pvo.setBicycleNo(bvo.getBicycleNo());
 		pvo.setPhoto1(list.get(0));
 		pvo.setPhoto2(list.get(1));

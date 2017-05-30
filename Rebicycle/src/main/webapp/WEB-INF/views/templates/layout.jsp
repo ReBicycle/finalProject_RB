@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	
 		<!-- Google Fonts -->
 		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
@@ -16,9 +16,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-<%-- ignore=true 없으면 무시 --%>
-<title><tiles:insertAttribute name="title" ignore="true"/></title>
- <!-- Bootstrap Core CSS -->
+	<%-- ignore=true 없으면 무시 --%>
+	<title><tiles:insertAttribute name="title" ignore="true"/></title>
+ 	<!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
@@ -29,8 +29,27 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 	
+	<!-- calendar -->
+	<%-- <script src="//code.jquery.com/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css" rel="stylesheet"/>
+	<link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.min.js"></script> --%>
 
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<script src="//code.jquery.com/jquery.min.js"></script>
+	<link href="http://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet"/>
+	<%-- <link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+	<link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css" rel="stylesheet"/> --%>
+	<!-- for Calendar -->
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/jquery-ui.min.js"></script> --%>
+	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js"></script>
+	<script src="http://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.min.js"></script>
+ --%>
+	
 </head>
 
 <body id="page-top" class="index">
@@ -44,7 +63,7 @@
 		<%-- 	<div id="right" class="col-sm-2 sidenav"><tiles:insertAttribute name="right"/></div> --%>
 			<!-- </div> -->
 			</div>
-			<footer id="footer" class="text-center" ><tiles:insertAttribute name="footer"/></footer>
+			<footer id="footer" class="text-center"><tiles:insertAttribute name="footer"/></footer>
 			<!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 

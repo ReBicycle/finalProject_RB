@@ -34,8 +34,10 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 		return template.selectOne("bicycle.calculateAvgPrice", categoryNo);
 	}
 	
-	public void registerPossibleDate(CalendarVO cvo){
-		template.insert("bicycle.registerPossibleDate", cvo);
+	public void registerPossibleDate(List<CalendarVO> calList){
+		for(int i=0 ; i<calList.size() ; i++){
+			template.insert("bicycle.registerPossibleDate", calList.get(i));			
+		}
 	}
 
 	public void registerFile(PhotoVO pvo) {

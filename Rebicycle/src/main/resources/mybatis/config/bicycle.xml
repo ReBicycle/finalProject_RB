@@ -45,13 +45,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		b.bicycleNo=c.bicycleNo
 	</select> -->
 	<select id="getBicycleListByAddressAndDay" parameterType="map"
-		resultMap="bicycleMap">
+		resultMap="bicycleMap" >
 		select b.bicycleNo, b.memberId ,b.address
-		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3
-		from bicycle b, possible_day p, bicycle_photo c
+		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
+		from bicycle b, possible_day p, bicycle_photo c,map m
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo
+		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo
 	</select>
 
 	<!-- 현근/소영 -상세보기에 필요한 resultMap -->
@@ -62,6 +62,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="photo1" property="photoVO.photo1"/>
 		<result column="photo2" property="photoVO.photo2"/>
 		<result column="photo3" property="photoVO.photo3"/>
+		<result column="longitude" property="map.longitude"/>
+		<result column="latitude" property="map.latitude"/>
 	</resultMap>
 	<!-- 종봉 -->
 	<!-- 현근 -->

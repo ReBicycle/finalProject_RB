@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select bicycle_seq.nextval from dual
 		</selectKey>
  		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo) 
- 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryNo})
+ 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryVO.categoryNo})
  	</insert>
  	
  	<select id="findCategoryByNo" resultType="string">

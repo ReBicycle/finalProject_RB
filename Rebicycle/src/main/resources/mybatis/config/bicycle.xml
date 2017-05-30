@@ -124,10 +124,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>
 
-	<insert id="registerFile" parameterType="photoVO">
-		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
-	</insert>
-
+	
 </mapper>
 
  

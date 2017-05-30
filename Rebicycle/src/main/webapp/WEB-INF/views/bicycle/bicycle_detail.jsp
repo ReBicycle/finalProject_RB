@@ -3,7 +3,7 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
-<style type="text/css">
+<!-- <style type="text/css">
 body {
 	padding: 20px 0px 200px;
 }
@@ -140,7 +140,7 @@ h1.title {
 .calendar-day>.events>.event>.progress {
 	height: 10px;
 }
-</style>
+</style> -->
 <!-- 달력 스크립트 -->
 <script type="text/javascript">
 	$(function() {
@@ -254,7 +254,7 @@ section.awSlider>img {
 }
 </style>
 <!-- 이미지 슬라이드 스크립트 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$('section.awSlider .carousel').carousel({
 		pause : "hover",
 		interval : 2000
@@ -267,9 +267,9 @@ section.awSlider>img {
 		var bscn = $(this).find('.item.active > img').attr('src');
 		$('section.awSlider > img').attr('src', bscn);
 	});
-</script>
+</script> -->
 <!-- 달력 pickers 스크립트 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function() {
 		$('#datetimepicker6').datetimepicker();
 		$('#datetimepicker7').datetimepicker({
@@ -283,7 +283,111 @@ section.awSlider>img {
 			$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
 		});
 	});
+</script> -->
+<!-- fullcalendar -->	
+<script>
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2017-05-12',
+			navLinks: true, // can click day/week names to navigate views
+			selectable: true,
+			selectHelper: true,
+			select: function(start, end) {
+				var title = prompt('Event Title:');
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}
+				$('#calendar').fullCalendar('unselect');
+			},
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2017-05-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2017-05-07',
+					end: '2017-05-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2017-05-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2017-05-16T16:00:00'
+				},
+				{
+					title: 'Conference',
+					start: '2017-05-11',
+					end: '2017-05-13'
+				},
+				{
+					title: 'Meeting',
+					start: '2017-05-12T10:30:00',
+					end: '2017-05-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2017-05-12T12:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2017-05-12T14:30:00'
+				},
+				{
+					title: 'Happy Hour',
+					start: '2017-05-12T17:30:00'
+				},
+				{
+					title: 'Dinner',
+					start: '2017-05-12T20:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2017-05-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2017-05-28'
+				}
+			]
+		});
+		
+	});
+
 </script>
+<style>
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+</style>
+	
 	<br><br><br>
 	<div class="container">
 		<section class="awSlider">
@@ -335,8 +439,11 @@ section.awSlider>img {
 		<hr>
 		<!-- 달력 -->
 		<div class="row">
+		<div class="col-sm-6" style="height:150%">
+		<div id="calendar" ></div>
+		</div>
 			<div class="col-sm-6">
-				<h3 class="title text-center">July 2014<9/h3>
+				<!-- <h3 class="title text-center">July 2014</h3>
 				<br><br><br>
 				<div class="calendar" data-toggle="calendar" class="col-sm-6">
 					<div class="row">
@@ -591,21 +698,17 @@ section.awSlider>img {
 							<time datetime="2014-08-02">02</time>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
-
 			<!-- 예약 부분 -->
 			<div class="col-sm-6">
 				<h3 class="title text-center">Reservation</h3>
 				<div align="center">
-
-
+				
 					<!-- 예약 폼 -->
 					<div class="row">
 						<!-- <div class="col-lg-8 col-lg-offset-2"> -->
 						<div class="col-lg-10 col-lg-offset-1">
-							<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-							<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
 							<form name="sentMessage" id="contactForm" novalidate>
 								<div class="row control-group">
 									<!-- input 달력 -->
@@ -684,6 +787,7 @@ section.awSlider>img {
 				</div>
 			</div>
 		</div>
+		<div class="calendar"></div>	
 		</div>
-		
+		<div class="calendar"></div>	
 		<br> <br> <br> <br>

@@ -3,12 +3,14 @@ package org.kosta.rebicycle.controller;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.CategoryVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,12 +51,28 @@ public class BicycleController {
 		return calList;
 	}
 	
-	///현근
+	//소영 bicycle_search_list_test로
+		@RequestMapping("listViewTest.do")
+		public String listViewTest(Model model){
+			ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) serviceImpl3.findBicycleList();
+			model.addAttribute("bList", bList);
+			return "bicycle/bicycle_search_list_test.tiles";
+			
+		}
+		
+	///상세보기로 보낼 정보 처리 컨트롤러
 	@RequestMapping("findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model){
+		System.out.println("findBicycleByNo 컨트롤러");
 		int no=Integer.parseInt(bicycleNo);
-		BicycleVO vo=serviceImpl3.findBicycleByNo(no);
-		model.addAttribute("findBicycleResult", serviceImpl3.findBicycleByNo(no));
+		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
+		System.out.println("clist"+cList);
+		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
+		
+		bvo.setPossibleList(cList);
+		System.out.println("findBvo" + bvo);
+		
+		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}
 	

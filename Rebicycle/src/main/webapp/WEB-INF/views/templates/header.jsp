@@ -60,16 +60,13 @@
                     </li>
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board/board_list.do">board</a>
-                    </li>
-<<<<<<< HEAD
+                    </li>                           
+                     <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
+
                                    
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
-=======
-                                   
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
                     </li>
                     <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/bicycle/selectable.do">달력</a>

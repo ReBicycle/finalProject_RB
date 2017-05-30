@@ -52,7 +52,7 @@ create table bicycle_photo(
    photo2 varchar2(100) null,
    photo3 varchar2(100) null
 )
-
+select * from possible_day where bicycleNo=2
 create table possible_day(
    bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
    startDay date not null,
@@ -242,8 +242,9 @@ where bicycleNo=1 and b.memberId=m.id
 
 
 
-select * from possible_day
-insert into possible_day values(1,'2017-05-27','2017-05-29')
+select * from possible_day where bicycleNo=2
+insert into possible_day values(2,'2017-05-27','2017-05-29')
+insert into possible_day values(2,'2017-05-13','2017-05-17')
 
 -----------------------소영------------------------------------------
 select * from CATEGORY;
@@ -262,11 +263,7 @@ where b.categoryNo = c.categoryNo and memberId='java'
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
 where memberId='java'
-<<<<<<< HEAD
 
-=======
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 -----------------------소영------------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
@@ -281,21 +278,14 @@ select * from RB_MEMBER
 select * from CATEGORY
 select * from bicycle
 
+-----------------------현근------------------------------------------
 insert into bicycle values(2,'java','판교',1000,200,'좋아요',1);
 insert into category values(1,'픽시');
-insert into bicycle_photo values(2,'bicycle/6_photo1.png','bicycle/6_photo2.png','bicycle/6_photo3.png'); 
+insert into bicycle_photo values(2,'6_photo1.png','6_photo2.png','6_photo3.png'); 
+delete from bicycle_photo
 
-bicycleNo number primary key,
-   memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
-   address varchar2(300) not null,
-   purchasePrice number not null,
-   rentPrice number not null,
-   detail clob not null,
-   categoryNo number not null constraint fk_category_no references category(categoryNo)
+select * from POSSIBLE_DAY
 
- bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo),
-   photo1 varchar2(100) not null,
-   photo2 varchar2(100) null,
-   photo3 varchar2(100) null
+
 
 

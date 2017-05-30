@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
@@ -794,8 +795,12 @@ section.awSlider>img {
 					</div>
 				</div>
 			</div>
+		</div>	
+			<div id="cl">
+				이얍
+				<c:forEach items="${requestScope.reservationInfo}" var="ri" varStatus="order">
+					<div id="${order.count}">${ri.startDay}/${ri.endDay}<br></div>
+				</c:forEach>
+			</div>
 		</div>
-		<div class="calendar"></div>	
-		</div>
-		<div class="calendar"></div>	
 		<br> <br> <br> <br>

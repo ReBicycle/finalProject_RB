@@ -75,9 +75,10 @@ public class BicycleController {
 	///상세보기로 보낼 정보 처리 컨트롤러
 	@RequestMapping("findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model){
-		System.out.println("findBicycleByNo 컨트롤러");
+		System.out.println("findBicycleByNo 컨트롤러                 "+bicycleNo);
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
+		model.addAttribute("reservationInfo", cList);
 		System.out.println("clist"+cList);
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
 		

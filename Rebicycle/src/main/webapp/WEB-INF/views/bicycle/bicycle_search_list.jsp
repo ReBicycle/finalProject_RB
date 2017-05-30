@@ -4,7 +4,7 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <!DOCTYPE html>
-<html>
+<html> 
   <head>
       <meta charset="UTF-8">
       <title>네이버 지도 API - 주소로 지도 표시하기</title>

@@ -53,6 +53,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
 		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo
 	</select>
+
+	<!-- 현근/소영 -상세보기에 필요한 resultMap -->
+
 	<resultMap type="bicycleVO" id="bicycleMap">
 		<result column="memberId" property="memberVO.id"/>
 		<result column="categoryNo" property="categoryVO.categoryNo"/>
@@ -64,10 +67,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<!-- 종봉 -->
 	<!-- 현근 -->
+
 	<resultMap type="bicycleVO" id="bicycleRM">
+		<!-- BicycleVO 의 MemberVO  -->
 		<result column="memberId" property="memberVO.id" />
+		<result column="name" property="memberVO.name"/>
 		<result column="phone" property="memberVO.phone" />
-		<result column="address" property="memberVO.address" />
+		<result column="email" property="memberVO.email"/>
+		<result column = "picture" property="memberVO.picture"/>
+		
+		<!-- BicycleVO 의 PhotoVO  -->
+		<result column = "photo1" property="photoVO.photo1"/>
+		<result column = "photo2" property="photoVO.photo2"/>
+		<result column = "photo3" property="photoVO.photo3"/>
+		
 	</resultMap>
 
 	<select id="findBicycleByNo" resultMap="bicycleRM"
@@ -83,9 +96,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from bicycle
 		where memberId=#{value}
 	</select>
+
+	
 	<insert id="registerFile" parameterType="photoVO">
 		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
 	</insert>
+	
+	<!-- 리스트 테스트 소영 -->
+	<select id="findBicycleList" resultType = "bicycleVO">
+		select bicycleNo 
+		from bicycle
+	</select>
+	
+	
+	<!-- 자전거 대여 가능일을 제외한 자전거 등록 정보 -->
+	<select id="findBicycleDetailByNo" resultMap = "bicycleRM">
+		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
+		,m.id,m.name,m.phone,m.email,m.picture,
+		ph.*
+		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph
+		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=#{value}
+	</select>
+	
+	
+	<select id = "findPossibleDayByNo" resultType="calendarVO">
+		select b.bicycleNo,p.startDay,p.endDay
+		from bicycle b, RB_MEMBER m, POSSIBLE_DAY p
+		where b.bicycleNo = p.bicycleNo and b.memberId=m.id and b.bicycleNo=#{value}
+		
+	</select>
+
+	
 </mapper>
 
  

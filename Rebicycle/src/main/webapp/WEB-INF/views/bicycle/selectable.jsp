@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
- <br><br><br><br><br><br><br><br><br><br><br>
+<br><br>
 
 <script>
 
@@ -121,4 +121,6 @@
 	}
 </style>
 	<div id='calendar'></div>
+	<input type="hidden" id="starday" value>
+	<input type="hidden" id="endday" value>
 <br><br><br>

@@ -87,19 +87,19 @@
                 <div class="panel-title">자전거 등록</div>
             </div>
             <div class="panel-body" > 
-				<form  class="form-horizontal" method="post" action="${pageContext.request.contextPath }/registerBicycle.do">
+				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/registerBicycle.do">
 				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
 				    
 				    
 				    <!-- 사진 -->
-				    <!-- <div id="div_id_photo" class="form-group required"> 
+				    <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
 				        <div class="controls col-md-8 "> 
 							<input type="file" name="file[0]"><br>
 							<input type="file" name="file[1]"><br>
 							<input type="file" name="file[2]"><br>
 				        </div>
-				    </div> -->
+				    </div>
 				    
 				    <!-- 아이디 -->
 				    <div id="div_id_memberId" class="form-group required"> 

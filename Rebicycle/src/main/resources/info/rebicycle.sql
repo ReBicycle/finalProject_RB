@@ -106,24 +106,46 @@ create sequence donation_seq;
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
 
 select * from bicycle
+<<<<<<< HEAD
 
 select * from bicycle
 
+=======
+
+select * from bicycle
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 select * from category
 
 select * from BICYCLE
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 --자전거 등록
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+<<<<<<< HEAD
 
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 
-insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
+=======
 
+insert into category values(category_seq.nextval,'MTB')
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
+insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 --대여가능일 등록
 insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
@@ -144,8 +166,17 @@ select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.deta
 --사진까지 조회
 select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,bp.photo1,bp.photo2,bp.photo3
 from bicycle b, possible_day p, bicycle_photo bp 
-where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay and b.bicycleNo=bp.bicycleNo;
+where b.address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-26')>=p.startDay and to_date('2017-05-26')<=p.endDay and b.bicycleNo=bp.bicycleNo;
+select * from category
+select * from POSSIBLE_DAY;
+select * from bicycle
+select * from bicycle_photo
+insert into bicycle_photo values(2,'bicycle/64_Chrysanthemum.jpg','bicycle/64_Desert.jpg','bicycle/64_Hydrangeas.jpg')
+delete from bicycle_photo where bicycleNo=2;
 
+--map에 좌표 등록
+insert into map values(1,'33.450701','126.570667');
+insert into map values(2,'33.450701','126.570667');
 
 --좌표까지 조회
 
@@ -236,7 +267,11 @@ where b.categoryNo = c.categoryNo and memberId='java'
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
 where memberId='java'
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 -----------------------소영------------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
@@ -245,6 +280,17 @@ where b.categoryNo = c.categoryNo and memberId='java'
 
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
+<<<<<<< HEAD
+where memberId='java'
+
+
+
+
+
+
+
+
+=======
 where memberId='java'
 
 
@@ -317,3 +363,4 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 --==============서경==============================================================
 
 
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

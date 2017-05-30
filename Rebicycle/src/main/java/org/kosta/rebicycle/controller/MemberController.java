@@ -50,7 +50,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value = "memberRegister.do")
-	public String memberRegister(MemberVO vo, HttpServletRequest request){
+	public String memberRegister(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		
 		System.out.println(vo);
 	
@@ -76,6 +76,7 @@ public class MemberController {
 		}
 		
 		vo.setPicture(vo.getId()+fileExt);
+		vo.setAddress(roadAddress+","+jibunAddress+"/"+detailAddress);
 		memberService.registerMember(vo);
 		uploadPath = "";
 		return "redirect:home.do";

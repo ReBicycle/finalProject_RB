@@ -29,9 +29,12 @@ public class BicycleController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress){
+		System.out.println("자전거 등록");
 		bvo.setMemberVO(new MemberVO(memberId));
-		bvo.setCategoryNo(categoryNo);
-		String address = "도로명주소 : " + roadAddress + ", 지번주소 : " + jibunAddress + " [상세주소] : " + detailAddress;
+		//bvo.setCategoryNo(categoryNo);
+		System.out.println(categoryNo);
+		bvo.getCategoryVO().setCategoryNo(categoryNo);		
+		String address = roadAddress + "," + jibunAddress + "/" + detailAddress;
 		bvo.setAddress(address);
 		serviceImpl1.registerBicycle(bvo, cvo);
 		System.out.println(cvo);

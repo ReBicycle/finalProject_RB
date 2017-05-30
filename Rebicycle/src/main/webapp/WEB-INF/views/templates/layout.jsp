@@ -30,25 +30,10 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 	
 	<!-- calendar -->
-	<%-- <script src="//code.jquery.com/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css" rel="stylesheet"/>
-	<link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
-	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.min.js"></script> --%>
-
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<script src="//code.jquery.com/jquery.min.js"></script>
 	<link href="http://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet"/>
-	<%-- <link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
-	<link href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css" rel="stylesheet"/> --%>
-	<!-- for Calendar -->
-	<%-- <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/jquery-ui.min.js"></script> --%>
 	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js"></script>
 	<script src="http://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.js"></script>
-	<%-- <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.min.js"></script>
- --%>
 	
 </head>
 
@@ -65,7 +50,7 @@
 			</div>
 			<footer id="footer" class="text-center"><tiles:insertAttribute name="footer"/></footer>
 			<!-- jQuery -->
-    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <%-- <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script> --%>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.min.js"></script>

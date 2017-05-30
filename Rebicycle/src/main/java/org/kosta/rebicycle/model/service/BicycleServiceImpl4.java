@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.rebicycle.model.dao.BicycleDAOImpl3;
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl4;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.RentVO;
@@ -13,13 +14,20 @@ import org.springframework.stereotype.Service;
 public class BicycleServiceImpl4 implements BicycleService {
 	@Resource
 	private BicycleDAOImpl4 bicycleDAOImpl4;
+	@Resource
+	private BicycleDAOImpl3 bicycleDAOImpl3;
 
 	public List<BicycleVO> findBicycleById(String id) {
 		return bicycleDAOImpl4.findBicycleById(id);
 	}
 	
 	public List<RentVO> findRentById(String id) {
-		return bicycleDAOImpl4.findRentById(id);
+		List<RentVO> list = bicycleDAOImpl4.findRentById(id);
+		for(int i=0; i<list.size();i++){		
+			BicycleVO bvo=bicycleDAOImpl3.findBicycleByNo(list.get(i).getBicycleVO().getBicycleNo());
+			list.get(i).setBicycleVO(bvo);
+		}
+		return list;
 	}
 
 }

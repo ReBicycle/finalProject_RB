@@ -53,10 +53,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
 		b.bicycleNo=c.bicycleNo
 	</select>
-<<<<<<< HEAD
 
 	<!-- 현근/소영 -상세보기에 필요한 resultMap -->
-=======
+
 	<resultMap type="bicycleVO" id="bicycleMap">
 		<result column="memberId" property="memberVO.id"/>
 		<result column="categoryNo" property="categoryVO.categoryNo"/>
@@ -66,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<!-- 종봉 -->
 	<!-- 현근 -->
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 	<resultMap type="bicycleVO" id="bicycleRM">
 		<!-- BicycleVO 의 MemberVO  -->
 		<result column="memberId" property="memberVO.id" />
@@ -95,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from bicycle
 		where memberId=#{value}
 	</select>
-<<<<<<< HEAD
+
 	
 	<insert id="registerFile" parameterType="photoVO">
 		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
@@ -124,11 +123,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where b.bicycleNo = p.bicycleNo and b.memberId=m.id and b.bicycleNo=#{value}
 		
 	</select>
-=======
+
 	<insert id="registerFile" parameterType="photoVO">
 		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
 	</insert>
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 </mapper>
 
  

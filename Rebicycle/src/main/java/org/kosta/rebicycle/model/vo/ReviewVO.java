@@ -1,21 +1,20 @@
 package org.kosta.rebicycle.model.vo;
 
 public class ReviewVO {
-	private int bicycleNo;
 	private RentVO rentVO;
 	private int star;
-	private String comment;
+	private String content;
+	private String reviewDate;
 	public ReviewVO() {
 		super();
-	}	
-	public ReviewVO(int bicycleNo, RentVO rentVO, int star, String comment) {
+	}
+	public ReviewVO(RentVO rentVO, int star, String content, String reviewDate) {
 		super();
-		this.bicycleNo = bicycleNo;
 		this.rentVO = rentVO;
 		this.star = star;
-		this.comment = comment;
+		this.content = content;
+		this.reviewDate = reviewDate;
 	}
-
 	public RentVO getRentVO() {
 		return rentVO;
 	}
@@ -28,23 +27,23 @@ public class ReviewVO {
 	public void setStar(int star) {
 		this.star = star;
 	}
-	public String getComment() {
-		return comment;
+	public String getContent() {
+		return content;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public int getBicycleNo() {
-		return bicycleNo;
+	public String getReviewDate() {
+		return reviewDate;
 	}
-	public void setBicycleNo(int bicycleNo) {
-		this.bicycleNo = bicycleNo;
+	public void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
 	}
 	@Override
 	public String toString() {
-		return "ReviewVO [bicycleNo=" + bicycleNo + ", rentVO=" + rentVO + ", star=" + star + ", comment=" + comment
+		return "ReviewVO [rentVO=" + rentVO + ", star=" + star + ", content=" + content + ", reviewDate=" + reviewDate
 				+ "]";
-	}
+	}	
 	
 	
 }

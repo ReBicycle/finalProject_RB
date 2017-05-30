@@ -43,8 +43,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
+<<<<<<< HEAD
 		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 		
 		//가능일 등록
@@ -55,6 +56,10 @@ public class BicycleController {
 		
 		serviceImpl1.registerBicycle(bvo, calList, uploadPath);
 		System.out.println(bvo);
+=======
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		serviceImpl1.registerBicycle(bvo, cvo, uploadPath);
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 		System.out.println(cvo);
 		
 		
@@ -71,12 +76,28 @@ public class BicycleController {
 		return calList;
 	}
 	
-	///현근
+	//소영 bicycle_search_list_test로
+		@RequestMapping("listViewTest.do")
+		public String listViewTest(Model model){
+			ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) serviceImpl3.findBicycleList();
+			model.addAttribute("bList", bList);
+			return "bicycle/bicycle_search_list_test.tiles";
+			
+		}
+		
+	///상세보기로 보낼 정보 처리 컨트롤러
 	@RequestMapping("findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model){
+		System.out.println("findBicycleByNo 컨트롤러");
 		int no=Integer.parseInt(bicycleNo);
-		BicycleVO vo=serviceImpl3.findBicycleByNo(no);
-		model.addAttribute("findBicycleResult", serviceImpl3.findBicycleByNo(no));
+		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
+		System.out.println("clist"+cList);
+		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
+		
+		bvo.setPossibleList(cList);
+		System.out.println("findBvo" + bvo);
+		
+		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}
 	

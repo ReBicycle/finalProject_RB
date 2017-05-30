@@ -53,7 +53,7 @@ public class BicycleServiceImpl1 implements BicycleService {
 	}
 	
 	public List<String> uploadFile(List<MultipartFile> list,String uploadPath,int bicycleNo){
-	//	List<MultipartFile> list=pvo.getFile();
+		
 		ArrayList<String>nameList=new ArrayList<String>();
 		for(int i=0;i<list.size();i++){
 			String fileName=String.valueOf(bicycleNo)+"_";

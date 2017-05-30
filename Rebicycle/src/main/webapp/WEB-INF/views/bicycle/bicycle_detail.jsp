@@ -3,7 +3,7 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
-<style type="text/css">
+<!-- <style type="text/css">
 body {
 	padding: 20px 0px 200px;
 }
@@ -140,7 +140,7 @@ h1.title {
 .calendar-day>.events>.event>.progress {
 	height: 10px;
 }
-</style>
+</style> -->
 <!-- 달력 스크립트 -->
 <script type="text/javascript">
 	$(function() {
@@ -269,7 +269,7 @@ section.awSlider>img {
 	});
 </script>
 <!-- 달력 pickers 스크립트 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function() {
 		$('#datetimepicker6').datetimepicker();
 		$('#datetimepicker7').datetimepicker({
@@ -283,7 +283,111 @@ section.awSlider>img {
 			$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
 		});
 	});
+</script> -->
+<!-- fullcalendar -->	
+<script>
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2017-05-12',
+			navLinks: true, // can click day/week names to navigate views
+			selectable: true,
+			selectHelper: true,
+			select: function(start, end) {
+				var title = prompt('Event Title:');
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}
+				$('#calendar').fullCalendar('unselect');
+			},
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2017-05-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2017-05-07',
+					end: '2017-05-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2017-05-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2017-05-16T16:00:00'
+				},
+				{
+					title: 'Conference',
+					start: '2017-05-11',
+					end: '2017-05-13'
+				},
+				{
+					title: 'Meeting',
+					start: '2017-05-12T10:30:00',
+					end: '2017-05-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2017-05-12T12:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2017-05-12T14:30:00'
+				},
+				{
+					title: 'Happy Hour',
+					start: '2017-05-12T17:30:00'
+				},
+				{
+					title: 'Dinner',
+					start: '2017-05-12T20:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2017-05-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2017-05-28'
+				}
+			]
+		});
+		
+	});
+
 </script>
+<style>
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+</style>
+	
 	<br><br><br>
 	<div class="container">
 		<section class="awSlider">
@@ -293,30 +397,24 @@ section.awSlider>img {
 					<li data-target=".carousel" data-slide-to="0" class="active"></li>
 					<li data-target=".carousel" data-slide-to="1"></li>
 					<li data-target=".carousel" data-slide-to="2"></li>
-					<li data-target=".carousel" data-slide-to="3"></li>
 				</ol>
 
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
 						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-						<div class="carousel-caption">Görsel #1</div>
+							src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="max-width:100%;">
+						<div class="carousel-caption">${requestScope.findBvo.photoVO.photo1}</div>
 					</div>
 					<div class="item">
 						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-						<div class="carousel-caption">Görsel #2</div>
+							src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="max-width:100%;">
+						<div class="carousel-caption">${requestScope.findBvo.photoVO.photo2}</div>
 					</div>
 					<div class="item">
 						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-						<div class="carousel-caption">Görsel #3</div>
-					</div>
-					<div class="item">
-						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-						<div class="carousel-caption">Görsel #4</div>
+							src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="max-width:100%;">
+						<div class="carousel-caption">${requestScope.findBvo.photoVO.photo3}</div>
 					</div>
 				</div>
 
@@ -335,8 +433,11 @@ section.awSlider>img {
 		<hr>
 		<!-- 달력 -->
 		<div class="row">
+		<div class="col-sm-6" style="height:150%">
+		<div id="calendar" ></div>
+		</div>
 			<div class="col-sm-6">
-				<h3 class="title text-center">July 2014</h3>
+				<!-- <h3 class="title text-center">July 2014</h3>
 				<br><br><br>
 				<div class="calendar" data-toggle="calendar" class="col-sm-6">
 					<div class="row">
@@ -591,21 +692,17 @@ section.awSlider>img {
 							<time datetime="2014-08-02">02</time>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
-
 			<!-- 예약 부분 -->
 			<div class="col-sm-6">
 				<h3 class="title text-center">Reservation</h3>
 				<div align="center">
-
-
+				
 					<!-- 예약 폼 -->
 					<div class="row">
 						<!-- <div class="col-lg-8 col-lg-offset-2"> -->
 						<div class="col-lg-10 col-lg-offset-1">
-							<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-							<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
 							<form name="sentMessage" id="contactForm" novalidate>
 								<div class="row control-group">
 									<!-- input 달력 -->
@@ -636,7 +733,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="name">ID</label>
 										<h4 align="left">ID</h4> 
-										<p class="help-block text-danger">${findBicycleResult.memberVO.id}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.memberVO.id}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -644,7 +741,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="name">Price</label>
 										<h4 align="left">Price</h4>
-										<p class="help-block text-danger">${findBicycleResult.rentPrice}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.rentPrice}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -652,7 +749,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="email">Email Address</label>
 										<h4 align="left">Email Address</h4>
-										<p class="help-block text-danger">${findBicycleResult.memberVO.address}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.address}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -660,7 +757,15 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="phone">Phone Number</label>
 										<h4 align="left">Phone Number</h4>
-										<p class="help-block text-danger">${findBicycleResult.memberVO.phone}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
+									</div>
+								</div>
+								<div class="row control-group">
+									<div
+										class="form-group col-xs-12 floating-label-form-group controls">
+										<label for="phone">Share Address</label>
+										<h4 align="left">Share Address</h4>
+										<p class="help-block text-danger">${requestScope.findBvo.address}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -668,11 +773,17 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="message">Detail</label>
 										<h4 align="left">Detail</h4>
-										<p class="help-block text-danger">${findBicycleResult.detail}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
 									</div>
 								</div>
 								<br>
 								<div id="success"></div>
+								
+								<div>requestScope.findBvo 결과
+									${requestScope.findBvo }
+								</div>
+								
+								
 								<div class="row">
 									<div class="form-group col-xs-12" align="center">
 										<button type="submit" class="btn btn-success btn-lg">빌리기</button>
@@ -684,6 +795,7 @@ section.awSlider>img {
 				</div>
 			</div>
 		</div>
+		<div class="calendar"></div>	
 		</div>
-		
+		<div class="calendar"></div>	
 		<br> <br> <br> <br>

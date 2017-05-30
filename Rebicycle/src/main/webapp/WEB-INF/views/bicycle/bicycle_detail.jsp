@@ -254,7 +254,7 @@ section.awSlider>img {
 }
 </style>
 <!-- 이미지 슬라이드 스크립트 -->
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	$('section.awSlider .carousel').carousel({
 		pause : "hover",
 		interval : 2000
@@ -267,7 +267,7 @@ section.awSlider>img {
 		var bscn = $(this).find('.item.active > img').attr('src');
 		$('section.awSlider > img').attr('src', bscn);
 	});
-</script> -->
+</script>
 <!-- 달력 pickers 스크립트 -->
 <!-- <script type="text/javascript">
 	$(function() {
@@ -397,30 +397,24 @@ section.awSlider>img {
 					<li data-target=".carousel" data-slide-to="0" class="active"></li>
 					<li data-target=".carousel" data-slide-to="1"></li>
 					<li data-target=".carousel" data-slide-to="2"></li>
-					<li data-target=".carousel" data-slide-to="3"></li>
 				</ol>
 
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
 						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-						<div class="carousel-caption">Görsel #1</div>
+							src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="max-width:100%;">
+						<div class="carousel-caption">${requestScope.findBvo.photoVO.photo1}</div>
 					</div>
 					<div class="item">
 						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-						<div class="carousel-caption">Görsel #2</div>
+							src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="max-width:100%;">
+						<div class="carousel-caption">${requestScope.findBvo.photoVO.photo2}</div>
 					</div>
 					<div class="item">
 						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-						<div class="carousel-caption">Görsel #3</div>
-					</div>
-					<div class="item">
-						<img
-							src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-						<div class="carousel-caption">Görsel #4</div>
+							src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="max-width:100%;">
+						<div class="carousel-caption">${requestScope.findBvo.photoVO.photo3}</div>
 					</div>
 				</div>
 
@@ -739,7 +733,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="name">ID</label>
 										<h4 align="left">ID</h4> 
-										<p class="help-block text-danger">${findBicycleResult.memberVO.id}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.memberVO.id}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -747,7 +741,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="name">Price</label>
 										<h4 align="left">Price</h4>
-										<p class="help-block text-danger">${findBicycleResult.rentPrice}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.rentPrice}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -755,7 +749,7 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="email">Email Address</label>
 										<h4 align="left">Email Address</h4>
-										<p class="help-block text-danger">${findBicycleResult.memberVO.address}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.address}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -763,7 +757,15 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="phone">Phone Number</label>
 										<h4 align="left">Phone Number</h4>
-										<p class="help-block text-danger">${findBicycleResult.memberVO.phone}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
+									</div>
+								</div>
+								<div class="row control-group">
+									<div
+										class="form-group col-xs-12 floating-label-form-group controls">
+										<label for="phone">Share Address</label>
+										<h4 align="left">Share Address</h4>
+										<p class="help-block text-danger">${requestScope.findBvo.address}</p>
 									</div>
 								</div>
 								<div class="row control-group">
@@ -771,11 +773,17 @@ section.awSlider>img {
 										class="form-group col-xs-12 floating-label-form-group controls">
 										<label for="message">Detail</label>
 										<h4 align="left">Detail</h4>
-										<p class="help-block text-danger">${findBicycleResult.detail}</p>
+										<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
 									</div>
 								</div>
 								<br>
 								<div id="success"></div>
+								
+								<div>requestScope.findBvo 결과
+									${requestScope.findBvo }
+								</div>
+								
+								
 								<div class="row">
 									<div class="form-group col-xs-12" align="center">
 										<button type="submit" class="btn btn-success btn-lg">빌리기</button>

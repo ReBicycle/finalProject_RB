@@ -275,24 +275,27 @@ where b.categoryNo = c.categoryNo and memberId='java'
 
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
-<<<<<<< HEAD
 where memberId='java'
 
+select * from RB_MEMBER
+select * from CATEGORY
+select * from bicycle
+
+insert into bicycle values(2,'java','판교',1000,200,'좋아요',1);
+insert into category values(1,'픽시');
+insert into bicycle_photo values(2,'bicycle/6_photo1.png','bicycle/6_photo2.png','bicycle/6_photo3.png'); 
+
+bicycleNo number primary key,
+   memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
+   address varchar2(300) not null,
+   purchasePrice number not null,
+   rentPrice number not null,
+   detail clob not null,
+   categoryNo number not null constraint fk_category_no references category(categoryNo)
+
+ bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo),
+   photo1 varchar2(100) not null,
+   photo2 varchar2(100) null,
+   photo3 varchar2(100) null
 
 
-
-
-
-
-
-=======
-where memberId='java'
-
-
-
-
-
-
-
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

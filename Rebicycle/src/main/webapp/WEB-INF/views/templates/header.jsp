@@ -61,10 +61,7 @@
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board/board_list.do">board</a>
                     </li>
-                    
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_search_list_test.do">자전거리스트 테스트</a>
-                    </li>                 
+                                   
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
                     </li>

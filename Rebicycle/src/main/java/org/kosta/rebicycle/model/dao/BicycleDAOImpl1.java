@@ -1,9 +1,12 @@
 package org.kosta.rebicycle.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.PhotoVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +25,6 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 	}
 	
 	public int calculateMinPrice(int categoryNo){
-		System.out.println(categoryNo);
 		return template.selectOne("bicycle.calculateMinPrice", categoryNo);
 	}
 	public int calculateMaxPrice(int categoryNo){
@@ -32,7 +34,13 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 		return template.selectOne("bicycle.calculateAvgPrice", categoryNo);
 	}
 	
-	public void registerPossibleDate(CalendarVO cvo){
-		template.insert("bicycle.registerPossibleDate", cvo);
+	public void registerPossibleDate(List<CalendarVO> calList){
+		for(int i=0 ; i<calList.size() ; i++){
+			template.insert("bicycle.registerPossibleDate", calList.get(i));			
+		}
+	}
+
+	public void registerFile(PhotoVO pvo) {
+		template.insert("bicycle.registerFile",pvo);
 	}
 }

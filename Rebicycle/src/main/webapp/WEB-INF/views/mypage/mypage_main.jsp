@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+ <br><br>
 <div class="mainbody container-fluid">
     <div class="row">
         <div class="navbar-wrapper">
@@ -15,12 +17,11 @@
                                 <img alt="Brand" src="https://lut.im/7trApsDX08/GeilMRp1FIm4f2p7.png" width="30px" height="30px">
                             </a>
                             <a class="navbar-brand" href="./ORqmj">Project*</a>
-                            <i class="brand_network"><small><small>diaspora* Network</small></small></i>
+                            <i class="brand_network"></i>
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li><a href="./ORqmj">Stream</a></li>
-                                <li><a href="#">My Activity</a></li>
+
                                 <li><span class="badge badge-important">2</span><a href="#"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
                             </ul>
@@ -30,7 +31,7 @@
                                         <img src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
                                     </span>
                                     <span class="user-name">
-                                        John Doe
+                                        ${requestScope.findVO.name}
                                     </span>
                                     <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
@@ -76,54 +77,59 @@
                 </div>
             </div>
         </div>
+        
+        
         <div style="padding-top:50px;"> </div>
+        
+        
         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="media">
                         <div align="center">
-                            <img class="thumbnail img-responsive" src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="300px" height="300px">
+                            <img class="thumbnail img-responsive" src="${pageContext.request.contextPath}/resources/upload/member/${requestScope.findVO.picture}" width="300px" height="300px">
                         </div>
                         <div class="media-body">
                             <hr>
-                            <h3><strong>Bio</strong></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel gravida metus, non ultrices sapien. Morbi odio metus, dapibus non nibh id amet.</p>
+                            <h3><strong>${requestScope.findVO.name}</strong></h3>
+                            <p>자기소개내용</p>
                             <hr>
                             <h3><strong>Location</strong></h3>
-                            <p>Earth</p>
+                            <p>${requestScope.findVO.address}</p>
                             <hr>
-                            <h3><strong>Gender</strong></h3>
-                            <p>Unknown</p>
-                            <hr>
-                            <h3><strong>Birthday</strong></h3>
-                            <p>January 01 1901</p>
+                            <h3><strong>E-mail</strong></h3>
+                            <p>${requestScope.findVO.email}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        
+        
+        
+        <div class="col-lg-4 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px;">John Doe <small>example@pods.tld</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        <h1 class="panel-title pull-left" style="font-size:30px">빌려준내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Friends
+                                --등록자전거--
                                 <span class="caret"></span>
                             </button>
+                           <%--  ${requestScope.bicycleList} --%>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">Familly</a></li>
-                                <li><a href="#"><i class="fa fa-fw fa-check" aria-hidden="true"></i> Friends</a></li>
-                                <li><a href="#">Work</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add a new aspect</a></li>
-                            </ul>
+	                           <c:forEach items="${requestScope.bicycleList}" var = "bList">
+	
+		                                <li><a href="#">${bList.detail}</a></li>
+		                              
+	                       		 </c:forEach>
+                       		 </ul>
                         </div>
                     </span>
                     <br><br>
-                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="/tags/diaspora" class="tag">#diaspora</a> <a href="/tags/hashtag" class="tag">#hashtag</a> <a href="/tags/caturday" class="tag">#caturday</a>
-                    <br><br><hr>
+					<hr>
                     <span class="pull-left">
                         <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
                         <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
@@ -137,67 +143,126 @@
                 </div>
             </div>
             <hr>
-            <!-- Simple post content example. -->
-            <div class="panel panel-default">
+            
+            <!-- 등록 자전거 관리 -->
+               <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="pull-left">
-                        <a href="#">
-                            <img class="media-object img-circle" src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
-                        </a>
-                    </div>
-                    <h4><a href="#" style="text-decoration:none;"><strong>John Doe</strong></a> – <small><small><a href="#" style="text-decoration:none; color:grey;"><i><i class="fa fa-clock-o" aria-hidden="true"></i> 42 minutes ago</i></a></small></small></h4>
                     <span>
-                        <div class="navbar-right">
-                            <div class="dropdown">
-                                <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-cog" aria-hidden="true"></i>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dd1" style="float: right;">
-                                    <li><a href="#"><i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i> Report</a></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-ban" aria-hidden="true"></i> Ignore</a></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-bell" aria-hidden="true"></i> Enable notifications for this post</a></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-eye-slash" aria-hidden="true"></i> Hide</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                </ul>
-                            </div>
+                        <h1 class="panel-title pull-left" style="font-size:30px">등록 자전거 관리<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="다른 사용자가 대여한 내역"></i></h1>
+                        
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                --등록자전거--
+                                <span class="caret"></span>
+                            </button>
+                           <%--  ${requestScope.bicycleList} --%>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	                           <c:forEach items="${requestScope.bicycleList}" var = "bList">
+	
+		                                <li><a href="#">${bList.detail}</a></li>
+		                              
+	                       		 </c:forEach>
+                       		 </ul>
                         </div>
                     </span>
-                    <hr>
-                    <div class="post-content">
-                        <p>Simple post content example.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel gravida metus, non ultrices sapien. Morbi odio metus, dapibus non nibh id amet.</p>
-                    </div>
-                    <hr>
-                    <div>
-                        <div class="pull-right btn-group-xs">
-                            <a class="btn btn-default btn-xs"><i class="fa fa-heart" aria-hidden="true"></i> Like</a>
-                            <a class="btn btn-default btn-xs"><i class="fa fa-retweet" aria-hidden="true"></i> Reshare</a>
-                            <a class="btn btn-default btn-xs"><i class="fa fa-comment" aria-hidden="true"></i> Comment</a>
-                        </div>
-                        <div class="pull-left">
-                            <p class="text-muted" style="margin-left:5px;"><i class="fa fa-globe" aria-hidden="true"></i> Public</p>
-                        </div>
-                        <br>
-                    </div>
-                    <hr>
-                    <div class="media">
-                        <div class="pull-left">
-                            <a href="#">
-                                <img class="media-object img-circle" src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="35px" height="35px" style="margin-left:3px; margin-right:-5px;">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <textarea class="form-control" rows="1" placeholder="Comment"></textarea>
-                        </div>
-                    </div>
+                    <br><br>
+					<hr>
+                    <span class="pull-left">
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
+                    </span>
+                    <span class="pull-right">
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
+                    </span>
                 </div>
             </div>
             
           
         
         </div>
+        
+        
+        
+        
+        <!-- -------------------------------- -->
+        <!-- 요청 리스트 -->
+            <div class="col-lg-4 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <span>
+                        <h1 class="panel-title pull-left" style="font-size:30px">요청 리스트<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                --등록자전거--
+                                <span class="caret"></span>
+                            </button>
+                           <%--  ${requestScope.bicycleList} --%>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	                           <c:forEach items="${requestScope.registerList}" var = "bList">
+	
+		                                <li><a href="#">${bList.detail}</a></li>
+		                              
+	                       		 </c:forEach>
+                       		 </ul>
+                        </div>
+                    </span>
+                    <br><br>
+					<hr>
+                    <span class="pull-left">
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
+                    </span>
+                    <span class="pull-right">
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
+                    </span>
+                </div>
+            </div>
+            <hr>
+            
+            <!-- 빌린 내역 리스트 -->
+               <div class="panel panel-default">
+                <div class="panel-body">
+                    <span>
+                        <h1 class="panel-title pull-left" style="font-size:30px">빌린 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                --등록자전거--
+                                <span class="caret"></span>
+                            </button>
+                           <%--  ${requestScope.bicycleList} --%>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	                           <c:forEach items="${requestScope.bicycleList}" var = "bList">
+	
+		                                <li><a href="#">${bList.detail}</a></li>
+		                              
+	                       		 </c:forEach>
+                       		 </ul>
+                        </div>
+                    </span>
+                    <br><br>
+				<div align="left">
+					<c:forEach items="${requestScope.rentList}" var = "bList">
+						${bList.bicycleVO}<br>                             
+	                </c:forEach>
+				
+				</div>
+                </div>
+            </div>
+            
+          
+        
+        </div>
+        
+        
+        
     </div>
 </div>
     

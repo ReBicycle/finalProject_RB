@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>   
-
     	<nav class="navbar navbar-inverse">
     	<!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -62,13 +61,14 @@
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
                     </li>
-                    
+                                   
                      <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_search_list_test.do">자전거리스트 테스트</a>
-                    </li>                 
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=1">자전거상세보기</a>
+                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
                     </li>
+                    <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/bicycle/selectable.do">달력</a>
+                    </li>
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

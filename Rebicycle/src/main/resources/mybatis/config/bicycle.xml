@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select bicycle_seq.nextval from dual
 		</selectKey>
  		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo) 
- 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryNo})
+ 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryVO.categoryNo})
  	</insert>
  	
  	<select id="findCategoryByNo" resultType="string">
@@ -33,8 +33,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into possible_day(bicycleNo, startDay, endDay)
 		values(#{bicycleNo}, #{startDay}, #{endDay})
 	</insert>
-
-	<select id="getBicycleListByAddressAndDay" parameterType="map"
+	<!-- 종봉 자전거 검색 -->
+	<!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
 		resultType="bicycleVO">
 		select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice
 		,b.rentPrice , b.detail ,b.categoryNo,to_char(p.startDay) as
@@ -43,8 +43,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
 		b.bicycleNo=c.bicycleNo
+	</select> -->
+	<select id="getBicycleListByAddressAndDay" parameterType="map"
+		resultMap="bicycleMap">
+		select b.bicycleNo, b.memberId ,b.address
+		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3
+		from bicycle b, possible_day p, bicycle_photo c
+		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+		b.bicycleNo=c.bicycleNo
 	</select>
-
+	<resultMap type="bicycleVO" id="bicycleMap">
+		<result column="memberId" property="memberVO.id"/>
+		<result column="categoryNo" property="categoryVO.categoryNo"/>
+		<result column="photo1" property="photoVO.photo1"/>
+		<result column="photo2" property="photoVO.photo2"/>
+		<result column="photo3" property="photoVO.photo3"/>
+	</resultMap>
+	<!-- 종봉 -->
 	<!-- 현근 -->
 	<resultMap type="bicycleVO" id="bicycleRM">
 		<result column="memberId" property="memberVO.id" />

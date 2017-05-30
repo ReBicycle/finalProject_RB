@@ -102,6 +102,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
 	</insert>
 	
+	<!-- 서경 findRentById -->
+	<resultMap type="rentVO" id="rentMap">
+		<result column="renterId" property="memberVO.id"/>
+		<result column="bicycleNo" property="bicycleVO.bicycleNo"/>
+		<result column="startDay" property="calendarVO.startDay"/>
+		<result column="endDay" property="calendarVO.endDay"/>
+	</resultMap>
+	<select id="findRentById" resultMap="rentMap">
+		select renterId,bicycleNo, startDay, endDay, state 
+		from rent 
+		where renterId=#{value}
+	</select>
+	
 	<!-- 리스트 테스트 소영 -->
 	<select id="findBicycleList" resultType = "bicycleVO">
 		select bicycleNo 
@@ -128,30 +141,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 </mapper>
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

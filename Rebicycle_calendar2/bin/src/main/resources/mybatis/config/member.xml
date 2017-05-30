@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
+
+ <mapper namespace="member">   
+ 	
+	<select id="login" parameterType="memberVO" resultType="memberVO">
+		select id,name from rb_member
+		where id=#{id} and password=#{password}
+	</select>	
+	
+	<insert id="registerMember" parameterType="memberVO">
+		insert into rb_member 
+		values(#{id},#{password},#{name},#{phone},#{address},#{email},#{account},#{picture})
+	</insert>
+	
+	<select id="idcheck" resultType="int">
+		select count(*) from rb_member where id=#{value}
+	</select>
+	
+	<select id="findMemberById" resultType = "memberVO">
+		select id,password,name,phone,address,email,account,picture from rb_member	
+		where id = #{value}
+	</select>
+	
+	<update id="memberModify" parameterType="memberVO">
+		update rb_member
+		set password=#{password},name=#{name},phone=#{phone},address=#{address},email=#{email},account=#{account}, picture=#{picture}
+		where id=#{id}
+	</update>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

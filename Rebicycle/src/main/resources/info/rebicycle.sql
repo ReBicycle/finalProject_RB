@@ -8,15 +8,16 @@ drop table rent;
 drop table donation;
 drop table rb_report;
 drop table rb_review;
+
+drop sequence category_seq;
+drop sequence bicycle_seq;
+drop sequence rent_seq;
+drop sequence report_seq;
+drop sequence donation_seq;
+
 delete table RB_MEMBER;
 
-select * from CATEGORY;
-insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null');
-select * from rb_member
-
-select id,password,name,phone,address,email,account,picture from rb_member		
-where id='java' and password='1234'
-
+==================================================
 create table rb_member(
    id varchar2(100) primary key,
    password varchar2(100) not null,
@@ -45,12 +46,6 @@ create table bicycle(
 )
 create sequence bicycle_seq;
 
-create table map(
-   bicycleNo number primary key constraint fk_bicycle_no_map references bicycle(bicycleNo),
-   latitude varchar2(100) not null,
-   longitude varchar2(100) not null
-)
-
 create table bicycle_photo(
    bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo),
    photo1 varchar2(100) not null,
@@ -65,6 +60,13 @@ create table possible_day(
    constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
 )
 
+create table map(
+   bicycleNo number primary key constraint fk_bicycle_no_map references bicycle(bicycleNo),
+   latitude varchar2(100) not null,
+   longitude varchar2(100) not null
+)
+
+
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
@@ -74,8 +76,25 @@ create table rent(
    state number not null
 )
 create sequence rent_seq;
+
+
+create table rb_review(
+	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+	rentNo number constraint fk_rentNooo references rent(rentNo),
+	star number default 0,
+	reviewDate date not null,
+	comment clob not null,
+	constraint pkpk_review primary key(reviewerId, rentNo)
+)
+
  
- 
+create table rb_report(
+	reportNo number primary key,
+	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
+	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
+	contents clob not null,
+	reportDate date not null
+)
 create sequence report_seq;
 
 create table donation(
@@ -86,63 +105,28 @@ create table donation(
 )
 create sequence donation_seq;
 
-
-create table rb_report(
-	reportNo number primary key,
-	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
-	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
-	contents clob not null,
-	reportDate date not null
-)
-
-create table rb_review(
-	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-	rentNo number constraint fk_rentNooo references rent(rentNo),
-	star number default 0,
-	reviewDate date not null,
-	comment clob not null,
-	constraint pkpk_review primary key(reviewerId, rentNo)
-)
----------------------------------------------------------------
 ------------종봉---------------------------------------------
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 select * from bicycle
-=======
-=======
-<<<<<<< HEAD
+
 select * from bicycle
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 select * from category
 
 select * from BICYCLE
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 --자전거 등록
-<<<<<<< HEAD
-<<<<<<< HEAD
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
-=======
-=======
-<<<<<<< HEAD
+
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 --대여가능일 등록
 insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
@@ -169,8 +153,6 @@ where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017
 --좌표까지 조회
 
 ------------종봉----------------------------------------------
-<<<<<<< HEAD
-alter table );
 
 -----------------------------석희---------------------------------
 select * from rb_report;
@@ -194,8 +176,6 @@ SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 insert into rb_report(reportNo,reporterId,blackId,contents,reportDate)
  		values(1,'java','java','hhhhh',sysdate)
 -----------------------------석희---------------------------------
-=======
-
 
 
 -----------------------태형--------------------------------
@@ -211,23 +191,15 @@ select * from bicycle;
 select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
 select * from possible_day;
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-
-
------------------------태형-----------------------------------------
-=======
-=======
 alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 -----------------------태형-----------------------------------------
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id
 
-<<<<<<< HEAD
 
 
  id varchar2(100) primary key,
@@ -247,14 +219,27 @@ where bicycleNo=1 and b.memberId=m.id
 
 
 
-
-=======
 select * from possible_day
 insert into possible_day values(1,'2017-05-27','2017-05-29')
-<<<<<<< HEAD
 
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-<<<<<<< HEAD
+-----------------------소영------------------------------------------
+select * from CATEGORY;
+insert into RB_MEMBER values('java','1234','임소영','01023991943','봉담','ter1943@naver.com', '110201759649', 'null');
+select * from rb_member
+
+select id,password,name,phone,address,email,account,picture from rb_member		
+where id='java' and password='1234'
+
+
+
+select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
+from bicycle b, category c
+where b.categoryNo = c.categoryNo and memberId='java'
+
+select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+from bicycle
+where memberId='java'
+
 -----------------------소영------------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
@@ -264,23 +249,11 @@ where b.categoryNo = c.categoryNo and memberId='java'
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
 where memberId='java'
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
 
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-<<<<<<< HEAD
------------------------소영------------------------------------------
 
-select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
-from bicycle b, category c
-where b.categoryNo = c.categoryNo and memberId='java'
 
-select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
-from bicycle
-where memberId='java'
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
+
+
+
+

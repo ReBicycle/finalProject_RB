@@ -35,7 +35,7 @@ th, td {
                     <div class="intro-text" >
                     <h3 class="name"></h3> --%>
                         <!-- <span style="color:black"> -->
-                        <div align="center">
+                        <%-- <div align="center">
                        		<table class="list">
 		<caption>목록</caption>
 		<thead>
@@ -47,12 +47,12 @@ th, td {
 		</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="rvo" items="${requestScope.lvo.list}"><%--  varStatus="index" --%>		
+			<c:forEach var="rvo" items="${requestScope.lvo.list}"> varStatus="index"		
 			<tr>
 			    <td>${rvo.reportNo}</td>				
 			    	<td><c:choose>
 			    		<c:when test="${sessionScope.mvo!=null}">
-			    			<a href="${pageContext.request.contextPath}/boardDetail.do?no=${rvo.reportNo}">${rvo.reportTitle}</a>
+			    			<a href="${pageContext.request.contextPath}/boardDetail.do?reportNo=${rvo.reportNo}">${rvo.reportTitle}</a>
 			    		</c:when>
 			    		<c:otherwise>
 			    			${rvo.reportTitle}
@@ -60,17 +60,68 @@ th, td {
 			    	</c:choose></td>
 				<td>${rvo.reporterId}</td>
 				<td>${rvo.blackId}</td>
-				<%-- <td>${rvo[${index}].reportNo}</td>				
+				<td>${rvo[${index}].reportNo}</td>				
 				<td>${rvo[${index}].reporterId}</td>
-				<td>${rvo[${index}].blackId}</td> --%>
+				<td>${rvo[${index}].blackId}</td>
 			</tr>
 			</c:forEach>	
 		</tbody>					
 	</table>
-	<%-- <a href="${pageContext.request.contextPath}/board/board_write_from.do">신고하기</a> --%>
+	<a href="${pageContext.request.contextPath}/board/board_write_from.do">신고하기</a>
 	<br>
 	<button type="button" class="btn btn-warning" id="reportBtn">신고하기</button>
+	</div> --%>
+<!-- -------------------------------부트스트렙------------------------------------------ -->
+<br><br><br><br>
+<div id="fullscreen_bg" class="fullscreen_bg"></div>
+<form class="form-signin">
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+        
+        <div class="panel panel-primary">
+        
+            
+            <div class="text-center">
+                <h3 style="color:#2C3E50">신고 게시판</h3>
+                <h4> <label for="Choose Report"  style="color:#E74C3C">불량 유저들 신고 목록</label></h4>
+                 <div class="customer" >
+                  </div>
+                  <button type="button" class="btn btn-warning btn-lg btn3d" id="reportBtn"><span class="glyphicon glyphicon-warning-sign"></span>신고하기</button> 
+            </div>                 
+        <div class="panel-body">    
+ 
+  <table class="table table-striped table-condensed">
+             <thead>
+                  <tr>
+                      <th class="text-center" width="115px">NO</th>
+                      <th class="text-center" width="115px">TITLE</th>
+                      <th class="text-center" width="115px">ReportID</th>
+                      <th class="text-center" width="115px">BlackID</th>
+                  </tr>
+              </thead>   
+              <tbody>
+              <c:forEach var="rvo" items="${requestScope.lvo.list}">		
+                <tr>
+                    <td class="text-center" width="150px">${rvo.reportNo}</td>
+                    <td class="text-center" width="150px">
+                    <c:choose>
+			    		<c:when test="${sessionScope.mvo!=null}">
+			    			<a href="${pageContext.request.contextPath}/boardDetail.do?reportNo=${rvo.reportNo}">${rvo.reportTitle}</a>
+			    		</c:when>
+			    		<c:otherwise>
+			    			${rvo.reportTitle}
+			    		</c:otherwise>
+			    	</c:choose></td>
+                    <td class="text-center" width="150px">${rvo.reporterId}</span></td>
+                    <td class="text-center" width="150px">${rvo.blackId}</span></td>
+                 </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 	</div>
+</div>
+</form>
 <!-- ----------------------------------------------------------------------------------- -->
 	<p class="paging">
 	<!-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. -->

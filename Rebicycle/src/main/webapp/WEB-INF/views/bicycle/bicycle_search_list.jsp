@@ -122,58 +122,21 @@
 </div>
 
 <div class="w3-row-padding w3-margin-top " >
-	<c:forEach items="${requestScope.bicycleList}" var="list" >
+   <c:forEach items="${requestScope.bicycleList}" var="list" >
   <div class="w3-second col-sm-6 w3-margin-top ">
      <div class="w3-card-2 content ">
       <img src="${pageContext.request.contextPath}/resources/upload/${list.photoVO.photo1}" style="width:100%">
       <div class="overlay" >
-     	 <span class="text">
-        		아이디:${list.memberVO.id}<br>
-        		자전거번호:${list.bicycleNo}<br>
+         <span class="text">
+              아이디:${list.memberVO.id}<br>
+              자전거번호:${list.bicycleNo}<br>
                 대여료:${list.rentPrice}<br>
              </span>
       </div>
     </div> 
   </div>
 </c:forEach>
-     <%-- <div class="w3-second col-sm-6  w3-margin-top">
-    <div class="w3-card-2 content" >
-      <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" style="width:100%">
-      <div class="overlay">
-      <span class="text">
-        아이디:${requestScope.bicycleList[0].memberId}2<br>
-                                대여료:${requestScope.bicycleList[0].rentPrice}<br>
-       </span>
-      </div>
-    </div>
-  </div>
-
-       <div class="w3-second col-sm-6  w3-margin-top">
-    <div class="w3-card-2 content" >
-      <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" style="width:100%">
-      <div class="overlay">
-      <span class="text">
-        아이디:${requestScope.bicycleList[0].memberId}3<br>
-                                대여료:${requestScope.bicycleList[0].rentPrice}<br>
-		</span>
-      </div>
-    </div>
-  </div>
-
-
-
-      <div class="w3-second col-sm-6  w3-margin-top">
-    <div class="w3-card-2 content" >
-      <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" style="width:100%">
-      <div class="overlay">
-      <span class="text">
-        아이디:${requestScope.bicycleList[0].memberId}4<br>
-                                대여료:${requestScope.bicycleList[0].rentPrice}<br>
-		</span>
-      </div>
-    </div>
-  </div>
-   --%>
+    
   
   
 </div><%-- 자전거리스트 css --%>
@@ -196,7 +159,7 @@ var map = new daum.maps.Map(mapContainer, mapOption);
 var geocoder = new daum.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addr2coord('제주특별자치도 제주시 첨단로 242', function(status, result) {
+geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, result) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
@@ -205,9 +168,9 @@ geocoder.addr2coord('제주특별자치도 제주시 첨단로 242', function(st
         var latitude=JSON.stringify(coords.hb);
         var longitude=JSON.stringify(coords.gb);
         //hb: 위도 , qb:경도
-		//alert(${fn:length(bicycleList)});
-        alert(latitude);
-        alert(longitude);
+      //alert(${fn:length(bicycleList)});
+       /*  alert(latitude);
+        alert(longitude); */
       
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new daum.maps.Marker({

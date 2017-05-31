@@ -29,7 +29,7 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSessionTemplate.selectList("board.getReportList",pagingBean);
 	}
 	@Override
-	public ReportVO boardDetail(int reportNo){
+	public ReportVO boardDetail(String reportNo){
 		return (ReportVO)sqlSessionTemplate.selectOne("board.boardDetail",reportNo);
 	}
 }

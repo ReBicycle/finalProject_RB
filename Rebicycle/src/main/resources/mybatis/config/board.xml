@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="boardDetail" resultType="reportVO">
 		select
-		b.reportNo,b.reportTitle,reporterId,blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
+		b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
 		reportDate,b.contents from rb_report 
 		b where reportNo=${value}
 	</select>

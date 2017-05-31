@@ -344,9 +344,9 @@ $(document).ready(function(){
 											<span class="input-group-addon">
 											<i class="fa fa-edit fa" aria-hidden="true"></i>
 											</span> 
-											<input type="text" class="form-control" name="address" id="address" placeholder="Enter your address" required="required"/>
+ 											<input type="text" class="form-control" name="address" id="address" placeholder="Enter your address" required="required"/> 
 										</div>
-										
+										  
 								        <label for="id_address" class="control-label col-md-1  requiredField"></label>
 								   	 	<div class="controls col-md-5 ">
 								            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->

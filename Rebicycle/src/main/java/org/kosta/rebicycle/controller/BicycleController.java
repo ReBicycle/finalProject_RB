@@ -12,6 +12,7 @@ import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.CategoryVO;
+import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,9 +54,15 @@ public class BicycleController {
 			calList.add(new CalendarVO(stArr[i], endArr[i]));
 		}
 		
-		serviceImpl1.registerBicycle(bvo, calList, uploadPath);
+		// Map 등록
+		String latitude = request.getParameter("latitude");
+		String longitude = request.getParameter("longitude");
+		MapVO map = new MapVO(latitude, longitude);
+		
+		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
 		System.out.println(bvo);
-		System.out.println(cvo);
+		System.out.println(calList);
+		System.out.println(map);
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	
@@ -63,7 +70,11 @@ public class BicycleController {
 	@ResponseBody
 	public ArrayList<Object> calculatePrice(int categoryNo){
 		ArrayList<Object> calList = new ArrayList<Object>();
-		calList = serviceImpl1.calculatePrice(categoryNo);
+		if(serviceImpl1.calculatePrice(categoryNo)==null){
+			calList.add("없음");
+		} else {
+			calList = serviceImpl1.calculatePrice(categoryNo);
+		}
 		return calList;
 	}
 	

@@ -114,6 +114,9 @@ create sequence donation_seq;
 
 ------------종봉---------------------------------------------
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
+update category set CATEGORYNAME='MTB' where CATEGORYNO=1;
+
+select * from category
 
 select * from bicycle
 
@@ -201,7 +204,7 @@ insert into RB_MEMBER values('jobman','1234','정석희','01040051481','수내',
 create sequence report_seq;
 -------------------------- board_detail select --------------------------------
 select
-b.reportNo,b.reportTitle,reporterId,blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
+b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
 reportDate,b.contents from rb_report 
 b where reportNo=26
 -----------------------------석희---------------------------------
@@ -211,11 +214,13 @@ b where reportNo=26
 insert into category(categoryNo, categoryName) values(1, 'MTB');
 insert into category(categoryNo, categoryName) values(2, '로드');
 insert into category(categoryNo, categoryName) values(3, '픽시');
-insert into category(categoryNo, categoryName) values(4, '레코드용');
-insert into category(categoryNo, categoryName) values(5, '어린이용');
+insert into category(categoryNo, categoryName) values(4, '미니벨로');
+insert into category(categoryNo, categoryName) values(5, '레코드용');
+insert into category(categoryNo, categoryName) values(6, '어린이용');
+insert into category(categoryNo, categoryName) values(7, '기타');
 
-insert into category(categoryNo, categoryName) values(6, '기타');
-
+select * from category;
+delete from category where categoryNo>1;
 select * from bicycle;
 select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
@@ -225,7 +230,14 @@ alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
 select * from bicycle_photo;
 
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
+
+select * from rb_member;
 -----------------------태형-----------------------------------------
+
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id

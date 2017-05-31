@@ -99,9 +99,6 @@ public class BicycleController {
 		
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
 		
-		
-		
-		
 		bvo.setPossibleList(cList);
 		System.out.println("findBvo" + bvo);
 		
@@ -109,5 +106,10 @@ public class BicycleController {
 		return "bicycle/bicycle_detail.tiles";
 	}
 	
+	@RequestMapping("bicycleModifyForm.do")
+	public String bicycleModifyForm(String memberId, String bicycleNo){
+		//6월1일 할일
+		return "bicycle/bicycle_register_modify.tiles";
+	}
 	
 }

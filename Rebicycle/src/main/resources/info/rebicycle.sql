@@ -225,7 +225,14 @@ alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
 select * from bicycle_photo;
 
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
+
+select * from rb_member;
 -----------------------태형-----------------------------------------
+
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id

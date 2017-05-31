@@ -102,7 +102,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
 	</insert>
 	
-	<!-- 서경 findRentById -->
+	
+	<!-- 서경 findRentById -->	
 	<resultMap type="rentVO" id="rentMap">
 		<result column="renterId" property="memberVO.id"/>
 		<result column="bicycleNo" property="bicycleVO.bicycleNo"/>

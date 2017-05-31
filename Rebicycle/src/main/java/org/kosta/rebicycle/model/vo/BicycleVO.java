@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BicycleVO {
-	private int bicycleNo;
+	private int bicycleNo;  
 	/*private String memberId;*/
 	private MemberVO memberVO; //자전거 소유인
 	private ArrayList<CalendarVO> possibleList; //대여가능일
@@ -39,10 +39,31 @@ public class BicycleVO {
 	pirvate String categoryName;
 
 	*/
+	private String title;
 	
 	public BicycleVO() {
 		super();
 	}
+	
+	public BicycleVO(int bicycleNo, MemberVO memberVO, ArrayList<CalendarVO> possibleList, int purchasePrice,
+			int rentPrice, String detail, String address, MapVO map, List<MultipartFile> file, PhotoVO photoVO,
+			CategoryVO categoryVO, String title) {
+		super();
+		this.bicycleNo = bicycleNo;
+		this.memberVO = memberVO;
+		this.possibleList = possibleList;
+		this.purchasePrice = purchasePrice;
+		this.rentPrice = rentPrice;
+		this.detail = detail;
+		this.address = address;
+		this.map = map;
+		this.file = file;
+		this.photoVO = photoVO;
+		this.categoryVO = categoryVO;
+		this.title = title;
+	}
+
+	
 	
 	public int getBicycleNo() {
 		return bicycleNo;
@@ -136,17 +157,21 @@ public class BicycleVO {
 		this.map = map;
 	}
 
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Override
 	public String toString() {
 		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
 				+ ", purchasePrice=" + purchasePrice + ", rentPrice=" + rentPrice + ", detail=" + detail + ", address="
 				+ address + ", map=" + map + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO=" + categoryVO
-				+ "]";
+				+ ", title=" + title + "]";
 	}
 
-	
-	
-	
-	
-		
 }

@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 소영-mypage관련 -->
 	<select id="findBicycleById" resultType="bicycleVO">
-		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo, title
 		from bicycle
 		where memberId=#{value}
 	</select>

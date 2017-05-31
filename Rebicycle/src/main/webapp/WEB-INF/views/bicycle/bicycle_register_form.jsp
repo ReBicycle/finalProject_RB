@@ -12,7 +12,9 @@
 				data:"categoryNo="+$(":radio[name='categoryNo']:checked").val(),
 				success:function(data){
 					var info="";
-					if(data!=null){
+					if(data[0]=="없음"){
+						info="<font color=red>등록된 자전거 없음</font>";
+					} else {
 						info+="<font color=blue>최저가 ";
 						info+=data[0] + "원 </font>";
 						info+="<font color=red>최대가 ";
@@ -144,7 +146,6 @@ function findGeo(){
 				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/registerBicycle.do">
 				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
 				    
-				    
 				    <!-- 사진 -->
 				    <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
@@ -178,9 +179,10 @@ function findGeo(){
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_1" value="1" style="margin-bottom: 10px">MTB</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_2" value="2" style="margin-bottom: 10px">로드</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_3" value="3" style="margin-bottom: 10px">픽시</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_4" value="4" style="margin-bottom: 10px">레코드용</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_5" value="5" style="margin-bottom: 10px">어린이용</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6"  style="margin-bottom: 10px">기타</label><br>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_4" value="4" style="margin-bottom: 10px">미니벨로</label>				            
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_5" value="5" style="margin-bottom: 10px">레코드용</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6" style="margin-bottom: 10px">어린이용</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_7" value="7"  style="margin-bottom: 10px">기타</label><br>
 				            <span id="calResult"></span>
 				        </div>
 				    </div>
@@ -206,7 +208,6 @@ function findGeo(){
 				        </div>
 				    </div>
 				    
-				    
 				    <!-- 구매가 -->
 				    <div id="div_id_purchasePrice" class="form-group required">
 				        <label for="id_purchasePrice" class="control-label col-md-3  requiredField">구매가</label>
@@ -230,8 +231,22 @@ function findGeo(){
 				            <input class="input-md textinput textInput form-control" id="id_detail" name="detail" placeholder="추가정보를 입력하세요" style="margin-bottom: 10px" type="text" />
 				        </div>
 				    </div>
-				    
-				    <!-- 달력 -->
+
+				 	<!-- 달력 날짜 추가 -->
+				 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
+					<table id="addTable" align="center">
+						<tr>
+							<td>
+								<!-- <label for="id_date" class="control-label col-md-3  requiredField">시작일</label> -->
+								<input type="date" name="startDay" id=id_detail>
+								<!-- <label for="id_date" class="control-label col-md-3  requiredField">종료일</label> -->
+								<input type="date" name="endDay" id=id_detail>
+								<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
+							</td>
+						</tr>
+					</table>
+				
+					<!-- 달력 -->
 				    <!-- <div id="div_id_date" class="form-group required"> 
 				        <label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
 				        <div class="controls col-md-8 "> 
@@ -242,50 +257,16 @@ function findGeo(){
 							<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
 				        </div>
 				    </div> -->
-				 
-				 	<!-- 추가 -->
-					<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
-					<table id="addTable">
-						<tr>
-							<td>
-								<label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
-						        <div class="controls col-md-8 "> 
-									<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
-						        </div>
-						        <label for="id_date" class="control-label col-md-3  requiredField">종료일</label>
-						        <div class="controls col-md-8 ">
-									<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
-						        </div>
-							</td>
-						</tr>
-					</table>
-						
 				    
+				    <!-- 달력 안쓰는거 -->
+				   <!--  
+			        <div class="controls col-md-8 "> 
+						<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
+			        </div>
+			        <div class="controls col-md-8 ">
+						<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
+			        </div> -->
 				    
-				    <!-- 
-				    
-				    
-				    
-				    <div id="div_id_catagory" class="form-group required">
-				        <label for="id_catagory" class="control-label col-md-4  requiredField"> catagory<span class="asteriskField">*</span> </label>
-				        <div class="controls col-md-8 "> 
-				             <input class="input-md textinput textInput form-control" id="id_catagory" name="catagory" placeholder="skills catagory" style="margin-bottom: 10px" type="text" />
-				        </div>
-				    </div> 
-				    
-				    <div id="div_id_number" class="form-group required">
-				         <label for="id_number" class="control-label col-md-4  requiredField"> contact number<span class="asteriskField">*</span> </label>
-				         <div class="controls col-md-8 ">
-				             <input class="input-md textinput textInput form-control" id="id_number" name="number" placeholder="provide your number" style="margin-bottom: 10px" type="text" />
-				        </div> 
-				    </div>
-				    
-				    <div id="div_id_location" class="form-group required">
-				        <label for="id_location" class="control-label col-md-4  requiredField"> Your Location<span class="asteriskField">*</span> </label>
-				        <div class="controls col-md-8 ">
-				            <input class="input-md textinput textInput form-control" id="id_location" name="location" placeholder="Your Pincode and City" style="margin-bottom: 10px" type="text" />
-				        </div> 
-				    </div> -->
 				    
 				    <div class="form-group"> 
 				        <div class="aab controls col-md-4 "></div>

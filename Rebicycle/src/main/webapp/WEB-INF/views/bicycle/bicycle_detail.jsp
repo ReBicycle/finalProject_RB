@@ -102,7 +102,8 @@
 <!-- fullCalendar Script -->
 <script>
    $(document).ready(function() {
-      
+	   
+
       $('#calendar').fullCalendar({
          header: {
             left: 'prev,next today',
@@ -224,8 +225,21 @@
 	}
 
 	$(document).ready(function(){
-
+			
 		  $("#checkImg").click(function(){
+			  var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
+		  	 	var end = $("#endDay").val();//사용자가 클릭한 종료일 2017-05-31
+		  	 	//alert("start" + start);
+		  	 	
+		  	 	var startYear = parseInt(start.substring(0,4));
+		  	 	var endYear = parseInt(end.substring(0,4));
+		  	 	var startMonth = parseInt(start.substring(5,7));//5
+		  	 	var endMonth = parseInt(end.substring(5,7));//7
+		  	 	var startDay = parseInt(start.substring(8,10));//6
+		  	 	var endDay = parseInt(end.substring(8,10));//8
+
+			  
+			  
 			  var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
 		  	  var end = $("#endDay").val();//사용자가 클릭한 종료일 2017-05-31
 		  	  //alert(start)
@@ -238,6 +252,23 @@
 		  		$("#endDay").focus();
 		  		return;
 		  	 }
+		  	  
+		  	  
+		  	$.ajax({
+				type:"get",
+				dataType:"json",
+				data:"currYear="+ startYear + "&currMonth="+startMonth,
+				url:"${pageContext.request.contextPath}/getCalendarBean.do",
+				
+				success:function(data){
+					alert(data);
+					//alert(data.lastDayOfMonth);
+				} //success
+				
+				
+			});//ajax
+			
+			
 			  if(checkDay().indexOf("true") != -1){
 	     		  alert(checkDay() + "대여 가능!");
 	     		  $("#checkResult").html("해당 기간 대여 가능합니다!");
@@ -270,16 +301,7 @@
 	      function checkDay(){
 		    	var size = $("div[id^='possible']").size();//대여 가능 기간 수
 				//alert(size);
-				var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
-		  	 	var end = $("#endDay").val();//사용자가 클릭한 종료일 2017-05-31
-		  	 	//alert("start" + start);
-		  	 	
-		  	 	var startYear = parseInt(start.substring(0,4));
-		  	 	var endYear = parseInt(end.substring(0,4));
-		  	 	var startMonth = parseInt(start.substring(5,7));//5
-		  	 	var endMonth = parseInt(end.substring(5,7));//7
-		  	 	var startDay = parseInt(start.substring(8,10));//6
-		  	 	var endDay = parseInt(end.substring(8,10));//8
+				
 		  	 	
 		  	 	//alert("endDay" + endDay);
 		  	 	

@@ -114,6 +114,9 @@ create sequence donation_seq;
 
 ------------종봉---------------------------------------------
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
+update category set CATEGORYNAME='MTB' where CATEGORYNO=1;
+
+select * from category
 
 select * from bicycle
 
@@ -201,7 +204,7 @@ insert into RB_MEMBER values('jobman','1234','정석희','01040051481','수내',
 create sequence report_seq;
 -------------------------- board_detail select --------------------------------
 select
-b.reportNo,b.reportTitle,reporterId,blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
+b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
 reportDate,b.contents from rb_report 
 b where reportNo=26
 -----------------------------석희---------------------------------

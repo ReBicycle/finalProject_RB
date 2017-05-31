@@ -70,7 +70,11 @@ public class BicycleController {
 	@ResponseBody
 	public ArrayList<Object> calculatePrice(int categoryNo){
 		ArrayList<Object> calList = new ArrayList<Object>();
-		calList = serviceImpl1.calculatePrice(categoryNo);
+		if(serviceImpl1.calculatePrice(categoryNo)==null){
+			calList.add("없음");
+		} else {
+			calList = serviceImpl1.calculatePrice(categoryNo);
+		}
 		return calList;
 	}
 	

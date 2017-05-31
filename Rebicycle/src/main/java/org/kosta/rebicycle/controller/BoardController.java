@@ -28,9 +28,7 @@ public class BoardController {
 	// 신고 리스트
 	@RequestMapping("board_list.do")
 	public String list(String pageNo, HttpServletRequest request){
-		System.out.println(pageNo);
 		ListVO lvo = boardService.getReportList(pageNo);
-		System.out.println(lvo);
 		request.setAttribute("lvo", lvo);
 		return "board/board_list.tiles";
 	}
@@ -46,8 +44,10 @@ public class BoardController {
 		return ok;	
 	}*/
 	@RequestMapping("boardDetail.do")
-	public ModelAndView boardDetail(int reportNo) {		
-		boardService.boardDetail(reportNo);	
-		return new ModelAndView("board/board_detail.do","bvo",boardService.boardDetail(reportNo));
+	public String boardDetail(String reportNo, HttpServletRequest request) {		
+		System.out.println("컨트롤러 시작"+reportNo);
+		ReportVO rvo=boardService.boardDetail(reportNo);
+		request.setAttribute("rvo",rvo);
+		return "board/board_detail.tiles";
 	}
 }

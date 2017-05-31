@@ -114,6 +114,9 @@ create sequence donation_seq;
 
 ------------종봉---------------------------------------------
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
+update category set CATEGORYNAME='MTB' where CATEGORYNO=1;
+
+select * from category
 
 select * from bicycle
 

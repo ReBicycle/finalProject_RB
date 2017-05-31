@@ -1,22 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
-<br><br>
-	<table class="content">
-		<tr>
-			<td>NO : ${requestScope.rvo.reportNo} </td>
-			<td colspan="2">TITLE : ${requestScope.rvo.reportTitle} </td>
-		</tr>
-		<tr>
-			<td>신고작성자 :  ${requestScope.rvo.reporterId}</td>
-			<td>신고대상: ${requestScope.rvo.blackId}</td>
-			<td> ${requestScope.rvo.reportDate}</td>
-		</tr>
-		 <tr>
-			<td colspan="3">
-			<pre>${requestScope.rvo.contents}</pre>
-			</td>
-		</tr>
+<!-- ------------------------------------------------------------------------------------- -->
+<br><br><br>
+<div class="container"> <div class="row">
+         <div class="col-md-6 col-md-offset-3">
+            <div class="well text-center">
+                  <div class="form-group">
+                     NO <input class="form-control" value="${requestScope.rvo.reportNo}" type="text" readonly="readonly"/>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                     Reporter ID <input class="form-control" value="${requestScope.rvo.reporterId}" type="text" readonly="readonly"/>
+                  </div>
+					<br>                  
+                  <div class="form-group">
+                     BlackID<input class="form-control" value="${requestScope.rvo.blackId}" type="text" readonly="readonly"/>
+                  </div>
+                  <div class="form-group">
+                     Data <input class="form-control" value="${requestScope.rvo.reportDate}" type="text" readonly="readonly"/>
+                  </div>
+                  <div class="form-group">
+                     Content <textarea class="form-control" cols="40" rows="5" readonly="readonly">${requestScope.rvo.contents}</textarea>
+                  </div>
+                  <button type="submit" class="btn btn-default">Enviar</button>
+            </div>
+         </div>
+         
+         
+      </div>
+</div>
 		<%--<tr>
 			<td valign="middle" align="center" colspan="3">
 			 <img id="listImg" class="action" src="${pageContext.request.contextPath}/resources/img/list_btn.jpg" onclick="sendList()" >

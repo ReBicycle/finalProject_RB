@@ -5,6 +5,7 @@ public class RentVO {
 	private MemberVO memberVO;
 	private CalendarVO calendarVO;
 	private int totalRentPrice;
+	private int state;
 	public RentVO() {
 		super();
 	}
@@ -39,10 +40,16 @@ public class RentVO {
 	public void setTotalRentPrice(int totalRentPrice) {
 		this.totalRentPrice = totalRentPrice;
 	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	@Override
 	public String toString() {
 		return "RentVO [bicycleVO=" + bicycleVO + ", memberVO=" + memberVO + ", calendarVO=" + calendarVO
-				+ ", totalRentPrice=" + totalRentPrice + "]";
+				+ ", totalRentPrice=" + totalRentPrice + ", state=" + state + "]";
 	}
-	
+
 }

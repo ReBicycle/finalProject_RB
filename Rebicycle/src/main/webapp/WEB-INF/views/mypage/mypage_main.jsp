@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#reviewForm").click(function(){
+			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
+		});
+	});
+</script>
+
+
  <br><br>
 <div class="mainbody container-fluid">
     <div class="row">
@@ -202,7 +212,7 @@
                             </button>
                            <%--  ${requestScope.bicycleList} --%>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           <c:forEach items="${requestScope.bicycleList}" var = "bList">
+	                           <c:forEach items="${requestScope.registerList}" var = "bList">
 	
 		                                <li><a href="#">${bList.detail}</a></li>
 		                              
@@ -248,17 +258,12 @@
                         </div>
                     </span>
                     <br><br>
-					<hr>
-                    <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
-                    </span>
-                    <span class="pull-right">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                    </span>
+				<div align="left">
+					<c:forEach items="${requestScope.rentList}" var = "bList" varStatus="i">
+						 ${bList.bicycleVO.detail} <input type="button"  value="리뷰쓰기"  id="reviewForm"><br>                       
+	                </c:forEach>
+				
+				</div>
                 </div>
             </div>
             

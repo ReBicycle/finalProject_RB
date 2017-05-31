@@ -25,10 +25,12 @@ public class BicycleServiceImpl1 implements BicycleService {
 	}
 	
 	@Transactional
-	public void registerBicycle(BicycleVO bvo, CalendarVO cvo, String uploadPath){
+	public void registerBicycle(BicycleVO bvo, List<CalendarVO> calList, String uploadPath){
 		daoImpl1.registerBicycle(bvo);
-		cvo.setBicycleNo(bvo.getBicycleNo());
-		daoImpl1.registerPossibleDate(cvo);
+		for(int i=0 ; i<calList.size() ; i++){
+			calList.get(i).setBicycleNo(bvo.getBicycleNo());
+		}
+		daoImpl1.registerPossibleDate(calList);
 		PhotoVO pvo=new PhotoVO();
 		List<String> list=uploadFile(bvo.getFile(),uploadPath,bvo.getBicycleNo());
 		System.out.println(list.size());

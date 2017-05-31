@@ -84,7 +84,7 @@ create table rb_review(
 	star number default 0,
 	reviewDate date not null,
 	comment clob not null,
-	constraint pkpk_review primary key(reviewerId, rentNo)
+	constraint pk_rb_review primary key(reviewerId, rentNo)
 )
 
  

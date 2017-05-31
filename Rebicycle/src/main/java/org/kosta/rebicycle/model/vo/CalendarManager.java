@@ -1,7 +1,7 @@
 package org.kosta.rebicycle.model.vo;
 
 public class CalendarManager {
-	private static CalendarManager instance = new CalendarManager();
+	
 	private CalendarBean current;
 	
 	int lastDayOfMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -11,10 +11,7 @@ public class CalendarManager {
 		current = new CalendarBean();
 	}
 	
-	public static CalendarManager getInstance(){
-		return instance;
-	}
-
+	
 	public CalendarBean getCurrent() {
 		return current;
 	}
@@ -37,9 +34,7 @@ public class CalendarManager {
 	}
 	
 	public static void main(String[] args) {
-		CalendarManager cal = CalendarManager.getInstance();
-		cal.setCurrent(2016, 2);
-		System.out.println(cal.getCurrent());
+		
 	}
 	
 	

@@ -65,7 +65,7 @@ create table map(
    latitude varchar2(100) not null,
    longitude varchar2(100) not null
 )
-
+select * from rent;
 
 create table rent(
    rentNo number primary key,

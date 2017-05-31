@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript">
@@ -13,12 +12,14 @@
 				data:"categoryNo="+$(":radio[name='categoryNo']:checked").val(),
 				success:function(data){
 					var info="";
-					info+="<font color=blue>최저가 ";
-					info+=data[0] + "원 </font>";
-					info+="<font color=red>최대가 ";
-					info+=data[1] + "원 </font>";
-					info+="<font color=green>평균가 ";
-					info+=data[2] + "원 </font>";
+					if(data!=null){
+						info+="<font color=blue>최저가 ";
+						info+=data[0] + "원 </font>";
+						info+="<font color=red>최대가 ";
+						info+=data[1] + "원 </font>";
+						info+="<font color=green>평균가 ";
+						info+=data[2] + "원 </font>";
+					}
 					$("#calResult").html(info);
 				} //success
 			});//ajax
@@ -59,7 +60,7 @@
                 document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
                 document.getElementById('roadAddress').value = fullRoadAddr;
                 document.getElementById('jibunAddress').value = data.jibunAddress;
-
+				findGeo();
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
                     //예상되는 도로명 주소에 조합형 주소를 추가한다.
@@ -77,37 +78,59 @@
         }).open();
     }
 </script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
 <script type="text/javascript">
-var oTbl;
-//Row 추가
-function insRow() {
-  	oTbl = document.getElementById("addTable");
-  	var oRow = oTbl.insertRow();
-  	oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
-  	var oCell = oRow.insertCell();
+function findGeo(){
+	// 주소-좌표 변환 객체를 생성합니다
+   	var geocoder = new daum.maps.services.Geocoder();
 
-  	//삽입될 Form Tag'
-  	var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail>";
-  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
-  	oCell.innerHTML = frmTag;
-}
-//Row 삭제
-function removeRow() {
-	oTbl.deleteRow(oTbl.clickedRowIndex);
-}
+    // 주소로 좌표를 검색합니다
+    geocoder.addr2coord($("#roadAddress").val(), function(status, result) {
 
-function frmCheck() {
-  	var frm = document.form;
-  	for( var i = 0; i <= frm.elements.length - 1; i++ ){
-    	if( frm.elements[i].name == "addText[]" ) {
-         	if( !frm.elements[i].value ){
-             	alert("텍스트박스에 값을 입력하세요!");
-             	frm.elements[i].focus();
-             	return;
-          	}
-      	}
-   	}
+   		// 정상적으로 검색이 완료됐으면 
+		if (status === daum.maps.services.Status.OK) {
+			var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+			var latitude=JSON.stringify(coords.hb);
+            var longitude=JSON.stringify(coords.gb);
+    		//hb:위도 , qb: 경도
+    		$("#lat").val(latitude);	
+    		$("#lon").val(longitude);
+		}
+    });   
 }
+	 
+</script>
+<script type="text/javascript">
+	var oTbl;
+	//Row 추가
+	function insRow() {
+	  	oTbl = document.getElementById("addTable");
+	  	var oRow = oTbl.insertRow();
+	  	oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
+	  	var oCell = oRow.insertCell();
+	
+	  	//삽입될 Form Tag'
+	  	var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail>";
+	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
+	  	oCell.innerHTML = frmTag;
+	}
+	//Row 삭제
+	function removeRow() {
+		oTbl.deleteRow(oTbl.clickedRowIndex);
+	}
+	
+	function frmCheck() {
+	  	var frm = document.form;
+	  	for( var i = 0; i <= frm.elements.length - 1; i++ ){
+	    	if( frm.elements[i].name == "addText[]" ) {
+	         	if( !frm.elements[i].value ){
+	             	alert("텍스트박스에 값을 입력하세요!");
+	             	frm.elements[i].focus();
+	             	return;
+	          	}
+	      	}
+	   	}
+	}
 </script>
 
 <div class="container">
@@ -129,6 +152,14 @@ function frmCheck() {
 							<input type="file" name="file[0]"><br>
 							<input type="file" name="file[1]"><br>
 							<input type="file" name="file[2]"><br>
+				        </div>
+				    </div>
+				    
+				    <!-- Title -->
+				    <div id="div_id_title" class="form-group required"> 
+				        <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
+				        <div class="controls col-md-8 "> 
+				            <input class="input-md textinput textInput form-control" id="id_title" name="title" style="margin-bottom: 10px" type="text"/>
 				        </div>
 				    </div>
 				    
@@ -169,6 +200,8 @@ function frmCheck() {
 							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
 							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
+							<input type="hidden" id="lat" name="latitude">
+							<input type="hidden" id="lon" name="longitude">
 							<span id="guide" style="color:#999"></span>
 				        </div>
 				    </div>

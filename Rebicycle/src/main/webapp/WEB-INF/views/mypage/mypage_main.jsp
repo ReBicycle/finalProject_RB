@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#reviewForm").click(function(){
+			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
+		});
+	});
+</script>
+
+
  <br><br>
 <div class="mainbody container-fluid">
     <div class="row">
@@ -249,8 +259,8 @@
                     </span>
                     <br><br>
 				<div align="left">
-					<c:forEach items="${requestScope.rentList}" var = "bList">
-						${bList.bicycleVO}<br>                             
+					<c:forEach items="${requestScope.rentList}" var = "bList" varStatus="i">
+						 ${bList.bicycleVO.detail} <input type="button"  value="리뷰쓰기"  id="reviewForm"><br>                       
 	                </c:forEach>
 				
 				</div>

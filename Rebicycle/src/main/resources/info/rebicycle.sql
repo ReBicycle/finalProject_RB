@@ -79,10 +79,19 @@ create sequence rent_seq;
 
 
 create table rb_review(
+<<<<<<< HEAD
+	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+	rentNo number constraint fk_rentNooo references rent(rentNo),
+	star number default 0,
+	reviewDate date not null,
+	comment clob not null,
+	constraint pk_rb_review primary key(reviewerId, rentNo)
+=======
    rentNo number primary key constraint fk_rentNooo references rent(rentNo),
    star number default 0,
    reviewDate date not null,
    content clob not null
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 )
 
 create table rb_report(
@@ -216,7 +225,14 @@ alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
 select * from bicycle_photo;
 
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
+
+select * from rb_member;
 -----------------------태형-----------------------------------------
+
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id

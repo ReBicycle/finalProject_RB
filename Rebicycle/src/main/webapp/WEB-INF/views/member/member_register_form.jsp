@@ -344,7 +344,7 @@ $(document).ready(function(){
 											<span class="input-group-addon">
 											<i class="fa fa-edit fa" aria-hidden="true"></i>
 											</span> 
-											<input type="text" class="form-control" name="address" id="address" placeholder="Enter your address" required="required"/>
+ 											<input type="text" class="form-control" name="address" id="address" placeholder="Enter your address" required="required"/> 
 										</div>
 										  
 								        <label for="id_address" class="control-label col-md-1  requiredField"></label>

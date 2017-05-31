@@ -13,6 +13,6 @@ public interface BoardDAO {
 
 	int getTotalContentCount();
 
-	ReportVO boardDetail(int reportNo);
+	ReportVO boardDetail(String reportNo);
 
 }

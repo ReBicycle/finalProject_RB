@@ -108,10 +108,18 @@ public class BicycleController {
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}
+
 	//calendarBean으로부터 해당 월의 마지막날짜, 1일 요일을 ajax로 받아옴
 	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
+	@RequestMapping("bicycleModifyForm.do")
+	public String bicycleModifyForm(String memberId, String bicycleNo){
+		//6월1일 할일
+		return "bicycle/bicycle_register_modify.tiles";
+	}
+
 	@RequestMapping("getCalendarBean.do")
 	@ResponseBody
+
 	public CalendarBean getCalendarBean(String currYear, String currMonth){
 		System.out.println("//" + currYear);
 		CalendarManager cm = new CalendarManager();

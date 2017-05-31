@@ -12,6 +12,7 @@ import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.CategoryVO;
+import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,9 +44,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 		
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -53,9 +54,15 @@ public class BicycleController {
 			calList.add(new CalendarVO(stArr[i], endArr[i]));
 		}
 		
-		serviceImpl1.registerBicycle(bvo, calList, uploadPath);
+		// Map 등록
+		String latitude = request.getParameter("latitude");
+		String longitude = request.getParameter("longitude");
+		MapVO map = new MapVO(latitude, longitude);
+		
+		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
 		System.out.println(bvo);
-		System.out.println(cvo);
+		System.out.println(calList);
+		System.out.println(map);
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	

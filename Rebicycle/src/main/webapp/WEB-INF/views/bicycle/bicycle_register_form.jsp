@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript">
@@ -59,7 +58,7 @@
                 document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
                 document.getElementById('roadAddress').value = fullRoadAddr;
                 document.getElementById('jibunAddress').value = data.jibunAddress;
-
+				findGeo();
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
                     //예상되는 도로명 주소에 조합형 주소를 추가한다.
@@ -76,6 +75,32 @@
             }
         }).open();
     }
+</script>
+ <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
+<script type="text/javascript">
+function findGeo(){
+	alert(1);
+	// 주소-좌표 변환 객체를 생성합니다
+   var geocoder = new daum.maps.services.Geocoder();
+
+    // 주소로 좌표를 검색합니다
+    geocoder.addr2coord($("#roadAddress").val(), function(status, result) {
+
+        // 정상적으로 검색이 완료됐으면 
+         if (status === daum.maps.services.Status.OK) {
+
+            var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+            var latitude=JSON.stringify(coords.hb);
+            var longitude=JSON.stringify(coords.gb);
+    		//hb:위도 , qb: 경도
+    		 $("#lat").val(latitude);	
+    		alert($("#lat").val()); 
+    		$("#lon").val(longitude);
+    		alert($("#lon").val());
+			}
+    });   
+}
+	 
 </script>
 <script type="text/javascript">
 var oTbl;
@@ -169,6 +194,8 @@ function frmCheck() {
 							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
 							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
+							<input type="hidden" id="lat" name="latitude">
+							<input type="hidden" id="lon" name="longitude">
 							<span id="guide" style="color:#999"></span>
 				        </div>
 				    </div>

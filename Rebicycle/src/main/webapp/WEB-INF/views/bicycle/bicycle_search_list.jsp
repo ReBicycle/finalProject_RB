@@ -206,8 +206,8 @@ geocoder.addr2coord('제주특별자치도 제주시 첨단로 242', function(st
         var longitude=JSON.stringify(coords.gb);
         //hb: 위도 , qb:경도
 		//alert(${fn:length(bicycleList)});
-        alert(latitude);
-        alert(longitude);
+       /*  alert(latitude);
+        alert(longitude); */
       
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new daum.maps.Marker({

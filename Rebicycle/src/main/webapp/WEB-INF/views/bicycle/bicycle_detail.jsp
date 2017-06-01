@@ -293,6 +293,7 @@ section.awSlider>img {
 						//alert((parseInt(data) * (parseInt($("#rentPrice").text()))));
 						
 						$("#calResult").html("총대여료" + (result*rentPrice));
+						$("#totalPriceHidden").html("<input type = 'hidden' name = 'totalPrice' value =" +(result*rentPrice) +">");
 					} //success
 					
 					
@@ -529,7 +530,7 @@ section.awSlider>img {
 							action="${pageContext.request.contextPath}/rentRegister.do">
 							
 						<table id = "addTable">
-                     	<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+                     	
                     
                         <div class="row control-group">
                            <!-- input 달력 -->
@@ -662,6 +663,10 @@ section.awSlider>img {
 
 							<div class="row">
 								<div class="form-group col-xs-12" align="center">
+								<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+								<input type = "hidden" name = "renterId" value = "${sessionScope.mvo.id}" >
+								<div id = "totalPriceHidden"></div>
+								
 									<button type="submit" class="btn btn-success btn-lg"
 										id="rentBtn">빌리기</button>
 								</div>

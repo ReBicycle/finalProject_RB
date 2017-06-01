@@ -207,6 +207,10 @@ public class BicycleController {
 		return possibleDayList;
 	}
 
+	@RequestMapping("rentRegister.do")
+	/*public String rentRegister(){
+		
+	}*/
 }
 
 

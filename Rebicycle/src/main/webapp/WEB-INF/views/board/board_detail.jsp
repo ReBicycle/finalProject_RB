@@ -1,12 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- ------------------------------------------------------------------------------------- -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#updateBtn").click(function(){
+			if(confirm("게시글을 수정하시겠습니까?"))
+				location.href="${pageContext.request.contextPath}/boardUpdateReportView.do?reportNo=${requestScope.rvo.reportNo}";
+		});//upadteBtn click
+		$("#deleteBtn").click(function(){
+			if(confirm("게시글을 삭제하시겠습니까?"))
+				location.href="${pageContext.request.contextPath}/deleteReport.do?reportNo=${requestScope.rvo.reportNo}";
+		});//deleteBtn
+	});//ready
+</script>
 <br><br><br>
 <div class="container"> <div class="row">
          <div class="col-md-6 col-md-offset-3">
             <div class="well text-center">
                   <div class="form-group">
-                     NO <input class="form-control" value="${requestScope.rvo.reportNo}" type="text" readonly="readonly"/>
+                     NO <input class="form-control" value="${rvo.reportNo}" type="text" readonly="readonly"/>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                     Title <input class="form-control" value="${rvo.reportTitle}" name="reportTitle" type="text" readonly="readonly"/>
                   </div>
                   <br>
                   <div class="form-group">
@@ -22,7 +39,11 @@
                   <div class="form-group">
                      Content <textarea class="form-control" cols="40" rows="5" readonly="readonly">${requestScope.rvo.contents}</textarea>
                   </div>
-                  <button type="submit" class="btn btn-default">Enviar</button>
+                  <c:if test="${requestScope.rvo.reporterId==sessionScope.mvo.id}">
+                  <button type="button" class="btn btn-info" id="updateBtn">UpDate</button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+                  </c:if>
             </div>
          </div>
          

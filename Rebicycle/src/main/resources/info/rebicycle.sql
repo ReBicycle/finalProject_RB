@@ -371,6 +371,6 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 
 
 --==============서경==============================================================
-
+update rb_report set reportTitle='test',blackId='java',contents='test',reportDate=sysdate where reportNo=26
 
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

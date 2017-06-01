@@ -47,9 +47,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -60,6 +60,7 @@ public class BicycleController {
 		// Map 등록
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
+		System.out.println("위도" + latitude);
 		MapVO map = new MapVO(latitude, longitude);
 		
 		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
@@ -124,7 +125,6 @@ public class BicycleController {
 		int startDay2 = Integer.parseInt(startDay);
 		int endDay2 = Integer.parseInt(endDay);
 		int result = 0;
-
 		CalendarManager cm = new CalendarManager();
 		cm.setCurrent(currYear2, startMonth2);
 		CalendarBean cb = cm.getCurrent();
@@ -147,7 +147,7 @@ public class BicycleController {
  		 }
 		
 		
-		
+		System.out.println(result);
 		return ""+ result;
 	}
 	

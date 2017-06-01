@@ -330,7 +330,7 @@ where memberId='java'
 <<<<<<< HEAD
 select * from RB_MEMBER
 select * from CATEGORY
-select * from bicycle
+select * from bicycle 
 =======
 
 
@@ -436,6 +436,63 @@ select * from possible_day where bicycleNo=21
    
    
    
+select * from possible_day 
+where bicycleNo = 44
    
-   
-   
+-------------------------------------------------------------------------------------
+
+delete from rb_review;
+delete from rb_report;
+delete from donation;
+delete from rent;
+delete from possible_day;
+delete from bicycle_photo;
+delete from map;
+delete from bicycle;
+delete from category;
+
+drop sequence category_seq;
+drop sequence bicycle_seq;
+drop sequence rent_seq;
+drop sequence report_seq;
+drop sequence donation_seq;
+
+alter table rb_member modify address varchar2(300);
+alter table bicycle modify address varchar2(300);
+alter table bicycle add title varchar2(100) not null;
+
+create sequence category_seq nocache;
+create sequence bicycle_seq nocache;
+create sequence rent_seq nocache;
+create sequence report_seq nocache;
+create sequence donation_seq nocache;
+
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '미니벨로');
+insert into category(categoryNo, categoryName) values(5, '레코드용');
+insert into category(categoryNo, categoryName) values(6, '어린이용');
+insert into category(categoryNo, categoryName) values(7, '기타');
+
+select * from rb_member;
+select * from category order by categoryNo;
+select * from bicycle;
+select * from map;
+select * from bicycle_photo;
+select * from possible_day;
+select * from rent;
+select * from donation;
+select * from rb_report;
+select * from rb_review;
+
+drop table rb_review
+
+create table rb_review(
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   content clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
+)

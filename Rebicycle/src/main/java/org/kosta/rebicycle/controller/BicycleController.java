@@ -1,9 +1,9 @@
 package org.kosta.rebicycle.controller;
 
-import java.net.Inet4Address;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,8 +13,11 @@ import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
 import org.kosta.rebicycle.model.vo.BicycleVO;
+import org.kosta.rebicycle.model.vo.CalendarBean;
+import org.kosta.rebicycle.model.vo.CalendarManager;
 import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.CategoryVO;
+import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,24 +86,13 @@ public class BicycleController {
 	public String findBicycleByNo(String bicycleNo,Model model){
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
-		//cListSubstring = 2017-05-31 0:00:00 형식으로 저장된 데이터의를'YYYY/MM/DD/' 의 형식으로 잘라 넣음
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
-		for(int i=0; i<cList.size(); i++){
-			CalendarVO cvo=new CalendarVO();
-			String stardDay;
-			String endDay;
-			stardDay=cList.get(i).getStartDay().substring(0,10);
-			endDay=cList.get(i).getEndDay().substring(0,10);
-			cvo.setStartDay(stardDay);
-			cvo.setEndDay(endDay);
-			cList.set(i, cvo);
-		}
-		//substring 해준 날짜가 들어간 bvo
 		bvo.setPossibleList(cList);
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}
 	
+	//fullcalendar 에서 events 처리를 해주기 위한 메서드
 	@RequestMapping("appearDate.do")
 	@ResponseBody
 	public ArrayList<Object> appearDate(String bicycleNo){
@@ -148,7 +140,7 @@ public class BicycleController {
 			int IntendDayOfDay=Integer.parseInt(endDayOfDay)+1;
 			String ResultOfEndDay=cList.get(i).getStartDay().subSequence(0, 7)+"-"+IntendDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
-			possibleTotalDay.put("title", "rent");
+			possibleTotalDay.put("title", "예약완료");
 			possibleTotalDay.put("start", possibleStartDay[i]);
 			possibleTotalDay.put("end", possibleEndDay[i]);
 			possibleDayList.add(possibleTotalDay);

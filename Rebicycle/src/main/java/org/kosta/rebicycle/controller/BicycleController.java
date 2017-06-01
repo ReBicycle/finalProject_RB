@@ -119,13 +119,38 @@ public class BicycleController {
 
 	@RequestMapping("getCalendarBean.do")
 	@ResponseBody
-
-	public CalendarBean getCalendarBean(String currYear, String currMonth){
+	public String getCalendarBean(String currYear, String startMonth, String endMonth, String startDay, String endDay){
 		System.out.println("//" + currYear);
+		int currYear2 = Integer.parseInt(currYear);
+		int startMonth2 = Integer.parseInt(startMonth);
+		int endMonth2 = Integer.parseInt(endMonth);
+		int startDay2 = Integer.parseInt(startDay);
+		int endDay2 = Integer.parseInt(endDay);
+		int result = 0;
 		CalendarManager cm = new CalendarManager();
-		cm.setCurrent(Integer.parseInt(currYear), Integer.parseInt(currMonth));
+		cm.setCurrent(currYear2, startMonth2);
 		CalendarBean cb = cm.getCurrent();
-		return cb;
+		
+		 if(startMonth2 == endMonth2){
+ 			 result = (endDay2-startDay2)+1;
+ 		 }else if((startMonth2-endMonth2) == -1 || (endMonth2-startMonth2)==1){
+ 			result = ((cb.getLastDayOfMonth() - startDay2) + endDay2+1); 
+ 			
+ 		 }else if((startMonth2-endMonth2) < -1 || (endMonth2-startMonth2) > 1){
+ 			 result = ((cb.getLastDayOfMonth() - startDay2) + endDay2+1);
+ 			 
+ 			 for(int i = 1;i<(endMonth2-startMonth2);i++){
+ 				cm.setCurrent(currYear2,(endMonth2-i));
+ 				cb = cm.getCurrent();
+ 				result += cb.getLastDayOfMonth();
+ 			 }
+ 			 
+ 			 
+ 		 }
+		
+		
+		
+		return ""+ result;
 	}
 	
 }

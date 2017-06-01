@@ -330,7 +330,7 @@ where memberId='java'
 <<<<<<< HEAD
 select * from RB_MEMBER
 select * from CATEGORY
-select * from bicycle
+select * from bicycle 
 =======
 
 
@@ -477,5 +477,4 @@ create table rb_review(
    cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
-
 

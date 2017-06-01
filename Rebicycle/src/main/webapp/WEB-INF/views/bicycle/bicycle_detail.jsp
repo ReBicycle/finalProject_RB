@@ -180,8 +180,6 @@ section.awSlider>img {
   	 });
    });//ready
 </script>
-
-<!-- 빌리기 신청 스크립트 -->
 <script>
 	var oTbl;
 	//Row 추가
@@ -264,10 +262,10 @@ section.awSlider>img {
 			
 	  	  });
 		  	
-		 /*  $("#plusImg").click(function(){
+		  $("#plusImg").click(function(){
 			  insRow();
 		  });
-		   */
+		   
 		   
 		   $("#calImg").click(function(){
 					//alert(start)
@@ -289,9 +287,12 @@ section.awSlider>img {
 					
 					success:function(data){
 						//alert("총기간" + data);
-
-						//alert(parseInt(data) * parseInt($("#rentPrice").text()));
-						$("#calResult").html("총 대여료 : " + parseInt(data) * parseInt($("#rentPrice").text()));
+						var result = (parseInt(data));
+						var rentPrice = parseInt($("#rentPrice").text());
+						//alert(rentPrice);
+						//alert((parseInt(data) * (parseInt($("#rentPrice").text()))));
+						
+						$("#calResult").html("총대여료" + (result*rentPrice));
 					} //success
 					
 					
@@ -386,6 +387,7 @@ section.awSlider>img {
 	      }
 	});
 </script>
+
 
 <!-- 이미지 슬라이드 -->
 <style type="text/css">
@@ -523,50 +525,59 @@ section.awSlider>img {
 					<!-- <div class="col-lg-8 col-lg-offset-2"> -->
 					<div class="col-lg-10 col-lg-offset-1">
 						<form name="rentForm" id="rentForm"
-							action="${pageContext.request.contextPath}/sendRentDay.do">
-							<input type="hidden" name="bicycleNo"
-								value="${requestScope.findBvo.bicycleNo}">
-							<div id="dayInput">
-								<div class="row control-group">
-									<!-- input 달력 -->
-									<!-- start date -->
-									<div id="div_id_date" class="form-group required">
-										<label for="id_date"
-											class="control-label col-md-6  requiredField" align="left"><h4>Start
-												Date</h4></label>
-										<div class="controls col-md-5">
-											<input type="date" name="startDay" id="startDay"
-												class="input-md textinput textInput form-control"
-												id="id_detail">
-										</div>
-
-
-									</div>
-
-									<div align="center">
-										<abbr title="대여 기간 추가"><img id="imgView"
-											class="plus-img"
-											src="https://www.cambiaelmundo.net/images/covers/subSubjects/9166a4047e8a143a61a644603cedf4bf.jpg"
-											alt="" style="width:"></abbr>
-									</div>
-
-								</div>
-								<div class="row control-group">
-									<!-- end date -->
-									<div id="div_id_date" class="form-group required">
-										<label for="id_date"
-											class="control-label col-md-6  requiredField" align="left"><h4>End
-												Date</h4></label>
-										<div class="controls col-md-5">
-											<input type="date" name="endDay" id="endDay"
-												class="input-md textinput textInput form-control"
-												id="id_detail">
-										</div>
-									</div>
-								</div>
-
-							</div>
-							<div id="plusDay"></div>
+							action="${pageContext.request.contextPath}/rentRegister.do">
+							
+						<table id = "addTable">
+                     	<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+                    
+                        <div class="row control-group">
+                           <!-- input 달력 -->
+                           <!-- start date -->
+                           <div id="div_id_date" class="form-group required" >
+                              <label for="id_date"
+                                 class="control-label col-md-6  requiredField" align="left"><h4>Start Date</h4></label>
+                              <div class="controls col-md-5">
+                                 <input type="date" name="startDay" id = "startDay"
+                                    class="input-md textinput textInput form-control"
+                                    id="id_detail">
+                             </div>
+                             
+                          </div>    
+                         </div>
+                           
+                           
+                      <div class="row control-group">   
+                           <!-- end date -->
+                           <div id="div_id_date" class="form-group required">
+                              <label for="id_date"
+                                 class="control-label col-md-6  requiredField" align="left"><h4 >End Date</h4></label>
+                              <div class="controls col-md-5">
+                                 <input type="date" name="endDay" id = "endDay"
+                                    class="input-md textinput textInput form-control"
+                                    id="id_detail">
+                              </div>
+                           </div>
+                       	 </div>
+                       	 
+                        </table>
+                        	
+ 						<div class = "row control-group">
+                     
+                           <abbr title="대여가능체크"><img id = "checkImg" class="check-img"
+							src=" https://www.2buy2.com/images/icons/other/green-outline/tick.png" alt="" style = "width:"></abbr>
+                       
+                           <abbr title="대여 기간 추가"><img id = "plusImg" class="plus-img"
+							src="https://www.cambiaelmundo.net/images/covers/subSubjects/9166a4047e8a143a61a644603cedf4bf.jpg" alt="" style = "width:"></abbr>
+                       
+                      	 <abbr title="대여료 계산하기"><img id = "calImg" class="cal-img"
+							src="http://icon-icons.com/icons2/300/PNG/256/calculation-icon_31858.png" alt="" style = "width:"></abbr>
+                        </div>
+						
+								
+					
+						<div id = "checkResult"></div>
+                      
+                      <div id = "calResult"></div>
 
 
 							<div class="row control-group">
@@ -577,14 +588,18 @@ section.awSlider>img {
 									<p class="help-block text-danger">${requestScope.findBvo.memberVO.id}</p>
 								</div>
 							</div>
+							
+							
 							<div class="row control-group">
 								<div
 									class="form-group col-xs-12 floating-label-form-group controls">
 									<label for="name">Price</label>
 									<h4 align="left">Price</h4>
-									<p class="help-block text-danger">${requestScope.findBvo.rentPrice}</p>
+									<p class="help-block text-danger" id = "rentPrice">${requestScope.findBvo.rentPrice}</p>
 								</div>
 							</div>
+							
+							
 							<div class="row control-group">
 								<div
 									class="form-group col-xs-12 floating-label-form-group controls">
@@ -593,6 +608,8 @@ section.awSlider>img {
 									<p class="help-block text-danger">${requestScope.findBvo.address}</p>
 								</div>
 							</div>
+							
+							
 							<div class="row control-group">
 								<div
 									class="form-group col-xs-12 floating-label-form-group controls">
@@ -601,6 +618,8 @@ section.awSlider>img {
 									<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
 								</div>
 							</div>
+							
+							
 							<div class="row control-group">
 								<div
 									class="form-group col-xs-12 floating-label-form-group controls">
@@ -609,6 +628,8 @@ section.awSlider>img {
 									<p class="help-block text-danger">${requestScope.findBvo.address}</p>
 								</div>
 							</div>
+							
+							
 							<div class="row control-group">
 								<div
 									class="form-group col-xs-12 floating-label-form-group controls">
@@ -617,6 +638,8 @@ section.awSlider>img {
 									<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
 								</div>
 							</div>
+							
+							
 							<c:forEach items="${requestScope.findBvo.possibleList}"
 								var="possibleDay" varStatus="order">
 
@@ -630,6 +653,7 @@ section.awSlider>img {
 							</c:forEach>
 
 							<br>
+							
 							<div id="success"></div>
 
 							<div>requestScope.findBvo 결과 ${requestScope.findBvo}</div>

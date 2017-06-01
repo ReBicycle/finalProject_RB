@@ -65,7 +65,7 @@ create table map(
    latitude varchar2(100) not null,
    longitude varchar2(100) not null
 )
-
+select * from rent;
 
 create table rent(
    rentNo number primary key,
@@ -79,10 +79,19 @@ create sequence rent_seq;
 
 
 create table rb_review(
+<<<<<<< HEAD
+	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+	rentNo number constraint fk_rentNooo references rent(rentNo),
+	star number default 0,
+	reviewDate date not null,
+	comment clob not null,
+	constraint pk_rb_review primary key(reviewerId, rentNo)
+=======
    rentNo number primary key constraint fk_rentNooo references rent(rentNo),
    star number default 0,
    reviewDate date not null,
    content clob not null
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 )
 
 create table rb_report(
@@ -102,50 +111,29 @@ create table donation(
 )
 create sequence donation_seq;
 
+
 ------------종봉---------------------------------------------
 insert into CATEGORY values(category_seq.nextval,'미니벨로')
+update category set CATEGORYNAME='MTB' where CATEGORYNO=1;
 
-select * from bicycle
-<<<<<<< HEAD
-
-select * from bicycle
-
-=======
+select * from category
 
 select * from bicycle
 
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+select * from bicycle
+
+
 select * from category
 
 select * from BICYCLE
-<<<<<<< HEAD
 
-=======
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 --자전거 등록
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
-<<<<<<< HEAD
 
-insert into category values(category_seq.nextval,'MTB')
-insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
-insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
-
-=======
-
-insert into category values(category_seq.nextval,'MTB')
-insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
-insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
-<<<<<<< HEAD
 
-=======
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
 --대여가능일 등록
 insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
@@ -187,6 +175,7 @@ select * from rb_report;
 
 create table rb_report(
 	reportNo number primary key,
+	reportTitle varchar2(100) not null,
 	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
 	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
 	contents clob not null,
@@ -194,6 +183,7 @@ create table rb_report(
 )
 
 select * from rb_report
+================================= 등록 테스트 =================================
 
 SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 		SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reporterId,blackId,contents,
@@ -201,8 +191,40 @@ SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 		FROM rb_report
 		) r, rb_report order by reportNo desc		
 		
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+ 		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
+
+--------------------------------- 성공 -----------------------------------------------------
+			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
+			to_char(reportDate,'YYYY.MM.DD') as reportDate 
+			FROM rb_report
+			) r where rnum between 1 and 5 order by reportNo desc;
+============================================================================================
+
+=======
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+ 		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
+
+--------------------------------- 성공 -----------------------------------------------------
+			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
+			to_char(reportDate,'YYYY.MM.DD') as reportDate 
+			FROM rb_report
+			) r where rnum between 1 and 5 order by reportNo desc;
+============================================================================================
+
 insert into rb_report(reportNo,reporterId,blackId,contents,reportDate)
  		values(1,'java','java','hhhhh',sysdate)
+ 		
+insert into RB_MEMBER values('jobman','1234','정석희','01040051481','수내','anjemo1481@gmail.com', '1002132258973', 'null');
+
+create sequence report_seq;
+-------------------------- board_detail select --------------------------------
+select
+b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
+reportDate,b.contents from rb_report 
+b where reportNo=26
 -----------------------------석희---------------------------------
 delete from category
 select * from category
@@ -211,11 +233,13 @@ update category set categoryName='MTB'
 insert into category(categoryNo, categoryName) values(1, 'MTB');
 insert into category(categoryNo, categoryName) values(2, '로드');
 insert into category(categoryNo, categoryName) values(3, '픽시');
-insert into category(categoryNo, categoryName) values(4, '레코드용');
-insert into category(categoryNo, categoryName) values(5, '어린이용');
+insert into category(categoryNo, categoryName) values(4, '미니벨로');
+insert into category(categoryNo, categoryName) values(5, '레코드용');
+insert into category(categoryNo, categoryName) values(6, '어린이용');
+insert into category(categoryNo, categoryName) values(7, '기타');
 
-insert into category(categoryNo, categoryName) values(6, '기타');
-
+select * from category;
+delete from category where categoryNo>1;
 select * from bicycle;
 select min(rentPrice) from bicycle;
 select round(avg(rentPrice), 1) from bicycle;
@@ -225,7 +249,14 @@ alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
 select * from bicycle_photo;
 
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
+
+select * from rb_member;
 -----------------------태형-----------------------------------------
+
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id
@@ -278,7 +309,11 @@ from bicycle b, category c
 where b.categoryNo = c.categoryNo and memberId='java'
 
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+<<<<<<< HEAD
 from bicycle
+=======
+from bicycle
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 where memberId='java'
 
 <<<<<<< HEAD
@@ -286,6 +321,7 @@ select * from RB_MEMBER
 select * from CATEGORY
 select * from bicycle
 =======
+
 
 
 

@@ -50,7 +50,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value = "memberRegister.do")
-	public String memberRegister(MemberVO vo, HttpServletRequest request){
+	public String memberRegister(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		
 		System.out.println(vo);
 	
@@ -76,6 +76,7 @@ public class MemberController {
 		}
 		
 		vo.setPicture(vo.getId()+fileExt);
+		vo.setAddress(roadAddress+","+jibunAddress+"/"+detailAddress);
 		memberService.registerMember(vo);
 		uploadPath = "";
 		return "redirect:home.do";
@@ -105,7 +106,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="memberModify.do")
-	public String memberModify(MemberVO vo, HttpServletRequest request){
+	public String memberModify(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		//System.out.println("memberModify"+vo.getUploadFile());
 		
 		//만약 파일을 변경한 경우
@@ -140,13 +141,10 @@ public class MemberController {
 			memberService.memberModify(vo);
 		}
 		
-		
-
 		MemberVO newVO = memberService.findMemberById(vo.getId());
+		newVO.setAddress(roadAddress+","+jibunAddress+"/"+detailAddress);
 		HttpSession session = request.getSession(false);
 		session.setAttribute("mvo", newVO);
 		return "redirect:home.do";
 	}
-	
-	
 }

@@ -59,12 +59,12 @@
                         <a href="${pageContext.request.contextPath}/bicycle/bicycle_map.do">map</a>
                     </li>
                      <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/board/board_list.do">board</a>
-                    </li>                           
+                        <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
+                    </li>
+                                   
                      <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>					
-                     </li>  
-
+                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
+                    </li>
                     <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/bicycle/selectable.do">달력</a>
                     </li>

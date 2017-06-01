@@ -52,16 +52,22 @@ public class BicycleController {
 		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
 		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
-	
+
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
 		for(int i=0 ; i<stArr.length ; i++) {
 			calList.add(new CalendarVO(stArr[i], endArr[i]));
 		}
 		
-		serviceImpl1.registerBicycle(bvo, calList, uploadPath);
+		// Map 등록
+		String latitude = request.getParameter("latitude");
+		String longitude = request.getParameter("longitude");
+		MapVO map = new MapVO(latitude, longitude);
+		
+		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
 		System.out.println(bvo);
-		System.out.println(cvo);
+		System.out.println(calList);
+		System.out.println(map);
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	
@@ -69,27 +75,49 @@ public class BicycleController {
 	@ResponseBody
 	public ArrayList<Object> calculatePrice(int categoryNo){
 		ArrayList<Object> calList = new ArrayList<Object>();
-		calList = serviceImpl1.calculatePrice(categoryNo);
+		if(serviceImpl1.calculatePrice(categoryNo)==null){
+			calList.add("없음");
+		} else {
+			calList = serviceImpl1.calculatePrice(categoryNo);
+		}
 		return calList;
 	}
 	
 	//소영 bicycle_search_list_test로
-	@RequestMapping("listViewTest.do")
-	public String listViewTest(Model model){
-		ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) serviceImpl3.findBicycleList();
-		model.addAttribute("bList", bList);
-		return "bicycle/bicycle_search_list_test.tiles";
-	}
+		@RequestMapping("listViewTest.do")
+		public String listViewTest(Model model){
+			ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) serviceImpl3.findBicycleList();
+			model.addAttribute("bList", bList);
+			return "bicycle/bicycle_search_list_test.tiles";
+			
+		}
 		
 	///상세보기로 보낼 정보 처리 컨트롤러
 	@RequestMapping("findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model){
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
-		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
+		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);	
 		bvo.setPossibleList(cList);
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
+	}
+
+	//calendarBean으로부터 해당 월의 마지막날짜, 1일 요일을 ajax로 받아옴
+	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
+	@RequestMapping("bicycleModifyForm.do")
+	public String bicycleModifyForm(String memberId, String bicycleNo){
+		//6월1일 할일
+		return "bicycle/bicycle_register_modify.tiles";
+	}
+
+	@RequestMapping("getCalendarBean.do")
+	@ResponseBody
+	public CalendarBean getCalendarBean(String currYear, String currMonth){
+		CalendarManager cm = new CalendarManager();
+		cm.setCurrent(Integer.parseInt(currYear), Integer.parseInt(currMonth));
+		CalendarBean cb = cm.getCurrent();
+		return cb;
 	}
 	
 	//fullcalendar 에서 events 처리를 해주기 위한 메서드
@@ -147,6 +175,7 @@ public class BicycleController {
 		}
 		return possibleDayList;
 	}
+
 }
 
 

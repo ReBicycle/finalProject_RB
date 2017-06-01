@@ -9,8 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
 			select bicycle_seq.nextval from dual
 		</selectKey>
- 		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo) 
- 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryVO.categoryNo})
+ 		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo, title) 
+ 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryVO.categoryNo}, #{title})
  	</insert>
  	
  	<select id="findCategoryByNo" resultType="string">
@@ -33,6 +33,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into possible_day(bicycleNo, startDay, endDay)
 		values(#{bicycleNo}, #{startDay}, #{endDay})
 	</insert>
+	
+	<select id="countCategory" resultType="int">
+		select count(*) from bicycle where categoryNo=#{value}
+	</select>
+	
+	<insert id="registerMap" parameterType="mapVO">
+		insert into map(bicycleNo, latitude, longitude) values(#{bicycleNo}, #{latitude}, #{longitude}) 
+	</insert>
+	
 	<!-- 종봉 자전거 검색 -->
 	<!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
 		resultType="bicycleVO">
@@ -92,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 소영-mypage관련 -->
 	<select id="findBicycleById" resultType="bicycleVO">
-		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo, title
 		from bicycle
 		where memberId=#{value}
 	</select>
@@ -101,6 +110,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="registerFile" parameterType="photoVO">
 		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
 	</insert>
+	
+	
+	<!-- 서경 findRentById -->	
+	<resultMap type="rentVO" id="rentMap">
+		<result column="renterId" property="memberVO.id"/>
+		<result column="bicycleNo" property="bicycleVO.bicycleNo"/>
+		<result column="startDay" property="calendarVO.startDay"/>
+		<result column="endDay" property="calendarVO.endDay"/>
+	</resultMap>
+	<select id="findRentById" resultMap="rentMap">
+		select renterId,bicycleNo, startDay, endDay, state 
+		from rent 
+		where renterId=#{value}
+	</select>
 	
 	<!-- 리스트 테스트 소영 -->
 	<select id="findBicycleList" resultType = "bicycleVO">
@@ -128,30 +151,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 </mapper>
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -10,6 +10,7 @@ import org.kosta.rebicycle.model.service.BicycleServiceImpl4;
 import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
+import org.kosta.rebicycle.model.vo.RentVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,12 @@ public class MypageController {
 		
 		//아이디로 등록한 자전거 정보 불러오기
 		//등록한 자전거가 여러개일 수도 있기 때문에 리스트로 받기
-		ArrayList<BicycleVO> list = (ArrayList<BicycleVO>) bicycleService4.findBicycleById(vo.getId());
-		model.addAttribute("bicycleList", list);
+		ArrayList<BicycleVO> registerList = (ArrayList<BicycleVO>) bicycleService4.findBicycleById(vo.getId());
+		model.addAttribute("registerList", registerList);
+		
+		//내가빌린내역 불러오기
+		ArrayList<RentVO> rentList = (ArrayList<RentVO>) bicycleService4.findRentById(vo.getId());
+		model.addAttribute("rentList", rentList);
 		return "mypage/mypage_main.tiles";
 	}
 }

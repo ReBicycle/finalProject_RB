@@ -9,7 +9,9 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl3;
+import org.kosta.rebicycle.model.service.BoardDAOImpl;
 import org.kosta.rebicycle.model.vo.BicycleVO;
+import org.kosta.rebicycle.model.vo.ReportVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +23,7 @@ public class TestUnit {
 	private SqlSessionTemplate template;
 	@Resource
 	private BicycleDAOImpl3 BicycleDAOImpl3;
-
+	private BoardDAOImpl BoardDAOImpl;
 	@Test
 	public void test1() {
 		System.out.println(BicycleDAOImpl3.findBicycleByNo(1));

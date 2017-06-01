@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#reviewForm").click(function(){
+			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
+		});
+	});
+</script>
+
+
  <br><br>
 <div class="mainbody container-fluid">
     <div class="row">
@@ -148,7 +158,7 @@
                <div class="panel panel-default">
                 <div class="panel-body">
                     <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px">등록 자전거 관리<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="다른 사용자가 대여한 내역"></i></h1>
+                        <h1 class="panel-title pull-left" style="font-size:30px">등록된 자전거<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
                         
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -157,9 +167,9 @@
                             </button>
                            <%--  ${requestScope.bicycleList} --%>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           <c:forEach items="${requestScope.bicycleList}" var = "bList">
+	                           <c:forEach items="${requestScope.registerList}" var = "bList">
 	
-		                                <li><a href="#">${bList.detail}</a></li>
+		                                <li><a href="${pageContext.request.contextPath}/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
 		                              
 	                       		 </c:forEach>
                        		 </ul>
@@ -202,7 +212,7 @@
                             </button>
                            <%--  ${requestScope.bicycleList} --%>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           <c:forEach items="${requestScope.bicycleList}" var = "bList">
+	                           <c:forEach items="${requestScope.registerList}" var = "bList">
 	
 		                                <li><a href="#">${bList.detail}</a></li>
 		                              
@@ -248,17 +258,12 @@
                         </div>
                     </span>
                     <br><br>
-					<hr>
-                    <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
-                    </span>
-                    <span class="pull-right">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                    </span>
+				<div align="left">
+					<c:forEach items="${requestScope.rentList}" var = "bList" varStatus="i">
+						 ${bList.bicycleVO.detail} <input type="button"  value="리뷰쓰기"  id="reviewForm"><br>                       
+	                </c:forEach>
+				
+				</div>
                 </div>
             </div>
             

@@ -114,7 +114,7 @@ function mapSetting(){
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 4 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
@@ -138,21 +138,58 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
         alert(longitude); */
       
         // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new daum.maps.Marker({
+        /* var marker = new daum.maps.Marker({
             map: map,
             position: coords
-        });
+        }); */
+        
+        
+        var positions = [
+            <c:forEach items="${sessionScope.mapList}" var="map" varStatus="status">
+           				{	title: "${map.bicycleNo}",
+           					latlng: new daum.maps.LatLng("${map.latitude}", "${map.longitude}")
+           				}
+           				<c:if test="${not status.last}">,</c:if>
+            </c:forEach>
+            
+    ];
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        // 마커 이미지의 이미지 주소입니다
+        var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+            
+         for (var i = 0; i < positions.length; i ++) {
+            
+            // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new daum.maps.Size(24, 35); 
+            
+            // 마커 이미지를 생성합니다    
+            var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
+            
+             // 마커를 생성합니다
+              var marker = new daum.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng , // 마커를 표시할 위치
+                title :positions[i].title , // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                image : markerImage // 마커 이미지 
+            });   
+        }  
+       /*  // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new daum.maps.InfoWindow({
             content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
         });
         infowindow.open(map, marker);
-
+ */
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-});    
+});   
+	
+
+
+
+
+
+
 }//mapSetting
 </script>
 <script type="text/javascript">

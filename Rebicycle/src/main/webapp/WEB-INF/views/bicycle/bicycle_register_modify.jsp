@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript">
@@ -150,6 +151,9 @@ function findGeo(){
 				    <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
 				        <div class="controls col-md-8 "> 
+				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo1 }">
+				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo2 }">
+				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo3 }">
 							<input type="file" name="file[0]"><br>
 							<input type="file" name="file[1]"><br>
 							<input type="file" name="file[2]"><br>
@@ -160,7 +164,7 @@ function findGeo(){
 				    <div id="div_id_title" class="form-group required"> 
 				        <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_title" name="title" style="margin-bottom: 10px" type="text"/>
+				            <input class="input-md textinput textInput form-control" id="id_title" name="title" style="margin-bottom: 10px" type="text" value="${bicycleVO.title }"/>
 				        </div>
 				    </div>
 				    
@@ -176,13 +180,13 @@ function findGeo(){
 				    <div id="div_id_category" class="form-group required">
 				        <label for="id_category"  class="control-label col-md-3  requiredField">종류</label>
 				        <div class="controls col-md-8 "  style="margin-bottom: 10px">
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_1" value="1" style="margin-bottom: 10px">MTB</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_2" value="2" style="margin-bottom: 10px">로드</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_1" value="1" style="margin-bottom: 10px" <c:if test="${bicycleVO.categoryVO.categoryNo==1 }">checked</c:if> >MTB</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_2" value="2" style="margin-bottom: 10px" <c:if test="${bicycleVO.categoryVO.categoryNo==2 }">checked</c:if>>로드</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_3" value="3" style="margin-bottom: 10px">픽시</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_4" value="4" style="margin-bottom: 10px">미니벨로</label>				            
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_5" value="5" style="margin-bottom: 10px">레코드용</label>
 				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6" style="margin-bottom: 10px">어린이용</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_7" value="7"  style="margin-bottom: 10px">기타</label><br>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_7" value="7" style="margin-bottom: 10px">기타</label><br>
 				            <span id="calResult"></span>
 				        </div>
 				    </div>

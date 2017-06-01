@@ -2,8 +2,6 @@ package org.kosta.rebicycle.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -97,8 +95,9 @@ public class BicycleController {
 	public String findBicycleByNo(String bicycleNo,Model model){
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
-		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);	
+		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
 		bvo.setPossibleList(cList);
+
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}
@@ -106,18 +105,50 @@ public class BicycleController {
 	//calendarBean으로부터 해당 월의 마지막날짜, 1일 요일을 ajax로 받아옴
 	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
 	@RequestMapping("bicycleModifyForm.do")
-	public String bicycleModifyForm(String memberId, String bicycleNo){
+	public String bicycleModifyForm(String memberId, int bicycleNo, Model model){
 		//6월1일 할일
+		
+		System.out.println(serviceImpl3.findBicycleDetailByNo(bicycleNo));
+		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(bicycleNo);
+		model.addAttribute("bicycleVO", bvo);
 		return "bicycle/bicycle_register_modify.tiles";
 	}
 
 	@RequestMapping("getCalendarBean.do")
 	@ResponseBody
-	public CalendarBean getCalendarBean(String currYear, String currMonth){
+	public String getCalendarBean(String currYear, String startMonth, String endMonth, String startDay, String endDay){
+		System.out.println("//" + currYear);
+		int currYear2 = Integer.parseInt(currYear);
+		int startMonth2 = Integer.parseInt(startMonth);
+		int endMonth2 = Integer.parseInt(endMonth);
+		int startDay2 = Integer.parseInt(startDay);
+		int endDay2 = Integer.parseInt(endDay);
+		int result = 0;
+
 		CalendarManager cm = new CalendarManager();
-		cm.setCurrent(Integer.parseInt(currYear), Integer.parseInt(currMonth));
+		cm.setCurrent(currYear2, startMonth2);
 		CalendarBean cb = cm.getCurrent();
-		return cb;
+		
+		 if(startMonth2 == endMonth2){
+ 			 result = (endDay2-startDay2)+1;
+ 		 }else if((startMonth2-endMonth2) == -1 || (endMonth2-startMonth2)==1){
+ 			result = ((cb.getLastDayOfMonth() - startDay2) + endDay2+1); 
+ 			
+ 		 }else if((startMonth2-endMonth2) < -1 || (endMonth2-startMonth2) > 1){
+ 			 result = ((cb.getLastDayOfMonth() - startDay2) + endDay2+1);
+ 			 
+ 			 for(int i = 1;i<(endMonth2-startMonth2);i++){
+ 				cm.setCurrent(currYear2,(endMonth2-i));
+ 				cb = cm.getCurrent();
+ 				result += cb.getLastDayOfMonth();
+ 			 }
+ 			 
+ 			 
+ 		 }
+		
+		
+		
+		return ""+ result;
 	}
 	
 	//fullcalendar 에서 events 처리를 해주기 위한 메서드

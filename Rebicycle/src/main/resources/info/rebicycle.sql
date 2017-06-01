@@ -232,6 +232,7 @@ delete from category
 select * from category
 update category set categoryName='MTB'
 -----------------------태형--------------------------------
+delete from category;
 insert into category(categoryNo, categoryName) values(1, 'MTB');
 insert into category(categoryNo, categoryName) values(2, '로드');
 insert into category(categoryNo, categoryName) values(3, '픽시');
@@ -259,6 +260,12 @@ delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
 select * from rb_member;
+
+	select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
+		,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,
+		ph.*, b.title
+		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca
+		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=102 and ca.categoryNo=b.categoryNo
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
@@ -348,8 +355,9 @@ insert into RB_MEMBER values('java4','1234','이현근','010','경기도 성남�
 select * from RB_MEMBER
 
 -------------------------------------------------------------
+select *from bicycle
 --배서경이 등록한 자전거2개
-insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 판교역로 160',100000,5000,'애끼는자전거',1);
+insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 판교역로 160',100000,5000,'애끼는자전거',1 , '자전거 타이틀 추가');
 insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 대왕판교로606번길 45',100000,5000,'자전거체고시다',1);
 --임소영이 등록한 자전거2개
 insert into bicycle values(bicycle_seq.nextval,'java2','	경기도 성남시 분당구 판교역로146번길 20',10000,5000,'최애자전거',1);
@@ -361,7 +369,7 @@ select * from BICYCLE;
 insert into bicycle_photo values(1,'1_photo1.jpg','1_photo2.jpg','1_photo3.jpg');
 insert into bicycle_photo values(2,'2_photo1.jpg','2_photo2.jpg','2_photo3.jpg');
 insert into bicycle_photo values(3,'3_photo1.jpg','3_photo2.jpg','3_photo3.jpg');
-insert into bicycle_photo values(4,'4_photo1.jpg','4_photo2.jpg','4_photo3.jpg');
+insert into bicycle_photo values(44,'44_photo1.jpg','44_photo2.jpg','44_photo3.jpg');
 
 ---------------------------------------------------------------------
 --자전거 대여가능일 등록
@@ -372,7 +380,7 @@ insert into possible_day values(2,to_date('2017-06-10','yyyy/mm/dd'),to_date('20
 insert into possible_day values(2,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 insert into possible_day values(3,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 insert into possible_day values(4,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'));
-insert into possible_day values(4,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
+insert into possible_day values(44,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 
 select * from possible_day;
 ---------------------------------------------------------------------
@@ -380,7 +388,7 @@ select * from possible_day;
 insert into map values(1, '37.394879','127.11123799999996');
 insert into map values(2, '37.3964436','127.11170119999997');
 insert into map values(3, '37.3925707','127.11199599999998');
-insert into map values(4, '37.40164300000001','127.10709300000008');
+insert into map values(44, '37.40164300000001','127.10709300000008');
 
 select * from map;
 -------------------------------------------------

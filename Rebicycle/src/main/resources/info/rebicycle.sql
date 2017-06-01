@@ -52,7 +52,7 @@ create table bicycle_photo(
    photo2 varchar2(100) null,
    photo3 varchar2(100) null
 )
-
+select * from possible_day 
 create table possible_day(
    bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
    startDay date not null,
@@ -131,6 +131,8 @@ select * from BICYCLE
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+--자전거 삭제
+delete from bicycle where bicycleNo=1 cascade;
 
 insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
 
@@ -165,7 +167,7 @@ delete from bicycle_photo where bicycleNo=2;
 --map에 좌표 등록
 insert into map values(1,'33.450701','126.570667');
 insert into map values(2,'33.450701','126.570667');
-
+alter table bicycle modify address varchar2(300)
 --좌표까지 조회
 
 ------------종봉----------------------------------------------
@@ -185,6 +187,24 @@ create table rb_report(
 select * from rb_report
 ================================= 등록 테스트 =================================
 
+SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+		SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reporterId,blackId,contents,
+		to_char(reportDate,'YYYY.MM.DD') as reportDate
+		FROM rb_report
+		) r, rb_report order by reportNo desc		
+		
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+ 		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
+
+--------------------------------- 성공 -----------------------------------------------------
+			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
+			to_char(reportDate,'YYYY.MM.DD') as reportDate 
+			FROM rb_report
+			) r where rnum between 1 and 5 order by reportNo desc;
+============================================================================================
+
+=======
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
  		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
 
@@ -208,9 +228,11 @@ b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD
 reportDate,b.contents from rb_report 
 b where reportNo=26
 -----------------------------석희---------------------------------
-
-
+delete from category
+select * from category
+update category set categoryName='MTB'
 -----------------------태형--------------------------------
+delete from category;
 insert into category(categoryNo, categoryName) values(1, 'MTB');
 insert into category(categoryNo, categoryName) values(2, '로드');
 insert into category(categoryNo, categoryName) values(3, '픽시');
@@ -232,6 +254,8 @@ select * from bicycle_photo;
 
 delete from possible_day;
 delete from bicycle_photo;
+delete from map;
+delete from category;
 delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
@@ -267,8 +291,9 @@ where bicycleNo=1 and b.memberId=m.id
 
 
 
-select * from possible_day
-insert into possible_day values(1,'2017-05-27','2017-05-29')
+select * from possible_day where bicycleNo=2
+insert into possible_day values(2,'2017-05-27','2017-05-29')
+insert into possible_day values(2,'2017-05-13','2017-05-17')
 
 -----------------------소영------------------------------------------
 select * from CATEGORY;
@@ -295,9 +320,18 @@ from bicycle b, category c
 where b.categoryNo = c.categoryNo and memberId='java'
 
 select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
+<<<<<<< HEAD
 from bicycle
+=======
+from bicycle
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 where memberId='java'
 
+<<<<<<< HEAD
+select * from RB_MEMBER
+select * from CATEGORY
+select * from bicycle
+=======
 
 
 
@@ -321,8 +355,9 @@ insert into RB_MEMBER values('java4','1234','이현근','010','경기도 성남�
 select * from RB_MEMBER
 
 -------------------------------------------------------------
+select *from bicycle
 --배서경이 등록한 자전거2개
-insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 판교역로 160',100000,5000,'애끼는자전거',1);
+insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 판교역로 160',100000,5000,'애끼는자전거',1 , '자전거 타이틀 추가');
 insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 대왕판교로606번길 45',100000,5000,'자전거체고시다',1);
 --임소영이 등록한 자전거2개
 insert into bicycle values(bicycle_seq.nextval,'java2','	경기도 성남시 분당구 판교역로146번길 20',10000,5000,'최애자전거',1);
@@ -334,7 +369,7 @@ select * from BICYCLE;
 insert into bicycle_photo values(1,'1_photo1.jpg','1_photo2.jpg','1_photo3.jpg');
 insert into bicycle_photo values(2,'2_photo1.jpg','2_photo2.jpg','2_photo3.jpg');
 insert into bicycle_photo values(3,'3_photo1.jpg','3_photo2.jpg','3_photo3.jpg');
-insert into bicycle_photo values(4,'4_photo1.jpg','4_photo2.jpg','4_photo3.jpg');
+insert into bicycle_photo values(44,'44_photo1.jpg','44_photo2.jpg','44_photo3.jpg');
 
 ---------------------------------------------------------------------
 --자전거 대여가능일 등록
@@ -345,7 +380,7 @@ insert into possible_day values(2,to_date('2017-06-10','yyyy/mm/dd'),to_date('20
 insert into possible_day values(2,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 insert into possible_day values(3,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 insert into possible_day values(4,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'));
-insert into possible_day values(4,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
+insert into possible_day values(44,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 
 select * from possible_day;
 ---------------------------------------------------------------------
@@ -353,7 +388,7 @@ select * from possible_day;
 insert into map values(1, '37.394879','127.11123799999996');
 insert into map values(2, '37.3964436','127.11170119999997');
 insert into map values(3, '37.3925707','127.11199599999998');
-insert into map values(4, '37.40164300000001','127.10709300000008');
+insert into map values(44, '37.40164300000001','127.10709300000008');
 
 select * from map;
 -------------------------------------------------
@@ -378,5 +413,29 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 
 --==============서경==============================================================
 
-
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
+-----------------------현근------------------------------------------
+select to_char(sysdate,'YYYY-MM-DD') from dual
+
+insert into bicycle values(2,'java','판교',1000,200,'좋아요',1);
+insert into category values(1,'픽시');
+insert into bicycle_photo values(2,'6_photo1.png','6_photo2.png','6_photo3.png'); 
+delete from bicycle_photo
+
+select * from POSSIBLE_DAY where bicycleNo=21
+select * from bicycle
+
+ bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
+   startDay date not null,
+   endDay date not null,
+   constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
+
+insert into possible_day values(21,'2017-05-02','2017-05-02');
+select * from possible_day where bicycleNo=21
+   
+   
+   
+   
+   
+   

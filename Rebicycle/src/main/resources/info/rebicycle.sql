@@ -235,7 +235,6 @@ insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDat
 			) r where rnum between 1 and 5 order by reportNo desc;
 ============================================================================================
 
-=======
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
  		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
 
@@ -341,7 +340,9 @@ where memberId='java'
 
 select * from RB_MEMBER
 select * from CATEGORY
+<<<<<<< HEAD
 select * from bicycle
+where memberId='java'
 
 
 
@@ -414,29 +415,68 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 
 --==============서경==============================================================
 
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 
 -----------------------현근------------------------------------------
-select to_char(sysdate,'YYYY-MM-DD') from dual
+   
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
+   
+delete from rb_review;
+delete from rb_report;
+delete from donation;
+delete from rent;
+delete from possible_day;
+delete from bicycle_photo;
+delete from map;
+delete from bicycle;
+delete from category;
+   
+drop sequence category_seq;
+drop sequence bicycle_seq;
+drop sequence rent_seq;
+drop sequence report_seq;
+drop sequence donation_seq;
 
-insert into bicycle values(2,'java','판교',1000,200,'좋아요',1);
-insert into category values(1,'픽시');
-insert into bicycle_photo values(2,'6_photo1.png','6_photo2.png','6_photo3.png'); 
-delete from bicycle_photo
+alter table rb_member modify address varchar2(300);
+alter table bicycle modify address varchar2(300);
+alter table bicycle add title varchar2(100) not null;
 
-select * from POSSIBLE_DAY where bicycleNo=21
-select * from bicycle
+create sequence category_seq nocache;
+create sequence bicycle_seq nocache;
+create sequence rent_seq nocache;
+create sequence report_seq nocache;
+create sequence donation_seq nocache;
 
- bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
-   startDay date not null,
-   endDay date not null,
-   constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '미니벨로');
+insert into category(categoryNo, categoryName) values(5, '레코드용');
+insert into category(categoryNo, categoryName) values(6, '어린이용');
+insert into category(categoryNo, categoryName) values(7, '기타');
 
-insert into possible_day values(21,'2017-05-02','2017-05-02');
-select * from possible_day where bicycleNo=21
-   
-   
-   
-   
-   
-   
+select * from rb_member;
+select * from category order by categoryNo;
+select * from bicycle;
+select * from map;
+select * from bicycle_photo;
+select * from possible_day;
+select * from rent;
+select * from donation;
+select * from rb_report;
+select * from rb_review;
+
+drop table rb_review
+
+create table rb_review(
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   cotent clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
+)
+

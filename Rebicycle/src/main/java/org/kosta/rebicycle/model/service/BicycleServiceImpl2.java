@@ -1,5 +1,6 @@
 package org.kosta.rebicycle.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,5 +17,27 @@ public class BicycleServiceImpl2 implements BicycleService {
 	public List<BicycleVO> getBicycleListByAddressAndDay(String address,String startDay,String endDay){
 			
 		return dao.getBicycleListByAddressAndDay(address, startDay, endDay);
+	}
+
+	public List<BicycleVO> sortByBikeType(String address, String startDay, String endDay, String bikeType) {
+		System.out.println("타입정렬서비스실행");
+		List<BicycleVO> originList=dao.getBicycleListByAddressAndDay(address, startDay, endDay);
+		List<BicycleVO> sortedList=new ArrayList<BicycleVO>();
+		for(int i=0;i<originList.size();i++){
+			if(originList.get(i).getCategoryVO().getCategoryNo()==Integer.parseInt(bikeType)){
+				sortedList.add(originList.get(i));
+			}
+		}
+		for(BicycleVO b:sortedList)
+			System.out.println("정렬된리스트"+b);
+		return sortedList;
+	}
+
+	public List<BicycleVO> sortByPriceType(String address, String startDay, String endDay, String priceType) {
+		System.out.println("가격정렬서비스실행");
+		if(priceType.equals("low"))
+			return dao.sortedListByAddressAndDayAndLow(address, startDay, endDay);
+		else
+			return dao.sortedListByAddressAndDayAndHigh(address, startDay, endDay);
 	}
 }

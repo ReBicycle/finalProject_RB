@@ -461,7 +461,6 @@ section.awSlider>img {
 	-webkit-border-radius: 50%;
 	border-radius: 50%;
 	}
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 </style>
 
 <br>

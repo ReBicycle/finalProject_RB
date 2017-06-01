@@ -416,31 +416,12 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 -----------------------현근------------------------------------------
-select to_char(sysdate,'YYYY-MM-DD') from dual
-
-insert into bicycle values(2,'java','판교',1000,200,'좋아요',1);
-insert into category values(1,'픽시');
-insert into bicycle_photo values(2,'6_photo1.png','6_photo2.png','6_photo3.png'); 
-delete from bicycle_photo
-
-select * from POSSIBLE_DAY where bicycleNo=21
-select * from bicycle
-
- bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
-   startDay date not null,
-   endDay date not null,
-   constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
-
-insert into possible_day values(21,'2017-05-02','2017-05-02');
-select * from possible_day where bicycleNo=21
    
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
    
-   
-select * from possible_day 
-where bicycleNo = 44
-   
--------------------------------------------------------------------------------------
-
 delete from rb_review;
 delete from rb_report;
 delete from donation;
@@ -450,7 +431,7 @@ delete from bicycle_photo;
 delete from map;
 delete from bicycle;
 delete from category;
-
+   
 drop sequence category_seq;
 drop sequence bicycle_seq;
 drop sequence rent_seq;
@@ -493,6 +474,7 @@ create table rb_review(
    rentNo number constraint fk_rentNooo references rent(rentNo),
    star number default 0,
    reviewDate date not null,
-   content clob not null,
+   cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
+

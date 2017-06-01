@@ -52,7 +52,7 @@ create table bicycle_photo(
    photo2 varchar2(100) null,
    photo3 varchar2(100) null
 )
-select * from possible_day where bicycleNo=2
+select * from possible_day 
 create table possible_day(
    bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
    startDay date not null,
@@ -199,13 +199,14 @@ SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 		SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reporterId,blackId,contents,
 		to_char(reportDate,'YYYY.MM.DD') as reportDate
 		FROM rb_report
-		) r, rb_report order by reportNo desc
+		) r, rb_report order by reportNo desc		
 		
 insert into rb_report(reportNo,reporterId,blackId,contents,reportDate)
  		values(1,'java','java','hhhhh',sysdate)
 -----------------------------석희---------------------------------
-
-
+delete from category
+select * from category
+update category set categoryName='MTB'
 -----------------------태형--------------------------------
 insert into category(categoryNo, categoryName) values(1, 'MTB');
 insert into category(categoryNo, categoryName) values(2, '로드');
@@ -367,13 +368,26 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 -----------------------현근------------------------------------------
+select to_char(sysdate,'YYYY-MM-DD') from dual
+
 insert into bicycle values(2,'java','판교',1000,200,'좋아요',1);
 insert into category values(1,'픽시');
 insert into bicycle_photo values(2,'6_photo1.png','6_photo2.png','6_photo3.png'); 
 delete from bicycle_photo
 
-select * from POSSIBLE_DAY
+select * from POSSIBLE_DAY where bicycleNo=21
+select * from bicycle
 
+ bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
+   startDay date not null,
+   endDay date not null,
+   constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
 
-
-
+insert into possible_day values(21,'2017-05-02','2017-05-02');
+select * from possible_day where bicycleNo=21
+   
+   
+   
+   
+   
+   

@@ -7,7 +7,7 @@
 <html> 
   <head>
       <meta charset="UTF-8">
-      <title>네이버 지도 API - 주소로 지도 표시하기</title>
+      <title>자전거 검색</title>
       
       <style>
 .content {
@@ -60,72 +60,34 @@
    <%--지도 --%>
    <%-- 검색 리스트 --%>
    <div class="col-sm-5" style="height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
-<%--       <section id="portfolio">
-           <div class="container">
-              <!--  <div class="row"> -->
-                   <div class="portfolio-item responsive gallery">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                           <div class="caption-content">
-                              <span style="text-align: center;">
-                              아이디:${requestScope.bicycleList[0].memberId}<br>
-                                대여료:${requestScope.bicycleList[0].rentPrice}<br>
-                        </span>
-                            </div> 
-                        </div>
-                        <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" class="img-responsive" alt="Cabin">
-                       
-                    </a>
-                   </div>
-                 
-               </div>row
-                           <!--  <div class="row"> -->
-                   <div class="portfolio-item responsive gallery">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                           <div class="caption-content">
-                              <span style="text-align: center;">
-                              아이디:${requestScope.bicycleList[0].memberId}<br>
-                                대여료:${requestScope.bicycleList[0].rentPrice}<br>
-                        </span>
-                            </div> 
-                        </div>
-                        <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" class="img-responsive" alt="Cabin">
-                       
-                    </a>
-                   </div>
-                 
-               </div>row
-                           <!--  <div class="row"> -->
-                   <div class="portfolio-item responsive gallery">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                           <div class="caption-content">
-                              <span style="text-align: center;">
-                              아이디:${requestScope.bicycleList[0].memberId}<br>
-                                대여료:${requestScope.bicycleList[0].rentPrice}<br>
-                        </span>
-                            </div> 
-                        </div>
-                        <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.bicycleList[0].photo1}" class="img-responsive" alt="Cabin">
-                       
-                    </a>
-                   </div>
-                 
-               </div>row
-               
-           </div>
-       </section>  --%>
+
  <section id="portfolio"> 
 <div class="w3-container w3-teal " >
   <h1>Bicycle List</h1>
 </div>
+<div style="float:right;">
+정렬&nbsp;<select id="bikeTypeSelect" >
+	<option value="">B-Type</option>
+	<option value="1">MTB</option>
+	<option value="2">로드</option>
+	<option value="3">픽시</option>
+	<option value="4">미니벨로</option>
+	<option value="5">레코드용</option>
+	<option value="6">어린이용</option>
+	<option value="7">기타</option>
 
+</select>
+<select id="rentalPrice">
+<option value="">Price</option>
+	<option value="low">낮은가격순</option>
+	<option value="high">높은가격순</option>
+</select>
+</div>
 <div class="w3-row-padding w3-margin-top " >
    <c:forEach items="${requestScope.bicycleList}" var="list" >
   <div class="w3-second col-sm-6 w3-margin-top ">
      <div class="w3-card-2 content ">
-      <img src="${pageContext.request.contextPath}/resources/upload/${list.photoVO.photo1}" style="width:100%">
+      <img src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="200px" height="180px">
       <div class="overlay" >
          <span class="text">
               아이디:${list.memberVO.id}<br>

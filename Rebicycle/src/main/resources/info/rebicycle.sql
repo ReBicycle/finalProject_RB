@@ -131,6 +131,8 @@ select * from BICYCLE
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+--자전거 삭제
+delete from bicycle where bicycleNo=1 cascade;
 
 insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
 
@@ -165,7 +167,7 @@ delete from bicycle_photo where bicycleNo=2;
 --map에 좌표 등록
 insert into map values(1,'33.450701','126.570667');
 insert into map values(2,'33.450701','126.570667');
-
+alter table bicycle modify address varchar2(300)
 --좌표까지 조회
 
 ------------종봉----------------------------------------------
@@ -232,6 +234,8 @@ select * from bicycle_photo;
 
 delete from possible_day;
 delete from bicycle_photo;
+delete from map;
+delete from category;
 delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 

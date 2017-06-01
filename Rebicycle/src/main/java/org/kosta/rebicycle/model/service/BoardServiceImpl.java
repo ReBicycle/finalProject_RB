@@ -30,8 +30,17 @@ public class BoardServiceImpl implements BoardService{
 		return new ListVO(boardDAO.getReportList(pagingBean),pagingBean);
 	}
 	@Override
-	public ReportVO boardDetail(String reportNo){
+	public ReportVO boardDetail(int reportNo){
 		boardDAO.boardDetail(reportNo);
 		return boardDAO.boardDetail(reportNo);
+	}
+	@Override
+	public void updateReport(ReportVO rvo){
+		boardDAO.updateReport(rvo);
+	}
+	@Override
+	public ReportVO boardUpdateReportView(int reportNo){
+		boardDAO.boardUpdateReportView(reportNo);
+		return boardDAO.boardUpdateReportView(reportNo);
 	}
 }

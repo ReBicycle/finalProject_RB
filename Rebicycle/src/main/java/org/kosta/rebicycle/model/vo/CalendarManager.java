@@ -6,7 +6,7 @@ public class CalendarManager {
 	
 	int lastDayOfMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	
-	private CalendarManager() {
+	public CalendarManager() {
 		super();
 		current = new CalendarBean();
 	}

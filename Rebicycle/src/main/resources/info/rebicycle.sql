@@ -1,13 +1,13 @@
-drop table rb_member;
-drop table category;
-drop table bicycle;
-drop table map;
-drop table bicycle_photo;
-drop table possible_day;
-drop table rent;
-drop table donation;
-drop table rb_report;
 drop table rb_review;
+drop table rb_report;
+drop table donation;
+drop table rent;
+drop table possible_day;
+drop table bicycle_photo;
+drop table map;
+drop table bicycle;
+drop table category;
+drop table rb_member;
 
 drop sequence category_seq;
 drop sequence bicycle_seq;
@@ -15,9 +15,35 @@ drop sequence rent_seq;
 drop sequence report_seq;
 drop sequence donation_seq;
 
-delete table RB_MEMBER;
+delete from rb_review;
+delete from rb_report;
+delete from donation;
+delete from rent;
+delete from possible_day;
+delete from bicycle_photo;
+delete from map;
+delete from bicycle;
+delete from category;
+delete from rb_member;
 
-==================================================
+create sequence category_seq nocache;
+create sequence bicycle_seq nocache;
+create sequence rent_seq nocache;
+create sequence report_seq nocache;
+create sequence donation_seq nocache;
+
+select * from rb_member;
+select * from category order by categoryNo;
+select * from bicycle;
+select * from map;
+select * from bicycle_photo;
+select * from possible_day;
+select * from rent;
+select * from donation;
+select * from rb_report;
+select * from rb_review;
+
+--테이블 생성
 create table rb_member(
    id varchar2(100) primary key,
    password varchar2(100) not null,
@@ -33,7 +59,6 @@ create table category(
    categoryNo number primary key,
    categoryName varchar2(100) not null
 )
-create sequence category_seq;
 
 create table bicycle(
    bicycleNo number primary key,
@@ -44,7 +69,6 @@ create table bicycle(
    detail clob not null,
    categoryNo number not null constraint fk_category_no references category(categoryNo)
 )
-create sequence bicycle_seq;
 
 create table bicycle_photo(
    bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo),
@@ -65,7 +89,6 @@ create table map(
    latitude varchar2(100) not null,
    longitude varchar2(100) not null
 )
-select * from rent;
 
 create table rent(
    rentNo number primary key,
@@ -75,23 +98,14 @@ create table rent(
    endDay date not null,
    state number not null
 )
-create sequence rent_seq;
-
 
 create table rb_review(
-<<<<<<< HEAD
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
 	rentNo number constraint fk_rentNooo references rent(rentNo),
 	star number default 0,
 	reviewDate date not null,
-	comment clob not null,
+	content clob not null,
 	constraint pk_rb_review primary key(reviewerId, rentNo)
-=======
-   rentNo number primary key constraint fk_rentNooo references rent(rentNo),
-   star number default 0,
-   reviewDate date not null,
-   content clob not null
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 )
 
 create table rb_report(
@@ -101,7 +115,6 @@ create table rb_report(
 	contents clob not null,
 	reportDate date not null
 )
-create sequence report_seq;
 
 create table donation(
    donationBicycleNo number primary key,
@@ -109,7 +122,25 @@ create table donation(
    detail clob not null,
    picture varchar2(300) not null
 )
-create sequence donation_seq;
+
+
+--테이블 수정
+alter table rb_member modify address varchar2(300);
+alter table bicycle modify address varchar2(300);
+alter table bicycle add title varchar2(100) not null;
+
+--카테고리 데이터 삽입
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '미니벨로');
+insert into category(categoryNo, categoryName) values(5, '레코드용');
+insert into category(categoryNo, categoryName) values(6, '어린이용');
+insert into category(categoryNo, categoryName) values(7, '기타');
+
+
+
+==================================================
 
 
 ------------종봉---------------------------------------------
@@ -131,6 +162,8 @@ select * from BICYCLE
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+--자전거 삭제
+delete from bicycle where bicycleNo=1 cascade;
 
 insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
 
@@ -165,7 +198,7 @@ delete from bicycle_photo where bicycleNo=2;
 --map에 좌표 등록
 insert into map values(1,'33.450701','126.570667');
 insert into map values(2,'33.450701','126.570667');
-
+alter table bicycle modify address varchar2(300)
 --좌표까지 조회
 
 ------------종봉----------------------------------------------
@@ -184,6 +217,23 @@ create table rb_report(
 
 select * from rb_report
 ================================= 등록 테스트 =================================
+
+SELECT r.reportNo,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+		SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reporterId,blackId,contents,
+		to_char(reportDate,'YYYY.MM.DD') as reportDate
+		FROM rb_report
+		) r, rb_report order by reportNo desc		
+		
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+ 		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
+
+--------------------------------- 성공 -----------------------------------------------------
+			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
+			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
+			to_char(reportDate,'YYYY.MM.DD') as reportDate 
+			FROM rb_report
+			) r where rnum between 1 and 5 order by reportNo desc;
+============================================================================================
 
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
  		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
@@ -210,32 +260,26 @@ b where reportNo=26
 -----------------------------석희---------------------------------
 
 
------------------------태형--------------------------------
-insert into category(categoryNo, categoryName) values(1, 'MTB');
-insert into category(categoryNo, categoryName) values(2, '로드');
-insert into category(categoryNo, categoryName) values(3, '픽시');
-insert into category(categoryNo, categoryName) values(4, '미니벨로');
-insert into category(categoryNo, categoryName) values(5, '레코드용');
-insert into category(categoryNo, categoryName) values(6, '어린이용');
-insert into category(categoryNo, categoryName) values(7, '기타');
 
-select * from category;
-delete from category where categoryNo>1;
-select * from bicycle;
-select min(rentPrice) from bicycle;
-select round(avg(rentPrice), 1) from bicycle;
-select * from possible_day;
-select * from rb_review;
+-----------------------태형--------------------------------
+
 alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
-select * from bicycle_photo;
 
 delete from possible_day;
 delete from bicycle_photo;
+delete from map;
+delete from category;
 delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
-select * from rb_member;
+
+select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
+		,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,	ph.*, b.title, pd.startDay, pd.endDay
+		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca, possible_day pd
+		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=1 and ca.categoryNo=b.categoryNo and pd.bicycleNo=b.bicycleNo
+		
+update bicycle set address='경기 성남시 분당구 대왕판교로606번길 45 (삼평동),경기 성남시 분당구 삼평동 653,100-10'	
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
@@ -261,8 +305,9 @@ where bicycleNo=1 and b.memberId=m.id
 
 
 
-select * from possible_day
-insert into possible_day values(1,'2017-05-27','2017-05-29')
+select * from possible_day where bicycleNo=2
+insert into possible_day values(2,'2017-05-27','2017-05-29')
+insert into possible_day values(2,'2017-05-13','2017-05-17')
 
 -----------------------소영------------------------------------------
 select * from CATEGORY;
@@ -293,15 +338,12 @@ from bicycle
 where memberId='java'
 
 
-
-
-
-
-
-
-
-=======
+select * from RB_MEMBER
+select * from CATEGORY
+<<<<<<< HEAD
+select * from bicycle
 where memberId='java'
+
 
 
 
@@ -315,8 +357,9 @@ insert into RB_MEMBER values('java4','1234','이현근','010','경기도 성남�
 select * from RB_MEMBER
 
 -------------------------------------------------------------
+select *from bicycle
 --배서경이 등록한 자전거2개
-insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 판교역로 160',100000,5000,'애끼는자전거',1);
+insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 판교역로 160',100000,5000,'애끼는자전거',1 , '자전거 타이틀 추가');
 insert into bicycle values(bicycle_seq.nextval,'java','경기도 성남시 분당구 대왕판교로606번길 45',100000,5000,'자전거체고시다',1);
 --임소영이 등록한 자전거2개
 insert into bicycle values(bicycle_seq.nextval,'java2','	경기도 성남시 분당구 판교역로146번길 20',10000,5000,'최애자전거',1);
@@ -328,7 +371,7 @@ select * from BICYCLE;
 insert into bicycle_photo values(1,'1_photo1.jpg','1_photo2.jpg','1_photo3.jpg');
 insert into bicycle_photo values(2,'2_photo1.jpg','2_photo2.jpg','2_photo3.jpg');
 insert into bicycle_photo values(3,'3_photo1.jpg','3_photo2.jpg','3_photo3.jpg');
-insert into bicycle_photo values(4,'4_photo1.jpg','4_photo2.jpg','4_photo3.jpg');
+insert into bicycle_photo values(44,'44_photo1.jpg','44_photo2.jpg','44_photo3.jpg');
 
 ---------------------------------------------------------------------
 --자전거 대여가능일 등록
@@ -339,7 +382,7 @@ insert into possible_day values(2,to_date('2017-06-10','yyyy/mm/dd'),to_date('20
 insert into possible_day values(2,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 insert into possible_day values(3,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 insert into possible_day values(4,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'));
-insert into possible_day values(4,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
+insert into possible_day values(44,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-21','yyyy/mm/dd'));
 
 select * from possible_day;
 ---------------------------------------------------------------------
@@ -347,7 +390,7 @@ select * from possible_day;
 insert into map values(1, '37.394879','127.11123799999996');
 insert into map values(2, '37.3964436','127.11170119999997');
 insert into map values(3, '37.3925707','127.11199599999998');
-insert into map values(4, '37.40164300000001','127.10709300000008');
+insert into map values(44, '37.40164300000001','127.10709300000008');
 
 select * from map;
 -------------------------------------------------
@@ -373,4 +416,67 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 --==============서경==============================================================
 update rb_report set reportTitle='test',blackId='java',contents='test',reportDate=sysdate where reportNo=26
 
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
+-----------------------현근------------------------------------------
+   
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
+   
+delete from rb_review;
+delete from rb_report;
+delete from donation;
+delete from rent;
+delete from possible_day;
+delete from bicycle_photo;
+delete from map;
+delete from bicycle;
+delete from category;
+   
+drop sequence category_seq;
+drop sequence bicycle_seq;
+drop sequence rent_seq;
+drop sequence report_seq;
+drop sequence donation_seq;
+
+alter table rb_member modify address varchar2(300);
+alter table bicycle modify address varchar2(300);
+alter table bicycle add title varchar2(100) not null;
+
+create sequence category_seq nocache;
+create sequence bicycle_seq nocache;
+create sequence rent_seq nocache;
+create sequence report_seq nocache;
+create sequence donation_seq nocache;
+
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '미니벨로');
+insert into category(categoryNo, categoryName) values(5, '레코드용');
+insert into category(categoryNo, categoryName) values(6, '어린이용');
+insert into category(categoryNo, categoryName) values(7, '기타');
+
+select * from rb_member;
+select * from category order by categoryNo;
+select * from bicycle;
+select * from map;
+select * from bicycle_photo;
+select * from possible_day;
+select * from rent;
+select * from donation;
+select * from rb_report;
+select * from rb_review;
+
+drop table rb_review
+
+create table rb_review(
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   cotent clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
+)
+

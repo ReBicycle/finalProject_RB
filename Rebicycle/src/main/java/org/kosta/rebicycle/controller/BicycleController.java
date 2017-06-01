@@ -94,12 +94,10 @@ public class BicycleController {
 		int no=Integer.parseInt(bicycleNo);
 
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
-		System.out.println("clist"+cList);
 		
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
 
 		bvo.setPossibleList(cList);
-		System.out.println("findBvo" + bvo);
 		
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
@@ -107,10 +105,15 @@ public class BicycleController {
 	
 
 	@RequestMapping("bicycleModifyForm.do")
-	public String bicycleModifyForm(String memberId, String bicycleNo){
+	public String bicycleModifyForm(String memberId, int bicycleNo, Model model){
 		//6월1일 할일
+		
+		System.out.println(serviceImpl3.findBicycleDetailByNo(bicycleNo));
+		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(bicycleNo);
+		model.addAttribute("bicycleVO", bvo);
 		return "bicycle/bicycle_register_modify.tiles";
 	}
+	
 	@RequestMapping("getCalendarBean.do")
 	@ResponseBody
 	public String getCalendarBean(){

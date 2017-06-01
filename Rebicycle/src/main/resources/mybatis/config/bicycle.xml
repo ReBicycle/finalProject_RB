@@ -90,10 +90,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column = "photo2" property="photoVO.photo2"/>
 		<result column = "photo3" property="photoVO.photo3"/>
 		
+		<!-- BicycleVO 의 CategoryVO -->
+		<result column="categoryNo" property="categoryVO.categoryNo"/>
+		<result column="categoryName" property="categoryVO.categoryName"/>
 	</resultMap>
 
-	<select id="findBicycleByNo" resultMap="bicycleRM"
-		parameterType="int">
+	<select id="findBicycleByNo" resultMap="bicycleRM" parameterType="int">
 		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
 		from bicycle b,rb_member m 
 		where bicycleNo=#{value} and b.memberId=m.id
@@ -135,10 +137,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 자전거 대여 가능일을 제외한 자전거 등록 정보 -->
 	<select id="findBicycleDetailByNo" resultMap = "bicycleRM">
 		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
-		,m.id,m.name,m.phone,m.email,m.picture,
-		ph.*
-		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph
-		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=#{value}
+		,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,	ph.*, b.title
+		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca
+		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=#{value} and ca.categoryNo=b.categoryNo
 	</select>
 	
 	

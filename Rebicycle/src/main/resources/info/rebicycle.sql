@@ -236,6 +236,12 @@ delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
 select * from rb_member;
+
+	select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
+		,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,
+		ph.*, b.title
+		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca
+		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=102 and ca.categoryNo=b.categoryNo
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 

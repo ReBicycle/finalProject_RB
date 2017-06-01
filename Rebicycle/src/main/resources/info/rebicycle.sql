@@ -410,24 +410,30 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 -----------------------현근------------------------------------------
 select to_char(sysdate,'YYYY-MM-DD') from dual
 
-insert into bicycle values(2,'java','판교',1000,200,'좋아요',1);
+insert into bicycle values(2,'java','판교',1000,200,'좋아요',1,'title');
 insert into category values(1,'픽시');
 insert into bicycle_photo values(2,'6_photo1.png','6_photo2.png','6_photo3.png'); 
 delete from bicycle_photo
 
-select * from POSSIBLE_DAY where bicycleNo=21
+select * from POSSIBLE_DAY where bicycleNo=2
 select * from bicycle
 
- bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
-   startDay date not null,
-   endDay date not null,
-   constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
-
-insert into possible_day values(21,'2017-05-02','2017-05-02');
+insert into possible_day values(2,'2017-05-02','2017-05-02');
 select * from possible_day where bicycleNo=21
    
+delete from possible_day;
+delete from bicycle_photo;
+delete from bicycle;
+alter table bicycle add title varchar2(100) not null;
    
-   
-   
+select * from category
+ bicycleNo number primary key,
+   memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
+   address varchar2(300) not null,
+   purchasePrice number not null,
+   rentPrice number not null,
+   detail clob not null,
+   categoryNo number not null constraint fk_category_no references category(categoryNo)
+)   
    
    

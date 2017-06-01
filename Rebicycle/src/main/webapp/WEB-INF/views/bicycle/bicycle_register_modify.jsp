@@ -141,10 +141,10 @@ function findGeo(){
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="panel-title">자전거 등록</div>
+                <div class="panel-title">자전거 정보 수정</div>
             </div>
             <div class="panel-body" > 
-				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/registerBicycle.do">
+				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/modifyBicycle.do">
 				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
 				    
 				    <!-- 사진 -->
@@ -203,9 +203,9 @@ function findGeo(){
 				        <label for="id_address" class="control-label col-md-3  requiredField"></label>
 				   	 	<div class="controls col-md-8 ">
 				            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->
-							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
-							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
-							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
+							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소" value="${requestScope.roadAddress }">
+							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소" value="${requestScope.jibunAddress }">
+							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소" value="${requestScope.detailAddress }">
 							<input type="hidden" id="lat" name="latitude">
 							<input type="hidden" id="lon" name="longitude">
 							<span id="guide" style="color:#999"></span>
@@ -216,7 +216,7 @@ function findGeo(){
 				    <div id="div_id_purchasePrice" class="form-group required">
 				        <label for="id_purchasePrice" class="control-label col-md-3  requiredField">구매가</label>
 				        <div class="controls col-md-8 ">
-				            <input class="input-md emailinput form-control" id="id_purchasePrice" name="purchasePrice" placeholder="구매가를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md emailinput form-control" id="id_purchasePrice" name="purchasePrice" placeholder="구매가를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" value="${bicycleVO.purchasePrice }" />
 				        </div>     
 				    </div>
 				    
@@ -224,7 +224,7 @@ function findGeo(){
 				    <div id="div_id_rentPrice" class="form-group required">
 				        <label for="id_rentPrice" class="control-label col-md-3 requiredField">대여료</label>
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_rentPrice" name="rentPrice" placeholder="대여료를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md textinput textInput form-control" id="id_rentPrice" name="rentPrice" placeholder="대여료를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" value="${bicycleVO.rentPrice }"/>
 				        </div>
 				    </div>
 				    
@@ -232,22 +232,22 @@ function findGeo(){
 				    <div id="div_id_detail" class="form-group required">
 				         <label for="id_detail" class="control-label col-md-3  requiredField">Detail</label>
 				         <div class="controls col-md-8 ">
-				            <input class="input-md textinput textInput form-control" id="id_detail" name="detail" placeholder="추가정보를 입력하세요" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md textinput textInput form-control" id="id_detail" name="detail" placeholder="추가정보를 입력하세요" style="margin-bottom: 10px" type="text" value="${bicycleVO.detail }"/>
 				        </div>
 				    </div>
 
 				 	<!-- 달력 날짜 추가 -->
 				 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
 					<table id="addTable" align="center">
+						<c:forEach items="${possibleDayList }" var="clist">
 						<tr>
 							<td>
-								<!-- <label for="id_date" class="control-label col-md-3  requiredField">시작일</label> -->
-								<input type="date" name="startDay" id=id_detail>
-								<!-- <label for="id_date" class="control-label col-md-3  requiredField">종료일</label> -->
-								<input type="date" name="endDay" id=id_detail>
-								<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
-							</td>
-						</tr>
+								<input type="date" name="startDay" id=id_startDay value="${clist.startDay }">
+								<input type="date" name="endDay" id=id_endDay value="${clist.endDay }">	
+								<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">	
+							</td>	
+						</tr>					
+						</c:forEach>
 					</table>
 				
 					<!-- 달력 -->
@@ -275,7 +275,7 @@ function findGeo(){
 				    <div class="form-group"> 
 				        <div class="aab controls col-md-4 "></div>
 				        <div class="controls col-md-8 ">
-				            <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" />
+				            <input type="submit" name="modify_bicycle" value="수정" class="btn btn-primary btn btn-info" id="submit-id-signup" />
 				        </div>
 				    </div> 
 				</form>

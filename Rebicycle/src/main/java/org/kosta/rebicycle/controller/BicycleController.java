@@ -34,6 +34,7 @@ public class BicycleController {
 	@Resource
 	private BicycleServiceImpl3 serviceImpl3;
 	
+	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
@@ -41,15 +42,15 @@ public class BicycleController {
 		bvo.setMemberVO(new MemberVO(memberId));
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
-		String address = roadAddress + "," + jibunAddress + "/" + detailAddress;
+		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
 		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -66,8 +67,58 @@ public class BicycleController {
 		System.out.println(bvo);
 		System.out.println(calList);
 		System.out.println(map);
+		return "redirect:bicycle_register_result.do";
+	}
+	
+	@RequestMapping("bicycle_register_result.do")
+	public String bicycleRegisterResult(){
 		return "bicycle/bicycle_register_result.tiles";
 	}
+	
+	//자전거 수정
+	@RequestMapping(method = RequestMethod.POST, value = "modifyBicycle.do")
+	public String modifyBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
+		String stArr[] = request.getParameterValues("startDay");
+		String endArr[] = request.getParameterValues("endDay");
+		bvo.setMemberVO(new MemberVO(memberId));
+		bvo.setCategoryVO(new CategoryVO());
+		bvo.getCategoryVO().setCategoryNo(categoryNo);
+		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
+		bvo.setAddress(address);
+		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
+		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
+		//개발시에는 워크스페이스 업로드 경로로 준다
+		//종봉
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//태형
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+
+		//가능일
+		List<CalendarVO> calList = new ArrayList<CalendarVO>();
+		for(int i=0 ; i<stArr.length ; i++) {
+			calList.add(new CalendarVO(stArr[i], endArr[i]));
+		}
+		
+		// Map 등록
+		String latitude = request.getParameter("latitude");
+		String longitude = request.getParameter("longitude");
+		MapVO map = new MapVO(latitude, longitude);
+		
+		//6월2일 할일
+		//serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map);
+		System.out.println(bvo);
+		System.out.println(calList);
+		System.out.println(map);
+		return "redirect:bicycle_modify_result.do";
+	}
+	
+	@RequestMapping("bicycle_modify_result.do")
+	public String bicycleModifyResult(){
+		return "bicycle/bicycle_modify_result.tiles";
+	}
+	
+	
+	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "calculatePrice.do")
 	@ResponseBody
@@ -106,11 +157,27 @@ public class BicycleController {
 	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
 	@RequestMapping("bicycleModifyForm.do")
 	public String bicycleModifyForm(String memberId, int bicycleNo, Model model){
-		//6월1일 할일
-		
 		System.out.println(serviceImpl3.findBicycleDetailByNo(bicycleNo));
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(bicycleNo);
+		
+		String[] address = bvo.getAddress().split(",");
+		String roadAddress = address[0];
+		String jibunAddress = address[1];
+		String detailAddress = address[2];
+		ArrayList<CalendarVO> calList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(bicycleNo);
+		ArrayList<CalendarVO> newCalList = new ArrayList<CalendarVO>();
+		
+		for(int i=0 ; i<calList.size() ; i++){
+			CalendarVO newCal = new CalendarVO();
+			newCal.setStartDay(calList.get(i).getStartDay().substring(0, 10));
+			newCal.setEndDay(calList.get(i).getEndDay().substring(0, 10));
+			newCalList.add(newCal);
+		}
 		model.addAttribute("bicycleVO", bvo);
+		model.addAttribute("possibleDayList", newCalList);
+		model.addAttribute("roadAddress", roadAddress);
+		model.addAttribute("jibunAddress", jibunAddress);
+		model.addAttribute("detailAddress", detailAddress);
 		return "bicycle/bicycle_register_modify.tiles";
 	}
 
@@ -142,12 +209,7 @@ public class BicycleController {
  				cb = cm.getCurrent();
  				result += cb.getLastDayOfMonth();
  			 }
- 			 
- 			 
  		 }
-		
-		
-		
 		return ""+ result;
 	}
 	

@@ -1,6 +1,8 @@
 package org.kosta.rebicycle.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +12,8 @@ import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
 import org.kosta.rebicycle.model.vo.BicycleVO;
+import org.kosta.rebicycle.model.vo.CalendarBean;
+import org.kosta.rebicycle.model.vo.CalendarManager;
 import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.CategoryVO;
 import org.kosta.rebicycle.model.vo.MapVO;
@@ -92,22 +96,36 @@ public class BicycleController {
 	public String findBicycleByNo(String bicycleNo,Model model){
 		System.out.println("findBicycleByNo 컨트롤러");
 		int no=Integer.parseInt(bicycleNo);
-		
-		
+
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 		System.out.println("clist"+cList);
 		
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
-		
-		
-		
-		
+
 		bvo.setPossibleList(cList);
 		System.out.println("findBvo" + bvo);
 		
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}
-	
+
+	//calendarBean으로부터 해당 월의 마지막날짜, 1일 요일을 ajax로 받아옴
+	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
+	@RequestMapping("bicycleModifyForm.do")
+	public String bicycleModifyForm(String memberId, String bicycleNo){
+		//6월1일 할일
+		return "bicycle/bicycle_register_modify.tiles";
+	}
+
+	@RequestMapping("getCalendarBean.do")
+	@ResponseBody
+
+	public CalendarBean getCalendarBean(String currYear, String currMonth){
+		System.out.println("//" + currYear);
+		CalendarManager cm = new CalendarManager();
+		cm.setCurrent(Integer.parseInt(currYear), Integer.parseInt(currMonth));
+		CalendarBean cb = cm.getCurrent();
+		return cb;
+	}
 	
 }

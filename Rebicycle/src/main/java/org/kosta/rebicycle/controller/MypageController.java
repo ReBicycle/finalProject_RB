@@ -40,7 +40,6 @@ public class MypageController {
 		//내가빌린내역 불러오기
 		ArrayList<RentVO> rentList = (ArrayList<RentVO>) bicycleService4.findRentById(vo.getId());
 		model.addAttribute("rentList", rentList);
-		
 		return "mypage/mypage_main.tiles";
 	}
 }

@@ -17,4 +17,8 @@ public interface BoardService {
 
 	ReportVO boardUpdateReportView(int reportNo);
 
+	void deleteReport(int reportNo);
+
+	ReportVO findReportNo(int reportNo);
+
 }

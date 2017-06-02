@@ -26,30 +26,42 @@
   bottom: 100%;
   left: 0;
   right: 0;
-  background-color: black;
+  background-color: #006666;
   overflow: hidden;
   width: 100%;
   height:0;
   transition: .10s ease;
-  opacity: 0.3;
+  opacity: 0.9;
 }
 
 .content:hover .overlay{
   bottom: 0;
-  height: 100%;
+  height: 30%;
 }
 
 .text {
   white-space: nowrap; 
   color: white;
-  font-size: 20px;
+  font-size: 15px;
   position: absolute;
   overflow: hidden;
-  top: 50%;
-  left: 50%;
+  top: 60%;
+  left: 35%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
+select { 
+width: 120px; /* 원하는 너비설정 */ 
+padding: .3em .3em; /* 여백으로 높이 설정 */ 
+font-family: inherit; /* 폰트 상속 */
+background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+border: 1px solid #999; 
+border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+-moz-appearance: none; 
+appearance: none; 
+}
+
 </style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
@@ -57,10 +69,10 @@
  
   <body >
   <%--지도 --%>
-   <div class="col-sm-7" id="map" style="height:700px;"></div>
+   <div class="col-sm-6" id="map" style="height:700px;"></div>
    <%--지도 --%>
    <%-- 검색 리스트 --%>
-   <div class="col-sm-5" style="height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
+   <div class="col-sm-6" style="height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
 
  <!-- <section id="portfolio">  -->
 <div class="w3-container w3-teal" style="margin-top: 50px;" >
@@ -86,18 +98,18 @@
 </div>
 <div class="w3-row-padding w3-margin-top" id="listSpace">
    <c:forEach items="${requestScope.bicycleList}" var="list" >
-  <div class="w3-second col-sm-6 w3-margin-top " >
+ <a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo=${list.bicycleNo}"> <div class="w3-second col-sm-6 w3-margin-top " >
      <div class="w3-card-2 content " width="240px" height="180px">
       <img class="img" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="240px" height="180px">
       <div class="overlay" >
-         <span class="text">
-              아이디:${list.memberVO.id}<br>
-              자전거번호:${list.bicycleNo}<br>
-                대여료:${list.rentPrice}<br>
+     	<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="20%" height="100%" align="right">
+         <span class="text" align="left" width="70%"  >
+         	${list.title }<br>
+               &#8361;${list.rentPrice}&nbsp;-&nbsp;No${list.bicycleNo}&nbsp;-&nbsp;Type${list.categoryVO.categoryNo }
              </span>
       </div>
     </div> 
-  </div>
+  </div></a>
 </c:forEach>
     
   
@@ -107,14 +119,14 @@
    </div><%--리스트 전체 div --%>
    <%-- 검색 리스트 --%>
    <!-- <div class="col-sm-12" style="height:200px;background-color:#F0FFFF;"></div> -->
-   <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
+   <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
  <script>
   mapSetting();
 function mapSetting(){
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 4 // 지도의 확대 레벨
+        level: 5 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
@@ -145,18 +157,18 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
         
         
         var positions = [
-            <c:forEach items="${sessionScope.mapList}" var="map" varStatus="status">
-           				{	title: "${map.bicycleNo}",
-           					latlng: new daum.maps.LatLng("${map.latitude}", "${map.longitude}")
+            <c:forEach items="${requestScope.bicycleList}" var="bicycleList" varStatus="status">
+           				{	title: "${bicycleList.title}",
+           					latlng: new daum.maps.LatLng("${bicycleList.map.latitude}", "${bicycleList.map.longitude}")
            				}
            				<c:if test="${not status.last}">,</c:if>
             </c:forEach>
             
     ];
-
+ 
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-            
+ 		//var imageSrc = "${pageContext.request.contextPath}/resources/img/images.jpg";
          for (var i = 0; i < positions.length; i ++) {
             
             // 마커 이미지의 이미지 크기 입니다
@@ -212,17 +224,20 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
  					var contents=""; 
  					//alert(JSON.stringify(data)); 			
  					 for(var i=0;i<data.length;i++){
- 					
+ 					contents+='<a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
  					contents+='<div class="overlay" >';
- 					contents+=' <span class="text">';
- 					contents+='아이디:'+data[i].memberVO.id+'<br>자전거번호:'+data[i].bicycleNo+'<br>대여료:'+data[i].rentPrice+'<br>';
- 					contents+='</span></div></div></div>';
+ 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="20%" height="100%" align="right">';
+ 					contents+=' <span class="text" align="left" width="70%" >';
+ 					contents+=data[i].title;
+ 					contents+='<br>&#8361;'+data[i].rentPrice+'&nbsp;-&nbsp;'+'No'+data[i].bicycleNo+'&nbsp;-&nbsp;Type'+data[i].categoryVO.categoryNo;
+ 					contents+='</span></div></div></a></div>';
  					} 
- 					$("#listSpace").html(contents);
  					
+ 					$("#listSpace").html(contents);
+ 					$("#rentalPrice").val("");
  					}
  			})//ajax   
  		   
@@ -245,17 +260,19 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
  					var contents=""; 
  					//alert(JSON.stringify(data)); 			
  					 for(var i=0;i<data.length;i++){
- 					
+ 					contents+='<a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
  					contents+='<div class="overlay" >';
- 					contents+=' <span class="text">';
- 					contents+='아이디:'+data[i].memberVO.id+'<br>자전거번호:'+data[i].bicycleNo+'<br>대여료:'+data[i].rentPrice+'<br>';
- 					contents+='</span></div></div></div>';
+ 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="20%" height="100%" align="right">';
+ 					contents+=' <span class="text" align="left" width="70%" >';
+ 					contents+=data[i].title;
+ 					contents+='<br>&#8361;'+data[i].rentPrice+'&nbsp;-&nbsp;'+'No'+data[i].bicycleNo+'&nbsp;-&nbsp;Type'+data[i].categoryVO.categoryNo;
+ 					contents+='</span></div></div></a></div>';
  					} 
  					$("#listSpace").html(contents);
- 					
+ 					$("#bikeTypeSelect").val("");
  					}
  			})//ajax   
  		   

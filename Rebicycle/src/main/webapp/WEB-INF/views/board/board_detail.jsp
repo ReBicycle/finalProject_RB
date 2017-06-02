@@ -19,7 +19,7 @@
          <div class="col-md-6 col-md-offset-3">
             <div class="well text-center">
                   <div class="form-group">
-                     NO <input class="form-control" value="${rvo.reportNo}" type="text" readonly="readonly"/>
+                     NO <input class="form-control" value="${rvo.reportNo}" name="reportNo" type="text" readonly="readonly"/>
                   </div>
                   <br>
                   <div class="form-group">
@@ -27,17 +27,17 @@
                   </div>
                   <br>
                   <div class="form-group">
-                     Reporter ID <input class="form-control" value="${requestScope.rvo.reporterId}" type="text" readonly="readonly"/>
+                     Reporter ID <input class="form-control" value="${requestScope.rvo.reporterId}" name="reporterId" type="text" readonly="readonly"/>
                   </div>
 					<br>                  
                   <div class="form-group">
-                     BlackID<input class="form-control" value="${requestScope.rvo.blackId}" type="text" readonly="readonly"/>
+                     BlackID<input class="form-control" value="${requestScope.rvo.blackId}" type="text" name="blackId" readonly="readonly"/>
                   </div>
                   <div class="form-group">
-                     Data <input class="form-control" value="${requestScope.rvo.reportDate}" type="text" readonly="readonly"/>
+                     Data <input class="form-control" value="${requestScope.rvo.reportDate}" type="text" name="reportDate" readonly="readonly"/>
                   </div>
                   <div class="form-group">
-                     Content <textarea class="form-control" cols="40" rows="5" readonly="readonly">${requestScope.rvo.contents}</textarea>
+                     Content <textarea class="form-control" name="contents" cols="40" rows="5" readonly="readonly">${requestScope.rvo.contents}</textarea>
                   </div>
                   <c:if test="${requestScope.rvo.reporterId==sessionScope.mvo.id}">
                   <button type="button" class="btn btn-info" id="updateBtn">UpDate</button>

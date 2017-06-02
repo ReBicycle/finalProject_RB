@@ -19,4 +19,6 @@ public interface BoardDAO {
 
 	ReportVO boardUpdateReportView(int reportNo);
 
+	void deleteReport(int reportNo);
+
 }

@@ -24,4 +24,26 @@ public class BicycleDAOImpl5 implements BicycleDAO{
 			System.out.println(list);
 			return list;
 		}
+
+		public List<BicycleVO> sortedListByAddressAndDayAndLow(String address, String startDay, String endDay) {
+			Map<String,String> map=new HashMap<String,String>();
+			map.put("address", address);
+			map.put("startDay", startDay);
+			map.put("endDay", endDay);
+			List<BicycleVO> list=template.selectList("bicycle.sortedListByAddressAndDayAndLow", map);
+			System.out.println("리스트 사이즈"+list.size());
+			System.out.println(list);
+			return list;
+		}
+
+		public List<BicycleVO> sortedListByAddressAndDayAndHigh(String address, String startDay, String endDay) {
+			Map<String,String> map=new HashMap<String,String>();
+			map.put("address", address);
+			map.put("startDay", startDay);
+			map.put("endDay", endDay);
+			List<BicycleVO> list=template.selectList("bicycle.sortedListByAddressAndDayAndHigh", map);
+			System.out.println("리스트 사이즈"+list.size());
+			System.out.println(list);
+			return list;
+		}
 }

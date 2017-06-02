@@ -62,7 +62,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
 		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo
 	</select>
-
+	<select id="sortedListByAddressAndDayAndHigh" parameterType="map"
+		resultMap="bicycleMap" >
+		select b.bicycleNo, b.memberId ,b.address
+		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
+		from bicycle b, possible_day p, bicycle_photo c,map m
+		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo order by b.rentPrice desc
+	</select>
+		<select id="sortedListByAddressAndDayAndLow" parameterType="map"
+		resultMap="bicycleMap" >
+		select b.bicycleNo, b.memberId ,b.address
+		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
+		from bicycle b, possible_day p, bicycle_photo c,map m
+		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo order by b.rentPrice asc
+	</select>
 	<!-- 현근/소영 -상세보기에 필요한 resultMap -->
 
 	<resultMap type="bicycleVO" id="bicycleMap">
@@ -150,6 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>
 
+
 	<!-- Rent 등록 -->
 	<insert id="rentRegister" parameterType="rentVO">
 		<selectKey keyProperty="rentNo" resultType="int" order="BEFORE">
@@ -172,4 +190,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from rent
 		where 
 	</select>
+
 </mapper>

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.RentVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 @Repository
@@ -30,5 +31,10 @@ public class BicycleDAOImpl3 implements BicycleDAO{
 	
 	public List<CalendarVO> findPossibleDayByNo(int no){
 		return template.selectList("bicycle.findPossibleDayByNo", no);
+	}
+	
+	//빌리기
+	public void rentRegister(RentVO rvo){
+		template.insert("bicycle.rentRegister",rvo);
 	}
 }

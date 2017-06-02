@@ -61,7 +61,6 @@
     <!-- Contact Form JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/js/jqBootstrapValidation.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/contact_me.js"></script>
-
     <!-- Theme JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/js/freelancer.min.js"></script>
 </body>

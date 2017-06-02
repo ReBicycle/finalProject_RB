@@ -6,12 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.kosta.rebicycle.model.service.BoardService;
 import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.ListVO;
-import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.ReportVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -43,11 +41,26 @@ public class BoardController {
 			ok="ok";
 		return ok;	
 	}*/
+	// 로그인 후 게시글 상세보기로 넘어가는 컨트롤러
 	@RequestMapping("boardDetail.do")
-	public String boardDetail(String reportNo, HttpServletRequest request) {		
+	public String boardDetail(int reportNo, HttpServletRequest request) {		
 		System.out.println("컨트롤러 시작"+reportNo);
 		ReportVO rvo=boardService.boardDetail(reportNo);
 		request.setAttribute("rvo",rvo);
 		return "board/board_detail.tiles";
+	}
+	//로그인 후 자신이 작성한 신고 글 수정 페이지로 넘어가는 컨트롤러
+	@RequestMapping("boardUpdateReportView.do")
+	public String updateReportView(int reportNo, HttpServletRequest request){
+		System.out.println("수정페이지 GO!!GO!!"+reportNo);
+		ReportVO rvo=boardService.boardDetail(reportNo);
+		request.setAttribute("rvo", rvo);
+		return "board/board_update.tiles";
+	}
+	@RequestMapping(value="updateReport.do" , method=RequestMethod.POST)
+	public ModelAndView updateReport(ReportVO rvo) {
+		System.out.println("업데이트"+rvo);
+		boardService.updateReport(rvo);
+		return new ModelAndView("redirect:board/board_detail.do","rvo",boardService.boardDetail(rvo.getReportNo()));
 	}
 }

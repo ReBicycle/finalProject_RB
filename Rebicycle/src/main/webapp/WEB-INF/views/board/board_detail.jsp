@@ -1,22 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
-<br><br>
-	<table class="content">
-		<tr>
-			<td>NO : ${requestScope.rvo.reportNo} </td>
-			<td colspan="2">TITLE : ${requestScope.rvo.reportTitle} </td>
-		</tr>
-		<tr>
-			<td>신고작성자 :  ${requestScope.rvo.reporterId}</td>
-			<td>신고대상: ${requestScope.rvo.blackId}</td>
-			<td> ${requestScope.rvo.reportDate}</td>
-		</tr>
-		 <tr>
-			<td colspan="3">
-			<pre>${requestScope.rvo.contents}</pre>
-			</td>
-		</tr>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- ------------------------------------------------------------------------------------- -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#updateBtn").click(function(){
+			if(confirm("게시글을 수정하시겠습니까?"))
+				location.href="${pageContext.request.contextPath}/boardUpdateReportView.do?reportNo=${requestScope.rvo.reportNo}";
+		});//upadteBtn click
+		$("#deleteBtn").click(function(){
+			if(confirm("게시글을 삭제하시겠습니까?"))
+				location.href="${pageContext.request.contextPath}/deleteReport.do?reportNo=${requestScope.rvo.reportNo}";
+		});//deleteBtn
+	});//ready
+</script>
+<br><br><br>
+<div class="container"> <div class="row">
+         <div class="col-md-6 col-md-offset-3">
+            <div class="well text-center">
+                  <div class="form-group">
+                     NO <input class="form-control" value="${rvo.reportNo}" type="text" readonly="readonly"/>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                     Title <input class="form-control" value="${rvo.reportTitle}" name="reportTitle" type="text" readonly="readonly"/>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                     Reporter ID <input class="form-control" value="${requestScope.rvo.reporterId}" type="text" readonly="readonly"/>
+                  </div>
+					<br>                  
+                  <div class="form-group">
+                     BlackID<input class="form-control" value="${requestScope.rvo.blackId}" type="text" readonly="readonly"/>
+                  </div>
+                  <div class="form-group">
+                     Data <input class="form-control" value="${requestScope.rvo.reportDate}" type="text" readonly="readonly"/>
+                  </div>
+                  <div class="form-group">
+                     Content <textarea class="form-control" cols="40" rows="5" readonly="readonly">${requestScope.rvo.contents}</textarea>
+                  </div>
+                  <c:if test="${requestScope.rvo.reporterId==sessionScope.mvo.id}">
+                  <button type="button" class="btn btn-info" id="updateBtn">UpDate</button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+                  </c:if>
+            </div>
+         </div>
+         
+         
+      </div>
+</div>
 		<%--<tr>
 			<td valign="middle" align="center" colspan="3">
 			 <img id="listImg" class="action" src="${pageContext.request.contextPath}/resources/img/list_btn.jpg" onclick="sendList()" >

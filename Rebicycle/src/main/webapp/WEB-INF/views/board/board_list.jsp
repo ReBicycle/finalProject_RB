@@ -27,50 +27,6 @@ th, td {
 		});//click
 	});//ready
 </script>
-    <!-- Header -->
-   <%--  <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/seoul3.jpg'); background-repeat: no-repeat; background-size: cover; " >
-        <div class="container " id="maincontent" tabindex="-1" >
-            <div class="row" >
-                <div class="col-lg-12" >
-                    <div class="intro-text" >
-                    <h3 class="name"></h3> --%>
-                        <!-- <span style="color:black"> -->
-                        <%-- <div align="center">
-                       		<table class="list">
-		<caption>목록</caption>
-		<thead>
-		<tr>
-			<th class="no" align="center">NO</th>
-			<th class="title" align="center">TITLE</th>
-			<th class="swindler" align="center">REPORTER ID</th>
-			<th class="reporter" align="center">BLACK ID</th>
-		</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="rvo" items="${requestScope.lvo.list}"> varStatus="index"		
-			<tr>
-			    <td>${rvo.reportNo}</td>				
-			    	<td><c:choose>
-			    		<c:when test="${sessionScope.mvo!=null}">
-			    			<a href="${pageContext.request.contextPath}/boardDetail.do?reportNo=${rvo.reportNo}">${rvo.reportTitle}</a>
-			    		</c:when>
-			    		<c:otherwise>
-			    			${rvo.reportTitle}
-			    		</c:otherwise>
-			    	</c:choose></td>
-				<td>${rvo.reporterId}</td>
-				<td>${rvo.blackId}</td>
-				<td>${rvo[${index}].reportNo}</td>				
-				<td>${rvo[${index}].reporterId}</td>
-				<td>${rvo[${index}].blackId}</td>
-			</tr>
-			</c:forEach>	
-		</tbody>					
-	</table>
-	<a href="${pageContext.request.contextPath}/board/board_write_from.do">신고하기</a>
-	<br>
-	<button type="button" class="btn btn-warning" id="reportBtn">신고하기</button>
-	</div> --%>
 <!-- -------------------------------부트스트렙------------------------------------------ -->
 <br><br><br><br>
 <div id="fullscreen_bg" class="fullscreen_bg"></div>

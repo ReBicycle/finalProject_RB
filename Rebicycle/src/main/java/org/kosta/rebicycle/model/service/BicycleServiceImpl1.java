@@ -52,9 +52,10 @@ public class BicycleServiceImpl1 implements BicycleService {
 	public void modifyBicycle(BicycleVO bvo, List<CalendarVO> calList, String uploadPath, MapVO map) {
 		daoImpl1.updateBicycle(bvo);
 		bvo.setPossibleList((ArrayList<CalendarVO>) daoImpl1.findPossibleDay(bvo.getBicycleNo()));
-
+		calList.get(0).setBicycleNo(bvo.getBicycleNo());
 		// 가능일 수정
 		daoImpl1.deletePossibleDay(calList.get(0));
+		
 		for (int i = 0; i < calList.size(); i++) {
 			calList.get(i).setBicycleNo(bvo.getBicycleNo());
 		}
@@ -69,8 +70,8 @@ public class BicycleServiceImpl1 implements BicycleService {
 		pvo.setPhoto3(list.get(2));
 
 		// 위도경도 수정
-		if (map != null) {
-			map.setBicycleNo(bvo.getBicycleNo());
+		map.setBicycleNo(bvo.getBicycleNo());
+		if (map.getLatitude() != null) {
 			daoImpl1.updateMap(map);
 		}
 	}

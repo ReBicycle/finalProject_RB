@@ -98,9 +98,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -248,14 +248,19 @@ public class BicycleController {
 		ArrayList<Object> possibleDayList =new ArrayList<>();
 		for(int i=0; i<cList.size(); i++){
 			
+			//System.out.println("test        "+cList.get(i).getStartDay()+"        "+cList.get(i).getEndDay());
+			
 			// YYYY-MM-DD 0:00:00 형식 뒤 0:00:00을 자르기 위한 과정
 			CalendarVO cvo=new CalendarVO();
-			String stardDay;
+			String startDay;
 			String endDay;
-			stardDay=cList.get(i).getStartDay().substring(0,10);
+			startDay=cList.get(i).getStartDay().substring(0,10);
 			endDay=cList.get(i).getEndDay().substring(0,10);
+			
+			//System.out.println("test       "+startDay+"        "+endDay);
+			
 			cvo.setBicycleNo(no);
-			cvo.setStartDay(stardDay);
+			cvo.setStartDay(startDay);
 			cvo.setEndDay(endDay);
 			cList.set(i, cvo);
 			
@@ -269,11 +274,12 @@ public class BicycleController {
 			//달력 api 에서 Day 를 하루 적게 표시해주기 때문에 Day 에 +1을 해주기 위한 과정
 			String endDayOfDay=cList.get(i).getEndDay().substring(8, 10);
 			int IntendDayOfDay=Integer.parseInt(endDayOfDay)+1;
-			String ResultOfEndDay=cList.get(i).getStartDay().subSequence(0, 7)+"-"+IntendDayOfDay;
+			String ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 7)+"-"+IntendDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
 			possibleTotalDay.put("title", "예약 가능");
 			possibleTotalDay.put("start", possibleStartDay[i]);
 			possibleTotalDay.put("end", possibleEndDay[i]);
+			System.out.println(possibleStartDay[i]+"        "+possibleEndDay[i]);
 			possibleDayList.add(possibleTotalDay);
 		}
 		return possibleDayList;

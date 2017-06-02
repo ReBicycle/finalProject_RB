@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	
  	<select id="findCategoryByNo" resultType="string">
- 		select categoryName from category where categoryNo=#{categoryNo}
+ 		select categoryName from category where categoryNo=#{value}
  	</select>
  	
  	<select id="calculateMinPrice" resultType="int">
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="updateBicycle" parameterType="bicycleVO">
-		update bicycle set title=#{title}, categoryNo=#{categoryNo}, address=#{address},
+		update bicycle set title=#{title}, categoryNo=#{categoryVO.categoryNo}, address=#{address},
 		purchasePrice=#{purchasePrice}, rentPrice=#{rentPrice}, detail=#{detail}
 		where bicycleNo=#{bicycleNo}
 	</update>
@@ -185,19 +185,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	<!-- 빌리기 -->
-   <insert id="rentRegister" parameterType="rentVO">
-      <selectKey keyProperty="rentNo" resultType="int" order="BEFORE">
-         select rent_seq.nextval from dual
-      </selectKey>
-      insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(#{rentNo},#{memberVO.id},#{bicycleVO.bicycleNo},#{calendarVO.startDay},#{calendarVO.endDay})
-   </insert>
+	<!-- Rent 등록 -->
+	<insert id="rentRegister" parameterType="rentVO">
+		<selectKey keyProperty="rentNo" resultType="int" order="BEFORE">
+			select rent_seq.nextval from dual
+		</selectKey>
+		insert into rent(rentNo, renterId,bicycleNo, startDay, endDay)
+		values(#{rentNo}, #{memberVO.id}, #{bicycleVO.bicycleNo}, #{calendarVO.startDay}, #{calendarVO.endDay})
+	</insert>
+
 	
+
 	<!-- 해당 자전거 요청 내역 불러오기  -->
+
+	
 	<select id="findBicycleByBicycleNo" resultMap="rentMap">
-		select rentNo,renterId,bicycleNo,startDay, endDay,state
+		select rentNo,renterId,bicycleNo,startDay, endDay, state
+
 		from rent 
-		where bicycleNo = #{value}
+		where bicycleNo=#{value}
 	</select>
 		
 	<resultMap type="rentVO" id="rentMap">

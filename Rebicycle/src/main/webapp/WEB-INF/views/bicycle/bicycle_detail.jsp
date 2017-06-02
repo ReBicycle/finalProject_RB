@@ -588,15 +588,14 @@ section.awSlider>img {
          <h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>
          <div align="center">
 
-            <!-- 예약 폼 -->
-            <div class="row">
-               <!-- <div class="col-lg-8 col-lg-offset-2"> -->
-               <div class="col-lg-10 col-lg-offset-1">
-                  <form name="rentForm" id="rentForm"
-                     action="${pageContext.request.contextPath}/rentRegister.do">
-                     
-                  <table id = "addTable">
-                        
+				<!-- 예약 폼 -->
+				<div class="row">
+					<!-- <div class="col-lg-8 col-lg-offset-2"> -->
+					<div class="col-lg-10 col-lg-offset-1">
+						<form name="rentForm" id="rentForm"
+							action="${pageContext.request.contextPath}/rentRegister.do">
+							
+						<table id = "addTable">                   
                     
                         <div class="row control-group">
                            <!-- input 달력 -->
@@ -737,16 +736,15 @@ section.awSlider>img {
 
                      <div>requestScope.findBvo 결과 ${requestScope.findBvo}</div>
 
-
-                     <div class="row">
-                        <div class="form-group col-xs-12" align="center">
-                        <input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-                        
-                           
-                           <button type="submit" class="btn btn-success btn-lg"
-                              id="rentBtn">빌리기</button>
-                        </div>
-                     </div>
+							<div class="row">
+								<div class="form-group col-xs-12" align="center">
+								<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+								
+									
+									<button type="submit" class="btn btn-success btn-lg"
+										id="rentBtn">빌리기</button>
+								</div>
+							</div>
 
                   </form>
                </div>

@@ -69,7 +69,6 @@ public class BicycleController {
 		// Map 등록
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
-		System.out.println("위도" + latitude);
 		MapVO map = new MapVO(latitude, longitude);
 		
 		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
@@ -86,9 +85,10 @@ public class BicycleController {
 	
 	//자전거 수정
 	@RequestMapping(method = RequestMethod.POST, value = "modifyBicycle.do")
-	public String modifyBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
+	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
+		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
 		bvo.setMemberVO(new MemberVO(memberId));
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
@@ -98,9 +98,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -113,8 +113,7 @@ public class BicycleController {
 		String longitude = request.getParameter("longitude");
 		MapVO map = new MapVO(latitude, longitude);
 		
-		//6월2일 할일
-		//serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map);
+		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map);
 		System.out.println(bvo);
 		System.out.println(calList);
 		System.out.println(map);
@@ -374,6 +373,7 @@ public class BicycleController {
 		
 		BicycleVO bvo=new BicycleVO();
 		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
+		
 		System.out.println("1"+bvo.getBicycleNo());
 		
 		/*MemberVO mId=new MemberVO();
@@ -386,7 +386,7 @@ public class BicycleController {
 		System.out.println("3"+cvo.getStartDay()+"/"+cvo.getEndDay());
 		
 		RentVO rvo=new RentVO(bvo,mvo,cvo);
-
+		System.out.println();
 
 		serviceImpl3.rentRegister(rvo);
 		System.out.println("빌리기 완성");

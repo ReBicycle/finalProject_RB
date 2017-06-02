@@ -21,7 +21,8 @@ public class BoardController {
 	@RequestMapping(value="write.do" , method=RequestMethod.POST)
 		public ModelAndView write(HttpServletRequest request, ReportVO rvo){
 		boardService.write(rvo);
-		return new ModelAndView("redirect:board_list.do");
+		System.out.println("fdjsklfjskldfjlsk"+ rvo);
+		return new ModelAndView("redirect:findReportNo.do?reportNo="+rvo.getReportNo());
 	}
 	// 신고 리스트
 	@RequestMapping("board_list.do")
@@ -43,11 +44,12 @@ public class BoardController {
 	}*/
 	// 로그인 후 게시글 상세보기로 넘어가는 컨트롤러
 	@RequestMapping("boardDetail.do")
-	public String boardDetail(int reportNo, HttpServletRequest request) {		
+	public ModelAndView boardDetail(int reportNo, HttpServletRequest request) {		
 		System.out.println("컨트롤러 시작"+reportNo);
 		ReportVO rvo=boardService.boardDetail(reportNo);
 		request.setAttribute("rvo",rvo);
-		return "board/board_detail.tiles";
+		System.out.println(rvo);
+		return new ModelAndView("board/board_detail.tiles");
 	}
 	//로그인 후 자신이 작성한 신고 글 수정 페이지로 넘어가는 컨트롤러
 	@RequestMapping("boardUpdateReportView.do")
@@ -58,9 +60,19 @@ public class BoardController {
 		return "board/board_update.tiles";
 	}
 	@RequestMapping(value="updateReport.do" , method=RequestMethod.POST)
-	public ModelAndView updateReport(ReportVO rvo) {
-		System.out.println("업데이트"+rvo);
+	public ModelAndView updateReport(ReportVO rvo, HttpServletRequest request) {
 		boardService.updateReport(rvo);
-		return new ModelAndView("redirect:board/board_detail.do","rvo",boardService.boardDetail(rvo.getReportNo()));
+		System.out.println("업데이트"+rvo);
+		request.setAttribute("rvo", rvo);
+		return new ModelAndView("redirect:findReportNo.do?reportNo="+rvo.getReportNo());
+	}
+	@RequestMapping("deleteReport.do")
+	public ModelAndView deleteReport(int reportNo) {		
+		boardService.deleteReport(reportNo);		
+		return new ModelAndView("board/board_list.tiles","lvo",boardService.getReportList());
+	}
+	@RequestMapping("findReportNo.do")
+	public ModelAndView findReportNo(int reportNo){
+		return new ModelAndView("board/board_detail.tiles","rvo",boardService.findReportNo(reportNo));
 	}
 }

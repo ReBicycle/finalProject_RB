@@ -549,6 +549,6 @@ create table rent(
    state number default 0
   
 )
-
-
+select * from rent_seq
+select * from rent;
 drop table bicycle

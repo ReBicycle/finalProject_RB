@@ -368,6 +368,7 @@ public class BicycleController {
 		
 		BicycleVO bvo=new BicycleVO();
 		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
+		
 		System.out.println("1"+bvo.getBicycleNo());
 		
 		/*MemberVO mId=new MemberVO();
@@ -380,7 +381,7 @@ public class BicycleController {
 		System.out.println("3"+cvo.getStartDay()+"/"+cvo.getEndDay());
 		
 		RentVO rvo=new RentVO(bvo,mvo,cvo);
-
+		System.out.println();
 
 		serviceImpl3.rentRegister(rvo);
 		System.out.println("빌리기 완성");

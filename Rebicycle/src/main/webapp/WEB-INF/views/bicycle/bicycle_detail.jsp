@@ -571,7 +571,7 @@ section.awSlider>img {
 					<!-- <div class="col-lg-8 col-lg-offset-2"> -->
 					<div class="col-lg-10 col-lg-offset-1">
 						<form name="rentForm" id="rentForm"
-							action="${pageContext.request.contextPath}/rentRegister.do?bicycleNo=${requestScope.findBvo.bicycleNo}">
+							action="${pageContext.request.contextPath}/rentRegister.do">
 							
 						<table id = "addTable">
                      	
@@ -583,7 +583,7 @@ section.awSlider>img {
                               <label for="id_date"
                                  class="control-label col-md-6  requiredField" align="left"><h4>Start Date</h4></label>
                               <div class="controls col-md-5">
-                                 <input type="date" name="calendarVO.startDay" id = "startDay"
+                                 <input type="date" name="startDay" id = "startDay"
                                     class="input-md textinput textInput form-control"
                                     id="id_detail">
                              </div>
@@ -598,7 +598,7 @@ section.awSlider>img {
                               <label for="id_date"
                                  class="control-label col-md-6  requiredField" align="left"><h4 >End Date</h4></label>
                               <div class="controls col-md-5">
-                                 <input type="date" name="calendarVO.endDay" id = "endDay"
+                                 <input type="date" name="endDay" id = "endDay"
                                     class="input-md textinput textInput form-control"
                                     id="id_detail">
                               </div>
@@ -707,8 +707,8 @@ section.awSlider>img {
 
 							<div class="row">
 								<div class="form-group col-xs-12" align="center">
-								<input type = "hidden" name = "bicycleVO.bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-								<input type = "hidden" name = "memberVO.id" value = "${sessionScope.mvo.id}" >
+								<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+								
 									
 									<button type="submit" class="btn btn-success btn-lg"
 										id="rentBtn">빌리기</button>

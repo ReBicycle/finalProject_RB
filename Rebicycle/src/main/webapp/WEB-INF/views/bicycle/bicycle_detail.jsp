@@ -64,7 +64,7 @@
       $(".plus-img").click(function(){
            var size = $("div[id^='possible']").size();                    
            for(var i = 1; i<=size;i++)
-            alert($("div[id^='possible']").find(".possibleStartDay"+i).val());
+            //alert($("div[id^='possible']").find(".possibleStartDay"+i).val());
        });
       
       $("#rentForm").submit(function(){      
@@ -180,7 +180,10 @@ section.awSlider>img {
   	 });
    });//ready
 </script>
+
+<!-- 기간 추가 기능  -->
 <script>
+	var clickCount=0;
 	var oTbl;
 	//Row 추가
 	function insRow() {
@@ -190,9 +193,19 @@ section.awSlider>img {
 	  	var oCell = oRow.insertCell();
 	
 	  	//삽입될 Form Tag'
+	  	
 	  	var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail>";
 	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
 	  	oCell.innerHTML = frmTag;
+	  	
+	  	
+	  	//사입 from tag 의 아이디를 각각 다르게 생성하기 위한 for문
+		alert(clickCount);//클릭 count 
+		//clickCount를 startDay와 endDay의 뒤에 붙여주었음
+		/* var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail"+clickCount+"><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail"+clickCount+">";
+	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
+	  	oCell.innerHTML = frmTag; */
+	  	
 	}
 	//Row 삭제
 	function removeRow() {
@@ -242,6 +255,7 @@ section.awSlider>img {
 	  	 
 		  $("#checkImg").click(function(){
 			
+			//alert($("#d_detail").val());
 			  
 			checkInput();
 		  	
@@ -263,6 +277,7 @@ section.awSlider>img {
 	  	  });
 		  	
 		  $("#plusImg").click(function(){
+			  clickCount+=1;
 			  insRow();
 		  });
 		   
@@ -279,6 +294,8 @@ section.awSlider>img {
 		 	 	 var startDay = parseInt(start.substring(8,10));//6
 		 	 	 var endDay = parseInt(end.substring(8,10));//8
 		 	 	
+		 	 	 
+				
 		 	 	$.ajax({
 					type:"get",
 					
@@ -305,22 +322,35 @@ section.awSlider>img {
 		   });
 		   
 	      $("#rentBtn").click(function(){
-	    	  
-	    	  $("#rentForm").submit(function(){
-		     	  if(checkDay().search("true") != -1){
+	    	  var result=$("#checkResult").text();
+	    	 // alert(result);
+	    	  $("#rentForm").submit(function(){  
+	    		  if(result=='불가능'){
+	    			  alert("해당 날짜는 예약이 불가능합니다.");
+	    			  return false;
+	    		  }
+	    		  if(result==''){
+	    			  alert("날짜를 입력하세요.");
+	    			  return false;
+	    		  }
+	    		  if(result=='가능')
+	    			  return true;
+		     	  /* if(checkDay().search("true") != -1){
 		     		  alert(checkDay() + "대여 가능!");
 		     		  
 		     	  }else{
 		     		  alert("대여 불가!");
 		     		  return false;
-		     	  }
+		     	  } */
 		      });
 		      
 	      });
 	     
 	
 	      //대여 가능일이랑 사용자가 입력한 값 비교해서 t/f 반환
+	      //여러 input date 를 비교하기 - 2차 구현
 	      function checkDay(){
+
 		    	var size = $("div[id^='possible']").size();//대여 가능 기간 수
 				//alert(size);
 		    	 var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
@@ -335,8 +365,21 @@ section.awSlider>img {
 			  	 var endDay = parseInt(end.substring(8,10));//8
 		  	 	
 		  	 	//alert("endDay" + endDay);
-		  	 	
-		  	 	
+			  	 
+			  	//달력의 여러 날짜와 비교하기 위해 사용
+		  	 	$.ajax({
+		  	 		type:"post",
+		  	 		url:"${pageContext.request.contextPath}/dayCheck.do?bicycleNo=${requestScope.findBvo.bicycleNo}",
+		  	 		data:"startDay="+$("#startDay").val()+"&endDay="+$("#endDay").val(),
+		  	 		success:function(data){
+		  	 			alert("ajax  가능 일  "+data);
+		  	 			if(data==true)
+		  	 				$("#checkResult").html("가능");
+		  	 			else
+		  	 				$("#checkResult").html("불가능");
+		  	 		}
+		  	 		
+		  	 	});
 		  	 	
 				for(var i = 1; i<=size;i++){
 					//alert($("div[id^='possible']").find(".possibleStartDay"+i).val());  
@@ -525,7 +568,7 @@ section.awSlider>img {
 					<!-- <div class="col-lg-8 col-lg-offset-2"> -->
 					<div class="col-lg-10 col-lg-offset-1">
 						<form name="rentForm" id="rentForm"
-							action="${pageContext.request.contextPath}/rentRegister.do">
+							action="${pageContext.request.contextPath}/rentRegister.do?bicycleNo=${requestScope.findBvo.bicycleNo}">
 							
 						<table id = "addTable">
                      	<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
@@ -562,7 +605,7 @@ section.awSlider>img {
                         </table>
                         	
  						<div class = "row control-group">
-                     
+
                            <abbr title="대여가능체크"><img id = "checkImg" class="check-img"
 							src=" https://www.2buy2.com/images/icons/other/green-outline/tick.png" alt="" style = "width:"></abbr>
                        

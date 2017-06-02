@@ -306,13 +306,9 @@ delete from category;
 delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
+select * from possible_day
 
-select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
-		,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,	ph.*, b.title, pd.startDay, pd.endDay
-		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca, possible_day pd
-		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=1 and ca.categoryNo=b.categoryNo and pd.bicycleNo=b.bicycleNo
-		
-update bicycle set address='경기 성남시 분당구 대왕판교로606번길 45 (삼평동),경기 성남시 분당구 삼평동 653,100-10'	
+
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 

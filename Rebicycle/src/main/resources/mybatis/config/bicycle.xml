@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	
  	<select id="findCategoryByNo" resultType="string">
- 		select categoryName from category where categoryNo=#{categoryNo}
+ 		select categoryName from category where categoryNo=#{value}
  	</select>
  	
  	<select id="calculateMinPrice" resultType="int">
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="updateBicycle" parameterType="bicycleVO">
-		update bicycle set title=#{title}, categoryNo=#{categoryNo}, address=#{address},
+		update bicycle set title=#{title}, categoryNo=#{categoryVO.categoryNo}, address=#{address},
 		purchasePrice=#{purchasePrice}, rentPrice=#{rentPrice}, detail=#{detail}
 		where bicycleNo=#{bicycleNo}
 	</update>

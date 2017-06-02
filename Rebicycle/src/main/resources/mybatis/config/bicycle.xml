@@ -201,7 +201,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="findBicycleByBicycleNo" resultMap="rentMap">
-		select rentNo,renterId,bicycleNo,startDay, endDay,state,totalPrice
+		select rentNo,renterId,bicycleNo,startDay, endDay, state
 		from rent 
 		where bicycleNo = #{value}
 	</select>

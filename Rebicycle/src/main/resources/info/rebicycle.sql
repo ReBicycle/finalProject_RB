@@ -96,10 +96,48 @@ create table rent(
    bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
    startDay date not null,
    endDay date not null,
-   state number not null
+   state number default 0
 )
 
-create sequence rent_seq;
+create table rb_review(
+	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+	rentNo number constraint fk_rentNooo references rent(rentNo),
+	star number default 0,
+	reviewDate date not null,
+	content clob not null,
+	constraint pk_rb_review primary key(reviewerId, rentNo)
+)
+
+create table rb_report(
+	reportNo number primary key,
+	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
+	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
+	contents clob not null,
+	reportDate date not null
+)
+
+create table donation(
+   donationBicycleNo number primary key,
+   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   detail clob not null,
+   picture varchar2(300) not null
+)
+
+--테이블 수정
+alter table rb_member modify address varchar2(300);
+alter table bicycle modify address varchar2(300);
+alter table bicycle add title varchar2(100) not null;
+
+--카테고리 데이터 삽입
+insert into category(categoryNo, categoryName) values(1, 'MTB');
+insert into category(categoryNo, categoryName) values(2, '로드');
+insert into category(categoryNo, categoryName) values(3, '픽시');
+insert into category(categoryNo, categoryName) values(4, '미니벨로');
+insert into category(categoryNo, categoryName) values(5, '레코드용');
+insert into category(categoryNo, categoryName) values(6, '어린이용');
+insert into category(categoryNo, categoryName) values(7, '기타');
+
+-- 위로는 절대 건드리지 말것!!
 
 -----------------rent table 컬럼 수정-----------------------
 alter table rent add totalprice number not null
@@ -124,57 +162,10 @@ insert into a value('java');
 select * from a
 
 select * from BICYCLE
-create table rb_review(
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-	rentNo number constraint fk_rentNooo references rent(rentNo),
-	star number default 0,
-	reviewDate date not null,
-	content clob not null,
-	constraint pk_rb_review primary key(reviewerId, rentNo)
-<<<<<<< HEAD
-=======
-   rentNo number primary key constraint fk_rentNooo references rent(rentNo),
-   star number default 0,
-   reviewDate date not null,
-   content clob not null
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-)
-
-create table rb_report(
-	reportNo number primary key,
-	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
-	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
-	contents clob not null,
-	reportDate date not null
-)
-
-create table donation(
-   donationBicycleNo number primary key,
-   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
-   detail clob not null,
-   picture varchar2(300) not null
-)
 
 
---테이블 수정
-alter table rb_member modify address varchar2(300);
-alter table bicycle modify address varchar2(300);
-alter table bicycle add title varchar2(100) not null;
 
---카테고리 데이터 삽입
-insert into category(categoryNo, categoryName) values(1, 'MTB');
-insert into category(categoryNo, categoryName) values(2, '로드');
-insert into category(categoryNo, categoryName) values(3, '픽시');
-insert into category(categoryNo, categoryName) values(4, '미니벨로');
-insert into category(categoryNo, categoryName) values(5, '레코드용');
-insert into category(categoryNo, categoryName) values(6, '어린이용');
-insert into category(categoryNo, categoryName) values(7, '기타');
+
 
 
 

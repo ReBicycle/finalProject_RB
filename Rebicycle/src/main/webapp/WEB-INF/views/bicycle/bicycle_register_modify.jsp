@@ -145,7 +145,7 @@ function findGeo(){
             </div>
             <div class="panel-body" > 
 				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/modifyBicycle.do">
-				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
+				    <input type="hidden" name="bicycleNo" value="${param.bicycleNo }" />
 				    
 				    <!-- 사진 -->
 				    <div id="div_id_photo" class="form-group required"> 

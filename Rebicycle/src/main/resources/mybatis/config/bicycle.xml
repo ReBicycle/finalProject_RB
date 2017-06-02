@@ -42,6 +42,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into map(bicycleNo, latitude, longitude) values(#{bicycleNo}, #{latitude}, #{longitude}) 
 	</insert>
 	
+	<update id="updateBicycle" parameterType="bicycleVO">
+		update bicycle set title=#{title}, categoryNo=#{categoryNo}, address=#{address},
+		purchasePrice=#{purchasePrice}, rentPrice=#{rentPrice}, detail=#{detail}
+		where bicycleNo=#{bicycleNo}
+	</update>
+	
+	<select id="findPossibleDay" resultType="calendarVO">
+		select bicycleNo, startDay, endDay from possible_day where bicycleNo=#{bicycleNo}
+	</select>
+	
+	<delete id="deletePossibleDay" parameterType="calendarVO">
+		delete from possible_day where bicycleNo=#{bicycleNo}
+	</delete>
+	
+	<insert id="insertPossibleDay" parameterType="calendarVO">
+		insert into possible_day(bicycleNo, startDay, endDay) values(#{bicycleNo}, #{startDay}, #{endDay})
+	</insert>
+	
+	<update id="updateMap" parameterType="mapVO">
+		update map set latitude=#{latitude}, longitude=#{longitude} where bicycleNo=#{bicycleNo}
+	</update>
+	
+	
 	<!-- 종봉 자전거 검색 -->
 	<!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
 		resultType="bicycleVO">

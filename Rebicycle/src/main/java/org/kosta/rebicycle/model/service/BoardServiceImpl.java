@@ -43,4 +43,12 @@ public class BoardServiceImpl implements BoardService{
 		boardDAO.boardUpdateReportView(reportNo);
 		return boardDAO.boardUpdateReportView(reportNo);
 	}
+	@Override
+	public void deleteReport(int reportNo){
+		boardDAO.deleteReport(reportNo);
+	}
+	@Override
+	public ReportVO findReportNo(int reportNo){		
+		return boardDAO.boardUpdateReportView(reportNo);
+	}	
 }

@@ -150,5 +150,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>
 
+	<!-- Rent 등록 -->
+	<insert id="rentRegister" parameterType="rentVO">
+		<selectKey keyProperty="rentNo" resultType="int" order="BEFORE">
+			select rent_seq.nextval from dual
+		</selectKey>
+		insert into rent(rentNo, renterId,bicycleNo, startDay, endDay, state, totalPrice)
+		values(#{rentNo}, #{memberVO.id}, #{bicycleVO.bicycleNo}, #{calendarVO.startDay}, #{calendarVO.endDay},
+		#{totalPrice}, #{state})
+	</insert>
 	
+	
+	<select id="findBicycleByBicycleNo" resultMap="rentMap">
+		select rentNo,renterId,bicycleNo,startDay, endDay,state,totalPrice
+		from rent 
+		where bicycleNo = #{value}
+	</select>
+	
+	<select id="findRentRequestById">
+		select rentNo, renterId, bicycleNo, startDay, endDay, state, totalPrice
+		from rent
+		where 
+	</select>
 </mapper>

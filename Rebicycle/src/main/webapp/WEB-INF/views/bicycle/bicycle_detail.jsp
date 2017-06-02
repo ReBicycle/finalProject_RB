@@ -308,13 +308,7 @@ section.awSlider>img {
 	      $("#rentBtn").click(function(){
 	    	  
 	    	  $("#rentForm").submit(function(){
-		     	  if(checkDay().search("true") != -1){
-		     		  alert(checkDay() + "대여 가능!");
-		     		  
-		     	  }else{
-		     		  alert("대여 불가!");
-		     		  return false;
-		     	  }
+		     	  //체크버튼, 계산 버튼 클릭시에만 submit되게
 		      });
 		      
 	      });
@@ -538,7 +532,7 @@ section.awSlider>img {
                               <label for="id_date"
                                  class="control-label col-md-6  requiredField" align="left"><h4>Start Date</h4></label>
                               <div class="controls col-md-5">
-                                 <input type="date" name="startDay" id = "startDay"
+                                 <input type="date" name="calendarVO.startDay" id = "startDay"
                                     class="input-md textinput textInput form-control"
                                     id="id_detail">
                              </div>
@@ -553,7 +547,7 @@ section.awSlider>img {
                               <label for="id_date"
                                  class="control-label col-md-6  requiredField" align="left"><h4 >End Date</h4></label>
                               <div class="controls col-md-5">
-                                 <input type="date" name="endDay" id = "endDay"
+                                 <input type="date" name="calendarVO.endDay" id = "endDay"
                                     class="input-md textinput textInput form-control"
                                     id="id_detail">
                               </div>
@@ -662,8 +656,8 @@ section.awSlider>img {
 
 							<div class="row">
 								<div class="form-group col-xs-12" align="center">
-								<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-								<input type = "hidden" name = "renterId" value = "${sessionScope.mvo.id}" >
+								<input type = "hidden" name = "bicycleVO.bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+								<input type = "hidden" name = "memberVO.id" value = "${sessionScope.mvo.id}" >
 								<div id = "totalPriceHidden"></div>
 								
 									<button type="submit" class="btn btn-success btn-lg"

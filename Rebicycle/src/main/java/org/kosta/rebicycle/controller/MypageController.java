@@ -40,6 +40,11 @@ public class MypageController {
 		//내가빌린내역 불러오기
 		ArrayList<RentVO> rentList = (ArrayList<RentVO>) bicycleService4.findRentById(vo.getId());
 		model.addAttribute("rentList", rentList);
+		
+		//요청 리스트 - 다른 사람이 요청한 내역 - bicycleVO의 memberId가 내 아이디인 rent정보 
+		ArrayList<RentVO> rentRequestList = (ArrayList<RentVO>) bicycleService4.findRentRequestById(vo.getId());
 		return "mypage/mypage_main.tiles";
 	}
+	
+	
 }

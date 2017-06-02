@@ -1,5 +1,6 @@
 package org.kosta.rebicycle.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -30,4 +31,20 @@ public class BicycleServiceImpl4 implements BicycleService {
 		return list;
 	}
 
+	public void rentRegister(RentVO rvo) {
+		//rvo의 신청일~반납일이 가능일이사이에 있을 때
+		//가능일이 2개로 나뉨
+		bicycleDAOImpl4.rentRegister(rvo);
+		
+	}
+
+	//해당 자전거를 요청한 내역 띄우기
+	public List<RentVO> findRentByBicycleNo(int bicycleNo){
+		return bicycleDAOImpl4.findBicycleByBicycleNo(bicycleNo);
+	}
+
+	public List<RentVO> findRentRequestById(String id) {
+		return bicycleDAOImpl4.findRentRequestById(id);
+	}
+	
 }

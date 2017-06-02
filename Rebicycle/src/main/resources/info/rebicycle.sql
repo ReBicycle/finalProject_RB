@@ -515,4 +515,3 @@ create table rb_review(
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
 
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

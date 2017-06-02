@@ -7,6 +7,29 @@
 		$("#reviewForm").click(function(){
 			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
 		});
+		
+			
+		$(".dropdown-menu li a").on("click", function(){
+			//alert("ss");
+			//alert ($("input[id^='rentBicycleNo']").val());
+			var bicycleNo = $("input[id^='rentBicycleNo']").val();
+			alert(bicycleNo);
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				url:"${pageContext.request.contextPath}/getRentByBicycleNo.do?bicycleNo="+bicycleNo,
+				success:function(data){
+					//data[1]
+					for(var i = 0; i<data.length;i++){
+						//alert(data);
+						alert(data[i].rentNo);
+						alert(data[i].memberVO.id)
+						alert(data[i].calendarVO.startDay);
+					}
+					 
+				} //success
+			});//ajax
+		});
 	});
 </script>
 
@@ -211,27 +234,27 @@
                                 <span class="caret"></span>
                             </button>
                      <%-- ${requestScope.rentRequestList[0].memberVO.id} --%>
+                    
                      	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           	 <c:forEach items="${requestScope.rentRequestList}" var = "rentRequest">
-	
-		                                <li><a href="#">${rentRequest.bicycleVO.title}</a></li>
+	                           	<c:forEach items="${requestScope.rentRequestList}" var = "rentRequestList">
+									
+									
+		                             <li><a href="" class = "rentList${order.count}">${rentRequestList.bicycleVO.title}</a></li>
+		                             <input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${rentRequestList.bicycleVO.bicycleNo}">
+		                             
 		                              
 	                       		 </c:forEach>
-                       		 </ul>
-                        </div>
+                       		 </ul> 
+                       
+                     </div>
                     </span>
+                    <br><Br>
+                   	<div align = "left">요청내역
+                   		<c:forEach items = "" var = "rent"></c:forEach> 
+                   	</div>
                     <br><br>
-					<hr>
-                    <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
-                    </span>
-                    <span class="pull-right">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                    </span>
+					
+                    
                 </div>
             </div>
             <hr>
@@ -249,11 +272,7 @@
                             </button>
                            <%--  ${requestScope.bicycleList} --%>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           <c:forEach items="${requestScope.registerList}" var = "bList">
-	
-		                                <li><a href="#">${bList.detail}</a></li>
-		                              
-	                       		 </c:forEach>
+	                           
                        		 </ul>
                         </div>
                     </span>

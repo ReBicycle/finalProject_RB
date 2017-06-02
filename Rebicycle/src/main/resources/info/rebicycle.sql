@@ -64,6 +64,7 @@ create table bicycle(
    bicycleNo number primary key,
    memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
    address varchar2(300) not null,
+   title varchar2(100) not null,
    purchasePrice number not null,
    rentPrice number not null,
    detail clob not null,
@@ -90,13 +91,22 @@ create table map(
    longitude varchar2(100) not null
 )
 
+--create table rent(
+--   rentNo number primary key,
+--  renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
+--   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
+--   startDay date not null,
+--   endDay date not null,
+--   state number not null
+--)
+
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
    bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
    startDay date not null,
    endDay date not null,
-   state number not null
+   state number default 0
 )
 
 create sequence rent_seq;
@@ -114,37 +124,18 @@ select bicycle_seq.nextval from dual
 
 
 
-
-create table a(
-	id varchar2(100) primary key,
-	state number default 0
-)
-drop table a
-insert into a value('java');
-select * from a
-
 select * from BICYCLE
+
 create table rb_review(
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
 	rentNo number constraint fk_rentNooo references rent(rentNo),
 	star number default 0,
 	reviewDate date not null,
 	content clob not null,
 	constraint pk_rb_review primary key(reviewerId, rentNo)
-<<<<<<< HEAD
-=======
-   rentNo number primary key constraint fk_rentNooo references rent(rentNo),
-   star number default 0,
-   reviewDate date not null,
-   content clob not null
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 )
+
+select * from rb_review
 
 create table rb_report(
 	reportNo number primary key,
@@ -469,11 +460,6 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 
 
 --==============서경==============================================================
-<<<<<<< HEAD
-
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
 update rb_report set reportTitle='test',blackId='java',contents='test',reportDate=sysdate where reportNo=26
 
 
@@ -483,7 +469,9 @@ delete from possible_day;
 delete from bicycle_photo;
 delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
-   
+
+delete from bicycle;
+delete from rb_member;
 delete from rb_review;
 delete from rb_report;
 delete from donation;
@@ -494,6 +482,10 @@ delete from map;
 delete from bicycle;
 delete from category;
    
+select * from bicycle
+select * from rb_member
+select * from category
+
 drop sequence category_seq;
 drop sequence bicycle_seq;
 drop sequence rent_seq;
@@ -539,7 +531,9 @@ create table rb_review(
    cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
+
 drop table rent
+delete table rent
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
@@ -547,8 +541,9 @@ create table rent(
    startDay date not null,
    endDay date not null,
    state number default 0
-  
 )
-
+select * from rb_member
 
 drop table bicycle
+
+select * from POSSIBLE_DAY

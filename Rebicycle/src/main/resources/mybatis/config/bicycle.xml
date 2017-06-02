@@ -173,9 +173,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="rentNo" resultType="int" order="BEFORE">
 			select rent_seq.nextval from dual
 		</selectKey>
-		insert into rent(rentNo, renterId,bicycleNo, startDay, endDay, state, totalPrice)
-		values(#{rentNo}, #{memberVO.id}, #{bicycleVO.bicycleNo}, #{calendarVO.startDay}, #{calendarVO.endDay},
-		#{totalPrice}, #{state})
+		insert into rent(rentNo, renterId,bicycleNo, startDay, endDay)
+		values(#{rentNo}, #{memberVO.id}, #{bicycleVO.bicycleNo}, #{calendarVO.startDay}, #{calendarVO.endDay})
 	</insert>
 	
 	

@@ -549,6 +549,18 @@ create table rent(
    state number default 0
   
 )
+
+select * from rb_member
+
 select * from rent_seq
 select * from rent;
 drop table bicycle
+
+--mypage 요청 리스트
+select r.*, b.*
+from rent r, bicycle b
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
+
+select r.*, b.bicycleNo, b.memberId, b.title
+from rent r, bicycle b
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0

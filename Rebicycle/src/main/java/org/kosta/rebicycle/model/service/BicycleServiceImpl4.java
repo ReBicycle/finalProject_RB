@@ -44,6 +44,7 @@ public class BicycleServiceImpl4 implements BicycleService {
 	}
 
 	public List<RentVO> findRentRequestById(String id) {
+		System.out.println("DAO" +  bicycleDAOImpl4.findRentRequestById(id));
 		return bicycleDAOImpl4.findRentRequestById(id);
 	}
 	

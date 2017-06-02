@@ -11,6 +11,10 @@ public interface BoardService {
 
 	ListVO getReportList(String pageNo);
 
-	ReportVO boardDetail(String reportNo);
+	ReportVO boardDetail(int reportNo);
+
+	void updateReport(ReportVO rvo);
+
+	ReportVO boardUpdateReportView(int reportNo);
 
 }

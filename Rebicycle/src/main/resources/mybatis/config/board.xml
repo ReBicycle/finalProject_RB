@@ -29,10 +29,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		reportDate,b.contents from rb_report 
 		b where reportNo=${value}
 	</select>
+		<select id="boardUpdateReportView" resultType="reportVO">
+		select
+		b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
+		reportDate,b.contents from rb_report 
+		b where reportNo=${value}
+	</select>
+	<update id="updateReport" parameterType="reportVO">
+		update rb_report set reportTitle=#{reportTitle},blackId=#{blackId},contents=#{contents},reportDate=sysdate where reportNo=#{reportNo}
+	</update>
  </mapper>
  
  
- 
+<!--  to_char(sysdateate,'YYYY.MM.DD HH:mm:ss') where reportNo=#{reportNo} -->
  
  
  

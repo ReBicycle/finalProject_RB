@@ -8,17 +8,17 @@ public class RentVO {
 	
 	private MemberVO memberVO;
 	private CalendarVO calendarVO;
-	private int totalRentPrice;
+	private int totalPrice;
 	private int state;
 	public RentVO() {
 		super();
 	}
-	public RentVO(BicycleVO bicycleVO, MemberVO memberVO, CalendarVO calendarVO, int totalRentPrice) {
+	public RentVO(BicycleVO bicycleVO, MemberVO memberVO, CalendarVO calendarVO, int totalPrice) {
 		super();
 		this.bicycleVO = bicycleVO;
 		this.memberVO = memberVO;
 		this.calendarVO = calendarVO;
-		this.totalRentPrice = totalRentPrice;
+		this.totalPrice = totalPrice;
 	}
 	
 	//빌리기 에서 사용 
@@ -48,11 +48,11 @@ public class RentVO {
 	public void setCalendarVO(CalendarVO calendarVO) {
 		this.calendarVO = calendarVO;
 	}
-	public int getTotalRentPrice() {
-		return totalRentPrice;
+	public int gettotalPrice() {
+		return totalPrice;
 	}
-	public void setTotalRentPrice(int totalRentPrice) {
-		this.totalRentPrice = totalRentPrice;
+	public void settotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	public int getState() {
 		return state;
@@ -75,7 +75,7 @@ public class RentVO {
 	@Override
 	public String toString() {
 		return "RentVO [bicycleVO=" + bicycleVO + ", memberVO=" + memberVO + ", calendarVO=" + calendarVO
-				+ ", totalRentPrice=" + totalRentPrice + ", state=" + state + "]";
+				+ ", totalPrice=" + totalPrice + ", state=" + state + "]";
 	}
 
 }

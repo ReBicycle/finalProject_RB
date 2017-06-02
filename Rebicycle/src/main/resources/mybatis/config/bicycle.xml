@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 	<select id="getBicycleListByAddressAndDay" parameterType="map"
 		resultMap="bicycleMap" >
-		select b.bicycleNo, b.memberId ,b.address
+		select b.bicycleNo,b.title ,b.memberId ,b.address
 		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
 		from bicycle b, possible_day p, bicycle_photo c,map m
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="sortedListByAddressAndDayAndHigh" parameterType="map"
 		resultMap="bicycleMap" >
-		select b.bicycleNo, b.memberId ,b.address
+		select b.bicycleNo,b.title, b.memberId ,b.address
 		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
 		from bicycle b, possible_day p, bicycle_photo c,map m
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 		<select id="sortedListByAddressAndDayAndLow" parameterType="map"
 		resultMap="bicycleMap" >
-		select b.bicycleNo, b.memberId ,b.address
+		select b.bicycleNo,b.title, b.memberId ,b.address
 		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
 		from bicycle b, possible_day p, bicycle_photo c,map m
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>

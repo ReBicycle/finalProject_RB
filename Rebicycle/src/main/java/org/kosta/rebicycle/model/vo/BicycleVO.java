@@ -63,13 +63,13 @@ public class BicycleVO {
 		this.title = title;
 	}
 
-	
-	
 	public int getBicycleNo() {
 		return bicycleNo;
 	}
-	
-	
+	//빌리기 - rentVO 에 자전거 번호 넣어주기 위해 선언
+	public BicycleVO(String bicycleNo) {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public ArrayList<CalendarVO> getPossibleList() {
 		return possibleList;

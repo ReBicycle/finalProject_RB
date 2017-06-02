@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl4;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -17,6 +19,7 @@ import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.CategoryVO;
 import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
+import org.kosta.rebicycle.model.vo.RentVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +36,13 @@ public class BicycleController {
 	//정태형//////////////////
 	@Resource
 	private BicycleServiceImpl3 serviceImpl3;
-	
+
+	@Resource
+	private BicycleServiceImpl4 serviceImpl4;
+		
+
 	//자전거 등록
+
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
@@ -48,9 +56,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -61,7 +69,6 @@ public class BicycleController {
 		// Map 등록
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
-		System.out.println("위도" + latitude);
 		MapVO map = new MapVO(latitude, longitude);
 		
 		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
@@ -78,9 +85,10 @@ public class BicycleController {
 	
 	//자전거 수정
 	@RequestMapping(method = RequestMethod.POST, value = "modifyBicycle.do")
-	public String modifyBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
+	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
+		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
 		bvo.setMemberVO(new MemberVO(memberId));
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
@@ -90,9 +98,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -105,8 +113,7 @@ public class BicycleController {
 		String longitude = request.getParameter("longitude");
 		MapVO map = new MapVO(latitude, longitude);
 		
-		//6월2일 할일
-		//serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map);
+		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map);
 		System.out.println(bvo);
 		System.out.println(calList);
 		System.out.println(map);
@@ -264,16 +271,123 @@ public class BicycleController {
 			int IntendDayOfDay=Integer.parseInt(endDayOfDay)+1;
 			String ResultOfEndDay=cList.get(i).getStartDay().subSequence(0, 7)+"-"+IntendDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
-			possibleTotalDay.put("title", "예약완료");
+			possibleTotalDay.put("title", "예약 가능");
 			possibleTotalDay.put("start", possibleStartDay[i]);
 			possibleTotalDay.put("end", possibleEndDay[i]);
 			possibleDayList.add(possibleTotalDay);
 		}
 		return possibleDayList;
+
 	}
 
-}
+	
+	//detail 페이지의 사용자가 선택하는 startDate endDate와 대여 가능일 비교를 위한 메서드
+	@RequestMapping("dayCheck.do")
+	@ResponseBody
+	public boolean dayCheck(String bicycleNo,String startDay,String endDay){
+		//가능여부 변수
+		boolean dayCheckResult = false;
+		//가능일을 찾기 위한 자전거 번호
+		int no=Integer.parseInt(bicycleNo);
+		int rentStartYear=Integer.parseInt(startDay.substring(0,4));
+		int rentStartMonth=Integer.parseInt(startDay.substring(5,7));
+		int rentStartDay=Integer.parseInt(startDay.substring(8,10));
+		int rentEndYear=Integer.parseInt(endDay.substring(0,4));
+		int rentEndMonth=Integer.parseInt(endDay.substring(5,7));
+		int rentEndDay=Integer.parseInt(endDay.substring(8,10));
+		//System.out.println("S---"+rentStartYear+"  "+rentStartMonth+"  "+rentStartDay);
+		//System.out.println("E---"+rentEndYear+"  "+rentEndMonth+"  "+rentEndDay);
+		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 
+		
+
+	
+
+
+		exit_For: 
+		for(int i=0; i<cList.size(); i++){
+			int possibleStartYear=Integer.parseInt(cList.get(i).getStartDay().substring(0,4));
+			int possibleStartMonth=Integer.parseInt(cList.get(i).getStartDay().substring(5,7));
+			int possibleStartDay=Integer.parseInt(cList.get(i).getStartDay().substring(8,10));
+			int possibleEndYear=Integer.parseInt(cList.get(i).getEndDay().substring(0,4));
+			int possibleEndMonth=Integer.parseInt(cList.get(i).getEndDay().substring(5,7));
+			int possibleEndDay=Integer.parseInt(cList.get(i).getEndDay().substring(8,10));
+			
+			//System.out.println(possibleStartYear+"   "+possibleStartMonth+"   "+possibleStartDay);
+			//System.out.println(possibleEndYear+"   "+possibleEndMonth+"   "+possibleEndDay);	
+			
+			//Year 비교
+			if(possibleStartYear<=rentStartYear && rentEndYear<=possibleEndYear){
+				//Month비교
+				if(possibleStartMonth<rentStartMonth && rentEndMonth<possibleEndMonth){
+					dayCheckResult=true;
+					break exit_For;
+				}else if(possibleStartMonth<rentStartMonth && rentEndMonth==possibleEndMonth){
+					if(rentEndDay<=possibleEndDay){
+						dayCheckResult=true;
+						break exit_For;
+					}else{
+						dayCheckResult=false;
+					}
+				}else if(possibleStartMonth == rentStartMonth && rentEndMonth <possibleEndMonth){
+					if(possibleStartDay<=rentStartDay){
+						dayCheckResult=true;
+						break exit_For;
+					}
+					else{ 
+						dayCheckResult=false;
+					}
+				}else if(possibleStartMonth == rentStartMonth && rentEndMonth == possibleEndMonth){
+					if((possibleStartDay<=rentStartDay) && (rentEndDay <= possibleEndDay)){
+						dayCheckResult=true;
+						break exit_For;
+					}else{
+						dayCheckResult=false;
+					}
+				}else if(possibleStartMonth>rentStartMonth || possibleEndMonth <rentEndMonth){
+					dayCheckResult=false;
+				}
+				
+			}else if(possibleStartYear<rentStartYear && rentEndYear<possibleEndYear){
+				dayCheckResult=true;
+				break exit_For;
+			}
+		}
+		
+		System.out.println("dayCheckResult       "+dayCheckResult);
+		
+		return dayCheckResult;
+	}
+	
+	@RequestMapping("rentRegister.do")
+	public String rentRegister(String bicycleNo,String startDay,String endDay,HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		//System.out.println("session id      "+mvo.getId());
+		
+		BicycleVO bvo=new BicycleVO();
+		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
+		
+		System.out.println("1"+bvo.getBicycleNo());
+		
+		/*MemberVO mId=new MemberVO();
+		mId.setId(mvo.getId());
+		System.out.println("2"+mvo.getId());*/
+		
+		CalendarVO cvo=new CalendarVO();
+		cvo.setStartDay(startDay);
+		cvo.setEndDay(endDay);
+		System.out.println("3"+cvo.getStartDay()+"/"+cvo.getEndDay());
+		
+		RentVO rvo=new RentVO(bvo,mvo,cvo);
+		System.out.println();
+
+		serviceImpl3.rentRegister(rvo);
+		System.out.println("빌리기 완성");
+		
+		return "mypage/mypage_main.tiles";
+	}
+}
 
 
 

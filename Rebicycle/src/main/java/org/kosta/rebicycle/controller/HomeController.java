@@ -1,11 +1,14 @@
 package org.kosta.rebicycle.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.vo.BicycleVO;
+import org.kosta.rebicycle.model.vo.MapVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +31,10 @@ public class HomeController {
 			return dirName + "/" + viewName + ".tiles";
 		}
 		@RequestMapping("bicycle/bicycle_search_list.do")
-		public ModelAndView bicycleList(String address,String startDay,String endDay){
+		public ModelAndView bicycleList(HttpServletRequest request,String address,String startDay,String endDay){
 			System.out.println("검색 컨트롤러실행"+address+startDay+endDay);
-			
-			
-			return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",service.getBicycleListByAddressAndDay(address, startDay, endDay));
+			List<BicycleVO>list=service.getBicycleListByAddressAndDay(address, startDay, endDay);
+			return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",list);
 		}
 		@RequestMapping("bicycle/sortByBikeType.do")
 		@ResponseBody

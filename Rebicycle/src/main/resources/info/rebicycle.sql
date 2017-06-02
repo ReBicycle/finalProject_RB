@@ -99,6 +99,31 @@ create table rent(
    state number not null
 )
 
+create sequence rent_seq;
+
+-----------------rent table 컬럼 수정-----------------------
+alter table rent add totalprice number not null
+alter table rent modify(state number default 0);
+
+delete from rent
+select * from rent
+insert into rent values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-12',1);
+insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-13');
+select rent_seq.nextval from dual
+select bicycle_seq.nextval from dual
+
+
+
+
+create table a(
+	id varchar2(100) primary key,
+	state number default 0
+)
+drop table a
+insert into a value('java');
+select * from a
+
+select * from BICYCLE
 create table rb_review(
 <<<<<<< HEAD
 <<<<<<< HEAD

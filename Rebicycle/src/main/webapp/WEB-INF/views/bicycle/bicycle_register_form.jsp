@@ -80,7 +80,7 @@
         }).open();
     }
 </script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
 <script type="text/javascript">
 function findGeo(){
 	// 주소-좌표 변환 객체를 생성합니다
@@ -106,11 +106,14 @@ function findGeo(){
 	var oTbl;
 	//Row 추가
 	function insRow() {
+		alert(2)
 	  	oTbl = document.getElementById("addTable");
 	  	var oRow = oTbl.insertRow();
 	  	oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
 	  	var oCell = oRow.insertCell();
-	
+		
+	  	var i=0; 
+	  	i++;
 	  	//삽입될 Form Tag'
 	  	var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail>";
 	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";

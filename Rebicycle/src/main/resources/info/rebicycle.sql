@@ -99,13 +99,51 @@ create table rent(
    state number not null
 )
 
+create sequence rent_seq;
+
+-----------------rent table 컬럼 수정-----------------------
+alter table rent add totalprice number not null
+alter table rent modify(state number default 0);
+
+delete from rent
+select * from rent
+insert into rent values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-12',1);
+insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-13');
+select rent_seq.nextval from dual
+select bicycle_seq.nextval from dual
+
+
+
+
+create table a(
+	id varchar2(100) primary key,
+	state number default 0
+)
+drop table a
+insert into a value('java');
+select * from a
+
+select * from BICYCLE
 create table rb_review(
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
 	rentNo number constraint fk_rentNooo references rent(rentNo),
 	star number default 0,
 	reviewDate date not null,
 	content clob not null,
 	constraint pk_rb_review primary key(reviewerId, rentNo)
+<<<<<<< HEAD
+=======
+   rentNo number primary key constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   content clob not null
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 )
 
 create table rb_report(
@@ -162,9 +200,13 @@ select * from BICYCLE
 insert into category values(category_seq.nextval,'MTB')
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
 insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
+<<<<<<< HEAD
+
+=======
 --자전거 삭제
 delete from bicycle where bicycleNo=1 cascade;
 
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
 
 insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
@@ -337,6 +379,18 @@ select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
 from bicycle
 where memberId='java'
 
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+=======
+where memberId='java'
+=======
 
 select * from RB_MEMBER
 select * from CATEGORY
@@ -344,6 +398,7 @@ select * from CATEGORY
 select * from bicycle
 where memberId='java'
 
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 
@@ -414,7 +469,12 @@ insert into rb_review values(4,3,sysdate,'좋아요4');
 
 
 --==============서경==============================================================
+<<<<<<< HEAD
 
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+=======
+update rb_report set reportTitle='test',blackId='java',contents='test',reportDate=sysdate where reportNo=26
 
 
 -----------------------현근------------------------------------------
@@ -479,4 +539,16 @@ create table rb_review(
    cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
-
+drop table rent
+create table rent(
+   rentNo number primary key,
+   renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
+   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
+   startDay date not null,
+   endDay date not null,
+   state number default 0
+  
+)
+select * from rent_seq
+select * from rent;
+drop table bicycle

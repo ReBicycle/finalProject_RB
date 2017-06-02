@@ -154,13 +154,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	
-	<!-- 서경 findRentById -->	
-	<resultMap type="rentVO" id="rentMap">
-		<result column="renterId" property="memberVO.id"/>
-		<result column="bicycleNo" property="bicycleVO.bicycleNo"/>
-		<result column="startDay" property="calendarVO.startDay"/>
-		<result column="endDay" property="calendarVO.endDay"/>
-	</resultMap>
+	
 	<select id="findRentById" resultMap="rentMap">
 		select renterId,bicycleNo, startDay, endDay, state 
 		from rent 
@@ -203,13 +197,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findBicycleByBicycleNo" resultMap="rentMap">
 		select rentNo,renterId,bicycleNo,startDay, endDay, state
 		from rent 
-		where bicycleNo = #{value}
+		where bicycleNo=#{value}
 	</select>
+		
+	<resultMap type="rentVO" id="rentMap">
+		<result column="renterId" property="memberVO.id"/>
+		<result column="bicycleNo" property="bicycleVO.bicycleNo"/>
+		<result column = "title" property = "bicycleVO.title"/>
+		<!-- 요청리스트에 필요한 rentVO의 memberVO의 id 부분 추가 -->
+		<!-- <result column = "memberId" property = "bicycleVO.memberVO.id"/> -->
+		
+		<result column="startDay" property="calendarVO.startDay"/>
+		<result column="endDay" property="calendarVO.endDay"/>
+	</resultMap>
 	
-	<select id="findRentRequestById">
-		select rentNo, renterId, bicycleNo, startDay, endDay, state
-		from rent
-		where 
+	<select id="findRentRequestById" resultMap = "rentMap">
+		select r.*, b.bicycleNo, b.memberId, b.title
+		from rent r, bicycle b
+		where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
 	</select>
 
 </mapper>

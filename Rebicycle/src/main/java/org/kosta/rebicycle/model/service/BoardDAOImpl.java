@@ -40,4 +40,8 @@ public class BoardDAOImpl implements BoardDAO{
 	public void updateReport(ReportVO rvo){
 		sqlSessionTemplate.update("board.updateReport",rvo);
 	}
+	@Override
+	public void deleteReport(int reportNo){
+		sqlSessionTemplate.delete("board.deleteReport",reportNo);
+	}
 }

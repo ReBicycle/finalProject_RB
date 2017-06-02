@@ -207,12 +207,16 @@
                         
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                --요청 ID--
+                                --등록자전거--
                                 <span class="caret"></span>
                             </button>
-                           <%--  ${requestScope.bicycleList} --%>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           
+                     <%-- ${requestScope.rentRequestList[0].memberVO.id} --%>
+                     	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	                           	 <c:forEach items="${requestScope.rentRequestList}" var = "rentRequest">
+	
+		                                <li><a href="#">${rentRequest.bicycleVO.title}</a></li>
+		                              
+	                       		 </c:forEach>
                        		 </ul>
                         </div>
                     </span>

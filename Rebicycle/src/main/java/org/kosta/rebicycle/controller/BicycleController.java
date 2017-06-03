@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BicycleController {
-	
+	  
 	@Resource
 	private BicycleServiceImpl1 serviceImpl1;
 	@Resource
@@ -93,7 +93,6 @@ public class BicycleController {
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
 		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
-		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
@@ -108,12 +107,14 @@ public class BicycleController {
 			calList.add(new CalendarVO(stArr[i], endArr[i]));
 		}
 		
-		// Map 등록
+
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
-		MapVO map = new MapVO(latitude, longitude);
+		MapVO map = new MapVO(latitude, longitude);			
+
 		
-		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map);
+		// Map 수정
+		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map, address);
 		System.out.println(bvo);
 		System.out.println(calList);
 		System.out.println(map);

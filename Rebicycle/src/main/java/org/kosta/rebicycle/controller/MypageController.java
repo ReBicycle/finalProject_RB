@@ -15,7 +15,6 @@ import org.kosta.rebicycle.model.vo.RentVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MypageController {
@@ -51,16 +50,5 @@ public class MypageController {
 		//System.out.println(rentRequestList);
 		return "mypage/mypage_main.tiles";
 	}
-	
-	
-	@RequestMapping("getRentByBicycleNo.do")
-	@ResponseBody 
-	public ArrayList<RentVO> getRentByBicycleNo(String bicycleNo){
-		
-		ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService4.findRentByBicycleNo(Integer.parseInt(bicycleNo));
-		System.out.println("rList" + rList);
-		return rList;
-	}
-	
-	
+
 }

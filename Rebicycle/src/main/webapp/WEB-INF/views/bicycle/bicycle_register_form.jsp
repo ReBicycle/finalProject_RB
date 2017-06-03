@@ -106,7 +106,6 @@ function findGeo(){
 	var oTbl;
 	//Row 추가
 	function insRow() {
-		alert(2)
 	  	oTbl = document.getElementById("addTable");
 	  	var oRow = oTbl.insertRow();
 	  	oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
@@ -115,7 +114,9 @@ function findGeo(){
 	  	var i=0; 
 	  	i++;
 	  	//삽입될 Form Tag'
-	  	var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail>";
+	  	var stCount = $(".id_startDay").length;
+	  	var endCount = $(".id_endDay").length;
+	  	var frmTag = "<input type=date name=startDay class=id_startDay id=id_startDay"+stCount+" required=required> <input type=date name=endDay class=id_endDay id=id_endDay"+endCount+" required=required> ";
 	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
 	  	oCell.innerHTML = frmTag;
 	}
@@ -138,6 +139,27 @@ function findGeo(){
 	}
 </script>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#addTable").on("change",".id_endDay",function(){
+			var stid = "id_startDay"+$(this).attr('id').substring(9,10);
+			var endid = "id_endDay"+$(this).attr('id').substring(9,10);
+			var startDate = $("input[id="+stid+"]").val();
+	        var startDateArr = startDate.split('-');
+	        var endDate = $("input[id="+endid+"]").val();
+	        var endDateArr = endDate.split('-');
+	                 
+	        var startDateCompare = new Date(startDateArr[0], startDateArr[1], startDateArr[2]);
+	        var endDateCompare = new Date(endDateArr[0], endDateArr[1], endDateArr[2]);
+	         
+	        if(startDateCompare.getTime() > endDateCompare.getTime()) {
+				alert("시작날짜와 종료날짜를 확인해 주세요.");
+				$("input[id="+endid+"]").val("연도-월-일");
+	        }
+		});
+	});
+
+</script>
 <div class="container">
 <br><br><br>
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -153,9 +175,9 @@ function findGeo(){
 				    <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
 				        <div class="controls col-md-8 "> 
-							<input type="file" name="file[0]"><br>
-							<input type="file" name="file[1]"><br>
-							<input type="file" name="file[2]"><br>
+							<input type="file" name="file[0]" required="required"><br>
+							<input type="file" name="file[1]" required="required"><br>
+							<input type="file" name="file[2]" required="required"><br>
 				        </div>
 				    </div>
 				    
@@ -163,7 +185,7 @@ function findGeo(){
 				    <div id="div_id_title" class="form-group required"> 
 				        <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_title" name="title" style="margin-bottom: 10px" type="text"/>
+				            <input class="input-md textinput textInput form-control" id="id_title" name="title" style="margin-bottom: 10px" type="text" required="required"/>
 				        </div>
 				    </div>
 				    
@@ -171,7 +193,7 @@ function findGeo(){
 				    <div id="div_id_memberId" class="form-group required"> 
 				        <label for="id_memberId" class="control-label col-md-3  requiredField">아이디</label> 
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" value="${sessionScope.mvo.id }"/>
+				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" value="${sessionScope.mvo.id }"/ readonly="readonly">
 				        </div>
 				    </div>
 				    
@@ -179,13 +201,13 @@ function findGeo(){
 				    <div id="div_id_category" class="form-group required">
 				        <label for="id_category"  class="control-label col-md-3  requiredField">종류</label>
 				        <div class="controls col-md-8 "  style="margin-bottom: 10px">
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_1" value="1" style="margin-bottom: 10px">MTB</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_2" value="2" style="margin-bottom: 10px">로드</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_3" value="3" style="margin-bottom: 10px">픽시</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_4" value="4" style="margin-bottom: 10px">미니벨로</label>				            
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_5" value="5" style="margin-bottom: 10px">레코드용</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6" style="margin-bottom: 10px">어린이용</label>
-				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_7" value="7"  style="margin-bottom: 10px">기타</label><br>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_1" value="1" style="margin-bottom: 10px" required="required">MTB</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_2" value="2" style="margin-bottom: 10px" required="required">로드</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_3" value="3" style="margin-bottom: 10px" required="required">픽시</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_4" value="4" style="margin-bottom: 10px" required="required">미니벨로</label>				            
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_5" value="5" style="margin-bottom: 10px" required="required">레코드용</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_6" value="6" style="margin-bottom: 10px" required="required">어린이용</label>
+				            <label class="radio-inline"><input type="radio" name="categoryNo" id="id_category_7" value="7"  style="margin-bottom: 10px" required="required">기타</label><br>
 				            <span id="calResult"></span>
 				        </div>
 				    </div>
@@ -202,9 +224,9 @@ function findGeo(){
 				        <label for="id_address" class="control-label col-md-3  requiredField"></label>
 				   	 	<div class="controls col-md-8 ">
 				            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->
-							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
-							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
-							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
+							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소" required="required">
+							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소" required="required">
+							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소" required="required">
 							<input type="hidden" id="lat" name="latitude">
 							<input type="hidden" id="lon" name="longitude">
 							<span id="guide" style="color:#999"></span>
@@ -215,7 +237,7 @@ function findGeo(){
 				    <div id="div_id_purchasePrice" class="form-group required">
 				        <label for="id_purchasePrice" class="control-label col-md-3  requiredField">구매가</label>
 				        <div class="controls col-md-8 ">
-				            <input class="input-md emailinput form-control" id="id_purchasePrice" name="purchasePrice" placeholder="구매가를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md emailinput form-control" id="id_purchasePrice" name="purchasePrice" placeholder="구매가를 숫자로 입력하세요" style="margin-bottom: 10px" type="text"  required="required"/>
 				        </div>     
 				    </div>
 				    
@@ -223,7 +245,7 @@ function findGeo(){
 				    <div id="div_id_rentPrice" class="form-group required">
 				        <label for="id_rentPrice" class="control-label col-md-3 requiredField">대여료</label>
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_rentPrice" name="rentPrice" placeholder="대여료를 숫자로 입력하세요" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md textinput textInput form-control" id="id_rentPrice" name="rentPrice" placeholder="대여료를 숫자로 입력하세요" style="margin-bottom: 10px" type="text"  required="required"/>
 				        </div>
 				    </div>
 				    
@@ -231,7 +253,7 @@ function findGeo(){
 				    <div id="div_id_detail" class="form-group required">
 				         <label for="id_detail" class="control-label col-md-3  requiredField">Detail</label>
 				         <div class="controls col-md-8 ">
-				            <input class="input-md textinput textInput form-control" id="id_detail" name="detail" placeholder="추가정보를 입력하세요" style="margin-bottom: 10px" type="text" />
+				            <input class="input-md textinput textInput form-control" id="id_detail" name="detail" placeholder="추가정보를 입력하세요" style="margin-bottom: 10px" type="text" required="required"/>
 				        </div>
 				    </div>
 
@@ -241,9 +263,9 @@ function findGeo(){
 						<tr>
 							<td>
 								<!-- <label for="id_date" class="control-label col-md-3  requiredField">시작일</label> -->
-								<input type="date" name="startDay" id=id_detail>
+								<input type="date" name="startDay" class="id_startDay" id="id_startDay0"  required="required">
 								<!-- <label for="id_date" class="control-label col-md-3  requiredField">종료일</label> -->
-								<input type="date" name="endDay" id=id_detail>
+								<input type="date" name="endDay" class="id_endDay" id="id_endDay0"  required="required">
 								<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
 							</td>
 						</tr>
@@ -273,7 +295,7 @@ function findGeo(){
 				    
 				    <div class="form-group"> 
 				        <div class="aab controls col-md-4 "></div>
-				        <div class="controls col-md-8 ">
+				        <div class="controls col-md-8 "><br>
 				            <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" />
 				        </div>
 				    </div> 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
@@ -86,6 +87,14 @@ public class BicycleController {
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	
+	@RequestMapping("findAddressById.do")
+	@ResponseBody
+	public HashMap<String, String> findAddressById(String memberId, HttpServletResponse response){
+		response.setContentType("text/html;charset=UTF-8"); 
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("address", serviceImpl1.findAddressById(memberId));
+		return map;
+	}
 	//자전거 수정
 	@RequestMapping(method = RequestMethod.POST, value = "modifyBicycle.do")
 	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
@@ -128,8 +137,6 @@ public class BicycleController {
 	public String bicycleModifyResult(){
 		return "bicycle/bicycle_modify_result.tiles";
 	}
-	
-	
 	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "calculatePrice.do")

@@ -337,8 +337,7 @@ delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
 select * from possible_day
-
-
+select address from rb_member where id='java';
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 

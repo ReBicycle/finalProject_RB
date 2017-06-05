@@ -47,9 +47,12 @@ public class BicycleController {
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
+		
 		bvo.setMemberVO(new MemberVO(memberId));
+		
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
+		
 		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
 		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로

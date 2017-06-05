@@ -592,3 +592,59 @@ select r.*, b.bicycleNo, b.memberId, b.title
 from rent r, bicycle b
 where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
+
+select distinct bicycleNo, title
+		from bicycle
+		where memberId='java'
+		
+		
+		
+--
+		-- 직접 테이블 만들어서 테스트 해본다 
+create table date_test2(
+	id varchar2(50) primary key,
+	mydate date not null
+)
+-- id java , mydate는 현재시간으로 insert 해본다 
+insert into date_test2(id,mydate) values('java',sysdate);
+select * from date_test2;
+-- id가 java인 대상의 mydate를 년 월 일 시 분 초까지 조회한다
+-- to_char 함수를 이용한다 
+select to_char(mydate,'YYYY/MM/DD HH24:MI:SS') from date_test
+where id='java';
+
+-- 특정 시간을 insert 해본다 
+-- 문자열 형식의 날짜 정보를 date 타입으로 insert 하기 위해 
+-- to_date(시간정보,시간포맷) 함수를 이용 
+insert into date_test(id,mydate) 
+values('spring',to_date('2017/1/1 9:00:10','YYYY/MM/DD HH24:MI:SS'));
+
+select * from date_test;
+-- 시간 연산이 가능하다 
+select id,sysdate-mydate from date_test;\
+
+select * from rent
+
+select r.*, p.*
+from rent r, possible_day p
+where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12
+
+
+select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
+from dual
+==> 1 일 (1일)
+
+select startDay, endDay
+from possible_day 
+where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
+and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
+
+
+select p.startDay, p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
+
+and
+<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		

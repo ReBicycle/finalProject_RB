@@ -1,7 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
 
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover{background-color:#f5f5f5}
+</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#reviewForm").click(function(){
@@ -12,24 +25,58 @@
 		$(".dropdown-menu li a").on("click", function(){
 			//alert("ss");
 			//alert ($("input[id^='rentBicycleNo']").val());
-			var bicycleNo = $("input[id^='rentBicycleNo']").val();
-			alert(bicycleNo);
-			$.ajax({
-				type:"get",
-				dataType:"json",
-				url:"${pageContext.request.contextPath}/getRentByBicycleNo.do?bicycleNo="+bicycleNo,
-				success:function(data){
-					//data[1]
-					for(var i = 0; i<data.length;i++){
-						//alert(data);
-						alert(data[i].rentNo);
-						alert(data[i].memberVO.id)
-						alert(data[i].calendarVO.startDay);
-					}
-					 
-				} //success
-			});//ajax
+			
+				
+				var bSize = $("input[id^='rentBicycleNo']").size();
+				for(var i = 1; i<=bSize;i++){
+					var bicycleNo = $("#rentBicycleNo"+i).val();
+	
+					//alert("1" + bicycleNo);
+					$.ajax({
+						type:"get",
+						dataType:"json",
+						url:"${pageContext.request.contextPath}/getRentByBicycleNo.do?bicycleNo="+bicycleNo,
+						success:function(data){
+							//data[1]
+							var result = "";
+							var table = "";
+							for(var i = 0; i<data.length;i++){
+								//alert(data);
+								/* alert("rentNo" + data[i].rentNo);
+								alert("빌린사람 id" + data[i].memberVO.id)
+								alert("신청시작일" + data[i].calendarVO.startDay);
+								alert("신청종료일" + data[i].calendarVO.endDay);
+								result += data[i].rentNo + "/" + data[i].memberVO.id + "/" + data[i].calendarVO.startDay + "/" + data[i].calendarVO.endDay;
+								 */
+								 table += "<tr>"+
+									 		"<td>" + data[i].rentNo + "</td>"+
+									 		"<td>" + data[i].memberVO.id + "</td>"+
+									 		"<td>" + data[i].calendarVO.startDay + "</td>"+
+									 		"<td>" + data[i].calendarVO.endDay + "</td>"+
+									 		"<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
+									 		"<td><input type = 'button' id = 'delBtn' value = '거절' class='btn btn-danger'></td>"+
+									 		"</tr>"
+			
+							}
+							
+							$("#rentInfo").html(table); 
+							
+						} //success
+					});//ajax
+				}
+		});//a click
+		
+		$("#rentInfo").on("click","#okBtn" ,function(){
+			if(confirm("수락하시겠습니까?")){
+				var rentNo = $("#okBtn").parent().parent().children().eq(0).text();
+				location.href = "${pageContext.request.contextPath}/rentOk.do?rentNo="+rentNo;
+			}
 		});
+		
+		$(".btn btn-danger").on("click", function(){
+			
+		});
+		
 	});
 </script>
 
@@ -236,21 +283,27 @@
                      <%-- ${requestScope.rentRequestList[0].memberVO.id} --%>
                     
                      	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           	<c:forEach items="${requestScope.rentRequestList}" var = "rentRequestList">
-									
-									
-		                             <li><a href="" class = "rentList${order.count}">${rentRequestList.bicycleVO.title}</a></li>
-		                             <input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${rentRequestList.bicycleVO.bicycleNo}">
-		                             
-		                              
+	                           	<c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
+
+		                             <li><a id = "rentList${order.count}">${registerList.title}</a></li>
+		                             <input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${registerList.bicycleNo}">
+
 	                       		 </c:forEach>
                        		 </ul> 
                        
                      </div>
                     </span>
-                    <br><Br>
-                   	<div align = "left">요청내역
-                   		<c:forEach items = "" var = "rent"></c:forEach> 
+                    <br><br>
+                   	<div align = "left" id ="rentView">
+                   	<span align = "center" id = "bicycleInfo">요청 내역</span>
+                   		<table>
+							<thead>
+								<tr>
+									<th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th><th>거절</th>
+								</tr>
+							</thead>
+							<tbody id = "rentInfo"></tbody>
+						</table>
                    	</div>
                     <br><br>
 					
@@ -290,7 +343,7 @@
         
         </div>
         
-        
+
         
     </div>
 </div>

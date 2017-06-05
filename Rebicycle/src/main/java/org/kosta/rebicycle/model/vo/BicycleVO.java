@@ -41,13 +41,16 @@ public class BicycleVO {
 	*/
 	private String title;
 	
+	private double avgRate;
+	
 	public BicycleVO() {
 		super();
 	}
-	
+
+
 	public BicycleVO(int bicycleNo, MemberVO memberVO, ArrayList<CalendarVO> possibleList, int purchasePrice,
 			int rentPrice, String detail, String address, MapVO map, List<MultipartFile> file, PhotoVO photoVO,
-			CategoryVO categoryVO, String title) {
+			CategoryVO categoryVO, String title, double avgRate) {
 		super();
 		this.bicycleNo = bicycleNo;
 		this.memberVO = memberVO;
@@ -61,7 +64,16 @@ public class BicycleVO {
 		this.photoVO = photoVO;
 		this.categoryVO = categoryVO;
 		this.title = title;
+		this.avgRate = avgRate;
 	}
+
+
+
+	public BicycleVO(int bicycleNo) {
+		super();
+		this.bicycleNo = bicycleNo;
+	}
+
 
 	public int getBicycleNo() {
 		return bicycleNo;
@@ -70,7 +82,6 @@ public class BicycleVO {
 	public BicycleVO(String bicycleNo) {
 		// TODO Auto-generated constructor stub
 	}
-	
 	public ArrayList<CalendarVO> getPossibleList() {
 		return possibleList;
 	}
@@ -165,13 +176,26 @@ public class BicycleVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+
+	public double getAvgRate() {
+		return avgRate;
+	}
+
+
+	public void setAvgRate(double avgRate) {
+		this.avgRate = avgRate;
+	}
+
 
 	@Override
 	public String toString() {
 		return "BicycleVO [bicycleNo=" + bicycleNo + ", memberVO=" + memberVO + ", possibleList=" + possibleList
 				+ ", purchasePrice=" + purchasePrice + ", rentPrice=" + rentPrice + ", detail=" + detail + ", address="
 				+ address + ", map=" + map + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO=" + categoryVO
-				+ ", title=" + title + "]";
+				+ ", title=" + title + ", avgRate=" + avgRate + "]";
 	}
+
+
 
 }

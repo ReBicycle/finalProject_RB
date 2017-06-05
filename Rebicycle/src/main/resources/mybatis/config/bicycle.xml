@@ -113,11 +113,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="findBicycleByNo" resultMap="bicycleRM" parameterType="int">
-		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
+		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.title,b.detail,b.categoryNo,m.phone,m.address 
 		from bicycle b,rb_member m 
 		where bicycleNo=#{value} and b.memberId=m.id
 	</select>
-	
+
 	<!-- 소영-mypage관련 -->
 	<select id="findBicycleById" resultType="bicycleVO">
 		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo, title
@@ -139,9 +139,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="endDay" property="calendarVO.endDay"/>
 	</resultMap>
 	<select id="findRentById" resultMap="rentMap">
-		select renterId,bicycleNo, startDay, endDay, state 
+		select renterId,bicycleNo, startDay, endDay, state
 		from rent 
-		where renterId=#{value}
+		where renterId=#{value} and (state=1 or state=3)
 	</select>
 	
 	<!-- 리스트 테스트 소영 -->
@@ -173,6 +173,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select rent_seq.nextval from dual
 		</selectKey>
 		insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(#{rentNo},#{memberVO.id},#{bicycleVO.bicycleNo},#{calendarVO.startDay},#{calendarVO.endDay})
+	</insert>	
+	
+	<!--리뷰 작성 -->
+	<insert id="writeReview" parameterType="reviewVO">
+		insert into rb_review(reviewerId,rentNo,star,reviewDate,content)
+		 values(#{rentVO.memberVO.id},#{rentVO.rentNo},#{star},sysdate,#{content})
 	</insert>
-
+	
+	<resultMap type="rentVO" id="rentRM2">
+		<result column="startDay" property="calendarVO.startDay"/>
+		<result column="endDay" property="calendarVO.endDay"/>
+		<result column="renterId" property="memberVO.id"/>
+	</resultMap>
+	<select id="findRentVOForReview" parameterType="rentVO" resultMap="rentRM2">
+		select rentNo,renterId,startDay,endDay 
+		from rent
+		where renterId=#{memberVO.id} and bicycleNo=#{bicycleVO.bicycleNo} and state=1 
+		order by endDay desc
+	</select>
+	
+	<update id="updateRentStateTo3">
+		update rent set state=3
+		where rentNo=#{value}
+	</update>
+	<!--리뷰 조회-->
+	<resultMap type="reviewVO" id="reviewMap">
+		<result column="rentNo" property="rentVO.rentNo"/>	
+		<result column="reviewerId" property="rentVO.memberVO.id"/>
+		<result column="bicycleNo" property="rentVO.bicycleVO.bicycleNo"/>
+	</resultMap>
+	
+	<select id="getReviewListByBicycleNo" resultMap="reviewMap">
+		select rv.rentNo,rv.reviewerId,r.bicycleNo,rv.star,rv.reviewdate,rv.content
+		from rb_review rv, rent r 
+		where rv.rentNo=r.rentNo and r.bicycleNo=#{value}
+		order by rv.reviewDate desc
+	</select>
+<!-- 리뷰 쓸지안쓸지 체크 -->
+	<select id="reviewCheck" resultType="rentVO">
+		select rentNo from rent
+		where renterId=#{memberVO.id} and bicycleNo=#{bicycleVO.bicycleNo} and state=1
+	</select>
 </mapper>

@@ -13,6 +13,32 @@ public class RentVO {
 	public RentVO() {
 		super();
 	}
+	
+	
+	public RentVO(int rentNo) {
+		super();
+		this.rentNo = rentNo;
+	}
+
+
+	public RentVO(int rentNo, BicycleVO bicycleVO, MemberVO memberVO) {
+		super();
+		this.rentNo = rentNo;
+		this.bicycleVO = bicycleVO;
+		this.memberVO = memberVO;
+	}	
+
+	public RentVO(int rentNo, MemberVO memberVO) {
+		super();
+		this.rentNo = rentNo;
+		this.memberVO = memberVO;
+	}
+	
+	public RentVO(MemberVO memberVO) {
+		super();
+		this.memberVO = memberVO;
+	}
+
 	public RentVO(BicycleVO bicycleVO, MemberVO memberVO, CalendarVO calendarVO, int totalPrice) {
 		super();
 		this.bicycleVO = bicycleVO;
@@ -70,12 +96,11 @@ public class RentVO {
 	public void setRentNo(int rentNo) {
 		this.rentNo = rentNo;
 	}
-	
-	
 	@Override
 	public String toString() {
-		return "RentVO [bicycleVO=" + bicycleVO + ", memberVO=" + memberVO + ", calendarVO=" + calendarVO
-				+ ", totalPrice=" + totalPrice + ", state=" + state + "]";
+		return "RentVO [rentNo=" + rentNo + ", bicycleVO=" + bicycleVO + ", memberVO=" + memberVO + ", calendarVO="
+				+ calendarVO + ", totalPrice=" + totalPrice + ", state=" + state + "]";
 	}
+
 
 }

@@ -62,6 +62,7 @@ create table category(
 
 create table bicycle(
    bicycleNo number primary key,
+   title varchar2(100) not null,
    memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
    address varchar2(300) not null,
    purchasePrice number not null,
@@ -98,12 +99,34 @@ create table rent(
    endDay date not null,
    state number not null
 )
-
 create sequence rent_seq;
 
------------------rent table 컬럼 수정-----------------------
-alter table rent add totalprice number not null
-alter table rent modify(state number default 0);
+create table rb_review(
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   content clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
+)
+
+create table rb_report(
+	reportNo number primary key,
+	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
+	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
+	contents clob not null,
+	reportDate date not null
+)
+create table donation(
+   donationBicycleNo number primary key,
+   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   detail clob not null,
+   picture varchar2(300) not null
+)
+
+
+-----------bicycle table 컬럼 수정-----------------
+alter table bicycle add 
 
 delete from rent
 select * from rent
@@ -159,6 +182,14 @@ create table donation(
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    picture varchar2(300) not null
+)
+create table rb_review(
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   cotent clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
 )
 
 
@@ -459,14 +490,19 @@ insert into rent values(rent_seq.nextval,'java4',1,to_date('2017-06-13','yyyy/mm
 --4.임소영이 배서경자전거1 빌림 : 14일
 insert into rent values(rent_seq.nextval,'java2',1,to_date('2017-06-14','yyyy/mm/dd'),to_date('2017-06-14','yyyy/mm/dd'),1);
 
+insert into rent values(rent_seq.nextval,'java2',4,to_date('2017-06-08','yyyy/mm/dd'),to_date('2017-06-09','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java3',4,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-11','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java4',4,to_date('2017-06-12','yyyy/mm/dd'),to_date('2017-06-15','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java2',4,to_date('2017-06-16','yyyy/mm/dd'),to_date('2017-06-17','yyyy/mm/dd'),1);
 select * from rent;
+
+select rentNo from rent
+		where renterId='java2' and bicycleNo=4 and state=1
 ------------------------------------------------
+select * from RB_REVIEW;
 
-insert into rb_review values(1,4,sysdate,'좋아요');
-insert into rb_review values(2,4,sysdate,'임쏘자전거좋아요');
-insert into rb_review values(3,5,sysdate,'좋아요3');
-insert into rb_review values(4,3,sysdate,'좋아요4');
 
+insert into rb_review values('java2',22,4,sysdate,'리뷰 첫번째');
 
 --==============서경==============================================================
 <<<<<<< HEAD

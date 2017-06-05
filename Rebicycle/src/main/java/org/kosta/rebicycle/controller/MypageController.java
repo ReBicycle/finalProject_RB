@@ -39,6 +39,7 @@ public class MypageController {
 		
 		//내가빌린내역 불러오기
 		ArrayList<RentVO> rentList = (ArrayList<RentVO>) bicycleService4.findRentById(vo.getId());
+		System.out.println(rentList);
 		model.addAttribute("rentList", rentList);
 		return "mypage/mypage_main.tiles";
 	}

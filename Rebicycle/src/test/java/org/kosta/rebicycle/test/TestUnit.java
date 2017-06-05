@@ -12,6 +12,7 @@ import org.kosta.rebicycle.model.dao.BicycleDAOImpl3;
 import org.kosta.rebicycle.model.service.BoardDAOImpl;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.ReportVO;
+import org.kosta.rebicycle.model.vo.ReviewVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -50,16 +51,14 @@ private BicycleDAOImpl5 dao;
 	 */
 @Test
 public void test2(){
-	System.out.println("하이");
+/*	System.out.println("하이");
 	Map<String,String> map=new HashMap<String,String>();
 	map.put("address", "판교");
 	map.put("startDay", "2017-05-26");
 	map.put("endDay", "2017-05-28");
 	List<BicycleVO> list=template.selectList("bicycle.getBicycleListByAddressAndDay", map);
 	System.out.println(list);
-	
-	
-System.out.println("바이");
+	System.out.println("바이");
 }
 	public List<BicycleVO> getBicycleListByAddressAndDay(String address, String startDay, String endDay) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -68,6 +67,8 @@ System.out.println("바이");
 		map.put("endDay", endDay);
 		List<BicycleVO> list = template.selectList("bicycle.getBicycleListByAddressAndDay", map);
 		System.out.println(list);
-		return list;
+		return list;*/
+	System.out.println(template.selectList("bicycle.getReviewByBicycle", "26"));
+	
 	}
 }

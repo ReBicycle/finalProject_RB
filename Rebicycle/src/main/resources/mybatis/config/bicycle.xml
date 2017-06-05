@@ -64,6 +64,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update map set latitude=#{latitude}, longitude=#{longitude} where bicycleNo=#{bicycleNo}
 	</update>
 	
+	<select id="findMapByBicycleNo" resultType="mapVO">
+		select bicycleNo, latitude, longitude from map where bicycleNo=#{value}
+	</select>
 	
 	<!-- 종봉 자전거 검색 -->
 	<!-- <select id="getBicycleListByAddressAndDay" parameterType="map"

@@ -52,6 +52,7 @@ public class MypageController {
 		//System.out.println(rentRequestList);
 		return "mypage/mypage_main.tiles";
 	}
+
 	
 	
 	@RequestMapping("getRentByBicycleNo.do")
@@ -75,5 +76,5 @@ public class MypageController {
 	}
 
 	
-	
+
 }

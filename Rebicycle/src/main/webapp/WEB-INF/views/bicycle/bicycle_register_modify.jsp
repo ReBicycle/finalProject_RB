@@ -239,14 +239,28 @@ function findGeo(){
 				 	<!-- 달력 날짜 추가 -->
 				 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
 					<table id="addTable" align="center">
-						<c:forEach items="${possibleDayList }" var="clist">
-						<tr>
-							<td>
-								<input type="date" name="startDay" id=id_startDay value="${clist.startDay }">
-								<input type="date" name="endDay" id=id_endDay value="${clist.endDay }">	
-								<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">	
-							</td>	
-						</tr>					
+						<c:forEach items="${possibleDayList }" var="clist" varStatus="order">
+						<c:choose>
+							<c:when test="${order.count==1 }">
+								<tr>
+									<td>
+										<input type="date" name="startDay" id=id_startDay value="${clist.startDay }">
+										<input type="date" name="endDay" id=id_endDay value="${clist.endDay }">	
+										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">	
+									</td>	
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td>
+										<input type="date" name="startDay" id=id_startDay value="${clist.startDay }">
+										<input type="date" name="endDay" id=id_endDay value="${clist.endDay }">	
+										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">	
+										<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>
+									</td>	
+								</tr>
+							</c:otherwise>
+						</c:choose>			
 						</c:forEach>
 					</table>
 				

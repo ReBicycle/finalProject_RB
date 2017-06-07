@@ -37,4 +37,5 @@ public class BicycleDAOImpl3 implements BicycleDAO{
 	public void rentRegister(RentVO rvo){
 		template.insert("bicycle.rentRegister",rvo);
 	}
+	
 }

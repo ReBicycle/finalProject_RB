@@ -338,8 +338,7 @@ delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
 select * from possible_day
-
-
+select address from rb_member where id='java';
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
@@ -469,7 +468,7 @@ select * from map;
 -------------------------------------------------
 --대여성사됨 등록
 --1.정태형이 배서경자전거1 빌림 : 11~12일
-insert into rent values(rent_seq.nextval,'java3',1,to_date('2017-06-11','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java',33,to_date('2017-06-11','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'));
 --2.정태형이 임소영자전거4 빌림 : 15~17일
 insert into rent values(rent_seq.nextval,'java3',4,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-17','yyyy/mm/dd'),1);
 --3.이현근이 배서경자전거1 빌림 : 13일
@@ -569,27 +568,75 @@ create table rent(
    endDay date not null,
    state number default 0
 )
-<<<<<<< HEAD
-select * from rb_member
 
-=======
-
-select * from rb_member
-
-select * from rent_seq
-select * from rent;
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-drop table bicycle
-
-<<<<<<< HEAD
 select * from POSSIBLE_DAY
 =======
 --mypage 요청 리스트
 select r.*, b.*
 from rent r, bicycle b
 where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
+<<<<<<< HEAD
+
+=======
 
 select r.*, b.bicycleNo, b.memberId, b.title
 from rent r, bicycle b
 where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
+
+select distinct bicycleNo, title
+		from bicycle
+		where memberId='java'
+		
+		
+		
+--
+		-- 직접 테이블 만들어서 테스트 해본다 
+create table date_test2(
+	id varchar2(50) primary key,
+	mydate date not null
+)
+-- id java , mydate는 현재시간으로 insert 해본다 
+insert into date_test2(id,mydate) values('java',sysdate);
+select * from date_test2;
+-- id가 java인 대상의 mydate를 년 월 일 시 분 초까지 조회한다
+-- to_char 함수를 이용한다 
+select to_char(mydate,'YYYY/MM/DD HH24:MI:SS') from date_test
+where id='java';
+
+-- 특정 시간을 insert 해본다 
+-- 문자열 형식의 날짜 정보를 date 타입으로 insert 하기 위해 
+-- to_date(시간정보,시간포맷) 함수를 이용 
+insert into date_test(id,mydate) 
+values('spring',to_date('2017/1/1 9:00:10','YYYY/MM/DD HH24:MI:SS'));
+
+select * from date_test;
+-- 시간 연산이 가능하다 
+select id,sysdate-mydate from date_test;\
+
+select * from rent
+
+select r.*, p.*
+from rent r, possible_day p
+where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12
+
+
+select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
+from dual
+==> 1 일 (1일)
+
+select startDay, endDay
+from possible_day 
+where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
+and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
+
+
+select p.startDay, p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
+
+and
+<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

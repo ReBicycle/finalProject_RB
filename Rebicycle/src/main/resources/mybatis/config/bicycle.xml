@@ -68,6 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select bicycleNo, latitude, longitude from map where bicycleNo=#{value}
 	</select>
 	
+	<select id="findAddressById" resultType="String">
+		select address from rb_member where id=#{value}
+	</select>
 	<!-- 종봉 자전거 검색 -->
 	<!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
 		resultType="bicycleVO">
@@ -148,7 +151,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 소영-mypage관련 -->
 	<select id="findBicycleById" resultType="bicycleVO">
-		select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo, title
+		select distinct bicycleNo, title
 		from bicycle
 		where memberId=#{value}
 	</select>
@@ -183,7 +186,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id = "findPossibleDayByNo" resultType="calendarVO">
-		select b.bicycleNo,p.startDay,p.endDay
+		select b.bicycleNo,to_char(p.startDay,'YYYY-MM-DD') as startDay,to_char(p.endDay,'YYYY-MM-DD') as endDay
 		from bicycle b, RB_MEMBER m, POSSIBLE_DAY p
 		where b.bicycleNo = p.bicycleNo and b.memberId=m.id and b.bicycleNo=#{value}
 		
@@ -227,5 +230,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from rent r, bicycle b
 		where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
 	</select>
+	
+	<select id = "findRentByRnetNo" resultMap = "rentMap">
+		select rentNo,bicycleNo, renterId, startDay, endDay
+		from rent
+		where rentNo = #{value}
+	</select>
 
+	<update id = "updateRentByRentNo">
+		update rent set state = 1
+		where rentNo = #{value}
+	</update>
+	
+	
+	<select id="getPossibleCalendarVO" parameterType = "calendarVO" resultType = "calendarVO">
+		select p.startDay, p.endDay
+		from possible_day p, bicycle b
+		where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo}
+		<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+		and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
+	</select>
+	
 </mapper>

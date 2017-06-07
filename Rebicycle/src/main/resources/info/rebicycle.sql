@@ -631,12 +631,27 @@ from possible_day
 where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
 and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
 
+select (#{startDay} - possible.startDay), (possible.endDay-#{endDay})
 
-select p.startDay, p.endDay
-from possible_day p, bicycle b
-where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
+from(
+			p.startDay, p.endDay
+			from possible_day p, bicycle b
+			where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
+		to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+			and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+) possible
 
-and
-<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+select * from possible_day
+
+delete 
+from possible_day p, bicycle b	
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} 
+and <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+
+select * from possible_day
+select * from rent
+
+select r.*, b.bicycleNo, b.memberId, b.title
+from rent r, bicycle b
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0

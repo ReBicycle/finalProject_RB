@@ -46,10 +46,7 @@ public class MypageController {
 		ArrayList<RentVO> rentList = (ArrayList<RentVO>) bicycleService4.findRentById(vo.getId());
 		model.addAttribute("rentList", rentList);*/
 		
-		//요청 리스트 - 다른 사람이 요청한 내역 - bicycleVO의 memberId가 내 아이디인 rent정보 
-		ArrayList<RentVO> rentRequestList = (ArrayList<RentVO>) bicycleService4.findRentRequestById(vo.getId());
-		model.addAttribute("rentRequestList", rentRequestList);
-		//System.out.println(rentRequestList);
+		
 		return "mypage/mypage_main.tiles";
 	}
 
@@ -59,8 +56,8 @@ public class MypageController {
 	@ResponseBody 
 	public ArrayList<RentVO> getRentByBicycleNo(String bicycleNo){
 		
-		ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService4.findRentByBicycleNo(Integer.parseInt(bicycleNo));
-		//System.out.println("rList" + rList);
+		ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService4.getRentByBicycleNo(Integer.parseInt(bicycleNo));
+		System.out.println("rList" + rList);
 		return rList;
 	}
 	
@@ -71,6 +68,7 @@ public class MypageController {
 		RentVO rvo = bicycleService4.findRentByRentNo(Integer.parseInt(rentNo));
 		//System.out.println("rentOK rvo" + rvo);
 		bicycleService4.updateRentByRentNo(rentNo);
+		//t
 		bicycleService4.deleteRentedDay(rvo);
 		return "redirect:mypage/mypage_main.do";
 	}

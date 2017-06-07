@@ -67,7 +67,7 @@ appearance: none;
   </head>
  
  
-  <body >
+  <body>
   <script type="text/javascript">
   		<c:if test="${empty requestScope.bicycleList}">
   		alert("검색결과가 없습니다. 메인화면으로 이동합니다.");
@@ -79,10 +79,10 @@ appearance: none;
    <div class="col-sm-6" id="map" style="height:700px;"></div>
    <%--지도 --%>
    <%-- 검색 리스트 --%>
-   <div class="col-sm-6" style="height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
+   <div class="col-sm-6" style="width:50%;;height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
 
  <!-- <section id="portfolio">  -->
-<div class="w3-container w3-teal" style="margin-top: 50px;" >
+<div class="w3-container w3-teal" style="margin-top: 50px; " >
   <h1>Bicycle List</h1>
 </div>
 
@@ -103,13 +103,13 @@ appearance: none;
 	<option value="high">높은가격순</option>
 </select>
 </div>
-<div class="w3-row-padding w3-margin-top" id="listSpace">
+<div class="w3-row-padding w3-margin-top" id="listSpace" >
    <c:forEach items="${requestScope.bicycleList}" var="list" >
- <a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo=${list.bicycleNo}"> <div class="w3-second col-sm-6 w3-margin-top " >
+ <a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onmouseover=""> <div class="w3-second col-sm-6 w3-margin-top " >
      <div class="w3-card-2 content " width="240px" height="180px">
       <img class="img" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="240px" height="180px">
       <div class="overlay" >
-     	<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="20%" height="100%" align="right">
+     	<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/${list.memberVO.picture}" width="20%" height="100%" align="right">
          <span class="text" align="left" width="70%"  >
          	${list.title }<br>
                &#8361;${list.rentPrice}&nbsp;-&nbsp;No${list.bicycleNo}&nbsp;-&nbsp;Type${list.categoryVO.categoryNo }
@@ -132,36 +132,12 @@ appearance: none;
 function mapSetting(){
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new daum.maps.LatLng("${requestScope.bicycleList[0].map.latitude}", "${requestScope.bicycleList[0].map.longitude}"), // 지도의 중심좌표
         level: 5 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new daum.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, result) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === daum.maps.services.Status.OK) {
-
-        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
-        var latitude=JSON.stringify(coords.hb);
-        var longitude=JSON.stringify(coords.gb);
-        //hb: 위도 , qb:경도
-      //alert(${fn:length(bicycleList)});
-       /*  alert(latitude);
-        alert(longitude); */
-      
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        /* var marker = new daum.maps.Marker({
-            map: map,
-            position: coords
-        }); */
-        
         
         var positions = [
             <c:forEach items="${requestScope.bicycleList}" var="bicycleList" varStatus="status">
@@ -170,7 +146,6 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
            				}
            				<c:if test="${not status.last}">,</c:if>
             </c:forEach>
-            
     ];
  
         // 마커 이미지의 이미지 주소입니다
@@ -192,7 +167,7 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
                 image : markerImage // 마커 이미지 
             });   
            // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
-              var iwContent = '<div style="padding:5px;">Hello World!</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwContent = '<div style="padding:5px;">'+positions[i].title+'</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 
               // 인포윈도우를 생성합니다
               var infowindow = new daum.maps.InfoWindow({
@@ -210,20 +185,26 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
                   // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
                   infowindow.close();
               });
+              daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+              daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
         }  
+       //인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+         function makeOverListener(map, marker, infowindow) {
+             return function() {
+                 infowindow.open(map, marker);
+             };
+         }
+
+         // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+         function makeOutListener(infowindow) {
+             return function() {
+                 infowindow.close();
+             };
+         }
       
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});   
-	
-
-
-
-
-
 
 }//mapSetting
+
 </script>
 <script type="text/javascript">
  
@@ -232,7 +213,7 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
  			var bikeType=$("#bikeTypeSelect option:selected").val();
  			//alert(bikeType);
  			//alert("address=${param.address}&startDay=${param.startDay}&endDay=${param.endDay}");
- 			
+ 				
  	 			$.ajax({
  				//${pageContext.request.contextPath}/bicycle/bicycle_search_list.do
  				type:"get",	
@@ -241,25 +222,25 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
  				dataType:"json",
  				success:function refreshList(data){
  					$("#listSpace").html("");
- 					//var sortedList=JSON.stringify(data);
+ 					var sortedList=JSON.stringify(data);
  					var contents=""; 
  					//alert(JSON.stringify(data)); 			
- 					 for(var i=0;i<data.length;i++){
+ 			 		 for(var i=0;i<data.length;i++){
  					contents+='<a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
  					contents+='<div class="overlay" >';
- 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="20%" height="100%" align="right">';
+ 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/'+data[i].memberVO.picture+'" width="20%" height="100%" align="right">';
  					contents+=' <span class="text" align="left" width="70%" >';
  					contents+=data[i].title;
  					contents+='<br>&#8361;'+data[i].rentPrice+'&nbsp;-&nbsp;'+'No'+data[i].bicycleNo+'&nbsp;-&nbsp;Type'+data[i].categoryVO.categoryNo;
  					contents+='</span></div></div></a></div>';
- 					} 
- 					
+ 					}  
+ 				 	
  					$("#listSpace").html(contents);
- 					
- 					$("#rentalPrice").val("");
+ 				
+ 					$("#rentalPrice").val(""); 
  					}
  			})//ajax   
  		   
@@ -278,28 +259,32 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
  				dataType:"json",
  				success:function refreshList(data){
  					$("#listSpace").html("");
- 					//var sortedList=JSON.stringify(data);
+ 					var sortedList=JSON.stringify(data);
  					var contents=""; 
+ 					//alert(sortedList);
  					//alert(JSON.stringify(data)); 			
- 					 for(var i=0;i<data.length;i++){
+ 					
+ 					  for(var i=0;i<data.length;i++){
  					contents+='<a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
  					contents+='<div class="overlay" >';
- 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="20%" height="100%" align="right">';
+ 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/'+data[i].memberVO.picture+'" width="20%" height="100%" align="right">';
  					contents+=' <span class="text" align="left" width="70%" >';
  					contents+=data[i].title;
  					contents+='<br>&#8361;'+data[i].rentPrice+'&nbsp;-&nbsp;'+'No'+data[i].bicycleNo+'&nbsp;-&nbsp;Type'+data[i].categoryVO.categoryNo;
  					contents+='</span></div></div></a></div>';
- 					} 
+ 					}  
+ 					//alert('${requestScope.bicycleList}');
  					$("#listSpace").html(contents);
- 					$("#bikeTypeSelect").val("");
+ 					$("#bikeTypeSelect").val(""); 
  					}
  			})//ajax   
  		   
  		});//price change
  	});//ready
+ 		
  	
  </script>
 <script src="//code.jquery.com/jquery.min.js"></script>

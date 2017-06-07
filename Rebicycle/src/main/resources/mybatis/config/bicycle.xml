@@ -82,29 +82,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getBicycleListByAddressAndDay" parameterType="map"
 		resultMap="bicycleMap" >
 		select b.bicycleNo,b.title ,b.memberId ,b.address
-		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
-		from bicycle b, possible_day p, bicycle_photo c,map m
+		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
+		from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo
+		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id
 	</select>
 	<select id="sortedListByAddressAndDayAndHigh" parameterType="map"
-		resultMap="bicycleMap" >
+		resultMap="bicycleRM" >
 		select b.bicycleNo,b.title, b.memberId ,b.address
-		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
-		from bicycle b, possible_day p, bicycle_photo c,map m
+		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
+		from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo order by b.rentPrice desc
+		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id
+		order by b.rentPrice desc
 	</select>
 		<select id="sortedListByAddressAndDayAndLow" parameterType="map"
 		resultMap="bicycleMap" >
 		select b.bicycleNo,b.title, b.memberId ,b.address
-		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude
-		from bicycle b, possible_day p, bicycle_photo c,map m
+		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
+		from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
 		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
 		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo order by b.rentPrice asc
+		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id order by b.rentPrice asc
 	</select>
 	<!-- 현근/소영 -상세보기에 필요한 resultMap -->
 
@@ -116,6 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="photo3" property="photoVO.photo3"/>
 		<result column="longitude" property="map.longitude"/>
 		<result column="latitude" property="map.latitude"/>
+		<result column = "picture" property="memberVO.picture"/>
 	</resultMap>
 	<!-- 종봉 -->
 	<!-- 현근 -->

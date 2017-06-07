@@ -7,6 +7,7 @@
 
 $(document).ready(function(){
 	document.getElementById("uploadFile").disabled = true;
+	
 	$("#memberRegisterForm").submit(function(){				
 		
 		if($("#email").val().indexOf("@") == -1){

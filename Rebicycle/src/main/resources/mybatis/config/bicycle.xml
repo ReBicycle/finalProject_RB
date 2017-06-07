@@ -241,7 +241,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getPossibleCalendarVO" parameterType = "calendarVO" resultType = "calendarVO">
 		select p.startDay, p.endDay
 		from possible_day p, bicycle b
-		where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo}
+		where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
 		<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
 		and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
 	</select>

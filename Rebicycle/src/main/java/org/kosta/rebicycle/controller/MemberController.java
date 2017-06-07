@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class MemberController {
 	private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+
 	//private String uploadPath="C:\\Users\\소영\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	@Resource
 	private MemberService memberService;

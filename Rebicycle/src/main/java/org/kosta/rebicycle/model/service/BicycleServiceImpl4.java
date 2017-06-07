@@ -68,26 +68,28 @@ public class BicycleServiceImpl4 implements BicycleService {
 		String newStartDay = rvo.getCalendarVO().getStartDay().substring(0,10);
 		//System.out.println(newStartDay);
 		String newEndDay = rvo.getCalendarVO().getEndDay().substring(0, 10);
+		String type = "";
 		
 		rvo.getCalendarVO().setBicycleNo(rvo.getBicycleVO().getBicycleNo());
 		rvo.getCalendarVO().setStartDay(newStartDay);
 		rvo.getCalendarVO().setEndDay(newEndDay);
 		
 		CalendarVO possibleDay = bicycleDAOImpl4.getPossibleCalendarVO(rvo.getCalendarVO());
+		//6월2일에서 6월 9일 신청시
+		//db에서 해당 자전거의 가능일 중 6/2~6/9가 해당하는 기간 받아오기
 		
 		System.out.println("deleRentedDay" + possibleDay);
-		//가능구간 수 별로 for문 돌면서 각 기간의 시작날짜와 사용자가 신청한 시작날짜와 비교해서
-		//type = 0 기간의 시작날짜 = 신청한 시작날짜
-		//type = 1 기간의 시작날짜 < 신청한 시작날짜  이면서 기간의 종료날짜 >신청한 종료날짜 
-		//type = 2 기간의 종료날짜 = 신청한 종료날짜
-		//type= 3  기간의 시작날짜 = 신청한 시작날짜 &&  기간의 종료날짜 = 신청한 종료날짜 
-		String type = "";
-		
+		type = compareDay(possibleDay, rvo.getCalendarVO());
 		
 	}
 
 	private String compareDay(CalendarVO possibleCalendarVO, CalendarVO rentCalendarVO) {
-		//if()
+		
+		//type = 0 기간의 시작날짜 = 신청한 시작날짜
+		//type = 1 기간의 시작날짜 < 신청한 시작날짜  이면서 기간의 종료날짜 >신청한 종료날짜 
+		//type = 2 기간의 종료날짜 = 신청한 종료날짜
+		//type= 3  기간의 시작날짜 = 신청한 시작날짜 &&  기간의 종료날짜 = 신청한 종료날짜 
+		
 		return null;
 	}
 	

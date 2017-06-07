@@ -68,6 +68,13 @@ appearance: none;
  
  
   <body >
+  <script type="text/javascript">
+  		<c:if test="${empty requestScope.bicycleList}">
+  		alert("검색결과가 없습니다. 메인화면으로 이동합니다.");
+  		location.href="${pageContext.request.contextPath}/home.do";
+  		</c:if>
+  
+  </script>
   <%--지도 --%>
    <div class="col-sm-6" id="map" style="height:700px;"></div>
    <%--지도 --%>
@@ -184,13 +191,27 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
                 title :positions[i].title , // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image : markerImage // 마커 이미지 
             });   
+           // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
+              var iwContent = '<div style="padding:5px;">Hello World!</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+              // 인포윈도우를 생성합니다
+              var infowindow = new daum.maps.InfoWindow({
+                  content : iwContent
+              });
+
+              // 마커에 마우스오버 이벤트를 등록합니다
+              daum.maps.event.addListener(marker, 'mouseover', function() {
+                // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+                  infowindow.open(map, marker);
+              });
+
+              // 마커에 마우스아웃 이벤트를 등록합니다
+              daum.maps.event.addListener(marker, 'mouseout', function() {
+                  // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+                  infowindow.close();
+              });
         }  
-       /*  // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        });
-        infowindow.open(map, marker);
- */
+      
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
@@ -237,6 +258,7 @@ geocoder.addr2coord('${requestScope.bicycleList[0].address}', function(status, r
  					} 
  					
  					$("#listSpace").html(contents);
+ 					
  					$("#rentalPrice").val("");
  					}
  			})//ajax   

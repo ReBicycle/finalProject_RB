@@ -128,6 +128,7 @@ appearance: none;
    <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
  <script>
  var markers=[];
+ var map;
   mapSetting();
 function mapSetting(){
 
@@ -138,8 +139,12 @@ function mapSetting(){
     };  
 
 // 지도를 생성합니다    
-var map = new daum.maps.Map(mapContainer, mapOption); 
-        
+map=new daum.maps.Map(mapContainer, mapOption); 
+// 지도에 확대 축소 컨트롤을 생성한다
+	var zoomControl = new daum.maps.ZoomControl();
+
+	// 지도의 우측에 확대 축소 컨트롤을 추가한다
+	map.addControl(zoomControl, daum.maps.ControlPosition.BOTTOMLEFT);
         var positions = [
             <c:forEach items="${requestScope.bicycleList}" var="bicycleList" varStatus="status">
            				{	title: "${bicycleList.title}",
@@ -176,6 +181,7 @@ var map = new daum.maps.Map(mapContainer, mapOption);
               var infowindow = new daum.maps.InfoWindow({
                   content : iwContent
               });
+         
               daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
               daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); 
         }  
@@ -183,6 +189,7 @@ var map = new daum.maps.Map(mapContainer, mapOption);
          function makeOverListener(map, marker, infowindow) {
              return function() {
                  infowindow.open(map, marker);
+                 
              };
          }
 
@@ -190,6 +197,7 @@ var map = new daum.maps.Map(mapContainer, mapOption);
          function makeOutListener(infowindow) {
              return function() {
                  infowindow.close();
+                
              };
          }
       
@@ -204,7 +212,6 @@ var map = new daum.maps.Map(mapContainer, mapOption);
  			var bikeType=$("#bikeTypeSelect option:selected").val();
  			//alert(bikeType);
  			//alert("address=${param.address}&startDay=${param.startDay}&endDay=${param.endDay}");
- 				
  	 			$.ajax({
  				//${pageContext.request.contextPath}/bicycle/bicycle_search_list.do
  				type:"get",	

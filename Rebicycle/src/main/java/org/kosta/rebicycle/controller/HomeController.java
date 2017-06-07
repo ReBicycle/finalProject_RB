@@ -1,6 +1,5 @@
 package org.kosta.rebicycle.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.vo.BicycleVO;
-import org.kosta.rebicycle.model.vo.MapVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,11 +37,12 @@ public class HomeController {
 		}
 		@RequestMapping("bicycle/sortByBikeType.do")
 		@ResponseBody
-		public List<BicycleVO> sortByBikeType(String address,String startDay,String endDay,String bikeType){
+		public List<BicycleVO> sortByBikeType(HttpServletRequest request,String address,String startDay,String endDay,String bikeType){
 			System.out.println("타입별 정렬 컨트롤러 실행");
-		if(bikeType=="")
+		if(bikeType==""){
 			return service.getBicycleListByAddressAndDay(address, startDay, endDay);
-		return service.sortByBikeType(address, startDay, endDay,bikeType);	
+		}
+		return service.sortByBikeType(address, startDay, endDay, bikeType);
 		}
 		@RequestMapping("bicycle/sortByPriceType.do")
 		@ResponseBody

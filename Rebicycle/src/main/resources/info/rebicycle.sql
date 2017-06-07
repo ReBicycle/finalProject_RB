@@ -263,6 +263,7 @@ insert into map values(1,'33.450701','126.570667');
 insert into map values(2,'33.450701','126.570667');
 alter table bicycle modify address varchar2(300)
 --좌표까지 조회
+select * from rb_member
 
 ------------종봉----------------------------------------------
 

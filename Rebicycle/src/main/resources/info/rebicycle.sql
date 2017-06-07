@@ -641,6 +641,7 @@ from(
 			and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
 ) possible
 
+<<<<<<< HEAD
 select * from possible_day
 
 delete 
@@ -651,7 +652,3 @@ and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
 
 select * from possible_day
 select * from rent
-
-select r.*, b.bicycleNo, b.memberId, b.title
-from rent r, bicycle b
-where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0

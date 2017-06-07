@@ -70,7 +70,8 @@ create table bicycle(
    detail clob not null,
    categoryNo number not null constraint fk_category_no references category(categoryNo)
 )
-
+delete table rent
+select * from rent
 create table bicycle_photo(
    bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo),
    photo1 varchar2(100) not null,
@@ -626,6 +627,8 @@ select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
 
+select to_date(startDay,'yy-mm-dd')-1 from possible_day
+select * from possible_day
 select startDay, endDay
 from possible_day 
 where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
@@ -635,8 +638,3 @@ and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
 select p.startDay, p.endDay
 from possible_day p, bicycle b
 where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
-
-and
-<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

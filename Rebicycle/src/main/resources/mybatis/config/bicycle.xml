@@ -240,8 +240,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id = "updateRentByRentNo">
 		update rent set state = 1
 		where rentNo = #{value}
-	</update>
-	
+	</update>	
 	
 	<select id="getPossibleCalendarVO" parameterType = "calendarVO" resultType = "calendarVO">
 		select p.startDay, p.endDay

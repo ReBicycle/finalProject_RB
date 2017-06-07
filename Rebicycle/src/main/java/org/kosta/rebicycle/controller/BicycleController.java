@@ -76,9 +76,7 @@ public class BicycleController {
 		MapVO map = new MapVO(latitude, longitude);
 		
 		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
-		System.out.println(bvo);
-		System.out.println(calList);
-		System.out.println(map);
+
 		return "redirect:bicycle_register_result.do";
 	}
 	
@@ -127,9 +125,6 @@ public class BicycleController {
 		
 		// Map 수정
 		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map, address);
-		System.out.println(bvo);
-		System.out.println(calList);
-		System.out.println(map);
 		return "redirect:bicycle_modify_result.do";
 	}
 	
@@ -167,7 +162,6 @@ public class BicycleController {
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
 		bvo.setPossibleList(cList);
-		System.out.println("test      "+bvo);
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}
@@ -176,9 +170,7 @@ public class BicycleController {
 	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
 	@RequestMapping("bicycleModifyForm.do")
 	public String bicycleModifyForm(String memberId, int bicycleNo, Model model){
-		System.out.println(serviceImpl3.findBicycleDetailByNo(bicycleNo));
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(bicycleNo);
-		
 		String[] address = bvo.getAddress().split(",");
 		String roadAddress = address[0];
 		String jibunAddress = address[1];
@@ -203,7 +195,7 @@ public class BicycleController {
 	@RequestMapping("getCalendarBean.do")
 	@ResponseBody
 	public String getCalendarBean(String currYear, String startMonth, String endMonth, String startDay, String endDay){
-		System.out.println("//" + currYear);
+
 		int currYear2 = Integer.parseInt(currYear);
 		int startMonth2 = Integer.parseInt(startMonth);
 		int endMonth2 = Integer.parseInt(endMonth);
@@ -228,8 +220,6 @@ public class BicycleController {
  				result += cb.getLastDayOfMonth();
  			 }
  		 }
-
-		System.out.println(result);
 
 		return ""+ result;
 	}
@@ -336,16 +326,29 @@ public class BicycleController {
 	}
 	
 	@RequestMapping("rentRegister.do")
-	public String rentRegister(String bicycleNo,String startDay,String endDay,HttpServletRequest request){
+	public String rentRegister(String bicycleNo,String[] startDay,String[] endDay,HttpServletRequest request){
 		HttpSession session = request.getSession(false);
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");		
 		BicycleVO bvo=new BicycleVO();
 		bvo.setBicycleNo(Integer.parseInt(bicycleNo));		
 		CalendarVO cvo=new CalendarVO();
-		cvo.setStartDay(startDay);
-		cvo.setEndDay(endDay);		
-		RentVO rvo=new RentVO(bvo,mvo,cvo);
-		serviceImpl3.rentRegister(rvo);		
+		
+		//빌리려 하는 사람이 여러 날짜를 빌리고 싶은 경우
+		//각 날짜는 다른 tuple 에 들어간다.
+		for(int i=0; i<startDay.length; i++){
+			System.out.println("test     "+startDay[i]);
+			System.out.println("test2     "+endDay[i]);
+			cvo.setStartDay(startDay[i]);
+			cvo.setEndDay(endDay[i]);			
+			RentVO rvo=new RentVO(bvo,mvo,cvo);
+			serviceImpl3.rentRegister(rvo);
+		}
+		//cvo.setStartDay(startDay);
+		//cvo.setEndDay(endDay);		
+		
+		
+		//RentVO rvo=new RentVO(bvo,mvo,cvo);
+		//serviceImpl3.rentRegister(rvo);		
 		return "mypage/mypage_main.tiles";
 	}
 }

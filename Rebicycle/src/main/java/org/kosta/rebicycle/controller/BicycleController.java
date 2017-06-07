@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
@@ -59,9 +60,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -86,6 +87,14 @@ public class BicycleController {
 		return "bicycle/bicycle_register_result.tiles";
 	}
 	
+	@RequestMapping("findAddressById.do")
+	@ResponseBody
+	public HashMap<String, String> findAddressById(String memberId, HttpServletResponse response){
+		response.setContentType("text/html;charset=UTF-8"); 
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("address", serviceImpl1.findAddressById(memberId));
+		return map;
+	}
 	//자전거 수정
 	@RequestMapping(method = RequestMethod.POST, value = "modifyBicycle.do")
 	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
@@ -100,9 +109,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -128,8 +137,6 @@ public class BicycleController {
 	public String bicycleModifyResult(){
 		return "bicycle/bicycle_modify_result.tiles";
 	}
-	
-	
 	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "calculatePrice.do")
@@ -234,23 +241,16 @@ public class BicycleController {
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 		
-		/*for(int i=0; i<cList.size(); i++){
-			// YYYY-MM-DD 0:00:00 형식 뒤 0:00:00을 자르기 위한 과정
-			CalendarVO cvo=new CalendarVO();
-			String stardDay;
-			String endDay;
-			stardDay=cList.get(i).getStartDay().substring(0,10);
-			endDay=cList.get(i).getEndDay().substring(0,10);
-			cvo.setBicycleNo(no);
-			cvo.setStartDay(stardDay);
-			cvo.setEndDay(endDay);
-			cList.set(i, cvo);
-		}
-		*/
-		
 		//HashMap 을 사용해 return possibleStartDay,possibleEndDay 값을 넘겨줌 
 		ArrayList<Object> possibleDayList =new ArrayList<>();
 		for(int i=0; i<cList.size(); i++){
+			
+			//	endMonthOfDay 변수는 
+			//	아래 [달력 예약 가능 띄우기] 를 읽어야 이해된다.
+			//	day 31 에 +1 을 하면 32가 된다.
+			//	즉, 오류가 발생하여 Month 와 day 각각 +1 한다
+			int endMonthOfDay=0;
+			int endYearOfDay=0;
 			
 			//System.out.println("test        "+cList.get(i).getStartDay()+"        "+cList.get(i).getEndDay());
 			
@@ -268,6 +268,7 @@ public class BicycleController {
 			cvo.setEndDay(endDay);
 			cList.set(i, cvo);
 			
+			
 			//fullcalendar 에서 events 를 생성하려면 start:YYYY-MM-DD end:YYYY-MM-DD 형식을 만들어야함
 			//MAP 을 생성해 키 값으로 'start' , 'end' 를 넣어줌
 			HashMap<String, String> possibleTotalDay = new HashMap<String, String>();
@@ -275,15 +276,50 @@ public class BicycleController {
 			String[] possibleEndDay = new String[cList.size()];
 			possibleStartDay[i]=cList.get(i).getStartDay();
 			
+			
+			//	[달력 예약 가능 띄우기]
+			//	6-1 ~ 6-31 가능일로 입력한 경우
+			//	달력에서는 하루적게 표시되기 때문에 
+			//	endDayOfDay +1 을 해준다
+			//	그러나, 6-31 입력받았을 경우 +1 하면 6-32가 되어 문제 발생
+			//	calendarBean 을 이용해 마지막 날이면 
+			//	month 에 +1 를 해주고 day를 1로 해주어야 한다.
+			
+			
 			//달력 api 에서 Day 를 하루 적게 표시해주기 때문에 Day 에 +1을 해주기 위한 과정
-			String endDayOfDay=cList.get(i).getEndDay().substring(8, 10);
-			int IntendDayOfDay=Integer.parseInt(endDayOfDay)+1;
-			String ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 7)+"-"+IntendDayOfDay;
+			int endYear=Integer.parseInt(cList.get(i).getEndDay().substring(0,4));
+			int endDayOfDay=Integer.parseInt(cList.get(i).getEndDay().substring(8,10));
+			endMonthOfDay=Integer.parseInt(cList.get(i).getEndDay().substring(5,7));
+			
+			
+			//calendarBean 활용을 위해 YYYY 와 MM 자르기
+			int currYear=Integer.parseInt(cList.get(i).getStartDay().substring(0,4));
+			int startMonth=Integer.parseInt(cList.get(i).getStartDay().substring(5,7));
+			CalendarManager cm = new CalendarManager();
+			cm.setCurrent(currYear,startMonth);
+			CalendarBean cb = cm.getCurrent();
+			int LastDayOfMonth=cb.getLastDayOfMonth();
+			
+			endYearOfDay=Integer.parseInt(cList.get(i).getEndDay().substring(0, 4));
+			
+			//	만약 해당 달의 마지막 day 와 
+			//	예약가능한 날 - 마지막 day가 같으면 
+			//	예약가능한 날 - 마지막 Month 를  +1 하고 
+			//  		       마지막 day 를 +1 한다
+				
+				if(LastDayOfMonth==endDayOfDay){
+					endDayOfDay=1;
+					endMonthOfDay=endMonthOfDay+1;
+				}else{
+					endDayOfDay=endDayOfDay+1;
+				}		
+			
+			String ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-"+endDayOfDay;
+			//String ResultOfEndDay=endYearOfDay+"-"+endMonthOfDay+"-"+endDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
 			possibleTotalDay.put("title", "예약 가능");
 			possibleTotalDay.put("start", possibleStartDay[i]);
 			possibleTotalDay.put("end", possibleEndDay[i]);
-			System.out.println(possibleStartDay[i]+"        "+possibleEndDay[i]);
 			possibleDayList.add(possibleTotalDay);
 		}
 		return possibleDayList;
@@ -294,107 +330,22 @@ public class BicycleController {
 	//detail 페이지의 사용자가 선택하는 startDate endDate와 대여 가능일 비교를 위한 메서드
 	@RequestMapping("dayCheck.do")
 	@ResponseBody
-	public boolean dayCheck(String bicycleNo,String startDay,String endDay){
-		//가능여부 변수
-		boolean dayCheckResult = false;
-		//가능일을 찾기 위한 자전거 번호
+	public List<CalendarVO> dayCheck(String bicycleNo){
 		int no=Integer.parseInt(bicycleNo);
-		int rentStartYear=Integer.parseInt(startDay.substring(0,4));
-		int rentStartMonth=Integer.parseInt(startDay.substring(5,7));
-		int rentStartDay=Integer.parseInt(startDay.substring(8,10));
-		int rentEndYear=Integer.parseInt(endDay.substring(0,4));
-		int rentEndMonth=Integer.parseInt(endDay.substring(5,7));
-		int rentEndDay=Integer.parseInt(endDay.substring(8,10));
-		//System.out.println("S---"+rentStartYear+"  "+rentStartMonth+"  "+rentStartDay);
-		//System.out.println("E---"+rentEndYear+"  "+rentEndMonth+"  "+rentEndDay);
-		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
-
-		
-
-	
-
-
-		exit_For: 
-		for(int i=0; i<cList.size(); i++){
-			int possibleStartYear=Integer.parseInt(cList.get(i).getStartDay().substring(0,4));
-			int possibleStartMonth=Integer.parseInt(cList.get(i).getStartDay().substring(5,7));
-			int possibleStartDay=Integer.parseInt(cList.get(i).getStartDay().substring(8,10));
-			int possibleEndYear=Integer.parseInt(cList.get(i).getEndDay().substring(0,4));
-			int possibleEndMonth=Integer.parseInt(cList.get(i).getEndDay().substring(5,7));
-			int possibleEndDay=Integer.parseInt(cList.get(i).getEndDay().substring(8,10));
-			
-			//System.out.println(possibleStartYear+"   "+possibleStartMonth+"   "+possibleStartDay);
-			//System.out.println(possibleEndYear+"   "+possibleEndMonth+"   "+possibleEndDay);	
-			
-			//Year 비교
-			if(possibleStartYear<=rentStartYear && rentEndYear<=possibleEndYear){
-				//Month비교
-				if(possibleStartMonth<rentStartMonth && rentEndMonth<possibleEndMonth){
-					dayCheckResult=true;
-					break exit_For;
-				}else if(possibleStartMonth<rentStartMonth && rentEndMonth==possibleEndMonth){
-					if(rentEndDay<=possibleEndDay){
-						dayCheckResult=true;
-						break exit_For;
-					}else{
-						dayCheckResult=false;
-					}
-				}else if(possibleStartMonth == rentStartMonth && rentEndMonth <possibleEndMonth){
-					if(possibleStartDay<=rentStartDay){
-						dayCheckResult=true;
-						break exit_For;
-					}
-					else{ 
-						dayCheckResult=false;
-					}
-				}else if(possibleStartMonth == rentStartMonth && rentEndMonth == possibleEndMonth){
-					if((possibleStartDay<=rentStartDay) && (rentEndDay <= possibleEndDay)){
-						dayCheckResult=true;
-						break exit_For;
-					}else{
-						dayCheckResult=false;
-					}
-				}else if(possibleStartMonth>rentStartMonth || possibleEndMonth <rentEndMonth){
-					dayCheckResult=false;
-				}
-				
-			}else if(possibleStartYear<rentStartYear && rentEndYear<possibleEndYear){
-				dayCheckResult=true;
-				break exit_For;
-			}
-		}
-		
-		System.out.println("dayCheckResult       "+dayCheckResult);
-		
-		return dayCheckResult;
+		return serviceImpl3.findPossibleDayByNo(no);
 	}
 	
 	@RequestMapping("rentRegister.do")
 	public String rentRegister(String bicycleNo,String startDay,String endDay,HttpServletRequest request){
 		HttpSession session = request.getSession(false);
-		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
-		//System.out.println("session id      "+mvo.getId());
-		
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");		
 		BicycleVO bvo=new BicycleVO();
-		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
-		
-		System.out.println("1"+bvo.getBicycleNo());
-		
-		/*MemberVO mId=new MemberVO();
-		mId.setId(mvo.getId());
-		System.out.println("2"+mvo.getId());*/
-		
+		bvo.setBicycleNo(Integer.parseInt(bicycleNo));		
 		CalendarVO cvo=new CalendarVO();
 		cvo.setStartDay(startDay);
-		cvo.setEndDay(endDay);
-		System.out.println("3"+cvo.getStartDay()+"/"+cvo.getEndDay());
-		
+		cvo.setEndDay(endDay);		
 		RentVO rvo=new RentVO(bvo,mvo,cvo);
-		System.out.println();
-
-		serviceImpl3.rentRegister(rvo);
-		System.out.println("빌리기 완성");
-		
+		serviceImpl3.rentRegister(rvo);		
 		return "mypage/mypage_main.tiles";
 	}
 }

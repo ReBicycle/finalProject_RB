@@ -472,7 +472,7 @@ select * from map;
 -------------------------------------------------
 --대여성사됨 등록
 --1.정태형이 배서경자전거1 빌림 : 11~12일
-insert into rent values(rent_seq.nextval,'java3',1,to_date('2017-06-11','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java',33,to_date('2017-06-11','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'));
 --2.정태형이 임소영자전거4 빌림 : 15~17일
 insert into rent values(rent_seq.nextval,'java3',4,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-17','yyyy/mm/dd'),1);
 --3.이현근이 배서경자전거1 빌림 : 13일
@@ -572,19 +572,7 @@ create table rent(
    endDay date not null,
    state number default 0
 )
-<<<<<<< HEAD
-select * from rb_member
 
-=======
-
-select * from rb_member
-
-select * from rent_seq
-select * from rent;
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-drop table bicycle
-
-<<<<<<< HEAD
 select * from POSSIBLE_DAY
 =======
 --mypage 요청 리스트
@@ -592,7 +580,3 @@ select r.*, b.*
 from rent r, bicycle b
 where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
 
-select r.*, b.bicycleNo, b.memberId, b.title
-from rent r, bicycle b
-where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

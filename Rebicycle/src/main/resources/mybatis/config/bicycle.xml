@@ -178,7 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id = "findPossibleDayByNo" resultType="calendarVO">
-		select b.bicycleNo,p.startDay,p.endDay
+		select b.bicycleNo,to_char(p.startDay,'YYYY-MM-DD') as startDay,to_char(p.endDay,'YYYY-MM-DD') as endDay
 		from bicycle b, RB_MEMBER m, POSSIBLE_DAY p
 		where b.bicycleNo = p.bicycleNo and b.memberId=m.id and b.bicycleNo=#{value}
 		
@@ -218,5 +218,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from rent r, bicycle b
 		where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
 	</select>
-
+	
 </mapper>

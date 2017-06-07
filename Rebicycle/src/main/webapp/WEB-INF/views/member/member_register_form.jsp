@@ -291,7 +291,6 @@ $(document).ready(function(){
 								
 								<div class="form-group">
 									<div class = "row"> 
-											
 										<div class="col-sm-10 col-md-6">
 											<label for="name" class="cols-sm-2 control-label">Your Name</label>
 											<div class="cols-sm-10">
@@ -302,66 +301,45 @@ $(document).ready(function(){
 														id="name" placeholder="Enter your name" required="required"/>
 												</div>
 											</div>
+										</div>	
+										<div class="col-sm-10 col-md-6">
+											<label for="phone" class="cols-sm-2 control-label">Your Phone Number</label>
+											<div class="cols-sm-10">
+												<div class="input-group">
+													<span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span> 
+													<input type="text" class="form-control" name="phone" id="phone" placeholder="Enter your phone number" required="required"/>
+												</div>
+											</div>
 										</div>
-									
-									
-											
-									<div class="col-sm-10 col-md-6">
-											
-										<label for="phone" class="cols-sm-2 control-label">Your Phone Number</label>
-									<div class="cols-sm-10">
-										<div class="input-group">
-											<span class="input-group-addon"><i
-												class="fa fa-phone fa" aria-hidden="true"></i></span> <input
-												type="text" class="form-control" name="phone"
-												id="phone" placeholder="Enter your phone number" required="required"/>
-										</div>
-									</div>
-											
-									</div>
 									</div>
 								</div>
 	
-								
 								<div class="form-group">
-									<label for="email" class="cols-sm-2 control-label">Your
-										Email</label>
+									<label for="email" class="cols-sm-2 control-label">Your Email</label>
 									<div class="cols-sm-10">
 										<div class="input-group">
-											<span class="input-group-addon"> <i
-												class="fa fa-envelope fa" aria-hidden="true"></i>
-											</span> <input type="text" class="form-control" name="email"
-												id="email" placeholder="Enter your Email" required="required"/>
+											<span class="input-group-addon"> 
+												<i class="fa fa-envelope fa" aria-hidden="true"></i>
+											</span> 
+											<input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" required="required"/>
 										</div>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="address" class="cols-sm-2 control-label">Your
-										Address</label>
+									<label for="address" class="cols-sm-2 control-label">Your Address</label>
 									<div class="cols-sm-10">
 										<div class="input-group">
 											<span class="input-group-addon">
-											<i class="fa fa-edit fa" aria-hidden="true"></i>
+												<i class="fa fa-edit fa" aria-hidden="true"></i>
 											</span> 
- 											<input type="text" class="form-control" name="address" id="address" placeholder="Enter your address" required="required"/> 
-										</div>
-										  
-								        <label for="id_address" class="control-label col-md-1  requiredField"></label>
-								   	 	<div class="controls col-md-5 ">
-								            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->
-											<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
-											<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
+								        	<input type="button" class="input-md emailinput form-control" onclick="daumPostcode()" value="우편번호 찾기">
+											<input type="text" class="input-md emailinput form-control" id="postcode" placeholder="우편번호">
+ 											<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+											<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소"><br>
 											<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
 											<span id="guide" style="color:#999"></span>
-								        </div>
-								        <br>
-								        <div class="controls col-md-4">
-								        	<input type="text" class="input-md emailinput form-control" id="postcode" placeholder="우편번호">
-								        </div>
-								        <div class="controls col-md-4">
-											<input type="button" class="input-md emailinput form-control" onclick="daumPostcode()" value="우편번호 찾기">
-								        </div>
+										</div>
 									</div>
 								</div>
 

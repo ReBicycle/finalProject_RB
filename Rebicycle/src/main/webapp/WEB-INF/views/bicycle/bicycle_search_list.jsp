@@ -103,7 +103,7 @@ appearance: none;
 	<option value="high">높은가격순</option>
 </select>
 </div>
-<div class="w3-row-padding w3-margin-top" id="listSpace" >
+<div class="w3-row-padding w3-margin-top " id="listSpace" >
    <c:forEach items="${requestScope.bicycleList}" var="list" >
  <a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onmouseover=""> <div class="w3-second col-sm-6 w3-margin-top " >
      <div class="w3-card-2 content " width="240px" height="180px">
@@ -118,7 +118,6 @@ appearance: none;
     </div> 
   </div></a>
 </c:forEach>
-    
   
   
 </div><%-- 자전거리스트 css --%>
@@ -128,8 +127,10 @@ appearance: none;
    <!-- <div class="col-sm-12" style="height:200px;background-color:#F0FFFF;"></div> -->
    <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
  <script>
+ var markers=[];
   mapSetting();
 function mapSetting(){
+
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng("${requestScope.bicycleList[0].map.latitude}", "${requestScope.bicycleList[0].map.longitude}"), // 지도의 중심좌표
@@ -165,28 +166,18 @@ var map = new daum.maps.Map(mapContainer, mapOption);
                 position: positions[i].latlng , // 마커를 표시할 위치
                 title :positions[i].title , // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image : markerImage // 마커 이미지 
-            });   
+            }); 
+            	//markers.push(maker);
            // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
               var iwContent = '<div style="padding:5px;">'+positions[i].title+'</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
+             
+              
               // 인포윈도우를 생성합니다
               var infowindow = new daum.maps.InfoWindow({
                   content : iwContent
               });
-
-              // 마커에 마우스오버 이벤트를 등록합니다
-              daum.maps.event.addListener(marker, 'mouseover', function() {
-                // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-                  infowindow.open(map, marker);
-              });
-
-              // 마커에 마우스아웃 이벤트를 등록합니다
-              daum.maps.event.addListener(marker, 'mouseout', function() {
-                  // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-                  infowindow.close();
-              });
               daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-              daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+              daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); 
         }  
        //인포윈도우를 표시하는 클로저를 만드는 함수입니다 
          function makeOverListener(map, marker, infowindow) {

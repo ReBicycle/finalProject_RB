@@ -655,7 +655,7 @@ section.awSlider>img {
                            class="form-group col-xs-12 floating-label-form-group controls">
                            <label for="email">Email Address</label>
                            <h4 align="left">Email Address</h4>
-                           <p class="help-block text-danger">${requestScope.findBvo.address}</p>
+                           <p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
                         </div>
                      </div>
                      

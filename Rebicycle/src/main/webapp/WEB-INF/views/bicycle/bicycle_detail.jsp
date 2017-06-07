@@ -291,7 +291,7 @@ section.awSlider>img {
 				 $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
 			 }
 			
-			checkInput();     
+			//checkInput();     
 
         });
            
@@ -307,18 +307,19 @@ section.awSlider>img {
          $("#calImg").click(function(){
             //checkInput(); 
            
-              for(var i=0; i<=startLength; i++){
-            	  var dayMap=newMap();
-       		  	  dayMap.put("startDay",$("#startDay"+i).val());
-       		   	  dayMap.put("endDay",$("#endDay"+i).val());
-       		  	  startendDay[i]=dayMap;
-              }
-              
-             /*  for(var i=0; i<=startLength; i++){
-            	  alert("test    "+startendDay[i].get("endDay")+"/"+startendDay[i].get("startDay"));
-            	  
-              } */
-            	
+               
+            	   for(var i=0; i<=startLength; i++){
+            		   
+            		  if($("#startDay"+i).val()>$("#endDay"+i).val()){
+                    	   alert("입력한 날짜를 확인하세요.")
+                    	   return false;
+                      } 
+            		   
+                 	  var dayMap=newMap();
+            		  	  dayMap.put("startDay",$("#startDay"+i).val());
+            		   	  dayMap.put("endDay",$("#endDay"+i).val());
+            		  	  startendDay[i]=dayMap;     		  	 
+                   }                         	
               
                for(var i=0; i<=startLength; i++){
             	   // 대여료 계산 - calResult 영역에 
@@ -345,16 +346,12 @@ section.awSlider>img {
                         var result = (parseInt(data));
                         var rentPrice = parseInt($("#rentPrice").text());
                         var calResult=result*rentPrice;
-        
-                        alert("dayFlag      "+dayFlag);
-                        alert("왜?    "+dayFlag);
                         $("#calResult"+dayFlag).html("총대여료 : " + calResult);
                         dayFlag=dayFlag+1; 
                      } //success       
                   });//ajax 
                   
-              	} 
-              
+              	}            
          });
          
          //달력 변경 시 div-checkResult 영역 초기화 - keyup 대신 
@@ -708,9 +705,6 @@ section.awSlider>img {
                      <br>
                      
                      <div id="success"></div>
-
-                     <div>requestScope.findBvo 결과 ${requestScope.findBvo}</div>
-
 							<div class="row">
 								<div class="form-group col-xs-12" align="center">
 								<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">

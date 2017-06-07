@@ -69,11 +69,9 @@
                     //예상되는 도로명 주소에 조합형 주소를 추가한다.
                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
                     document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-
                 } else if(data.autoJibunAddress) {
                     var expJibunAddr = data.autoJibunAddress;
                     document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-
                 } else {
                     document.getElementById('guide').innerHTML = '';
                 }
@@ -111,10 +109,12 @@ function findGeo(){
 	  	var oRow = oTbl.insertRow();
 	  	oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
 	  	var oCell = oRow.insertCell();
-	
+		var stCount = $(".id_startDay").length;
+		var endCount = $(".id_endDay").length;
+			
 	  	//삽입될 Form Tag'
 	  	var frmTag = "<input type=date name=startDay class=id_startDay id=id_startDay"+stCount+" required=required> <input type=date name=endDay class=id_endDay id=id_endDay"+endCount+" required=required> ";
-	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
+/* 	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>"; */
 	  	oCell.innerHTML = frmTag;
 	}
 	//Row 삭제
@@ -159,9 +159,9 @@ function findGeo(){
 				    <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
 				        <div class="controls col-md-8 "> 
-				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo1 }">
-				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo2 }">
-				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo3 }">
+				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo1 }?ver=1">
+				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo2 }?ver=1">
+				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo3 }?ver=1">
 							<input type="file" name="file[0]"><br>
 							<input type="file" name="file[1]"><br>
 							<input type="file" name="file[2]"><br>
@@ -245,33 +245,42 @@ function findGeo(){
 				    </div>
 
 				 	<!-- 달력 날짜 추가 -->
+				 	<div id="div_id_date" class="form-group required">
 				 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
-					<table id="addTable" align="left">
+					<table id="addTable">
 						<c:forEach items="${possibleDayList }" var="clist" varStatus="order">
 						<c:choose>
 							<c:when test="${order.count==1 }">
 								<tr>
-									<td align="left">
+									<td>
 										<input type="date" name="startDay" id=id_startDay value="${clist.startDay }" required="required">
 										<input type="date" name="endDay" id=id_endDay value="${clist.endDay }" required="required">	
-										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
-									</td>	
+									</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td align="left">
+									<td>
 										<input type="date" name="startDay" id=id_startDay value="${clist.startDay }" required="required">
 										<input type="date" name="endDay" id=id_endDay value="${clist.endDay }" required="required">	
-										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">	
-										<input type="button" value="삭제" onClick="delete_row()" style="cursor:hand">
+										<!-- <input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">	 -->
 									</td>	
 								</tr>
 							</c:otherwise>
 						</c:choose>			
 						</c:forEach>
 					</table>
-				
+					</div>
+					
+					<div class="form-group required" align="center">
+						<label for="id_detail" class="control-label col-md-3  requiredField"></label>
+						 <div class="controls col-md-3">
+							<input name="addButton" class="input-md emailinput form-control" type="button" style="cursor:hand" onClick="insRow()" value="추가">
+				        </div>
+				        <div class="controls col-md-3">
+							<input type="button" class="input-md emailinput form-control"value="삭제" onClick="delete_row()" style="cursor:hand">
+				        </div>
+					</div>
 					<!-- 달력 -->
 				    <!-- <div id="div_id_date" class="form-group required"> 
 				        <label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
@@ -299,7 +308,8 @@ function findGeo(){
 				        <div class="controls col-md-8 ">
 				            <input type="submit" name="modify_bicycle" value="수정" class="btn btn-primary btn btn-info" id="submit-id-signup" />
 				        </div>
-				    </div> 
+				    </div>
+				    
 				</form>
             </div>
         </div>

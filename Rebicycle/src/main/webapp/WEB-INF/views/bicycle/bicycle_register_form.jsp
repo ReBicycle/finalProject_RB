@@ -243,7 +243,7 @@ function findGeo(){
 				    
 				    <!-- 주소 선택 -->
 				    <div id="div_id_address" class="form-group required">
-				    	<label for="id_address" class="control-label col-md-3  requiredField">주소 선택</label>
+				    	<label for="id_address" class="control-label col-md-3  requiredField">주소</label>
 				        <div class="controls col-md-8">
 				    		<input type="radio" name="select_address" id="userAddress" value="userAddress">사용자 주소&nbsp;&nbsp;&nbsp;
 				        	<input type="radio" name="select_address" id="newAddress" value="newAddress">새로운 주소
@@ -252,9 +252,8 @@ function findGeo(){
 				    
 				    <!-- 주소 -->
 				    <div id="div_id_address" class="form-group required">
-				        <label for="id_address" class="control-label col-md-3  requiredField">주소</label>
+				        <label for="id_address" class="control-label col-md-3  requiredField"></label>
 				        <div class="controls col-md-4">
-				        	
 				        	<input type="text" class="input-md emailinput form-control" id="postcode" placeholder="우편번호">
 				        </div>
 				        <div class="controls col-md-4">
@@ -297,18 +296,22 @@ function findGeo(){
 				    </div>
 
 				 	<!-- 달력 날짜 추가 -->
-				 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
-					<table id="addTable" align="center">
-						<tr>
-							<td>
-								<!-- <label for="id_date" class="control-label col-md-3  requiredField">시작일</label> -->
-								<input type="date" name="startDay" class="id_startDay" id="id_startDay0"  required="required">
-								<!-- <label for="id_date" class="control-label col-md-3  requiredField">종료일</label> -->
-								<input type="date" name="endDay" class="id_endDay" id="id_endDay0"  required="required">
-								<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
-							</td>
-						</tr>
-					</table>
+				 	<div id="div_id_date" class="form-group required"> 
+					 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
+					 	<div id="div_id_detail" class="form-group required">
+							<table id="addTable">
+								<tr>
+									<td>
+										<!-- <label for="id_date" class="control-label col-md-3  requiredField">시작일</label> -->
+										<input type="date" name="startDay" class="id_startDay" id="id_startDay0"  required="required">
+										<!-- <label for="id_date" class="control-label col-md-3  requiredField">종료일</label> -->
+										<input type="date" name="endDay" class="id_endDay" id="id_endDay0"  required="required">
+										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				
 					<!-- 달력 -->
 				    <!-- <div id="div_id_date" class="form-group required"> 

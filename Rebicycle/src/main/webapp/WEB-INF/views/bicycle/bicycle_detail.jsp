@@ -178,8 +178,8 @@ section.awSlider>img {
    
    //day N:N 로 비교하기 위해 
    //input - class 가 같은 수
-   var startLength=null;
-   var endLength=null;
+   var startLength=0;
+   var endLength=0;
      
    //Row 추가
    function insRow() {
@@ -195,7 +195,7 @@ section.awSlider>img {
         
         //삽입될 Form Tag'
         var frmTag = "<input type=date name=startDay class=startInput textinput textInput form-control id=startDay"+clickCount+"><input type=date name=endDay class=endInput textinput textInput form-control id=endDay"+clickCount+">";
-        frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
+        frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'><div id = calResult"+clickCount+"></div>";
         oCell.innerHTML = frmTag;        
    }
    
@@ -223,6 +223,9 @@ section.awSlider>img {
    		var checkDayResultl=null;
    		var checkFailList=new Array();
    		
+   		//사용자가 입력한 날짜별 계산된 대여료들
+    	//calculateResult 변수에 넣는다.
+    	var calculateResult=new Array();
    		
         $("#checkImg").click(function(){
         	//day N:N 비교한 결과 불가능한 input
@@ -302,33 +305,56 @@ section.awSlider>img {
          
          
          $("#calImg").click(function(){
-
-              checkInput();   
-               var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
-               var end = $("#endDay").val();//사용자가 클릭한 종료일 2017-05-31
-               var startYear = parseInt(start.substring(0,4));
-               var endYear = parseInt(end.substring(0,4));
-               var startMonth = parseInt(start.substring(5,7));//5
-               var endMonth = parseInt(end.substring(5,7));//7
-               var startDay = parseInt(start.substring(8,10));//6
-               var endDay = parseInt(end.substring(8,10));//8
-                   
-              $.ajax({
-               type:"get",
-               data:"currYear="+ startYear + "&startMonth="+startMonth + "&endMonth="+endMonth+ "&startDay=" + startDay + "&endDay="+endDay,
-               url:"${pageContext.request.contextPath}/getCalendarBean.do",
-               
-               success:function(data){
-                  //alert("총기간" + data);
-                  var result = (parseInt(data));
-                  var rentPrice = parseInt($("#rentPrice").text());
-                  //alert(rentPrice);
-                  //alert((parseInt(data) * (parseInt($("#rentPrice").text()))));
+            //checkInput(); 
+           
+              for(var i=0; i<=startLength; i++){
+            	  var dayMap=newMap();
+       		  	  dayMap.put("startDay",$("#startDay"+i).val());
+       		   	  dayMap.put("endDay",$("#endDay"+i).val());
+       		  	  startendDay[i]=dayMap;
+              }
+              
+             /*  for(var i=0; i<=startLength; i++){
+            	  alert("test    "+startendDay[i].get("endDay")+"/"+startendDay[i].get("startDay"));
+            	  
+              } */
+            	
+              
+               for(var i=0; i<=startLength; i++){
+            	   // 대여료 계산 - calResult 영역에 
+            	   // 각각의 대여료를 나타내기 위한 변수
+            	  var dayFlag=0;
+            	 
+            	  
+            	  var start = startendDay[i].get("startDay");//사용자가 클릭한 시작일 2017-05-31
+                  var end = startendDay[i].get("endDay");//사용자가 클릭한 종료일 2017-05-31
+                  var startYear = parseInt(start.substring(0,4));
+                  var endYear = parseInt(end.substring(0,4));
+                  var startMonth = parseInt(start.substring(5,7));//5
+                  var endMonth = parseInt(end.substring(5,7));//7
+                  var startDay = parseInt(start.substring(8,10));//6
+                  var endDay = parseInt(end.substring(8,10));//8
                   
-                  $("#calResult").html("총대여료" + (result*rentPrice));
+                  $.ajax({
+                     type:"get",
+                     data:"currYear="+ startYear + "&startMonth="+startMonth + "&endMonth="+endMonth+ "&startDay=" + startDay + "&endDay="+endDay,
+                     url:"${pageContext.request.contextPath}/getCalendarBean.do",
+                     
+                     success:function(data){
+                        //alert("총기간" + data);
+                        var result = (parseInt(data));
+                        var rentPrice = parseInt($("#rentPrice").text());
+                        var calResult=result*rentPrice;
+        
+                        alert("dayFlag      "+dayFlag);
+                        alert("왜?    "+dayFlag);
+                        $("#calResult"+dayFlag).html("총대여료 : " + calResult);
+                        dayFlag=dayFlag+1; 
+                     } //success       
+                  });//ajax 
                   
-               } //success       
-            });//ajax           
+              	} 
+              
          });
          
          //달력 변경 시 div-checkResult 영역 초기화 - keyup 대신 
@@ -570,11 +596,11 @@ section.awSlider>img {
                               <div class="controls col-md-5">
                                  <input type="date" name="endDay" 
                                     class="endInput"
-                                    id="endDay0">
+                                    id="endDay0"> <div id="calResult0"></div>
                               </div>
                            </div>
                       </div>
-                           
+                        
                         </table>
                		
                
@@ -598,7 +624,7 @@ section.awSlider>img {
                      <div class="col-sm-4">  
                           <abbr title="대여료 계산하기"><img id = "calImg" class="cal-img"
                      src="http://icon-icons.com/icons2/300/PNG/256/calculation-icon_31858.png" alt="" style = "width:"></abbr>
-                     	<div id = "calResult"></div>
+                     	<!-- <div id = "calResult"></div> -->
                      </div>
                     </div>
                   </div>

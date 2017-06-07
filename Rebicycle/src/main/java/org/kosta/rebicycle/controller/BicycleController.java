@@ -167,7 +167,7 @@ public class BicycleController {
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
 		bvo.setPossibleList(cList);
-
+		System.out.println("test      "+bvo);
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}

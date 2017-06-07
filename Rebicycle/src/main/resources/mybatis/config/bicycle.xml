@@ -205,15 +205,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 
 	<!-- 해당 자전거 요청 내역 불러오기  -->
-
-	
-	<select id="findBicycleByBicycleNo" resultMap="rentMap">
-		select rentNo,renterId,bicycleNo,startDay, endDay, state
-
-		from rent 
-		where bicycleNo=#{value}
-	</select>
-		
 	<resultMap type="rentVO" id="rentMap">
 		<result column="renterId" property="memberVO.id"/>
 		<result column="bicycleNo" property="bicycleVO.bicycleNo"/>
@@ -225,13 +216,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="endDay" property="calendarVO.endDay"/>
 	</resultMap>
 	
+	
+	<select id="getRentByBicycleNo" resultMap="rentMap">
+		select rentNo,renterId,bicycleNo,startDay, endDay, state
+		from rent 
+		where bicycleNo=#{value} and state = 0
+	</select>
+		
+	
 	<select id="findRentRequestById" resultMap = "rentMap">
 		select r.*, b.bicycleNo, b.memberId, b.title
 		from rent r, bicycle b
 		where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
 	</select>
 	
-	<select id = "findRentByRnetNo" resultMap = "rentMap">
+	<select id = "findRentByRentNo" resultMap = "rentMap">
 		select rentNo,bicycleNo, renterId, startDay, endDay
 		from rent
 		where rentNo = #{value}
@@ -243,12 +242,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
-	<select id="getPossibleCalendarVO" parameterType = "calendarVO" resultType = "calendarVO">
-		select p.startDay, p.endDay
-		from possible_day p, bicycle b
-		where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
-		<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-		and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
+	<select id="compareCalendarVO" parameterType = "calendarVO" resultType = "calendarVO">
+		select 
+			
+			(to_date(#{startDay}, 'yyyy-mm-dd') - possible.startDay) as startDay, 
+			(possible.endDay-to_date(#{endDay}, 'yyyy-mm-dd')) as endDay
+			from(
+				select p.startDay, p.endDay, b.bicycleNo
+				from possible_day p, bicycle b
+				where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
+				<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+				and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+			) possible
+
+				
 	</select>
 	
+	<select id = "getPossibleCVO" parameterType = "calendarVO" resultType="calendarVO">
+			select  to_char(p.startDay, 'yyyy-mm-dd')as startDay ,to_char(p.endDay, 'yyyy-mm-dd') as endDay ,b.bicycleNo
+			from possible_day p, bicycle b
+			where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
+			<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+			and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+	</select>
+	
+	
+	<delete id="updatePossibleCalendarVOType1" parameterType = "hashMap">
+		delete 
+		from possible_day
+		where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
+		
+	</delete>
+	
+	<update id="updatePossibleCalendarVOType0" parameterType = "hashMap">
+		update possible_day
+		set startDay = to_date(#{rent.endDay}, 'yyyy-mm-dd')
+		where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
+	
+	</update>
+	<!-- 
+	<update id="updatePossibleCalendarVOType2" parameterType="calendarVO">
+		update possible_day
+		set endDay = to_date(#{startDay}, 'yyyy-mm-dd')
+		from possible_day p, bicycle b
+		where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} 
+		and <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+		and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+	</update>
+	
+	<insert id="updatePossibleCalendarVOType3" parameterType = "calendarVO">
+		insert into possible_day
+		values(#{bicycleNo}, to_date(#{endDay}), (
+			select  p.endDay
+			from possible_day p, bicycle b
+			where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
+			<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+			and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+		))
+		
+		
+	</insert> -->
 </mapper>

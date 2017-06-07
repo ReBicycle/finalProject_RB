@@ -21,13 +21,15 @@ tr:hover{background-color:#f5f5f5}
 			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
 		});
 		
-			
+		//rentList${order.count}
+	
 		$(".dropdown-menu li a").on("click", function(){
 			//alert("ss");
 			//alert ($("input[id^='rentBicycleNo']").val());
 			
-				
 				var bSize = $("input[id^='rentBicycleNo']").size();
+
+				//alert(bSize);
 				for(var i = 1; i<=bSize;i++){
 					var bicycleNo = $("#rentBicycleNo"+i).val();
 	
@@ -41,13 +43,7 @@ tr:hover{background-color:#f5f5f5}
 							var result = "";
 							var table = "";
 							for(var i = 0; i<data.length;i++){
-								//alert(data);
-								/* alert("rentNo" + data[i].rentNo);
-								alert("빌린사람 id" + data[i].memberVO.id)
-								alert("신청시작일" + data[i].calendarVO.startDay);
-								alert("신청종료일" + data[i].calendarVO.endDay);
-								result += data[i].rentNo + "/" + data[i].memberVO.id + "/" + data[i].calendarVO.startDay + "/" + data[i].calendarVO.endDay;
-								 */
+								
 								 table += "<tr>"+
 									 		"<td>" + data[i].rentNo + "</td>"+
 									 		"<td>" + data[i].memberVO.id + "</td>"+
@@ -280,7 +276,7 @@ tr:hover{background-color:#f5f5f5}
                                 --등록자전거--
                                 <span class="caret"></span>
                             </button>
-                     <%-- ${requestScope.rentRequestList[0].memberVO.id} --%>
+                     <%-- ${requestScope.[0].memberVO.id} --%>
                     
                      	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 	                           	<c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
@@ -289,7 +285,7 @@ tr:hover{background-color:#f5f5f5}
 		                             <input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${registerList.bicycleNo}">
 
 	                       		 </c:forEach>
-                       		 </ul> 
+                       </ul> 
                        
                      </div>
                     </span>

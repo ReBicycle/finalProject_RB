@@ -79,7 +79,7 @@ public class BicycleServiceImpl4 implements BicycleService {
 		calendarMap.put("possible", bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
 		calendarMap.put("rent", rvo.getCalendarVO());
 		//System.out.println("possible" + bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
-		//System.out.println("deleteRentedDay-cM" + calendarMap);
+		System.out.println("deleteRentedDay-cM" + calendarMap);
 		
 		
 		//System.out.println("deleteRentedDay" + compare);
@@ -99,12 +99,14 @@ public class BicycleServiceImpl4 implements BicycleService {
 			//type2 
 			System.out.println("type2");
 			bicycleDAOImpl4.updatePossibleCalendarVOType2(calendarMap);			
-		}
-		/*else if(Integer.parseInt(compare.getStartDay())>0 && Integer.parseInt(compare.getEndDay())>0){
-			//type1
+		}	
+		else if(Integer.parseInt(compare.getStartDay())>0 && Integer.parseInt(compare.getEndDay())>0){
+			//type3
+			System.out.println("type3");
+
 			bicycleDAOImpl4.updatePossibleCalendarVOType3(calendarMap);
-			System.out.println("type1");
-		}*/
+			
+		}
 		
 	}
 

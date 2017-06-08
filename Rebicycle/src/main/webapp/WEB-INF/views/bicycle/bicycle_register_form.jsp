@@ -80,6 +80,7 @@
         }).open();
     }
 </script>
+
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
 <script type="text/javascript">
 function findGeo(){
@@ -117,12 +118,13 @@ function findGeo(){
 	  	var stCount = $(".id_startDay").length;
 	  	var endCount = $(".id_endDay").length;
 	  	var frmTag = "<input type=date name=startDay class=id_startDay id=id_startDay"+stCount+" required=required> <input type=date name=endDay class=id_endDay id=id_endDay"+endCount+" required=required> ";
-	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
 	  	oCell.innerHTML = frmTag;
 	}
-	//Row 삭제
-	function removeRow() {
-		oTbl.deleteRow(oTbl.clickedRowIndex);
+	
+	function delete_row() {
+		var my_tbody = document.getElementById("addTable");
+		if (my_tbody.rows.length-1 <= 1) return;
+		my_tbody.deleteRow( my_tbody.rows.length-1 ); // 하단부터 삭제
 	}
 	
 	function frmCheck() {
@@ -157,6 +159,31 @@ function findGeo(){
 				$("input[id="+endid+"]").val("연도-월-일");
 	        }
 		});
+		$("#addTable").on("click","#checkBtn",function(){
+			var stCount = $(".id_startDay").length;
+			var stid = "id_startDay";
+			var endid = "id_endDay";
+			var nowst = "id_startDay"+(stCount-1);
+			var nowend = "id_endDay"+(stCount-1);
+			var arr = [];
+			for(var i=0 ; i<stCount-1 ; i++) {
+				var nowstval = $("#"+nowst).val();
+				var nowendval = $("#"+nowend).val();
+				if($("#"+stid+i).val() > nowendval || $("#"+endid+i).val() < nowstval){
+					arr[i] = "0";
+				} else {
+					arr[i] = "1";
+				}
+			}
+			for(var j=0 ; j<arr.length ; j++) {
+				if(arr[j] == "1") {
+					alert("날짜를 제대로 선택해주세요");
+					$("#"+nowst).val("yyyy-MM-dd");
+					$("#"+nowend).val("yyyy-MM-dd");
+					break;
+				}
+			}
+		});
 	});
 </script>
 
@@ -177,6 +204,7 @@ function findGeo(){
 						$("#roadAddress").val(addArr[0]);
 						$("#jibunAddress").val(addArr[1]);
 						$("#detailAddress").val(addArr[2]); 
+						findGeo();
 					}
 				});
 			} else if ($(":radio[name='select_address']:checked").val()=='newAddress') {
@@ -186,9 +214,8 @@ function findGeo(){
 			}
 		});
 	});
-
 </script>
-
+  
 <div class="container">
 <br><br><br>
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -222,7 +249,7 @@ function findGeo(){
 				    <div id="div_id_memberId" class="form-group required"> 
 				        <label for="id_memberId" class="control-label col-md-3  requiredField">아이디</label> 
 				        <div class="controls col-md-8 "> 
-				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" value="${sessionScope.mvo.id }"/ readonly="readonly">
+				            <input class="input-md textinput textInput form-control" id="id_memberId" name="memberId" style="margin-bottom: 10px" type="text" value="${sessionScope.mvo.id }" readonly="readonly">
 				        </div>
 				    </div>
 				    
@@ -261,7 +288,6 @@ function findGeo(){
 				        </div>
 				        <label for="id_address" class="control-label col-md-3  requiredField"></label>
 				   	 	<div class="controls col-md-8 ">
-				            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->
 							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소" required="required">
 							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소" required="required">
 							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소" required="required">
@@ -302,39 +328,22 @@ function findGeo(){
 							<table id="addTable">
 								<tr>
 									<td>
-										<!-- <label for="id_date" class="control-label col-md-3  requiredField">시작일</label> -->
-										<input type="date" name="startDay" class="id_startDay" id="id_startDay0"  required="required">
-										<!-- <label for="id_date" class="control-label col-md-3  requiredField">종료일</label> -->
-										<input type="date" name="endDay" class="id_endDay" id="id_endDay0"  required="required">
 										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
+										<input type="button" style="cursor:hand" id="checkBtn" value="체크">
+										<input type=button value='삭제' onClick='delete_row()' style='cursor:hand'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="date" name="startDay" class="id_startDay" id="id_startDay0"  required="required">
+										<input type="date" name="endDay" class="id_endDay" id="id_endDay0"  required="required">
 									</td>
 								</tr>
 							</table>
+							<span id="checkResult"></span>
 						</div>
 					</div>
 				
-					<!-- 달력 -->
-				    <!-- <div id="div_id_date" class="form-group required"> 
-				        <label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
-				        <div class="controls col-md-8 "> 
-							<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
-				        </div>
-				        <label for="id_date" class="control-label col-md-3  requiredField">종료일</label>
-				        <div class="controls col-md-8 ">
-							<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
-				        </div>
-				    </div> -->
-				    
-				    <!-- 달력 안쓰는거 -->
-				   <!--  
-			        <div class="controls col-md-8 "> 
-						<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
-			        </div>
-			        <div class="controls col-md-8 ">
-						<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
-			        </div> -->
-				    
-				    
 				    <div class="form-group"> 
 				        <div class="aab controls col-md-4 "></div>
 				        <div class="controls col-md-8 "><br>

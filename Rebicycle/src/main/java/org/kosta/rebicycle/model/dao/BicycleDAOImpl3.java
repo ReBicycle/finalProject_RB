@@ -35,6 +35,7 @@ public class BicycleDAOImpl3 implements BicycleDAO{
 	
 	//빌리기
 	public void rentRegister(RentVO rvo){
+		System.out.println("mapper 실행 전 "+rvo);
 		template.insert("bicycle.rentRegister",rvo);
 	}
 	

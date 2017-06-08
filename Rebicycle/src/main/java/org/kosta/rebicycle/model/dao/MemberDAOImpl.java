@@ -28,7 +28,6 @@ public class MemberDAOImpl implements MemberDAO {
 		return template.selectOne("member.idcheck",id);
 	}
 
-	@Override
 	public MemberVO findMemberById(String id) {
 		return template.selectOne("member.findMemberById", id);
 	}

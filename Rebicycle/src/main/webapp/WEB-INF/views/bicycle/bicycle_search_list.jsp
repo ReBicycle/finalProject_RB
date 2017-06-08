@@ -194,7 +194,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
      index++;
      </c:forEach>
      
-     alert(contents[0]);
+     
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
  		//var imageSrc = "${pageContext.request.contextPath}/resources/img/images.jpg";

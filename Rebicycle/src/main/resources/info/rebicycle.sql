@@ -251,7 +251,8 @@ select * from rb_member
 
 -----------------------------석희---------------------------------
 select * from rb_report;
-
+alter table rb_report
+add reportTitle varchar2(100) not null
 create table rb_report(
 	reportNo number primary key,
 	reportTitle varchar2(100) not null,

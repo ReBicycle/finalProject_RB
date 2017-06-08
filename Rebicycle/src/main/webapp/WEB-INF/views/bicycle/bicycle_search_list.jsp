@@ -121,7 +121,7 @@ appearance: none;
 </div>
 <div class="w3-row-padding w3-margin-top " id="listSpace" >
    <c:forEach items="${requestScope.bicycleList}" var="list" >
- <a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onmouseover=""> <div class="w3-second col-sm-6 w3-margin-top " >
+ <a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onclick="return loginCheck()"> <div class="w3-second col-sm-6 w3-margin-top " >
      <div class="w3-card-2 content " width="240px" height="180px">
       <img class="img" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="240px" height="180px">
       <div class="overlay" >
@@ -238,6 +238,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
               daum.maps.event.addListener(marker, 'mouseout', makeOutListener(overlay)); 
            // 마커를 클릭했을 때 디테일로 페이지이동
               daum.maps.event.addListener(marker, 'click', function() {
+            	  if(loginCheck())
                   location.href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+p;
               });
               
@@ -271,7 +272,16 @@ map=new daum.maps.Map(mapContainer, mapOption);
 
 </script>
 <script type="text/javascript">
- 	
+function loginCheck(){
+	var mvo="${sessionScope.mvo}";
+		if(mvo==""){
+			alert("로그인이 필요한 서비스 입니다.");
+			return false;
+		}
+		
+}
+</script>
+<script type="text/javascript">
  	$(document).ready(function(){
  		$("#bikeTypeSelect").change(function(){
  			var bikeType=$("#bikeTypeSelect option:selected").val();
@@ -289,7 +299,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  					var contents=""; 
  					//alert(JSON.stringify(data)); 			
  			 		 for(var i=0;i<data.length;i++){
- 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
+ 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'"onclick="return loginCheck()">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
@@ -328,7 +338,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  					//alert(JSON.stringify(data)); 			
  					
  					  for(var i=0;i<data.length;i++){
- 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
+ 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'"onclick="return loginCheck()">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
@@ -346,6 +356,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  			})//ajax   
  		   
  		});//price change
+ 		
  	});//ready
  		
  	

@@ -45,8 +45,7 @@ public class BicycleController {
 	@Resource
 	private BicycleServiceImpl4 serviceImpl4;
 		
-//자전거 등록
-
+	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
@@ -57,15 +56,15 @@ public class BicycleController {
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
 		
-		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
+		String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -105,7 +104,7 @@ public class BicycleController {
 		bvo.setMemberVO(new MemberVO(memberId));
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
-		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
+		String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
@@ -120,12 +119,10 @@ public class BicycleController {
 			calList.add(new CalendarVO(stArr[i], endArr[i]));
 		}
 		
-
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
 		MapVO map = new MapVO(latitude, longitude);			
 
-		
 		// Map 수정
 		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map, address);
 		return "redirect:bicycle_modify_result.do";
@@ -135,7 +132,6 @@ public class BicycleController {
 	public String bicycleModifyResult(){
 		return "bicycle/bicycle_modify_result.tiles";
 	}
-	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "calculatePrice.do")
 	@ResponseBody
@@ -193,7 +189,7 @@ public class BicycleController {
 	@RequestMapping("bicycleModifyForm.do")
 	public String bicycleModifyForm(String memberId, int bicycleNo, Model model){
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(bicycleNo);
-		String[] address = bvo.getAddress().split(",");
+		String[] address = bvo.getAddress().split("%");
 		String roadAddress = address[0];
 		String jibunAddress = address[1];
 		String detailAddress = address[2];

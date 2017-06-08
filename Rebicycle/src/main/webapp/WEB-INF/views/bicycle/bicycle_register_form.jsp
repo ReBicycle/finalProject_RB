@@ -159,22 +159,25 @@ function findGeo(){
 				$("input[id="+endid+"]").val("연도-월-일");
 	        }
 		});
+		
 		$("#addTable").on("click","#checkBtn",function(){
 			var stCount = $(".id_startDay").length;
 			var stid = "id_startDay";
 			var endid = "id_endDay";
 			var nowst = "id_startDay"+(stCount-1);
 			var nowend = "id_endDay"+(stCount-1);
+			var nowstval = $("#"+nowst).val();
+			var nowendval = $("#"+nowend).val();
 			var arr = [];
+
 			for(var i=0 ; i<stCount-1 ; i++) {
-				var nowstval = $("#"+nowst).val();
-				var nowendval = $("#"+nowend).val();
 				if($("#"+stid+i).val() > nowendval || $("#"+endid+i).val() < nowstval){
 					arr[i] = "0";
 				} else {
 					arr[i] = "1";
 				}
 			}
+			
 			for(var j=0 ; j<arr.length ; j++) {
 				if(arr[j] == "1") {
 					alert("날짜를 제대로 선택해주세요");
@@ -199,8 +202,7 @@ function findGeo(){
 					dataType:"json",
 					contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 					success:function(data){
-						alert(data.address);
-						var addArr = data.address.split(",");
+						var addArr = data.address.split("%");
 						$("#roadAddress").val(addArr[0]);
 						$("#jibunAddress").val(addArr[1]);
 						$("#detailAddress").val(addArr[2]); 
@@ -323,11 +325,11 @@ function findGeo(){
 
 				 	<!-- 달력 날짜 추가 -->
 				 	<div id="div_id_date" class="form-group required"> 
-					 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
-					 	<div id="div_id_detail" class="form-group required">
+					 	<label for="id_addDate" class="control-label col-md-3  requiredField">가능일</label>
+					 	<div class="controls col-md-8" align="center">
 							<table id="addTable">
 								<tr>
-									<td>
+									<td align="center">
 										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
 										<input type="button" style="cursor:hand" id="checkBtn" value="체크">
 										<input type=button value='삭제' onClick='delete_row()' style='cursor:hand'>
@@ -340,12 +342,11 @@ function findGeo(){
 									</td>
 								</tr>
 							</table>
-							<span id="checkResult"></span>
 						</div>
 					</div>
 				
 				    <div class="form-group"> 
-				        <div class="aab controls col-md-4 "></div>
+				        <div class="aab controls col-md-3 "></div>
 				        <div class="controls col-md-8 "><br>
 				            <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" />
 				        </div>

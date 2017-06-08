@@ -44,7 +44,7 @@ public class MemberController {
 		return path;
 	}
 	
-	@RequestMapping("logout.do")
+	@RequestMapping("member/logout.do")
 	public String logout(HttpServletRequest request){
 		HttpSession session=request.getSession(false);
 		if(session!=null)

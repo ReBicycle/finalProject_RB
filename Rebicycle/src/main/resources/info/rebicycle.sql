@@ -652,3 +652,5 @@ and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
 
 select * from possible_day
 select * from rent
+
+delete from rent

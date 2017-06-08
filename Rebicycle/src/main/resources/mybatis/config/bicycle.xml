@@ -276,30 +276,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="updatePossibleCalendarVOType0" parameterType = "hashMap">
 		update possible_day
-		set startDay = to_date(#{rent.endDay}, 'yyyy-mm-dd')
+		set startDay = to_date(#{rent.endDay}, 'yyyy-mm-dd')+1
 		where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
 	
 	</update>
-	<!-- 
-	<update id="updatePossibleCalendarVOType2" parameterType="calendarVO">
+	
+	<update id="updatePossibleCalendarVOType2" parameterType="hashMap">
 		update possible_day
-		set endDay = to_date(#{startDay}, 'yyyy-mm-dd')
-		from possible_day p, bicycle b
-		where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} 
-		and <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-		and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+		set endDay = to_date(#{rent.startDay}, 'yyyy-mm-dd')-1
+		where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
 	</update>
 	
-	<insert id="updatePossibleCalendarVOType3" parameterType = "calendarVO">
-		insert into possible_day
-		values(#{bicycleNo}, to_date(#{endDay}), (
-			select  p.endDay
-			from possible_day p, bicycle b
-			where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
-			<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-			and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
-		))
-		
-		
-	</insert> -->
+	<insert id="updatePossibleCalendarVOType3" parameterType = "hashMap">
+		insert into possible_day(bicycleNo,startDay,endDay)
+		values(#{possible.bicycleNo},to_date(#{rent.endDay}, 'yyyy-mm-dd')+1),to_date(#{possible.endDay},'yyyy-mm-dd'))
+	</insert> 
 </mapper>

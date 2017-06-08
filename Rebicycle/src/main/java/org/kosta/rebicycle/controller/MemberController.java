@@ -150,6 +150,6 @@ public class MemberController {
 		newVO.setAddress(roadAddress+","+jibunAddress+"/"+detailAddress);
 		HttpSession session = request.getSession(false);
 		session.setAttribute("mvo", newVO);
-		return "redirect:home.do";
+		return "redirect:../home.do";
 	}
 }

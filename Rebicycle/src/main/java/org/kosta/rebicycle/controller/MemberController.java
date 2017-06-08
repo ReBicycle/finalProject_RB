@@ -44,7 +44,7 @@ public class MemberController {
 		return path;
 	}
 	
-	@RequestMapping("logout.do")
+	@RequestMapping("member/logout.do")
 	public String logout(HttpServletRequest request){
 		HttpSession session=request.getSession(false);
 		if(session!=null)
@@ -95,7 +95,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("memberModifyForm.do")
+	@RequestMapping("member/memberModifyForm.do")
 	public String memberModifyView(HttpServletRequest request,Model model){
 		//System.out.println("회원정보수정Controller");
 		HttpSession session=request.getSession(false);
@@ -118,7 +118,7 @@ public class MemberController {
 		return "member/member_modify_form.tiles";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="memberModify.do")
+	@RequestMapping(method=RequestMethod.POST,value="member/memberModify.do")
 	public String memberModify(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		//System.out.println("memberModify"+vo.getUploadFile());
 		
@@ -158,6 +158,6 @@ public class MemberController {
 		newVO.setAddress(roadAddress + "%" + jibunAddress + "%" + detailAddress);
 		HttpSession session = request.getSession(false);
 		session.setAttribute("mvo", newVO);
-		return "redirect:home.do";
+		return "redirect:../home.do";
 	}
 }

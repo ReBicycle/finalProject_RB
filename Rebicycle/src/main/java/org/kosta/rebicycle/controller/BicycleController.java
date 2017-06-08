@@ -96,7 +96,7 @@ public class BicycleController {
 		return map;
 	}
 	//자전거 수정
-	@RequestMapping(method = RequestMethod.POST, value = "modifyBicycle.do")
+	@RequestMapping(method = RequestMethod.POST, value = "bicycle/modifyBicycle.do")
 	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
@@ -109,9 +109,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -128,7 +128,7 @@ public class BicycleController {
 		return "redirect:bicycle_modify_result.do";
 	}
 	
-	@RequestMapping("bicycle_modify_result.do")
+	@RequestMapping("bicycle/bicycle_modify_result.do")
 	public String bicycleModifyResult(){
 		return "bicycle/bicycle_modify_result.tiles";
 	}
@@ -155,7 +155,7 @@ public class BicycleController {
 		}
 		
 	///상세보기로 보낼 정보 처리 컨트롤러
-	@RequestMapping("findBicycleByNo.do")
+	@RequestMapping("bicycle/bicycle_findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model, HttpServletRequest request){
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
@@ -186,7 +186,7 @@ public class BicycleController {
 
 	//calendarBean으로부터 해당 월의 마지막날짜, 1일 요일을 ajax로 받아옴
 	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
-	@RequestMapping("bicycleModifyForm.do")
+	@RequestMapping("bicycle/bicycleModifyForm.do")
 	public String bicycleModifyForm(String memberId, int bicycleNo, Model model){
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(bicycleNo);
 		String[] address = bvo.getAddress().split("%");
@@ -343,7 +343,7 @@ public class BicycleController {
 		return serviceImpl3.findPossibleDayByNo(no);
 	}
 	
-	@RequestMapping("rentRegister.do")
+	@RequestMapping("bicycle/rentRegister.do")
 	public String rentRegister(String bicycleNo,String[] startDay,String[] endDay,HttpServletRequest request){
 		HttpSession session = request.getSession(false);
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");		
@@ -353,9 +353,8 @@ public class BicycleController {
 		
 		//빌리려 하는 사람이 여러 날짜를 빌리고 싶은 경우
 		//각 날짜는 다른 tuple 에 들어간다.
+
 		for(int i=0; i<startDay.length; i++){
-			System.out.println("test     "+startDay[i]);
-			System.out.println("test2     "+endDay[i]);
 			cvo.setStartDay(startDay[i]);
 			cvo.setEndDay(endDay[i]);			
 			RentVO rvo=new RentVO(bvo,mvo,cvo);
@@ -367,6 +366,11 @@ public class BicycleController {
 		
 		//RentVO rvo=new RentVO(bvo,mvo,cvo);
 		//serviceImpl3.rentRegister(rvo);		
+		return "redirect:rentRegister_result.do";
+	}
+	@RequestMapping("bicycle/rentRegister_result.do")
+	public String rentRegisterResult(){
+		
 		return "mypage/mypage_main.tiles";
 	}
 }

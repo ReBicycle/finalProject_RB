@@ -194,7 +194,7 @@ function findGeo(){
                 <div class="panel-title">자전거 정보 수정</div>
             </div>
             <div class="panel-body" > 
-				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/modifyBicycle.do">
+				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/bicycle/modifyBicycle.do">
 				    <input type="hidden" name="bicycleNo" value="${param.bicycleNo }" />
 				    
 				    <!-- 사진 -->

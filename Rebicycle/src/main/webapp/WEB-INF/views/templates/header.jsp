@@ -22,10 +22,10 @@
                     <c:choose>
 					<c:when test="${sessionScope.mvo==null}">
                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/member/member_login.do">login</a>
+                        <a href="${pageContext.request.contextPath}/member/login.do">login</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/member/member_register_form.do">join</a>
+                        <a href="${pageContext.request.contextPath}/member/register_member_form.do">join</a>
                    </li>
                  	
                     
@@ -38,11 +38,11 @@
                       	<a>${sessionScope.mvo.name} 님 로그인</a> 
                      </li>
                       <li class="page-scroll">
-						<a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
+						<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
                       </li>
                       
                         <li class="page-scroll">
-						<a href="${pageContext.request.contextPath}/memberModifyForm.do">회원정보수정</a>
+						<a href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a>
                         </li>
                         <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
@@ -58,9 +58,6 @@
                      	
 					</c:otherwise>
 					</c:choose> 
-					 <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_map.do">map</a>
-                    </li>
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
                     </li>

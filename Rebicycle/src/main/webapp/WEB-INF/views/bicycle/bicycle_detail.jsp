@@ -230,15 +230,7 @@ section.awSlider>img {
        var calculateResult=new Array();
          
         $("#checkImg").click(function(){
-           
-            if($("#checkResult").html()==""){
-               
-            }else{
-               
-               $("#checkResult").html("<font color='red'>test</font>");
-            }
-           
-           
+       
            //day N:N 비교한 결과 불가능한 input
            var result="";
         
@@ -576,7 +568,7 @@ section.awSlider>img {
                <!-- <div class="col-lg-8 col-lg-offset-2"> -->
                <div class="col-lg-10 col-lg-offset-1">
                   <form name="rentForm" id="rentForm"
-                     action="${pageContext.request.contextPath}/rentRegister.do">
+                     action="${pageContext.request.contextPath}/bicycle/rentRegister.do" method="post">
                      
                   <table id = "addTable">                   
                     

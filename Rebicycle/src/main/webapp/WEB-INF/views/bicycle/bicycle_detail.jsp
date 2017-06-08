@@ -228,6 +228,15 @@ section.awSlider>img {
     	var calculateResult=new Array();
    		
         $("#checkImg").click(function(){
+        	alert("test");
+            if($("#checkResult").html()==""){
+            	
+            }else{
+            	alert("cat");
+            	$("#checkResult").html("<font color='red'>test</font>");
+            }
+        	
+        	
         	//day N:N 비교한 결과 불가능한 input
         	var result="";
         

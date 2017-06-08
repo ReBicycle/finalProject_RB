@@ -164,27 +164,30 @@ function findGeo(){
 			var stCount = $(".id_startDay").length;
 			var stid = "id_startDay";
 			var endid = "id_endDay";
-			var nowst = "id_startDay"+(stCount-1);
-			var nowend = "id_endDay"+(stCount-1);
-			var nowstval = $("#"+nowst).val();
-			var nowendval = $("#"+nowend).val();
-			var arr = [];
-
+			var arr1 = [];
+			var arr2 = [];
+			var k = 0;
+			
 			for(var i=0 ; i<stCount-1 ; i++) {
-				if($("#"+stid+i).val() > nowendval || $("#"+endid+i).val() < nowstval){
-					arr[i] = "0";
+				if($("#"+stid+i).val() > $("#"+endid+(i+1)) || $("#"+endid+i).val() < $("#"+stid+(i+1)).val()){
+					arr1[i] = "0";
 				} else {
-					arr[i] = "1";
+					arr1[i] = "1";
+					arr2[k] = i+1;
+					k++;
 				}
 			}
 			
-			for(var j=0 ; j<arr.length ; j++) {
-				if(arr[j] == "1") {
+			for(var j=0 ; j<arr1.length ; j++) {
+				if(arr1[j] == "1") {
 					alert("날짜를 제대로 선택해주세요");
-					$("#"+nowst).val("yyyy-MM-dd");
-					$("#"+nowend).val("yyyy-MM-dd");
 					break;
 				}
+			}
+			
+			for(var h=0 ; h<arr2.length ; h++) {
+				$("#id_startDay"+arr2[h]).val("연도-월-일");
+				$("#id_endDay"+arr2[h]).val("연도-월-일");
 			}
 		});
 	});

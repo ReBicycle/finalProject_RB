@@ -227,7 +227,7 @@ tr:hover{background-color:#f5f5f5}
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 	                           <c:forEach items="${requestScope.registerList}" var = "bList">
 	
-		                                <li><a href="${pageContext.request.contextPath}/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
+		                                <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
 		                              
 	                       		 </c:forEach>
                        		 </ul>
@@ -322,7 +322,7 @@ tr:hover{background-color:#f5f5f5}
                     <br><br>
 				<div align="left">
 					<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
-						<a href ="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
+						<a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
 	                </c:forEach>
 				
 				</div>

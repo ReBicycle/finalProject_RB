@@ -194,7 +194,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
      index++;
      </c:forEach>
      
-     alert(contents[0]);
+     
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
  		//var imageSrc = "${pageContext.request.contextPath}/resources/img/images.jpg";
@@ -231,7 +231,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
               daum.maps.event.addListener(marker, 'mouseout', makeOutListener(overlay)); 
            // 마커를 클릭했을 때 디테일로 페이지이동
               daum.maps.event.addListener(marker, 'click', function() {
-                  location.href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo="+p;
+                  location.href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+p;
               });
               
         }//for문 끝

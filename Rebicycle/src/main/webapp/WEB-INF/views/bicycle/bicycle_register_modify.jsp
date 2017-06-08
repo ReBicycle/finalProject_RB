@@ -114,19 +114,12 @@ function findGeo(){
 			
 	  	//삽입될 Form Tag'
 	  	var frmTag = "<input type=date name=startDay class=id_startDay id=id_startDay"+stCount+" required=required> <input type=date name=endDay class=id_endDay id=id_endDay"+endCount+" required=required> ";
-/* 	  	frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>"; */
 	  	oCell.innerHTML = frmTag;
 	}
-	//Row 삭제
-	function removeRow() {
-		oTbl = document.getElementById("addTable");
-		oTbl.deleteRow(oTbl.clickedRowIndex);
-	}
 
-	
 	function delete_row() {
 		var my_tbody = document.getElementById("addTable");
-		if (my_tbody.rows.length < 1) return;
+		if (my_tbody.rows.length-1 <= 1) return;
 		my_tbody.deleteRow( my_tbody.rows.length-1 ); // 하단부터 삭제
 	}
 

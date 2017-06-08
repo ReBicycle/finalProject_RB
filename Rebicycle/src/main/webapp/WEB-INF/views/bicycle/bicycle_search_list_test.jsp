@@ -3,5 +3,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <br><br>
 <c:forEach items = "${bList}" var = "list">
-	<a href = "${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=${list.bicycleNo}">${list.bicycleNo}</a>
+	<a href = "${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}">${list.bicycleNo}</a>
 </c:forEach>

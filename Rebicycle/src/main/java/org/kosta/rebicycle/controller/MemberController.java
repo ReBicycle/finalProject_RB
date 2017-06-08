@@ -18,8 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class MemberController {
-	private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+
+	
+	//private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+
 	//private String uploadPath="C:\\Users\\소영\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	//종봉
+	String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	@Resource
 	private MemberService memberService;
 	
@@ -39,7 +44,7 @@ public class MemberController {
 		return path;
 	}
 	
-	@RequestMapping("logout.do")
+	@RequestMapping("member/logout.do")
 	public String logout(HttpServletRequest request){
 		HttpSession session=request.getSession(false);
 		if(session!=null)
@@ -76,7 +81,7 @@ public class MemberController {
 		}
 		
 		vo.setPicture(vo.getId()+fileExt);
-		vo.setAddress(roadAddress+","+jibunAddress+"/"+detailAddress);
+		vo.setAddress(roadAddress + "%" + jibunAddress + "%" + detailAddress);
 		memberService.registerMember(vo);
 		uploadPath = "";
 		return "redirect:home.do";
@@ -90,22 +95,30 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("memberModifyForm.do")
+	@RequestMapping("member/memberModifyForm.do")
 	public String memberModifyView(HttpServletRequest request,Model model){
 		//System.out.println("회원정보수정Controller");
 		HttpSession session=request.getSession(false);
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");//세션에서 아이디정보 가져옴
 		MemberVO modifyVO = memberService.findMemberById(mvo.getId());
 		
-		//System.out.println("수정할 vo : "+modifyVO);
+		String[] address = modifyVO.getAddress().split("%");
+		String roadAddress = address[0];
+		String jibunAddress = address[1];
+		String detailAddress = address[2];
 		
 		if(modifyVO !=null){
 			model.addAttribute("modifyVO", modifyVO);
 		}
+		
+		model.addAttribute("roadAddress", roadAddress);
+		model.addAttribute("jibunAddress", jibunAddress);
+		model.addAttribute("detailAddress", detailAddress);
+		
 		return "member/member_modify_form.tiles";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="memberModify.do")
+	@RequestMapping(method=RequestMethod.POST,value="member/memberModify.do")
 	public String memberModify(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		//System.out.println("memberModify"+vo.getUploadFile());
 		
@@ -142,9 +155,9 @@ public class MemberController {
 		}
 		
 		MemberVO newVO = memberService.findMemberById(vo.getId());
-		newVO.setAddress(roadAddress+","+jibunAddress+"/"+detailAddress);
+		newVO.setAddress(roadAddress + "%" + jibunAddress + "%" + detailAddress);
 		HttpSession session = request.getSession(false);
 		session.setAttribute("mvo", newVO);
-		return "redirect:home.do";
+		return "redirect:../home.do";
 	}
 }

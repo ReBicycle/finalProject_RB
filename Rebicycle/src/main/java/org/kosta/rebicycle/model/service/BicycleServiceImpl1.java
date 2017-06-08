@@ -49,12 +49,12 @@ public class BicycleServiceImpl1 implements BicycleService {
 
 	// 수정
 	@Transactional
-	public void modifyBicycle(BicycleVO bvo, List<CalendarVO> calList, String uploadPath, MapVO map) {
-		daoImpl1.updateBicycle(bvo);
+	public void modifyBicycle(BicycleVO bvo, List<CalendarVO> calList, String uploadPath, MapVO map, String address) {
 		bvo.setPossibleList((ArrayList<CalendarVO>) daoImpl1.findPossibleDay(bvo.getBicycleNo()));
-
+		calList.get(0).setBicycleNo(bvo.getBicycleNo());
 		// 가능일 수정
 		daoImpl1.deletePossibleDay(calList.get(0));
+
 		for (int i = 0; i < calList.size(); i++) {
 			calList.get(i).setBicycleNo(bvo.getBicycleNo());
 		}
@@ -69,10 +69,12 @@ public class BicycleServiceImpl1 implements BicycleService {
 		pvo.setPhoto3(list.get(2));
 
 		// 위도경도 수정
-		if (map != null) {
-			map.setBicycleNo(bvo.getBicycleNo());
+		map.setBicycleNo(bvo.getBicycleNo());
+		if (daoImpl1.findMapByBicycleNo(bvo.getBicycleNo()).equals(address)) {
 			daoImpl1.updateMap(map);
 		}
+		bvo.setAddress(address);
+		daoImpl1.updateBicycle(bvo);
 	}
 
 	public ArrayList<Object> calculatePrice(int categoryNo) {
@@ -109,4 +111,8 @@ public class BicycleServiceImpl1 implements BicycleService {
 		}
 		return nameList;
 	}// uploadFile method
+
+	public String findAddressById(String id) {
+		return daoImpl1.findAddressById(id);
+	}
 }// class

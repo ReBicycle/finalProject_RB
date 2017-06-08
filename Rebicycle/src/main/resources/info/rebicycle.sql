@@ -62,8 +62,10 @@ create table category(
 
 create table bicycle(
    bicycleNo number primary key,
+   title varchar2(100) not null,
    memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
    address varchar2(300) not null,
+   title varchar2(100) not null,
    purchasePrice number not null,
    rentPrice number not null,
    detail clob not null,
@@ -90,60 +92,33 @@ create table map(
    longitude varchar2(100) not null
 )
 
+--create table rent(
+--   rentNo number primary key,
+--  renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
+--   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
+--   startDay date not null,
+--   endDay date not null,
+--   state number not null
+--)
+
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
    bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
    startDay date not null,
    endDay date not null,
-   state number not null
+   state number default 0
 )
 
-create sequence rent_seq;
-
------------------rent table 컬럼 수정-----------------------
-alter table rent add totalprice number not null
-alter table rent modify(state number default 0);
-
-delete from rent
-select * from rent
-insert into rent values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-12',1);
-insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-13');
-select rent_seq.nextval from dual
-select bicycle_seq.nextval from dual
 
 
-
-
-create table a(
-	id varchar2(100) primary key,
-	state number default 0
-)
-drop table a
-insert into a value('java');
-select * from a
-
-select * from BICYCLE
 create table rb_review(
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
 	rentNo number constraint fk_rentNooo references rent(rentNo),
 	star number default 0,
 	reviewDate date not null,
 	content clob not null,
 	constraint pk_rb_review primary key(reviewerId, rentNo)
-<<<<<<< HEAD
-=======
-   rentNo number primary key constraint fk_rentNooo references rent(rentNo),
-   star number default 0,
-   reviewDate date not null,
-   content clob not null
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 )
 
 create table rb_report(
@@ -160,7 +135,14 @@ create table donation(
    detail clob not null,
    picture varchar2(300) not null
 )
-
+create table rb_review(
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   cotent clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
+)
 
 --테이블 수정
 alter table rb_member modify address varchar2(300);
@@ -175,6 +157,27 @@ insert into category(categoryNo, categoryName) values(4, '미니벨로');
 insert into category(categoryNo, categoryName) values(5, '레코드용');
 insert into category(categoryNo, categoryName) values(6, '어린이용');
 insert into category(categoryNo, categoryName) values(7, '기타');
+
+-- 위로는 절대 건드리지 말것!!
+
+-----------------rent table 컬럼 수정-----------------------
+alter table rent modify(state number default 0);
+
+delete from rent
+select * from rent
+insert into rent values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-12',1);
+insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(rent_seq.nextval,'java2',4,'2017-06-27','2017-06-27');
+select rent_seq.nextval from dual
+select bicycle_seq.nextval from dual
+
+
+
+select * from BICYCLE
+
+
+
+
+
 
 
 
@@ -242,12 +245,14 @@ insert into map values(1,'33.450701','126.570667');
 insert into map values(2,'33.450701','126.570667');
 alter table bicycle modify address varchar2(300)
 --좌표까지 조회
+select * from rb_member
 
 ------------종봉----------------------------------------------
 
 -----------------------------석희---------------------------------
 select * from rb_report;
-
+alter table rb_report
+add reportTitle varchar2(100) not null
 create table rb_report(
 	reportNo number primary key,
 	reportTitle varchar2(100) not null,
@@ -352,13 +357,8 @@ delete from category;
 delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
 
-
-select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
-		,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,	ph.*, b.title, pd.startDay, pd.endDay
-		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca, possible_day pd
-		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=1 and ca.categoryNo=b.categoryNo and pd.bicycleNo=b.bicycleNo
-		
-update bicycle set address='경기 성남시 분당구 대왕판교로606번길 45 (삼평동),경기 성남시 분당구 삼평동 653,100-10'	
+select * from possible_day
+select address from rb_member where id='java';
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
@@ -380,7 +380,7 @@ where bicycleNo=1 and b.memberId=m.id
 
 
 
-
+select * from possible_day
 
 
 
@@ -407,35 +407,6 @@ from bicycle
 where memberId='java'
 
 -----------------------소영------------------------------------------
-
-select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
-from bicycle b, category c
-where b.categoryNo = c.categoryNo and memberId='java'
-
-select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
-from bicycle
-where memberId='java'
-
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-=======
-where memberId='java'
-=======
-
-select * from RB_MEMBER
-select * from CATEGORY
-<<<<<<< HEAD
-select * from bicycle
-where memberId='java'
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 
@@ -488,7 +459,7 @@ select * from map;
 -------------------------------------------------
 --대여성사됨 등록
 --1.정태형이 배서경자전거1 빌림 : 11~12일
-insert into rent values(rent_seq.nextval,'java3',1,to_date('2017-06-11','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java',33,to_date('2017-06-11','yyyy/mm/dd'),to_date('2017-06-12','yyyy/mm/dd'));
 --2.정태형이 임소영자전거4 빌림 : 15~17일
 insert into rent values(rent_seq.nextval,'java3',4,to_date('2017-06-15','yyyy/mm/dd'),to_date('2017-06-17','yyyy/mm/dd'),1);
 --3.이현근이 배서경자전거1 빌림 : 13일
@@ -496,21 +467,21 @@ insert into rent values(rent_seq.nextval,'java4',1,to_date('2017-06-13','yyyy/mm
 --4.임소영이 배서경자전거1 빌림 : 14일
 insert into rent values(rent_seq.nextval,'java2',1,to_date('2017-06-14','yyyy/mm/dd'),to_date('2017-06-14','yyyy/mm/dd'),1);
 
+insert into rent values(rent_seq.nextval,'java2',4,to_date('2017-06-08','yyyy/mm/dd'),to_date('2017-06-09','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java3',4,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-11','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java4',4,to_date('2017-06-12','yyyy/mm/dd'),to_date('2017-06-15','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java2',4,to_date('2017-06-16','yyyy/mm/dd'),to_date('2017-06-17','yyyy/mm/dd'),1);
 select * from rent;
+
+select rentNo from rent
+		where renterId='java2' and bicycleNo=4 and state=1
 ------------------------------------------------
+select * from RB_REVIEW;
 
-insert into rb_review values(1,4,sysdate,'좋아요');
-insert into rb_review values(2,4,sysdate,'임쏘자전거좋아요');
-insert into rb_review values(3,5,sysdate,'좋아요3');
-insert into rb_review values(4,3,sysdate,'좋아요4');
 
+insert into rb_review values('java2',22,4,sysdate,'리뷰 첫번째');
 
 --==============서경==============================================================
-<<<<<<< HEAD
-
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
 update rb_report set reportTitle='test',blackId='java',contents='test',reportDate=sysdate where reportNo=26
 
 
@@ -520,7 +491,9 @@ delete from possible_day;
 delete from bicycle_photo;
 delete from bicycle;
 alter table bicycle add title varchar2(100) not null;
-   
+
+delete from bicycle;
+delete from rb_member;
 delete from rb_review;
 delete from rb_report;
 delete from donation;
@@ -531,6 +504,10 @@ delete from map;
 delete from bicycle;
 delete from category;
    
+select * from bicycle
+select * from rb_member
+select * from category
+
 drop sequence category_seq;
 drop sequence bicycle_seq;
 drop sequence rent_seq;
@@ -576,7 +553,11 @@ create table rb_review(
    cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
+
 drop table rent
+delete table rent
+alter table rent 
+add constraint fk_bicycle_no_deal references bicycle(bicycleNo)
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
@@ -584,8 +565,137 @@ create table rent(
    startDay date not null,
    endDay date not null,
    state number default 0
-  
 )
-select * from rent_seq
-select * from rent;
-drop table bicycle
+
+select * from POSSIBLE_DAY
+
+--mypage 요청 리스트
+select r.*, b.*
+from rent r, bicycle b
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
+
+
+select r.*, b.bicycleNo, b.memberId, b.title
+from rent r, bicycle b
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
+
+
+select distinct bicycleNo, title
+		from bicycle
+		where memberId='java'
+
+		-- 직접 테이블 만들어서 테스트 해본다 
+create table date_test2(
+	id varchar2(50) primary key,
+	mydate date not null
+)
+-- id java , mydate는 현재시간으로 insert 해본다 
+insert into date_test2(id,mydate) values('java',sysdate);
+select * from date_test2;
+-- id가 java인 대상의 mydate를 년 월 일 시 분 초까지 조회한다
+-- to_char 함수를 이용한다 
+select to_char(mydate,'YYYY/MM/DD HH24:MI:SS') from date_test
+where id='java';
+
+-- 특정 시간을 insert 해본다 
+-- 문자열 형식의 날짜 정보를 date 타입으로 insert 하기 위해 
+-- to_date(시간정보,시간포맷) 함수를 이용 
+insert into date_test(id,mydate) 
+values('spring',to_date('2017/1/1 9:00:10','YYYY/MM/DD HH24:MI:SS'));
+
+select * from date_test;
+-- 시간 연산이 가능하다 
+select id,sysdate-mydate from date_test;\
+
+select * from rent
+
+select r.*, p.*
+from rent r, possible_day p
+where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12
+
+
+select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
+from dual
+==> 1 일 (1일)
+
+<<<<<<< HEAD
+update possible_day
+set endDay = to_date(('2017-06-14', 'yyyy-mm-dd')-1)
+
+select p.startDay,p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7 
+and '2017-06-14'>= to_char(p.startDay,'yyyy-mm-dd')
+and '2017-06-17' = to_char(p.endDay,'yyyy-mm-dd')
+
+select p.startDay,p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7 
+and '2017-06-14'>= p.startDay
+and '2017-06-17' = p.endDay
+
+
+select * from possible_day where bicycleNo=7
+and endDay = to_char('2017-06-16','yyyy-mm-dd') and startDay <= to_char('2017-06-14','yyyy-mm-dd');
+
+select to_char(startDay,'yyyy-mm-dd') from possible_day where bicycleNo=7
+
+create table daytest(
+	id varchar2(100) primary key,
+	startDay date not null,
+	endDay date not null
+)
+
+insert into daytest values('java',sysdate,sysdate+1)
+select * from daytest
+
+select to_date(startDay,'yy-mm-dd') from daytest
+where startDay=sysdate
+
+create table tt(
+	id varchar2(100) primary key,
+	startDay varchar2(100) not null
+)
+insert into tt values('java','2017-05-05')
+
+select to_date(startDay,'yyyy-mm-dd') from tt
+
+select * from possible_day where bicycleNo=15
+select * from rent where rentNo=36
+
+update possible_day
+set endDay = to_date('2017-06-08', 'yyyy-mm-dd')
+
+update possible_day 
+set endDay = to_date('2017-06-10', 'yyyy-mm-dd')
+where bicycleNo = 8
+and to_date('2017-06-08', 'yyyy-mm-dd')>= startDay
+and to_date('2017-06-10', 'yyyy-mm-dd')= endDay;
+
+select * from possible_day where bicycleNo=8
+=======
+<<<<<<< HEAD
+select startDay, endDay
+from possible_day 
+where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
+and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
+
+
+select p.startDay, p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
+
+select * from possible_day
+
+delete 
+from possible_day p, bicycle b	
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} 
+and <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+
+select * from possible_day
+select * from rent
+
+select * from bicycle
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

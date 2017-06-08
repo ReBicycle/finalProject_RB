@@ -1,13 +1,161 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
 
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover{background-color:#f5f5f5}
+</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#reviewForm").click(function(){
-			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
+			location.href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do?";
 		});
+	
+		var rentListSize = $("a[id^='rentList']").size();
+		 //day N:N - 각각의 startDay , endDay를 담기 위한 배열 선언
+		var startendDay=new Array();
+		var checkFailList=new Array();
+		
+		
+		for(var j = 1;j<=rentListSize;j++){
+			$("#rentList"+j).click(function(){
+				
+				 
+				var bicycleNo=$(this).children().val();
+				$.ajax({
+					type:"get",
+					dataType:"json",
+					url:"${pageContext.request.contextPath}/getRentByBicycleNo.do?bicycleNo="+bicycleNo,
+					success:function(data){
+						//data[1]
+						var result = "";
+						var table = "";
+
+						for(var i = 0; i<data.length;i++){
+
+							
+							 table += "<tr>"+
+								 		"<td>" + data[j].rentNo + "</td>"+
+								 		"<td>" + data[j].memberVO.id + "</td>"+
+								 		"<td>" + data[j].calendarVO.startDay + "</td>"+
+								 		"<td>" + data[j].calendarVO.endDay + "</td>"+
+								 		"<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
+								 		"</tr>";
+							
+							
+							dayMap.put("startDay", data[j].calendarVO.startDay.substring(0,10));
+							dayMap.put("endDay", data[j].calendarVO.endDay.substring(0,10));
+							startendDay[j] = dayMap;
+							//alert("ajax Rent"+data[j].calendarVO.startDay);
+							$.ajax({
+					            type:"get",
+					            data:"bicycleNo="+bicycleNo,
+					            dataType:"json",
+					            url:"${pageContext.request.contextPath}/dayCheck.do",
+					       
+					            success:function(data){                  
+					       			
+					               var flag=0;
+
+					                  for(var i=0; i<data.length; i++){
+					                	
+					                   
+					                   	
+					                    if(((data[i].startDay<=startendDay[j-1].get("startDay"))&&(startendDay[j-1].get("endDay")<=data[i].endDay))){
+					                    	alert("1로바뀜!");
+					                    	flag=1;
+					                     }                                     
+					                  }//for-data.length    
+					                
+					                  checkFailList[j-1]=flag;
+					                  if(checkFailList[j-1] == 0){
+								        	// alert("dd불가능!!!!!!");
+								        	 //alert("eee"+$("#rentInfo tr:eq(+"+i+")").children().eq(4).html());
+								        	 $("#rentInfo tr:eq(+"+(j-1)+")").children().eq(4).html("<input type = 'button' id = 'okBtn'  value = '수락불가' class='btn btn-warning'>");
+								        	 $("#rentInfo tr:eq(+"+(j-1)+")").children().eq(4).click(function(event){
+								        		 event.stopPropagation();
+								        		 event.preventDefault();
+								        	 });
+								        	return;
+								         }else{
+								        	 
+								        	 //alert("가능!!!!!");
+								         }
+					            } //success                  
+					         });//ajax
+							
+							
+						}
+						
+						$("#rentInfo").html(table); 
+						
+						 
+					} //success
+				});//ajax
+			});
+		}
+		
+		
+		$("#rentInfo").on("click","#okBtn" ,function(){
+			if(confirm("수락하시겠습니까?")){
+				var rentNo = $("#okBtn").parent().parent().children().eq(0).text();
+				location.href = "${pageContext.request.contextPath}/rentOk.do?rentNo="+rentNo;
+			}
+		});
+		
+		$(".btn btn-danger").on("click", function(){
+			
+		});
+		
+		
+		 function newMap() {
+	           var map = {};
+	           map.value = {};
+	           map.getKey = function(id) {
+	             return "k_"+id;
+	           };
+	           map.put = function(id, value) {
+	             var key = map.getKey(id);
+	             map.value[key] = value;
+	           };
+	           map.contains = function(id) {
+	             var key = map.getKey(id);
+	             if(map.value[key]) {
+	               return true;
+	             } else {
+	               return false;
+	             }
+	           };
+	           map.get = function(id) {
+	             var key = map.getKey(id);
+	             if(map.value[key]) {
+	               return map.value[key];
+	             }
+	             return null;
+	           };
+	           map.remove = function(id) {
+	             var key = map.getKey(id);
+	             if(map.contains(id)){
+	               map.value[key] = undefined;
+	             }
+	           };
+	          
+	           return map;
+	         }
+	        
 	});
+	
+	
 </script>
 
 
@@ -169,7 +317,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 	                           <c:forEach items="${requestScope.registerList}" var = "bList">
 	
-		                                <li><a href="${pageContext.request.contextPath}/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
+		                                <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
 		                              
 	                       		 </c:forEach>
                        		 </ul>
@@ -207,27 +355,39 @@
                         
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                --요청 ID--
-                                <span class="caret"></span>
+                                --등록자전거--
+                                <span class="caret"></span>+
                             </button>
-                           <%--  ${requestScope.bicycleList} --%>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           
-                       		 </ul>
-                        </div>
+                     <%-- ${requestScope.[0].memberVO.id} --%>
+                    
+                     	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	                           	<c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
+									
+		                             <li>
+		                             	<a id = "rentList${order.count}">${registerList.title}
+		                              	<input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${registerList.bicycleNo}"></a>
+		                             </li>
+
+	                       		 </c:forEach>
+                       </ul> 
+                       
+                     </div>
                     </span>
                     <br><br>
-					<hr>
-                    <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
-                    </span>
-                    <span class="pull-right">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                    </span>
+                   	<div align = "left" id ="rentView">
+                   	<span align = "center" id = "bicycleInfo">요청 내역</span>
+                   		<table>
+							<thead>
+								<tr>
+									<th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th>
+								</tr>
+							</thead>
+							<tbody id = "rentInfo"></tbody>
+						</table>
+                   	</div>
+                    <br><br>
+					
+                    
                 </div>
             </div>
             <hr>
@@ -245,18 +405,14 @@
                             </button>
                            <%--  ${requestScope.bicycleList} --%>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	                           <c:forEach items="${requestScope.registerList}" var = "bList">
-	
-		                                <li><a href="#">${bList.detail}</a></li>
-		                              
-	                       		 </c:forEach>
+	                           
                        		 </ul>
                         </div>
                     </span>
                     <br><br>
 				<div align="left">
-					<c:forEach items="${requestScope.rentList}" var = "bList" varStatus="i">
-						 ${bList.bicycleVO.detail} <input type="button"  value="리뷰쓰기"  id="reviewForm"><br>                       
+					<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
+						<a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
 	                </c:forEach>
 				
 				</div>
@@ -267,7 +423,7 @@
         
         </div>
         
-        
+
         
     </div>
 </div>

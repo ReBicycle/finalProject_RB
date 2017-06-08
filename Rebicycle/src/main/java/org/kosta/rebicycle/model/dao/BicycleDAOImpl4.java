@@ -61,6 +61,8 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 
 	public void updatePossibleCalendarVOType2(HashMap<String, CalendarVO> calendarMap) {
 		System.out.println("test dao     "+calendarMap.get("rent").getStartDay());
+		System.out.println("test dao     "+calendarMap.get("rent").getEndDay());
+		System.out.println("test dao     "+calendarMap.get("rent").getBicycleNo());
 		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
 		
 	}

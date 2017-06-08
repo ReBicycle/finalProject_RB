@@ -624,3 +624,14 @@ select to_date(startDay,'yyyy-mm-dd') from tt
 
 select * from possible_day where bicycleNo=15
 select * from rent where rentNo=36
+
+update possible_day
+set endDay = to_date('2017-06-08', 'yyyy-mm-dd')
+
+update possible_day 
+set endDay = to_date('2017-06-10', 'yyyy-mm-dd')
+where bicycleNo = 8
+and to_date('2017-06-08', 'yyyy-mm-dd')>= startDay
+and to_date('2017-06-10', 'yyyy-mm-dd')= endDay;
+
+select * from possible_day where bicycleNo=8

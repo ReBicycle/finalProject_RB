@@ -263,7 +263,7 @@ section.awSlider>img {
                   exit_for:
                   for(var i=0; i<data.length; i++){
                      //가능한 날짜일 경우 flag에 +1 한다.
-                     if((data[i].startDay<=startendDay[j].get("startDay"))&&(startendDay[j].get("endDay")<=data[i].endDay)){
+                     if(((data[i].startDay<=startendDay[j].get("startDay"))&&(startendDay[j].get("endDay")<=data[i].endDay))){
                         flag=1;
                         break exit_for;
                      }else{

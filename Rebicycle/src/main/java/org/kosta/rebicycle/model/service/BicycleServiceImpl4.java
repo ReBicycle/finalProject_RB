@@ -98,12 +98,12 @@ public class BicycleServiceImpl4 implements BicycleService {
 		else if(Integer.parseInt(compare.getStartDay())>0 && Integer.parseInt(compare.getEndDay())==0){
 			//type2 
 			System.out.println("type2");
-			bicycleDAOImpl4.updatePossibleCalendarVOType2(calendarMap);
-			
-		}
+			bicycleDAOImpl4.updatePossibleCalendarVOType2(calendarMap);			
+		}	
 		else if(Integer.parseInt(compare.getStartDay())>0 && Integer.parseInt(compare.getEndDay())>0){
 			//type3
 			System.out.println("type3");
+
 			bicycleDAOImpl4.updatePossibleCalendarVOType3(calendarMap);
 			
 		}

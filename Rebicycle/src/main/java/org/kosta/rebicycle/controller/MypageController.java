@@ -69,6 +69,7 @@ public class MypageController {
 	@RequestMapping("rentOk.do")
 	@Transactional
 	public String rentOk(String rentNo){
+		System.out.println("test       rentOk    "+rentNo);
 		//System.out.println("rentOK" + rentNo);
 		RentVO rvo = bicycleService4.findRentByRentNo(Integer.parseInt(rentNo));
 		//System.out.println("rentOK rvo" + rvo);

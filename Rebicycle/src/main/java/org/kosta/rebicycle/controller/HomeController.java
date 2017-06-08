@@ -23,19 +23,22 @@ public class HomeController {
 			
 			return "home.tiles";
 		}
-		
+		@RequestMapping("member_login.do")
+		public String showLoginForm(){
+			return "member/member_login.tiles";
+		}
 		@RequestMapping("{dirName}/{viewName}.do")
 		public String showView(@PathVariable String dirName, @PathVariable String viewName) {
 			//System.out.println("@PathVariable:" + dirName + viewName);
 			return dirName + "/" + viewName + ".tiles";
 		}
-		@RequestMapping("bicycle/bicycle_search_list.do")
+		@RequestMapping("bicycle_search_list.do")
 		public ModelAndView bicycleList(HttpServletRequest request,String address,String startDay,String endDay){
 			System.out.println("검색 컨트롤러실행"+address+startDay+endDay);
 			List<BicycleVO>list=service.getBicycleListByAddressAndDay(address, startDay, endDay);
 			return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",list);
 		}
-		@RequestMapping("bicycle/sortByBikeType.do")
+		@RequestMapping("sortByBikeType.do")
 		@ResponseBody
 		public List<BicycleVO> sortByBikeType(HttpServletRequest request,String address,String startDay,String endDay,String bikeType){
 			System.out.println("타입별 정렬 컨트롤러 실행");
@@ -44,7 +47,7 @@ public class HomeController {
 		}
 		return service.sortByBikeType(address, startDay, endDay, bikeType);
 		}
-		@RequestMapping("bicycle/sortByPriceType.do")
+		@RequestMapping("sortByPriceType.do")
 		@ResponseBody
 		public List<BicycleVO> sortByPriceType(String address,String startDay,String endDay,String priceType){
 			System.out.println("타입별 정렬 컨트롤러 실행");

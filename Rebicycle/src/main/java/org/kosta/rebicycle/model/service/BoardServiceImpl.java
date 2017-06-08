@@ -1,7 +1,11 @@
 package org.kosta.rebicycle.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.kosta.rebicycle.model.dao.BoardDAO;
+import org.kosta.rebicycle.model.vo.BoardReplyVO;
 import org.kosta.rebicycle.model.vo.ListVO;
 import org.kosta.rebicycle.model.vo.PagingBean;
 import org.kosta.rebicycle.model.vo.ReportVO;
@@ -51,4 +55,16 @@ public class BoardServiceImpl implements BoardService{
 	public ReportVO findReportNo(int reportNo){		
 		return boardDAO.boardUpdateReportView(reportNo);
 	}	
+	@Override
+	public BoardReplyVO findBoardReplyNo(int reno){
+		return boardDAO.findBoardReplyNo(reno);
+	}
+	@Override
+	public void commentWrite(BoardReplyVO bvo){
+		boardDAO.commentWrite(bvo);
+	}
+	@Override
+	public List<BoardReplyVO> getReplyList(BoardReplyVO brv){
+		return boardDAO.getReplyList(brv);
+	}
 }

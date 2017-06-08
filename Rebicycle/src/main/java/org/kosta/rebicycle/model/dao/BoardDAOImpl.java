@@ -1,9 +1,10 @@
-package org.kosta.rebicycle.model.service;
+package org.kosta.rebicycle.model.dao;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.rebicycle.model.vo.BoardReplyVO;
 import org.kosta.rebicycle.model.vo.PagingBean;
 import org.kosta.rebicycle.model.vo.ReportVO;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -43,5 +44,18 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public void deleteReport(int reportNo){
 		sqlSessionTemplate.delete("board.deleteReport",reportNo);
+	}
+	@Override
+	public BoardReplyVO findBoardReplyNo(int reno){
+		return (BoardReplyVO)sqlSessionTemplate.selectOne("board.findBoardReplyNo",reno);
+	}
+	@Override
+	public void commentWrite(BoardReplyVO bvo){
+		sqlSessionTemplate.insert("board.commentWrite",bvo);
+	}
+	@Override
+	public List<BoardReplyVO> getReplyList(BoardReplyVO brv){
+		System.out.println("ReplyList     "+brv);
+		return sqlSessionTemplate.selectList("board.findBoardReplyNo",brv);
 	}
 }

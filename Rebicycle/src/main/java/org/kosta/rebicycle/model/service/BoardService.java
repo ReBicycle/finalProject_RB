@@ -1,5 +1,8 @@
 package org.kosta.rebicycle.model.service;
 
+import java.util.List;
+
+import org.kosta.rebicycle.model.vo.BoardReplyVO;
 import org.kosta.rebicycle.model.vo.ListVO;
 import org.kosta.rebicycle.model.vo.ReportVO;
 
@@ -20,5 +23,11 @@ public interface BoardService {
 	void deleteReport(int reportNo);
 
 	ReportVO findReportNo(int reportNo);
+
+	void commentWrite(BoardReplyVO bvo);
+
+	BoardReplyVO findBoardReplyNo(int reno);
+
+	List<BoardReplyVO> getReplyList(BoardReplyVO brv);
 
 }

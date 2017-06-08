@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl3;
-import org.kosta.rebicycle.model.service.BoardDAOImpl;
+import org.kosta.rebicycle.model.dao.BoardDAOImpl;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.ReportVO;
 import org.mybatis.spring.SqlSessionTemplate;

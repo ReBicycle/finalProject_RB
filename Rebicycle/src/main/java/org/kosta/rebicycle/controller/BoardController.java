@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.service.BoardService;
-import org.kosta.rebicycle.model.service.MemberService;
+import org.kosta.rebicycle.model.vo.BoardReplyVO;
 import org.kosta.rebicycle.model.vo.ListVO;
 import org.kosta.rebicycle.model.vo.ReportVO;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class BoardController {
 	@Resource(name="boardServiceImpl")
 	private BoardService boardService;
-	private MemberService memberService;
 	// 신고글 작성
 	@RequestMapping(value="write.do" , method=RequestMethod.POST)
 		public ModelAndView write(HttpServletRequest request, ReportVO rvo){
@@ -75,4 +74,20 @@ public class BoardController {
 	public ModelAndView findReportNo(int reportNo){
 		return new ModelAndView("board/board_detail.tiles","rvo",boardService.findReportNo(reportNo));
 	}
+	@RequestMapping("findBoardReplyNo.do")
+	public ModelAndView findBoardReplyNo(int brdno){
+		return new ModelAndView("board/board_detail.tiles","rvo",boardService.findBoardReplyNo(brdno));
+	}
+	@RequestMapping(value="commentWrite.do", method=RequestMethod.POST)
+	public ModelAndView commentWrite(HttpServletRequest request, BoardReplyVO bvo){
+		boardService.commentWrite(bvo);
+		System.out.println("댓글이다아아아아~~~~~~~      "+ bvo);
+		return new ModelAndView("redirect:findReportNo.do?reportNo="+bvo.getBrdno());
+	}
+/*	@RequestMapping("replyList.do")
+	public String list(BoardReplyVO brv, HttpServletRequest request){
+		System.out.println(brv);
+		request.setAttribute("brv", brv);
+		return "board/board_list.tiles";
+	}*/
 }

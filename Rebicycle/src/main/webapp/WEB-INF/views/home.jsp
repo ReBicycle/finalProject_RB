@@ -29,7 +29,7 @@ function dateCheck(){
                         <h2 style="color: ">Search a bike for you</h2><br>
                         	<div  style="margin-top:30px;">
 								<div class="row">
-        			<form action="${pageContext.request.contextPath}/bicycle/bicycle_search_list.do" method="post" name="searchForm" onsubmit="return dateCheck()">
+        			<form action="${pageContext.request.contextPath}/bicycle_search_list.do" method="post" name="searchForm" onsubmit="return dateCheck()">
             		<div class="form-group registration-date" style="width:800px; margin-left:16%;">
             		<div class="input-group registration-date-time"  >
             		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>

@@ -18,6 +18,16 @@
 </bean>
 <!--  annotaion @controller 지원 -->
 <mvc:annotation-driven></mvc:annotation-driven>
+<!--  Handler Interceptor 설정 -->
+<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/member/member*.do"/>
+		<mvc:mapping path="/mypage/*.do"/>
+		<mvc:mapping path="/bicycle/*.do"/>
+		<mvc:mapping path="/donation/*.do"/>
+		<bean class="org.kosta.rebicycle.controller.LoginCheckInterceptor"></bean>
+	</mvc:interceptor>
+</mvc:interceptors>
 <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 <!--  tiles 설정 -->
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

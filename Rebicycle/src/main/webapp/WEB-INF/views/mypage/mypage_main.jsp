@@ -20,8 +20,7 @@ tr:hover{background-color:#f5f5f5}
 		$("#reviewForm").click(function(){
 			location.href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do?";
 		});
-		
-		//rentList${order.count}
+	
 		var rentListSize = $("a[id^='rentList']").size();
 		 //day N:N - 각각의 startDay , endDay를 담기 위한 배열 선언
 		var startendDay=new Array();
@@ -41,9 +40,9 @@ tr:hover{background-color:#f5f5f5}
 						//data[1]
 						var result = "";
 						var table = "";
-						for(var j = 0; j<data.length;j++){
-							var dayMap = newMap();
-							
+
+						for(var i = 0; i<data.length;i++){
+
 							
 							 table += "<tr>"+
 								 		"<td>" + data[j].rentNo + "</td>"+
@@ -318,7 +317,7 @@ tr:hover{background-color:#f5f5f5}
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 	                           <c:forEach items="${requestScope.registerList}" var = "bList">
 	
-		                                <li><a href="${pageContext.request.contextPath}/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
+		                                <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
 		                              
 	                       		 </c:forEach>
                        		 </ul>
@@ -357,7 +356,7 @@ tr:hover{background-color:#f5f5f5}
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 --등록자전거--
-                                <span class="caret"></span>
+                                <span class="caret"></span>+
                             </button>
                      <%-- ${requestScope.[0].memberVO.id} --%>
                     
@@ -368,8 +367,7 @@ tr:hover{background-color:#f5f5f5}
 		                             	<a id = "rentList${order.count}">${registerList.title}
 		                              	<input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${registerList.bicycleNo}"></a>
 		                             </li>
-		                            
-									
+
 	                       		 </c:forEach>
                        </ul> 
                        
@@ -414,7 +412,7 @@ tr:hover{background-color:#f5f5f5}
                     <br><br>
 				<div align="left">
 					<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
-						<a href ="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
+						<a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
 	                </c:forEach>
 				
 				</div>

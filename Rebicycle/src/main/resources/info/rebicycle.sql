@@ -251,7 +251,8 @@ select * from rb_member
 
 -----------------------------석희---------------------------------
 select * from rb_report;
-
+alter table rb_report
+add reportTitle varchar2(100) not null
 create table rb_report(
 	reportNo number primary key,
 	reportTitle varchar2(100) not null,
@@ -369,35 +370,6 @@ from bicycle
 where memberId='java'
 
 -----------------------소영------------------------------------------
-
-select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,c.categoryName
-from bicycle b, category c
-where b.categoryNo = c.categoryNo and memberId='java'
-
-select bicycleNo,memberId,address,purchasePrice,rentPrice,detail,categoryNo
-from bicycle
-where memberId='java'
-
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-=======
-where memberId='java'
-=======
-
-select * from RB_MEMBER
-select * from CATEGORY
-<<<<<<< HEAD
-select * from bicycle
-where memberId='java'
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 
@@ -544,9 +516,6 @@ create table rb_review(
    cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
-<<<<<<< HEAD
-
-=======
 
 drop table rent
 delete table rent
@@ -560,35 +529,24 @@ create table rent(
    endDay date not null,
    state number default 0
 )
-<<<<<<< HEAD
-select * from POSSIBLE_DAY
-=======
-=======
 
 select * from POSSIBLE_DAY
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 --mypage 요청 리스트
 select r.*, b.*
 from rent r, bicycle b
 where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
-<<<<<<< HEAD
 
-=======
 
 select r.*, b.bicycleNo, b.memberId, b.title
 from rent r, bicycle b
 where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 select distinct bicycleNo, title
 		from bicycle
 		where memberId='java'
-		
-		
-		
---
+
 		-- 직접 테이블 만들어서 테스트 해본다 
 create table date_test2(
 	id varchar2(50) primary key,
@@ -623,6 +581,7 @@ select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
 
+<<<<<<< HEAD
 select startDay, endDay
 from possible_day 
 where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
@@ -645,3 +604,4 @@ select * from possible_day
 select * from rent
 
 select * from bicycle
+

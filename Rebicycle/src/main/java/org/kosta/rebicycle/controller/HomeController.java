@@ -34,14 +34,6 @@ public class HomeController {
 		public ModelAndView bicycleList(HttpServletRequest request,String address,String startDay,String endDay){
 			System.out.println("검색 컨트롤러실행"+address+startDay+endDay);
 			List<BicycleVO>list=service.getBicycleListByAddressAndDay(address, startDay, endDay);
-			List<MapVO>mapList=new ArrayList<MapVO>();
-			for(int i=0;i<list.size();i++){
-				list.get(i).getMap().setBicycleNo(list.get(i).getBicycleNo());
-				mapList.add(list.get(i).getMap());
-			}
-		
-			System.out.println(mapList.toString());
-			request.getSession().setAttribute("mapList",mapList );
 			return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",list);
 		}
 		@RequestMapping("bicycle/sortByBikeType.do")

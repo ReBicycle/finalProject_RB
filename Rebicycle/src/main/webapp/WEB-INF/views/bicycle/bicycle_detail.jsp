@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!-- 달력 스크립트 -->
 <script type="text/javascript">
    $(function() {
@@ -72,7 +73,7 @@
       $("#rentForm").submit(function(){      
          var startDay = $("#startDay").val();
          var endDay = $("#endDay").val();
-         alert($("div[id^='possible']").text());
+         //alert($("div[id^='possible']").text());
          
       });
    });
@@ -253,25 +254,25 @@ section.awSlider>img {
      }
      
    $(document).ready(function(){
-			$( ".star_rating a" ).click(function() {
-				event.preventDefault();
-				$(this).parent().children("a").removeClass("on");
-				$(this).addClass("on").prevAll("a").addClass("on");
-				$(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
-				$(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
-				return false;
-			});
-			$(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
-	
-			$("#reviewSubmit").click(function(){
-				if($("#reviewContent").val() == ""){
-					alert("리뷰를 입력하세요");
-					return false;
-				}
-				location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
-			});	
-	   
-	   
+	   //서경////////////
+	   $( ".star_rating a" ).click(function() {
+           event.preventDefault();
+           $(this).parent().children("a").removeClass("on");
+           $(this).addClass("on").prevAll("a").addClass("on");
+           $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
+           $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+           return false;
+        });
+        $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+  
+        $("#reviewSubmit").click(function(){
+           if($("#reviewContent").val() == ""){
+              alert("리뷰를 입력하세요");
+              return false;
+           }
+           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
+        });
+         //서경////////////////
          
         $("#checkImg").click(function(){
          
@@ -342,6 +343,14 @@ section.awSlider>img {
            
          });
          
+         //달력 변경 시 div-checkResult 영역 초기화 - keyup 대신 
+         $("#startDay").click(function(){
+            $("#checkResult").html("날짜를 검사해야 합니다.");
+         });
+       $("#endDay").click(function(){
+          $("#checkResult").html("날짜를 검사해야 합니다.");
+         });
+         
          $("#rentBtn").click(function(){
 
             var result=$("#checkResult").text();
@@ -355,6 +364,10 @@ section.awSlider>img {
                   alert("날짜를 입력하세요.");
                   return false;
                }
+               if(result=='날짜 검사해야 합니다.'){
+                   alert("날짜 검사해야 합니다.");
+                   return false;
+                }
                if(result=='가능')
                   return true;
                 /* if(checkDay().search("true") != -1){
@@ -562,6 +575,8 @@ section.awSlider>img {
                <div class="carousel-caption">${requestScope.findBvo.photoVO.photo3}</div>
             </div>
          </div>
+        
+         
          <!-- Controls -->
          <a class="left carousel-control" href=".carousel" role="button"
             data-slide="prev"> <span
@@ -574,7 +589,15 @@ section.awSlider>img {
          </a>
       </div>
    </section>
-   <hr>
+   
+   <div class="row control-group">
+             <div class="form-group col-xs-12 floating-label-form-group controls">
+                 <label for="name">TITLE</label>
+                 <h3 align="center">- TITLE -</h3>
+                 <p class="help-block text-danger">${requestScope.findBvo.title}</p>
+             </div>
+  </div>
+   
    <!-- 달력 -->
    <div class="row">
       <div class="col-sm-6" style="height: 150%">
@@ -593,8 +616,7 @@ section.awSlider>img {
                   <form name="rentForm" id="rentForm"
                      action="${pageContext.request.contextPath}/rentRegister.do">
                      
-                  <table id = "addTable">
-                        
+                  <table id = "addTable">                   
                     
                         <div class="row control-group">
                            <!-- input 달력 -->
@@ -626,24 +648,35 @@ section.awSlider>img {
                            </div>
                            
                         </table>
-                           
+                     
+               
+                      
+                      
+                
+                
                    <div class = "row control-group">
-
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                <div class="col-sm-4">
                            <abbr title="대여가능체크"><img id = "checkImg" class="check-img"
                      src=" https://www.2buy2.com/images/icons/other/green-outline/tick.png" alt="" style = "width:"></abbr>
-                       
+                        <div id = "checkResult"></div>
+                     </div>
+                     
+                     <div class="col-sm-4"> 
                            <abbr title="대여 기간 추가"><img id = "plusImg" class="plus-img"
                      src="https://www.cambiaelmundo.net/images/covers/subSubjects/9166a4047e8a143a61a644603cedf4bf.jpg" alt="" style = "width:"></abbr>
-                       
+                     </div>
+                    
+                     <div class="col-sm-4">  
                           <abbr title="대여료 계산하기"><img id = "calImg" class="cal-img"
                      src="http://icon-icons.com/icons2/300/PNG/256/calculation-icon_31858.png" alt="" style = "width:"></abbr>
-                        </div>
-                  
-                        
+                        <div id = "calResult"></div>
+                     </div>
+                    </div>
+                  </div>
+                       
                
-                  <div id = "checkResult"></div>
-                      
-                      <div id = "calResult"></div>
+                 
 
 
                      <div class="row control-group">
@@ -724,7 +757,6 @@ section.awSlider>img {
 
                      <div>requestScope.findBvo 결과 ${requestScope.findBvo}</div>
 
-
                      <div class="row">
                         <div class="form-group col-xs-12" align="center">
                         <input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
@@ -747,66 +779,64 @@ section.awSlider>img {
 <br>
 <br>
 <!-- 리뷰 -->
-		<div id="banner-wrapper">
-		<div align="left" style="padding-left: 15%; font-size: 15px">
-			총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
-			<img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
-			<fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
-		</div>
-		<!-- 리뷰작성칸 -->
-		<c:if test="${requestScope.reviewCheck }">
-			<div class="box container">
-				<div class="row" align="left">
-					<div class="col-sm-3">
-						<p class="star_rating" style="padding-top:20px; padding-left: 30%">
-						    <a href="#" class="on"></a>
-						    <a href="#" class="on"></a>
-						    <a href="#" class="on"></a>
-						    <a href="#" class="on"></a>
-						    <a href="#" class="on"></a>
-						</p>
-					</div>
-					<div class="9u">
-						<form id="reviewForm">
-							<div class="w3-row w3-section">
-								<div id="reviewSubmit" class="w3-col" style="float:right; padding-right: 16%"> 
-									<i class="w3-xxlarge fa fa-pencil w3-text-blue"  style="font-size: 35px"></i>
-								</div>
-							    <div class="w3-rest" >
-							      <textarea  id="reviewContent" STYLE="font-size:16px; padding-right: " class="w3-input w3-border" name="content" cols="65" rows="4" ></textarea>
-							    </div>
-							</div>
-							<input id="reviewHidden" type="text" style="display: none; width:auto;" />
-						</form>
-					</div>
-				</div>
-			</div>
-			<br>
-			</c:if>
-			<br>
-			<br>			
-			<!-- 리뷰리스트 -->
-			<div class="box container">
-				<c:forEach items="${requestScope.reviewList}" var="rList">
-					<div class="col-sm-12 col-xs-12 p-0">
-						<div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
-							 <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
-							<br>${rList.rentVO.memberVO.id}
-						</div>
-						<div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
-							${rList.content}
-						</div>
-						<div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">							
-							<c:forEach begin="1" end="${rList.star}">
-								<img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
-							</c:forEach><br><br>
-							<c:set var="TextValue" value="${rList.reviewDate}"/>
-								 ${fn:substring(TextValue,0,10)}<br>								
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		<br>
-
-
+      <div id="banner-wrapper">
+      <div align="left" style="padding-left: 15%; font-size: 15px">
+         총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+         <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+         <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
+      </div>
+      <!-- 리뷰작성칸 -->
+      <c:if test="${requestScope.reviewCheck }">
+         <div class="box container">
+            <div class="row" align="left">
+               <div class="col-sm-3">
+                  <p class="star_rating" style="padding-top:20px; padding-left: 30%">
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                  </p>
+               </div>
+               <div class="9u">
+                  <form id="reviewForm">
+                     <div class="w3-row w3-section">
+                        <div id="reviewSubmit" class="w3-col" style="float:right; padding-right: 16%"> 
+                           <i class="w3-xxlarge fa fa-pencil w3-text-blue"  style="font-size: 35px"></i>
+                        </div>
+                         <div class="w3-rest" >
+                           <textarea  id="reviewContent" STYLE="font-size:16px; padding-right: " class="w3-input w3-border" name="content" cols="65" rows="4" ></textarea>
+                         </div>
+                     </div>
+                     <input id="reviewHidden" type="text" style="display: none; width:auto;" />
+                  </form>
+               </div>
+            </div>
+         </div>
+         <br>
+         </c:if>
+         <br>
+         <br>         
+         <!-- 리뷰리스트 -->
+         <div class="box container">
+            <c:forEach items="${requestScope.reviewList}" var="rList">
+               <div class="col-sm-12 col-xs-12 p-0">
+                  <div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
+                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
+                     <br>${rList.rentVO.memberVO.id}
+                  </div>
+                  <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
+                     ${rList.content}
+                  </div>
+                  <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
+                     <c:forEach begin="1" end="${rList.star}">
+                        <img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+                     </c:forEach><br><br>
+                     <c:set var="TextValue" value="${rList.reviewDate}"/>
+                         ${fn:substring(TextValue,0,10)}<br>                        
+                  </div>
+               </div>
+            </c:forEach>
+         </div>
+      </div>
+      <br>

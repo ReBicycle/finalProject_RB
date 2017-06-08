@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.vo.BicycleVO;
+import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.RentVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,29 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 	
 	public List<RentVO> findRentById(String id) {
 		return template.selectList("bicycle.findRentById", id);	
+	}
+
+	public void rentRegister(RentVO rvo) {
+		template.insert("bicycle.rentRegister", rvo);	
+	}
+
+	public List<RentVO> findBicycleByBicycleNo(int bicycleNo) {
+		return template.selectList("bicycle.findBicycleByBicycleNo", bicycleNo);	
+	}
+
+	public List<RentVO> findRentRequestById(String id) {
+		return template.selectList("bicycle.findRentRequestById", id);
+	}
+
+	public RentVO findRentByRentNo(int rentNo) {
+		return template.selectOne("bicycle.findRentByRnetNo", rentNo);
+	}
+
+	public void updateRentByRentNo(String rentNo) {
+		template.update("bicycle.updateRentByRentNo", rentNo);
+	}
+
+	public CalendarVO getPossibleCalendarVO(CalendarVO calendarVO) {
+		return template.selectOne("bicycle.getPossibleCalendarVO",calendarVO);
 	}
 }

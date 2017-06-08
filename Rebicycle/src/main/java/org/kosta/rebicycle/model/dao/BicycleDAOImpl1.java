@@ -54,4 +54,30 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 	public void registerMap(MapVO map) {
 		template.insert("bicycle.registerMap", map);
 	}
+
+	public List<CalendarVO> findPossibleDay(int bicycleNo) {
+		return template.selectList("bicycle.findPossibleDay", bicycleNo);
+	}
+
+	public void updateBicycle(BicycleVO bvo) {
+		template.update("bicycle.updateBicycle", bvo);
+	}
+
+	public void deletePossibleDay(CalendarVO cvo) {
+		template.delete("bicycle.deletePossibleDay", cvo);
+	}
+
+	public void insertPossibleDay(List<CalendarVO> calList) {
+		for (int i = 0; i < calList.size(); i++) {
+			template.insert("bicycle.insertPossibleDay", calList.get(i));
+		}
+	}
+
+	public MapVO findMapByBicycleNo(int bicycleNo) {
+		return template.selectOne("bicycle.findMapByBicycleNo", bicycleNo);
+	}
+
+	public void updateMap(MapVO map) {
+		template.update("bicycle.updateMap", map);
+	}
 }

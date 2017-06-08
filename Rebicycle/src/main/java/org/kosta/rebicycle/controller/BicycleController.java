@@ -12,6 +12,7 @@ import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl5;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl4;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BicycleController {
-	
+	  
 	@Resource
 	private BicycleServiceImpl1 serviceImpl1;
 	@Resource
@@ -39,15 +40,22 @@ public class BicycleController {
 	private BicycleServiceImpl3 serviceImpl3;
 	@Resource
 	private BicycleServiceImpl5 serviceImpl5;
-	
-	//자전거 등록
+
+	@Resource
+	private BicycleServiceImpl4 serviceImpl4;
+		
+//자전거 등록
+
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
+		
 		bvo.setMemberVO(new MemberVO(memberId));
+		
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
+		
 		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
 		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
@@ -67,7 +75,6 @@ public class BicycleController {
 		// Map 등록
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
-		System.out.println("위도" + latitude);
 		MapVO map = new MapVO(latitude, longitude);
 		
 		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
@@ -84,14 +91,14 @@ public class BicycleController {
 	
 	//자전거 수정
 	@RequestMapping(method = RequestMethod.POST, value = "modifyBicycle.do")
-	public String modifyBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
+	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
+		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
 		bvo.setMemberVO(new MemberVO(memberId));
 		bvo.setCategoryVO(new CategoryVO());
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
 		String address = roadAddress + "," + jibunAddress + "," + detailAddress;
-		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
@@ -106,13 +113,14 @@ public class BicycleController {
 			calList.add(new CalendarVO(stArr[i], endArr[i]));
 		}
 		
-		// Map 등록
+
 		String latitude = request.getParameter("latitude");
 		String longitude = request.getParameter("longitude");
-		MapVO map = new MapVO(latitude, longitude);
+		MapVO map = new MapVO(latitude, longitude);			
+
 		
-		//6월2일 할일
-		//serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map);
+		// Map 수정
+		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map, address);
 		System.out.println(bvo);
 		System.out.println(calList);
 		System.out.println(map);
@@ -265,14 +273,19 @@ public class BicycleController {
 		ArrayList<Object> possibleDayList =new ArrayList<>();
 		for(int i=0; i<cList.size(); i++){
 			
+			//System.out.println("test        "+cList.get(i).getStartDay()+"        "+cList.get(i).getEndDay());
+			
 			// YYYY-MM-DD 0:00:00 형식 뒤 0:00:00을 자르기 위한 과정
 			CalendarVO cvo=new CalendarVO();
-			String stardDay;
+			String startDay;
 			String endDay;
-			stardDay=cList.get(i).getStartDay().substring(0,10);
+			startDay=cList.get(i).getStartDay().substring(0,10);
 			endDay=cList.get(i).getEndDay().substring(0,10);
+			
+			//System.out.println("test       "+startDay+"        "+endDay);
+			
 			cvo.setBicycleNo(no);
-			cvo.setStartDay(stardDay);
+			cvo.setStartDay(startDay);
 			cvo.setEndDay(endDay);
 			cList.set(i, cvo);
 			
@@ -286,15 +299,18 @@ public class BicycleController {
 			//달력 api 에서 Day 를 하루 적게 표시해주기 때문에 Day 에 +1을 해주기 위한 과정
 			String endDayOfDay=cList.get(i).getEndDay().substring(8, 10);
 			int IntendDayOfDay=Integer.parseInt(endDayOfDay)+1;
-			String ResultOfEndDay=cList.get(i).getStartDay().subSequence(0, 7)+"-"+IntendDayOfDay;
+			String ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 7)+"-"+IntendDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
 			possibleTotalDay.put("title", "예약 가능");
 			possibleTotalDay.put("start", possibleStartDay[i]);
 			possibleTotalDay.put("end", possibleEndDay[i]);
+			System.out.println(possibleStartDay[i]+"        "+possibleEndDay[i]);
 			possibleDayList.add(possibleTotalDay);
 		}
 		return possibleDayList;
+
 	}
+
 	
 	//detail 페이지의 사용자가 선택하는 startDate endDate와 대여 가능일 비교를 위한 메서드
 	@RequestMapping("dayCheck.do")
@@ -313,7 +329,12 @@ public class BicycleController {
 		//System.out.println("S---"+rentStartYear+"  "+rentStartMonth+"  "+rentStartDay);
 		//System.out.println("E---"+rentEndYear+"  "+rentEndMonth+"  "+rentEndDay);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
+
 		
+
+	
+
+
 		exit_For: 
 		for(int i=0; i<cList.size(); i++){
 			int possibleStartYear=Integer.parseInt(cList.get(i).getStartDay().substring(0,4));
@@ -377,6 +398,7 @@ public class BicycleController {
 		
 		BicycleVO bvo=new BicycleVO();
 		bvo.setBicycleNo(Integer.parseInt(bicycleNo));
+		
 		System.out.println("1"+bvo.getBicycleNo());
 		
 		/*MemberVO mId=new MemberVO();
@@ -389,6 +411,7 @@ public class BicycleController {
 		System.out.println("3"+cvo.getStartDay()+"/"+cvo.getEndDay());
 		
 		RentVO rvo=new RentVO(bvo,mvo,cvo);
+		System.out.println();
 
 		serviceImpl3.rentRegister(rvo);
 		System.out.println("빌리기 완성");

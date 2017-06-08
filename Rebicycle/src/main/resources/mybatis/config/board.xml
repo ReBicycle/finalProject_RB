@@ -38,6 +38,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateReport" parameterType="reportVO">
 		update rb_report set reportTitle=#{reportTitle},blackId=#{blackId},contents=#{contents},reportDate=sysdate where reportNo=#{reportNo}
 	</update>
+	<delete id="deleteReport">
+		delete from rb_report where reportNo=#{value}
+	</delete>
  </mapper>
  
  

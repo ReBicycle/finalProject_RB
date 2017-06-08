@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!-- 달력 스크립트 -->
 <script type="text/javascript">
    $(function() {
@@ -143,22 +142,6 @@ section.awSlider>img {
       $('section.awSlider > img').attr('src', bscn);
    });
 </script>
-<!-- 달력 pickers 스크립트 -->
-<!-- <script type="text/javascript">
-   $(function() {
-      $('#datetimepicker6').datetimepicker();
-      $('#datetimepicker7').datetimepicker({
-         useCurrent : false
-      //Important! See issue #1075
-      });
-      $("#datetimepicker6").on("dp.change", function(e) {
-         $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-      });
-      $("#datetimepicker7").on("dp.change", function(e) {
-         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-      });
-   });
-</script> -->
 
 <!-- fullcalendar 스크립트-->
 <!-- http://blog.naver.com/seon5524/220733425041 달력 디자인-->
@@ -184,10 +167,22 @@ section.awSlider>img {
    });//ready
 </script>
 
-<!-- 기간 추가 기능  -->
+<!-- 기간 추가, 가능 날짜 검사, 대여료 기능  -->
 <script>
+
+   //day N:N 서로 다른 id를 생성하기 위한 변수
    var clickCount=0;
+   
+   //day N:N - 각각의 startDay , endDay를 담기 위한 배열 선언
+   var startendDay=new Array();
+   
    var oTbl;
+   
+   //day N:N 로 비교하기 위해 
+   //input - class 가 같은 수
+   var startLength=0;
+   var endLength=0;
+     
    //Row 추가
    function insRow() {
         oTbl = document.getElementById("addTable");
@@ -195,21 +190,17 @@ section.awSlider>img {
         oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
         var oCell = oRow.insertCell();
    
+        //day N:N 검사를 위한
+        //class수 검사
+        startLength=$(".startInput").length;
+        endLength=$(".endInput").length;
+        
         //삽입될 Form Tag'
-        
-        var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail>";
-        frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
-        oCell.innerHTML = frmTag;
-        
-        
-        //사입 from tag 의 아이디를 각각 다르게 생성하기 위한 for문
-      alert(clickCount);//클릭 count 
-      //clickCount를 startDay와 endDay의 뒤에 붙여주었음
-      /* var frmTag = "<input type=date name=startDay class=input-md textinput textInput form-control id=id_detail"+clickCount+"><input type=date name=endDay class=input-md textinput textInput form-control id=id_detail"+clickCount+">";
-        frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
-        oCell.innerHTML = frmTag; */
-        
+        var frmTag = "<input type=date name=startDay class=startInput textinput textInput form-control id=startDay"+clickCount+"><input type=date name=endDay class=endInput textinput textInput form-control id=endDay"+clickCount+">";
+        frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'><div id = calResult"+clickCount+"></div>";
+        oCell.innerHTML = frmTag;        
    }
+   
    //Row 삭제
    function removeRow() {
       oTbl.deleteRow(oTbl.clickedRowIndex);
@@ -226,250 +217,221 @@ section.awSlider>img {
                 }
             }
          }
-   }
-   
-   
-     
-     function checkInput(){
-        var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
-         var end = $("#endDay").val();//사용자가 클릭한 종료일 2017-05-31
-            //alert("start" + start);
-            
-         var startYear = parseInt(start.substring(0,4));
-         var endYear = parseInt(end.substring(0,4));
-         var startMonth = parseInt(start.substring(5,7));//5
-         var endMonth = parseInt(end.substring(5,7));//7
-         var startDay = parseInt(start.substring(8,10));//6
-         var endDay = parseInt(end.substring(8,10));//8
-         
-         if(start == ""){
-               alert("원하시는 신청 시작 날짜를 선택해주세요!");
-               $("#startDay").focus();
-               return false;
-       }else if(end == ""){
-              alert("원하시는 신청 종료 날짜를 선택해주세요!");
-              $("#endDay").focus();
-              return false;
-       }
-     }
-     
+   }     
+          
    $(document).ready(function(){
-	   //서경////////////
-	   $( ".star_rating a" ).click(function() {
-           event.preventDefault();
-           $(this).parent().children("a").removeClass("on");
-           $(this).addClass("on").prevAll("a").addClass("on");
-           $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
-           $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
-           return false;
-        });
-        $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
-  
-        $("#reviewSubmit").click(function(){
-           if($("#reviewContent").val() == ""){
-              alert("리뷰를 입력하세요");
-              return false;
-           }
-           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
-        });
-         //서경////////////////
+      
+         //day N:N - 사용가능 결과 변수
+         var checkDayResultl=null;
+         var checkFailList=new Array();
+         
+         //사용자가 입력한 날짜별 계산된 대여료들
+       //calculateResult 변수에 넣는다.
+       var calculateResult=new Array();
          
         $("#checkImg").click(function(){
-         
-         //alert($("#d_detail").val());
            
-         checkInput();
-           
+            if($("#checkResult").html()==""){
                
-         if(checkDay().indexOf("true") != -1){
-              alert(checkDay() + "대여 가능!");
-              $("#checkResult").html("해당 기간 대여 가능합니다!");
-                      
-                    
-                      
-         }else{
-              alert("대여 불가!");
-              return false;
-         }
-             
-         
+            }else{
+               
+               $("#checkResult").html("<font color='red'>test</font>");
+            }
            
-         
-          });
            
+           //day N:N 비교한 결과 불가능한 input
+           var result="";
+        
+           /* for(var j=0; j<startendDay.length; j++){
+            if((startendDay[j].get("startDay")==null&&startendDay[j].get("endDay")==null)||(startendDay[j].get("startDay")==""&&startendDay[j].get("endDay")=="")){
+               alert((j+1)+"번째 날짜를 입력하세요.");
+               return false;
+            }
+           } */
+           
+           //day N:N - 배열 형태인 startDay 와 endDay 를 
+           //startendDay[] 에 넣어준다.
+           for(var i=0; i<=startLength; i++){
+                 //day N:N - 각 startDay와 endDay를 map에 넣어준다.
+                 var dayMap=newMap();
+                 dayMap.put("startDay",$("#startDay"+i).val());
+                 dayMap.put("endDay",$("#endDay"+i).val());
+                 startendDay[i]=dayMap;
+           }
+         
+         $.ajax({
+            type:"get",
+            data:"bicycleNo=${requestScope.findBvo.bicycleNo}",
+            dataType:"json",
+            url:"${pageContext.request.contextPath}/dayCheck.do",
+            success:function(data){                  
+               
+               for(var j=0; j<startendDay.length; j++){   
+                  var flag=0;   
+                  exit_for:
+                  for(var i=0; i<data.length; i++){
+                     //가능한 날짜일 경우 flag에 +1 한다.
+                     if((data[i].startDay<=startendDay[j].get("startDay"))&&(startendDay[j].get("endDay")<=data[i].endDay)){
+                        flag=1;
+                        break exit_for;
+                     }else{
+                        flag=0;   
+                     }                                       
+                  }//for-data.length    
+                  //가능한 날짜 - +1 담긴 flag 를
+                  //불가능한 날짜 - 0 담긴 flag 를  배열에 넣는다.
+                  checkFailList[j]=flag;
+               }//for-startendDay.length      
+               } //success                  
+         });
+         
+         //detail(빌리기) 페이지에서 
+         //사용자가 빌리고자 하는 날짜 중 
+         //불가능한 날짜를 result 에 담는다.
+          for(var i=0;i<startendDay.length; i++){
+                if(checkFailList[i]<=0){
+                  //resutl 에 +1 하니깐 이래
+                  result=result+(i+1)+" ";
+               }   
+          }
+          if(result==""){
+             $("#checkResult").html("<font color='blue'>가능</font>");
+          }else if(result==null){
+             $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
+          }else{
+             $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
+          }
+         
+         //checkInput();     
+
+        });
+           
+        
         $("#plusImg").click(function(){
-           clickCount+=1;
+           //day N:N 검사에서 id에 0,1,2,,, 를 붙이기 위해 
+           //clickCount 변수에 +1 을 한다
+           clickCount=clickCount+1;
            insRow();
         });
          
          
          $("#calImg").click(function(){
-               //alert(start)
-              checkInput();   
-               var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
-               var end = $("#endDay").val();//사용자가 클릭한 종료일 2017-05-31
-               var startYear = parseInt(start.substring(0,4));
-               var endYear = parseInt(end.substring(0,4));
-               var startMonth = parseInt(start.substring(5,7));//5
-               var endMonth = parseInt(end.substring(5,7));//7
-               var startDay = parseInt(start.substring(8,10));//6
-               var endDay = parseInt(end.substring(8,10));//8
-              
-               
-            
-              $.ajax({
-               type:"get",
-               
-               data:"currYear="+ startYear + "&startMonth="+startMonth + "&endMonth="+endMonth+ "&startDay=" + startDay + "&endDay="+endDay,
-               url:"${pageContext.request.contextPath}/getCalendarBean.do",
-               
-               success:function(data){
-                  //alert("총기간" + data);
-                  var result = (parseInt(data));
-                  var rentPrice = parseInt($("#rentPrice").text());
-                  //alert(rentPrice);
-                  //alert((parseInt(data) * (parseInt($("#rentPrice").text()))));
-                  
-                  $("#calResult").html("총대여료" + (result*rentPrice));
-                  
-               } //success
-               
-               
-            });//ajax
-            
-             
-            
-              
+            //checkInput(); 
            
+               
+                  for(var i=0; i<=startLength; i++){
+                     
+                    if($("#startDay"+i).val()>$("#endDay"+i).val()){
+                          alert("입력한 날짜를 확인하세요.")
+                          return false;
+                      } 
+                     
+                      var dayMap=newMap();
+                         dayMap.put("startDay",$("#startDay"+i).val());
+                          dayMap.put("endDay",$("#endDay"+i).val());
+                         startendDay[i]=dayMap;                 
+                   }                            
+              
+               for(var i=0; i<=startLength; i++){
+                  // 대여료 계산 - calResult 영역에 
+                  // 각각의 대여료를 나타내기 위한 변수
+                 var dayFlag=0;
+                
+                 
+                 var start = startendDay[i].get("startDay");//사용자가 클릭한 시작일 2017-05-31
+                  var end = startendDay[i].get("endDay");//사용자가 클릭한 종료일 2017-05-31
+                  var startYear = parseInt(start.substring(0,4));
+                  var endYear = parseInt(end.substring(0,4));
+                  var startMonth = parseInt(start.substring(5,7));//5
+                  var endMonth = parseInt(end.substring(5,7));//7
+                  var startDay = parseInt(start.substring(8,10));//6
+                  var endDay = parseInt(end.substring(8,10));//8
+                  
+                  $.ajax({
+                     type:"get",
+                     data:"currYear="+ startYear + "&startMonth="+startMonth + "&endMonth="+endMonth+ "&startDay=" + startDay + "&endDay="+endDay,
+                     url:"${pageContext.request.contextPath}/getCalendarBean.do",
+                     
+                     success:function(data){
+                        //alert("총기간" + data);
+                        var result = (parseInt(data));
+                        var rentPrice = parseInt($("#rentPrice").text());
+                        var calResult=result*rentPrice;
+                        $("#calResult"+dayFlag).html("총대여료 : " + calResult);
+                        dayFlag=dayFlag+1; 
+                     } //success       
+                  });//ajax 
+                  
+                 }            
          });
          
          //달력 변경 시 div-checkResult 영역 초기화 - keyup 대신 
          $("#startDay").click(function(){
-            $("#checkResult").html("날짜를 검사해야 합니다.");
+            $("#checkResult").html("시작 날짜를 검사해야 합니다.");
          });
        $("#endDay").click(function(){
-          $("#checkResult").html("날짜를 검사해야 합니다.");
+          $("#checkResult").html("끝 날짜를 검사해야 합니다.");
          });
          
          $("#rentBtn").click(function(){
-
-            var result=$("#checkResult").text();
-           // alert(result);
             $("#rentForm").submit(function(){  
-               if(result=='불가능'){
-                  alert("해당 날짜는 예약이 불가능합니다.");
-                  return false;
-               }
-               if(result==''){
-                  alert("날짜를 입력하세요.");
-                  return false;
-               }
-               if(result=='날짜 검사해야 합니다.'){
-                   alert("날짜 검사해야 합니다.");
-                   return false;
-                }
-               if(result=='가능')
+               if($("#checkResult").text()=='가능'){
+                  if (confirm("빌리시겠습니까?") == true){
                   return true;
-                /* if(checkDay().search("true") != -1){
-                   alert(checkDay() + "대여 가능!");
-                   
-                }else{
-                   alert("대여 불가!");
-                   return false;
-                } */
-
-            });
-            
+                  }else{
+                     return false;
+                  }
+               }else{
+                  alert("날짜를 검사해야 합니다.");
+                  return false;
+               }                       
+            });           
          });
-        
-   
-         //대여 가능일이랑 사용자가 입력한 값 비교해서 t/f 반환
-         //여러 input date 를 비교하기 - 2차 구현
-         function checkDay(){
-
-             var size = $("div[id^='possible']").size();//대여 가능 기간 수
-            //alert(size);
-              var start = $("#startDay").val();//사용자가 클릭한 시작일 2017-05-31
-               var end = $("#endDay").val();//사용자가 클릭한 종료일 2017-05-31
-                  //alert("start" + start);
-                  
-               var startYear = parseInt(start.substring(0,4));
-               var endYear = parseInt(end.substring(0,4));
-               var startMonth = parseInt(start.substring(5,7));//5
-               var endMonth = parseInt(end.substring(5,7));//7
-               var startDay = parseInt(start.substring(8,10));//6
-               var endDay = parseInt(end.substring(8,10));//8
-               
-               //alert("endDay" + endDay);
-               
-              //달력의 여러 날짜와 비교하기 위해 사용
-               $.ajax({
-                  type:"post",
-                  url:"${pageContext.request.contextPath}/dayCheck.do?bicycleNo=${requestScope.findBvo.bicycleNo}",
-                  data:"startDay="+$("#startDay").val()+"&endDay="+$("#endDay").val(),
-                  success:function(data){
-                     alert("ajax  가능 일  "+data);
-                     if(data==true)
-                        $("#checkResult").html("가능");
-                     else
-                        $("#checkResult").html("불가능");
-                  }
-                  
-               });
-               
-            for(var i = 1; i<=size;i++){
-               //alert($("div[id^='possible']").find(".possibleStartDay"+i).val());  
-               var possibleStart = $("div[id^='possible']").find(".possibleStartDay"+i).val();// 2017-06-15 
-               var possibleEnd = $("div[id^='possible']").find(".possibleEndDay"+i).val();// 8/17
-               
-               var possibleStartYear = parseInt(possibleStart.substring(0,4));
-               var possibleEndYear = parseInt(possibleEnd.substring(0,4));
-               var possibleStartMonth = parseInt(possibleStart.substring(5,7));//1
-               var possibleEndMonth = parseInt(possibleEnd.substring(5,7));//3
-               var possibleStartDay =  parseInt(possibleStart.substring(8,10));//2
-               var possibleEndDay =  parseInt(possibleEnd.substring(8,10));//4
-               
-               
-               //alert(possibleStartMonth + "!!");
-               //alert(possibleEnd + "-" + possibleEnd);
-               
-               if(possibleStartMonth<startMonth && endMonth<possibleEndMonth){
-                  //result += "true"+i;
-                  return "true" + i;
-               }else if(possibleStartMonth<startMonth && endMonth==possibleEndMonth){
-                  if(endDay<=possibleEndDay){
-                     return "true" + i;
-                  }else{
-                     return "false" + i;
-                  }
-               }else if(possibleStartMonth == startMonth && endMonth <possibleEndMonth){
-                  if(possibleStartDay<=startDay){
-                     return "true" + i;
-                  }
-                  else{ 
-                     return "false" + i;
-                  }
-               }else if(possibleStartMonth == startMonth && endMonth == possibleEndMonth){
-                  if((possibleStartDay<=startDay) && (endDay <= possibleEndDay)){
-                     return "true" + i;
-                  }else{
-                     return "false" + i;
-                  }
-               }else if(possibleStartMonth>startMonth || possibleEndMonth <endMonth){
-                  return "false" + i;
-               }
-               
-            
-            }
-            
-
+         
+         //javascript 에서 map 기능을 사용하기 위함
+         function newMap() {
+           var map = {};
+           map.value = {};
+           map.getKey = function(id) {
+             return "k_"+id;
+           };
+           map.put = function(id, value) {
+             var key = map.getKey(id);
+             map.value[key] = value;
+           };
+           map.contains = function(id) {
+             var key = map.getKey(id);
+             if(map.value[key]) {
+               return true;
+             } else {
+               return false;
+             }
+           };
+           map.get = function(id) {
+             var key = map.getKey(id);
+             if(map.value[key]) {
+               return map.value[key];
+             }
+             return null;
+           };
+           map.remove = function(id) {
+             var key = map.getKey(id);
+             if(map.contains(id)){
+               map.value[key] = undefined;
+             }
+           };
+          
+           return map;
          }
+        
    });
 </script>
 
-
 <!-- 이미지 슬라이드 -->
 <style type="text/css">
+
+
+
 section.awSlider .carousel {
    display: table;
    z-index: 2;
@@ -625,28 +587,28 @@ section.awSlider>img {
                               <label for="id_date"
                                  class="control-label col-md-6  requiredField" align="left"><h4>Start Date</h4></label>
                               <div class="controls col-md-5">
-                                 <input type="date" name="startDay" id = "startDay"
-                                    class="input-md textinput textInput form-control"
-                                    id="id_detail">
+                                 <input type="date" name="startDay" 
+                                    class="startInput"
+                                    id="startDay0">
                              </div>
                              
                           </div>    
-                         </div>
+                      </div>
                            
-                           
+                            <!-- class="input-md textinput textInput form-control" -->
                       <div class="row control-group">   
                            <!-- end date -->
                            <div id="div_id_date" class="form-group required">
                               <label for="id_date"
-                                 class="control-label col-md-6  requiredField" align="left"><h4 >End Date</h4></label>
+                                 class="control-label col-md-6  requiredField" align="left"><h4>End Date</h4></label>
                               <div class="controls col-md-5">
-                                 <input type="date" name="endDay" id = "endDay"
-                                    class="input-md textinput textInput form-control"
-                                    id="id_detail">
+                                 <input type="date" name="endDay" 
+                                    class="endInput"
+                                    id="endDay0"> <div id="calResult0"></div>
                               </div>
                            </div>
-                           </div>
-                           
+                      </div>
+                        
                         </table>
                      
                
@@ -670,7 +632,7 @@ section.awSlider>img {
                      <div class="col-sm-4">  
                           <abbr title="대여료 계산하기"><img id = "calImg" class="cal-img"
                      src="http://icon-icons.com/icons2/300/PNG/256/calculation-icon_31858.png" alt="" style = "width:"></abbr>
-                        <div id = "calResult"></div>
+                        <!-- <div id = "calResult"></div> -->
                      </div>
                     </div>
                   </div>
@@ -704,7 +666,7 @@ section.awSlider>img {
                            class="form-group col-xs-12 floating-label-form-group controls">
                            <label for="email">Email Address</label>
                            <h4 align="left">Email Address</h4>
-                           <p class="help-block text-danger">${requestScope.findBvo.address}</p>
+                           <p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
                         </div>
                      </div>
                      
@@ -754,9 +716,6 @@ section.awSlider>img {
                      <br>
                      
                      <div id="success"></div>
-
-                     <div>requestScope.findBvo 결과 ${requestScope.findBvo}</div>
-
                      <div class="row">
                         <div class="form-group col-xs-12" align="center">
                         <input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">

@@ -111,4 +111,8 @@ public class BicycleServiceImpl1 implements BicycleService {
 		}
 		return nameList;
 	}// uploadFile method
+
+	public String findAddressById(String id) {
+		return daoImpl1.findAddressById(id);
+	}
 }// class

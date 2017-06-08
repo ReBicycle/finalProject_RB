@@ -80,4 +80,8 @@ public class BicycleDAOImpl1 implements BicycleDAO {
 	public void updateMap(MapVO map) {
 		template.update("bicycle.updateMap", map);
 	}
+
+	public String findAddressById(String id) {
+		return template.selectOne("bicycle.findAddressById", id);
+	}
 }

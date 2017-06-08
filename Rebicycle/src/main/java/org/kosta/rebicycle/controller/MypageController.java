@@ -61,8 +61,8 @@ public class MypageController {
 	@ResponseBody 
 	public ArrayList<RentVO> getRentByBicycleNo(String bicycleNo){
 		
-		ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService4.findRentByBicycleNo(Integer.parseInt(bicycleNo));
-		//System.out.println("rList" + rList);
+		ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService4.getRentByBicycleNo(Integer.parseInt(bicycleNo));
+		System.out.println("rList" + rList);
 		return rList;
 	}
 	
@@ -73,6 +73,7 @@ public class MypageController {
 		RentVO rvo = bicycleService4.findRentByRentNo(Integer.parseInt(rentNo));
 		//System.out.println("rentOK rvo" + rvo);
 		bicycleService4.updateRentByRentNo(rentNo);
+		//t
 		bicycleService4.deleteRentedDay(rvo);
 		return "redirect:mypage/mypage_main.do";
 	}

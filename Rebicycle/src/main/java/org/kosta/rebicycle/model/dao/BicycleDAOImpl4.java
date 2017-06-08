@@ -1,5 +1,6 @@
 package org.kosta.rebicycle.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -28,8 +29,8 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 		template.insert("bicycle.rentRegister", rvo);	
 	}
 
-	public List<RentVO> findBicycleByBicycleNo(int bicycleNo) {
-		return template.selectList("bicycle.findBicycleByBicycleNo", bicycleNo);	
+	public List<RentVO> getRentByBicycleNo(int bicycleNo) {
+		return template.selectList("bicycle.getRentByBicycleNo", bicycleNo);	
 	}
 
 	public List<RentVO> findRentRequestById(String id) {
@@ -37,14 +38,42 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 	}
 
 	public RentVO findRentByRentNo(int rentNo) {
-		return template.selectOne("bicycle.findRentByRnetNo", rentNo);
+		return template.selectOne("bicycle.findRentByRentNo", rentNo);
 	}
 
 	public void updateRentByRentNo(String rentNo) {
 		template.update("bicycle.updateRentByRentNo", rentNo);
 	}
 
-	public CalendarVO getPossibleCalendarVO(CalendarVO calendarVO) {
-		return template.selectOne("bicycle.getPossibleCalendarVO",calendarVO);
+	public CalendarVO compareCalendarVO(CalendarVO calendarVO) {
+		return template.selectOne("bicycle.compareCalendarVO",calendarVO);
+	}
+
+	public void updatePossibleCalendarVOType1(HashMap<String, CalendarVO> calendarMap) {
+		template.delete("bicycle.updatePossibleCalendarVOType1", calendarMap);
+		
+	}
+
+	public void updatePossibleCalendarVOType0(HashMap<String, CalendarVO> calendarMap) {
+		template.update("bicycle.updatePossibleCalendarVOType0", calendarMap);
+		
+	}
+
+	public void updatePossibleCalendarVOType2(HashMap<String, CalendarVO> calendarMap) {
+		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
+		
+	}
+
+	public void updatePossibleCalendarVOType3(HashMap<String, CalendarVO> calendarMap) {
+		//template.delete("bicycle.updatePossibleCalendarVOType1", calendarVO);
+		template.insert("bicycle.updatePossibleCalendarVOType3", calendarMap);
+		template.update("bicycle.updatePossibleCalendarVOType0", calendarMap);
+		
+		
+	}
+
+	public CalendarVO getPossibleCVO(CalendarVO calendarVO) {
+		return template.selectOne("bicycle.getPossibleCVO",calendarVO);
+		
 	}
 }

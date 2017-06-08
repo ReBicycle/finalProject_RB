@@ -27,7 +27,7 @@
                     <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/member/member_register_form.do">join</a>
                    </li>
-                 
+                 	
                     
                    
                     </c:when>
@@ -43,16 +43,19 @@
                       
                         <li class="page-scroll">
 						<a href="${pageContext.request.contextPath}/memberModifyForm.do">회원정보수정</a>
-                      </li>
-                       <li class="page-scroll">
+                        </li>
+                        <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
 	                    </li>
 	      
-	                    
 	                    <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a>
                    		</li>
                      
+                     	<li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
+                    	</li>
+                     	
 					</c:otherwise>
 					</c:choose> 
 					 <li class="page-scroll">
@@ -61,13 +64,11 @@
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
                     </li>
-                                   
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/selectable.do">달력</a>
-                    </li>
+                      <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/donation/donation_register_form.do">기부</a>
+                   </li>             
+                    
+
                     
                 </ul>
             </div>

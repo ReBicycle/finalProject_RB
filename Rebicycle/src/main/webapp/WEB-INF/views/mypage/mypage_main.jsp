@@ -18,7 +18,7 @@ tr:hover{background-color:#f5f5f5}
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#reviewForm").click(function(){
-			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
+			location.href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do?";
 		});
 		
 		//rentList${order.count}
@@ -323,8 +323,8 @@ tr:hover{background-color:#f5f5f5}
                     </span>
                     <br><br>
 				<div align="left">
-					<c:forEach items="${requestScope.rentList}" var = "bList" varStatus="i">
-						 ${bList.bicycleVO.detail} <input type="button"  value="리뷰쓰기"  id="reviewForm"><br>                       
+					<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
+						<a href ="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
 	                </c:forEach>
 				
 				</div>

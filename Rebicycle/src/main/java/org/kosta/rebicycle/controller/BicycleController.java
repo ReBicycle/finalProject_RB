@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl5;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl4;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
@@ -21,6 +22,7 @@ import org.kosta.rebicycle.model.vo.CategoryVO;
 import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.RentVO;
+import org.kosta.rebicycle.model.vo.ReviewVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +39,13 @@ public class BicycleController {
 	//정태형//////////////////
 	@Resource
 	private BicycleServiceImpl3 serviceImpl3;
+	@Resource
+	private BicycleServiceImpl5 serviceImpl5;
 
 	@Resource
 	private BicycleServiceImpl4 serviceImpl4;
 		
-
-	//자전거 등록
+//자전거 등록
 
 	@RequestMapping(method = RequestMethod.POST, value = "registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
@@ -157,11 +160,30 @@ public class BicycleController {
 		
 	///상세보기로 보낼 정보 처리 컨트롤러
 	@RequestMapping("findBicycleByNo.do")
-	public String findBicycleByNo(String bicycleNo,Model model){
+	public String findBicycleByNo(String bicycleNo,Model model, HttpServletRequest request){
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
-		bvo.setPossibleList(cList);
+		bvo.setPossibleList(cList);		
+		
+		//리뷰WriteCheck
+		MemberVO mvo = (MemberVO)request.getSession().getAttribute("mvo");
+		if(mvo!=null){
+			System.out.println(serviceImpl5.reviewCheck(mvo.getId(),bicycleNo));
+			model.addAttribute("reviewCheck", serviceImpl5.reviewCheck(mvo.getId(),bicycleNo));
+		}
+		else	{
+			System.out.println("else에 들어감-비로그인상태");
+			model.addAttribute("reviewCheck",false);
+		}
+		//리뷰리스트
+		List<ReviewVO> reviewList = serviceImpl5.getReviewListByBicycleNo(no);
+		model.addAttribute("reviewList",reviewList);
+		double avg=0.0;
+		for(int i=0; i<reviewList.size();i++){
+			avg+=reviewList.get(i).getStar();
+		}
+		bvo.setAvgRate(avg/reviewList.size());
 		model.addAttribute("findBvo", bvo);
 		return "bicycle/bicycle_detail.tiles";
 	}

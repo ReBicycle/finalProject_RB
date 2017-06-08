@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 달력 스크립트 -->
 <script type="text/javascript">
    $(function() {
@@ -218,89 +220,89 @@ section.awSlider>img {
    }     
           
    $(document).ready(function(){
-	   
-   		//day N:N - 사용가능 결과 변수
-   		var checkDayResultl=null;
-   		var checkFailList=new Array();
-   		
-   		//사용자가 입력한 날짜별 계산된 대여료들
-    	//calculateResult 변수에 넣는다.
-    	var calculateResult=new Array();
-   		
+      
+         //day N:N - 사용가능 결과 변수
+         var checkDayResultl=null;
+         var checkFailList=new Array();
+         
+         //사용자가 입력한 날짜별 계산된 대여료들
+       //calculateResult 변수에 넣는다.
+       var calculateResult=new Array();
+         
         $("#checkImg").click(function(){
-        	alert("test");
+           
             if($("#checkResult").html()==""){
-            	
+               
             }else{
-            	alert("cat");
-            	$("#checkResult").html("<font color='red'>test</font>");
+               
+               $("#checkResult").html("<font color='red'>test</font>");
             }
-        	
-        	
-        	//day N:N 비교한 결과 불가능한 input
-        	var result="";
+           
+           
+           //day N:N 비교한 결과 불가능한 input
+           var result="";
         
-        	/* for(var j=0; j<startendDay.length; j++){
-				if((startendDay[j].get("startDay")==null&&startendDay[j].get("endDay")==null)||(startendDay[j].get("startDay")==""&&startendDay[j].get("endDay")=="")){
-					alert((j+1)+"번째 날짜를 입력하세요.");
-					return false;
-				}
-        	} */
-        	
-        	//day N:N - 배열 형태인 startDay 와 endDay 를 
-        	//startendDay[] 에 넣어준다.
-        	for(var i=0; i<=startLength; i++){
-        		   //day N:N - 각 startDay와 endDay를 map에 넣어준다.
-        		   var dayMap=newMap();
-        		   dayMap.put("startDay",$("#startDay"+i).val());
-        		   dayMap.put("endDay",$("#endDay"+i).val());
-        		   startendDay[i]=dayMap;
-        	}
-			
-			$.ajax({
-				type:"get",
-				data:"bicycleNo=${requestScope.findBvo.bicycleNo}",
-				dataType:"json",
-				url:"${pageContext.request.contextPath}/dayCheck.do",
-				success:function(data){						
-					
-					for(var j=0; j<startendDay.length; j++){	
-						var flag=0;	
-						exit_for:
-						for(var i=0; i<data.length; i++){
-							//가능한 날짜일 경우 flag에 +1 한다.
-							if((data[i].startDay<=startendDay[j].get("startDay"))&&(startendDay[j].get("endDay")<=data[i].endDay)){
-								flag=1;
-								break exit_for;
-							}else{
-								flag=0;	
-							}													
-						}//for-data.length 	
-						//가능한 날짜 - +1 담긴 flag 를
-						//불가능한 날짜 - 0 담긴 flag 를  배열에 넣는다.
-						checkFailList[j]=flag;
-					}//for-startendDay.length		
-	            } //success   	            
-			});
-			
-			//detail(빌리기) 페이지에서 
-			//사용자가 빌리고자 하는 날짜 중 
-			//불가능한 날짜를 result 에 담는다.
-			 for(var i=0;i<startendDay.length; i++){
-            	 if(checkFailList[i]<=0){
-            		//resutl 에 +1 하니깐 이래
-            		result=result+(i+1)+" ";
-            	}	
-			 }
-			 if(result==""){
-				 $("#checkResult").html("<font color='blue'>가능</font>");
-			 }else if(result==null){
-				 $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
-			 }else{
-				 $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
-			 }
-			
-			//checkInput();     
+           /* for(var j=0; j<startendDay.length; j++){
+            if((startendDay[j].get("startDay")==null&&startendDay[j].get("endDay")==null)||(startendDay[j].get("startDay")==""&&startendDay[j].get("endDay")=="")){
+               alert((j+1)+"번째 날짜를 입력하세요.");
+               return false;
+            }
+           } */
+           
+           //day N:N - 배열 형태인 startDay 와 endDay 를 
+           //startendDay[] 에 넣어준다.
+           for(var i=0; i<=startLength; i++){
+                 //day N:N - 각 startDay와 endDay를 map에 넣어준다.
+                 var dayMap=newMap();
+                 dayMap.put("startDay",$("#startDay"+i).val());
+                 dayMap.put("endDay",$("#endDay"+i).val());
+                 startendDay[i]=dayMap;
+           }
+         
+         $.ajax({
+            type:"get",
+            data:"bicycleNo=${requestScope.findBvo.bicycleNo}",
+            dataType:"json",
+            url:"${pageContext.request.contextPath}/dayCheck.do",
+            success:function(data){                  
+               
+               for(var j=0; j<startendDay.length; j++){   
+                  var flag=0;   
+                  exit_for:
+                  for(var i=0; i<data.length; i++){
+                     //가능한 날짜일 경우 flag에 +1 한다.
+                     if((data[i].startDay<=startendDay[j].get("startDay"))&&(startendDay[j].get("endDay")<=data[i].endDay)){
+                        flag=1;
+                        break exit_for;
+                     }else{
+                        flag=0;   
+                     }                                       
+                  }//for-data.length    
+                  //가능한 날짜 - +1 담긴 flag 를
+                  //불가능한 날짜 - 0 담긴 flag 를  배열에 넣는다.
+                  checkFailList[j]=flag;
+               }//for-startendDay.length      
+               } //success                  
+         });
+         
+         //detail(빌리기) 페이지에서 
+         //사용자가 빌리고자 하는 날짜 중 
+         //불가능한 날짜를 result 에 담는다.
+          for(var i=0;i<startendDay.length; i++){
+                if(checkFailList[i]<=0){
+                  //resutl 에 +1 하니깐 이래
+                  result=result+(i+1)+" ";
+               }   
+          }
+          if(result==""){
+             $("#checkResult").html("<font color='blue'>가능</font>");
+          }else if(result==null){
+             $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
+          }else{
+             $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
+          }
+         
+         //checkInput();     
 
         });
            
@@ -317,26 +319,26 @@ section.awSlider>img {
             //checkInput(); 
            
                
-            	   for(var i=0; i<=startLength; i++){
-            		   
-            		  if($("#startDay"+i).val()>$("#endDay"+i).val()){
-                    	   alert("입력한 날짜를 확인하세요.")
-                    	   return false;
+                  for(var i=0; i<=startLength; i++){
+                     
+                    if($("#startDay"+i).val()>$("#endDay"+i).val()){
+                          alert("입력한 날짜를 확인하세요.")
+                          return false;
                       } 
-            		   
-                 	  var dayMap=newMap();
-            		  	  dayMap.put("startDay",$("#startDay"+i).val());
-            		   	  dayMap.put("endDay",$("#endDay"+i).val());
-            		  	  startendDay[i]=dayMap;     		  	 
-                   }                         	
+                     
+                      var dayMap=newMap();
+                         dayMap.put("startDay",$("#startDay"+i).val());
+                          dayMap.put("endDay",$("#endDay"+i).val());
+                         startendDay[i]=dayMap;                 
+                   }                            
               
                for(var i=0; i<=startLength; i++){
-            	   // 대여료 계산 - calResult 영역에 
-            	   // 각각의 대여료를 나타내기 위한 변수
-            	  var dayFlag=0;
-            	 
-            	  
-            	  var start = startendDay[i].get("startDay");//사용자가 클릭한 시작일 2017-05-31
+                  // 대여료 계산 - calResult 영역에 
+                  // 각각의 대여료를 나타내기 위한 변수
+                 var dayFlag=0;
+                
+                 
+                 var start = startendDay[i].get("startDay");//사용자가 클릭한 시작일 2017-05-31
                   var end = startendDay[i].get("endDay");//사용자가 클릭한 종료일 2017-05-31
                   var startYear = parseInt(start.substring(0,4));
                   var endYear = parseInt(end.substring(0,4));
@@ -360,68 +362,68 @@ section.awSlider>img {
                      } //success       
                   });//ajax 
                   
-              	}            
+                 }            
          });
          
          //달력 변경 시 div-checkResult 영역 초기화 - keyup 대신 
          $("#startDay").click(function(){
-        	 $("#checkResult").html("시작 날짜를 검사해야 합니다.");
+            $("#checkResult").html("시작 날짜를 검사해야 합니다.");
          });
-		 $("#endDay").click(function(){
-			 $("#checkResult").html("끝 날짜를 검사해야 합니다.");
+       $("#endDay").click(function(){
+          $("#checkResult").html("끝 날짜를 검사해야 합니다.");
          });
          
          $("#rentBtn").click(function(){
             $("#rentForm").submit(function(){  
-            	if($("#checkResult").text()=='가능'){
-            		if (confirm("빌리시겠습니까?") == true){
-						return true;
-            	   }else{
-            		   return false;
-            	   }
-            	}else{
-            		alert("날짜를 검사해야 합니다.");
-            		return false;
-            	}                       
+               if($("#checkResult").text()=='가능'){
+                  if (confirm("빌리시겠습니까?") == true){
+                  return true;
+                  }else{
+                     return false;
+                  }
+               }else{
+                  alert("날짜를 검사해야 합니다.");
+                  return false;
+               }                       
             });           
          });
          
          //javascript 에서 map 기능을 사용하기 위함
          function newMap() {
-  		   var map = {};
-  		   map.value = {};
-  		   map.getKey = function(id) {
-  		     return "k_"+id;
-  		   };
-  		   map.put = function(id, value) {
-  		     var key = map.getKey(id);
-  		     map.value[key] = value;
-  		   };
-  		   map.contains = function(id) {
-  		     var key = map.getKey(id);
-  		     if(map.value[key]) {
-  		       return true;
-  		     } else {
-  		       return false;
-  		     }
-  		   };
-  		   map.get = function(id) {
-  		     var key = map.getKey(id);
-  		     if(map.value[key]) {
-  		       return map.value[key];
-  		     }
-  		     return null;
-  		   };
-  		   map.remove = function(id) {
-  		     var key = map.getKey(id);
-  		     if(map.contains(id)){
-  		       map.value[key] = undefined;
-  		     }
-  		   };
-  		  
-  		   return map;
-  		 }
-  	   
+           var map = {};
+           map.value = {};
+           map.getKey = function(id) {
+             return "k_"+id;
+           };
+           map.put = function(id, value) {
+             var key = map.getKey(id);
+             map.value[key] = value;
+           };
+           map.contains = function(id) {
+             var key = map.getKey(id);
+             if(map.value[key]) {
+               return true;
+             } else {
+               return false;
+             }
+           };
+           map.get = function(id) {
+             var key = map.getKey(id);
+             if(map.value[key]) {
+               return map.value[key];
+             }
+             return null;
+           };
+           map.remove = function(id) {
+             var key = map.getKey(id);
+             if(map.contains(id)){
+               map.value[key] = undefined;
+             }
+           };
+          
+           return map;
+         }
+        
    });
 </script>
 
@@ -569,14 +571,14 @@ section.awSlider>img {
          <h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>
          <div align="center">
 
-				<!-- 예약 폼 -->
-				<div class="row">
-					<!-- <div class="col-lg-8 col-lg-offset-2"> -->
-					<div class="col-lg-10 col-lg-offset-1">
-						<form name="rentForm" id="rentForm"
-							action="${pageContext.request.contextPath}/rentRegister.do">
-							
-						<table id = "addTable">                   
+            <!-- 예약 폼 -->
+            <div class="row">
+               <!-- <div class="col-lg-8 col-lg-offset-2"> -->
+               <div class="col-lg-10 col-lg-offset-1">
+                  <form name="rentForm" id="rentForm"
+                     action="${pageContext.request.contextPath}/rentRegister.do">
+                     
+                  <table id = "addTable">                   
                     
                         <div class="row control-group">
                            <!-- input 달력 -->
@@ -608,7 +610,7 @@ section.awSlider>img {
                       </div>
                         
                         </table>
-               		
+                     
                
                       
                       
@@ -616,10 +618,10 @@ section.awSlider>img {
                 
                    <div class = "row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
-					 <div class="col-sm-4">
+                <div class="col-sm-4">
                            <abbr title="대여가능체크"><img id = "checkImg" class="check-img"
                      src=" https://www.2buy2.com/images/icons/other/green-outline/tick.png" alt="" style = "width:"></abbr>
-                     	<div id = "checkResult"></div>
+                        <div id = "checkResult"></div>
                      </div>
                      
                      <div class="col-sm-4"> 
@@ -630,7 +632,7 @@ section.awSlider>img {
                      <div class="col-sm-4">  
                           <abbr title="대여료 계산하기"><img id = "calImg" class="cal-img"
                      src="http://icon-icons.com/icons2/300/PNG/256/calculation-icon_31858.png" alt="" style = "width:"></abbr>
-                     	<!-- <div id = "calResult"></div> -->
+                        <!-- <div id = "calResult"></div> -->
                      </div>
                     </div>
                   </div>
@@ -714,15 +716,15 @@ section.awSlider>img {
                      <br>
                      
                      <div id="success"></div>
-							<div class="row">
-								<div class="form-group col-xs-12" align="center">
-								<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-								
-									
-									<button type="submit" class="btn btn-success btn-lg"
-										id="rentBtn">빌리기</button>
-								</div>
-							</div>
+                     <div class="row">
+                        <div class="form-group col-xs-12" align="center">
+                        <input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+                        
+                           
+                           <button type="submit" class="btn btn-success btn-lg"
+                              id="rentBtn">빌리기</button>
+                        </div>
+                     </div>
 
                   </form>
                </div>
@@ -735,3 +737,65 @@ section.awSlider>img {
 <br>
 <br>
 <br>
+<!-- 리뷰 -->
+      <div id="banner-wrapper">
+      <div align="left" style="padding-left: 15%; font-size: 15px">
+         총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+         <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+         <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
+      </div>
+      <!-- 리뷰작성칸 -->
+      <c:if test="${requestScope.reviewCheck }">
+         <div class="box container">
+            <div class="row" align="left">
+               <div class="col-sm-3">
+                  <p class="star_rating" style="padding-top:20px; padding-left: 30%">
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                  </p>
+               </div>
+               <div class="9u">
+                  <form id="reviewForm">
+                     <div class="w3-row w3-section">
+                        <div id="reviewSubmit" class="w3-col" style="float:right; padding-right: 16%"> 
+                           <i class="w3-xxlarge fa fa-pencil w3-text-blue"  style="font-size: 35px"></i>
+                        </div>
+                         <div class="w3-rest" >
+                           <textarea  id="reviewContent" STYLE="font-size:16px; padding-right: " class="w3-input w3-border" name="content" cols="65" rows="4" ></textarea>
+                         </div>
+                     </div>
+                     <input id="reviewHidden" type="text" style="display: none; width:auto;" />
+                  </form>
+               </div>
+            </div>
+         </div>
+         <br>
+         </c:if>
+         <br>
+         <br>         
+         <!-- 리뷰리스트 -->
+         <div class="box container">
+            <c:forEach items="${requestScope.reviewList}" var="rList">
+               <div class="col-sm-12 col-xs-12 p-0">
+                  <div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
+                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
+                     <br>${rList.rentVO.memberVO.id}
+                  </div>
+                  <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
+                     ${rList.content}
+                  </div>
+                  <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
+                     <c:forEach begin="1" end="${rList.star}">
+                        <img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+                     </c:forEach><br><br>
+                     <c:set var="TextValue" value="${rList.reviewDate}"/>
+                         ${fn:substring(TextValue,0,10)}<br>                        
+                  </div>
+               </div>
+            </c:forEach>
+         </div>
+      </div>
+      <br>

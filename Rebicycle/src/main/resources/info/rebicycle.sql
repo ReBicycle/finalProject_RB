@@ -633,14 +633,6 @@ select p.startDay, p.endDay
 from possible_day p, bicycle b
 where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
 
-<<<<<<< HEAD
-and
-<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
 select * from possible_day
 
 delete 
@@ -652,5 +644,4 @@ and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
 select * from possible_day
 select * from rent
 
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+select * from bicycle

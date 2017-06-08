@@ -105,7 +105,7 @@ appearance: none;
 </div>
 <div class="w3-row-padding w3-margin-top " id="listSpace" >
    <c:forEach items="${requestScope.bicycleList}" var="list" >
- <a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onmouseover=""> <div class="w3-second col-sm-6 w3-margin-top " >
+ <a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onmouseover=""> <div class="w3-second col-sm-6 w3-margin-top " >
      <div class="w3-card-2 content " width="240px" height="180px">
       <img class="img" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="240px" height="180px">
       <div class="overlay" >
@@ -215,7 +215,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  	 			$.ajax({
  				//${pageContext.request.contextPath}/bicycle/bicycle_search_list.do
  				type:"get",	
- 				url:"${pageContext.request.contextPath}/bicycle/sortByBikeType.do",
+ 				url:"${pageContext.request.contextPath}/sortByBikeType.do",
  				data:"address=${param.address}&startDay=${param.startDay}&endDay=${param.endDay}&bikeType="+bikeType,
  				dataType:"json",
  				success:function refreshList(data){
@@ -224,7 +224,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  					var contents=""; 
  					//alert(JSON.stringify(data)); 			
  			 		 for(var i=0;i<data.length;i++){
- 					contents+='<a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
+ 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
@@ -252,7 +252,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  	 			$.ajax({
  				//${pageContext.request.contextPath}/bicycle/bicycle_search_list.do
  				type:"get",	
- 				url:"${pageContext.request.contextPath}/bicycle/sortByPriceType.do",
+ 				url:"${pageContext.request.contextPath}/sortByPriceType.do",
  				data:"address=${param.address}&startDay=${param.startDay}&endDay=${param.endDay}&priceType="+priceType,
  				dataType:"json",
  				success:function refreshList(data){
@@ -263,7 +263,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  					//alert(JSON.stringify(data)); 			
  					
  					  for(var i=0;i<data.length;i++){
- 					contents+='<a href="${pageContext.request.contextPath }/findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
+ 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';

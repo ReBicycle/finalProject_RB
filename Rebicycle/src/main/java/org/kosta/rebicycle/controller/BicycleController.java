@@ -159,7 +159,7 @@ public class BicycleController {
 		}
 		
 	///상세보기로 보낼 정보 처리 컨트롤러
-	@RequestMapping("findBicycleByNo.do")
+	@RequestMapping("/bicycle/bicycle_findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model, HttpServletRequest request){
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);

@@ -332,6 +332,9 @@ public class BicycleController {
 			possibleTotalDay.put("title", "예약 가능");
 			possibleTotalDay.put("start", possibleStartDay[i]);
 			possibleTotalDay.put("end", possibleEndDay[i]);
+			System.out.println("title   "+possibleTotalDay.get("start"));
+			System.out.println("TEST   dog   "+possibleTotalDay.get("start"));
+			System.out.println("TEST      "+possibleTotalDay.get("end"));
 			possibleDayList.add(possibleTotalDay);
 		}
 		return possibleDayList;

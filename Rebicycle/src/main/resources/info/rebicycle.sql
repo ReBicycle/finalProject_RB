@@ -342,7 +342,7 @@ where bicycleNo=1 and b.memberId=m.id
 
 
 
-
+select * from possible_day
 
 
 
@@ -580,3 +580,46 @@ select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
 
+update possible_day
+set endDay = to_date(('2017-06-14', 'yyyy-mm-dd')-1)
+
+select p.startDay,p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7 
+and '2017-06-14'>= to_char(p.startDay,'yyyy-mm-dd')
+and '2017-06-17' = to_char(p.endDay,'yyyy-mm-dd')
+
+select p.startDay,p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7 
+and '2017-06-14'>= p.startDay
+and '2017-06-17' = p.endDay
+
+
+select * from possible_day where bicycleNo=7
+and endDay = to_char('2017-06-16','yyyy-mm-dd') and startDay <= to_char('2017-06-14','yyyy-mm-dd');
+
+select to_char(startDay,'yyyy-mm-dd') from possible_day where bicycleNo=7
+
+create table daytest(
+	id varchar2(100) primary key,
+	startDay date not null,
+	endDay date not null
+)
+
+insert into daytest values('java',sysdate,sysdate+1)
+select * from daytest
+
+select to_date(startDay,'yy-mm-dd') from daytest
+where startDay=sysdate
+
+create table tt(
+	id varchar2(100) primary key,
+	startDay varchar2(100) not null
+)
+insert into tt values('java','2017-05-05')
+
+select to_date(startDay,'yyyy-mm-dd') from tt
+
+select * from possible_day where bicycleNo=15
+select * from rent where rentNo=36

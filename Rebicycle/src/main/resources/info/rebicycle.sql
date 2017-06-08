@@ -62,6 +62,7 @@ create table category(
 
 create table bicycle(
    bicycleNo number primary key,
+   title varchar2(100) not null,
    memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
    address varchar2(300) not null,
    title varchar2(100) not null,
@@ -109,6 +110,8 @@ create table rent(
    state number default 0
 )
 
+
+
 create table rb_review(
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
 	rentNo number constraint fk_rentNooo references rent(rentNo),
@@ -131,6 +134,14 @@ create table donation(
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    picture varchar2(300) not null
+)
+create table rb_review(
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo),
+   star number default 0,
+   reviewDate date not null,
+   cotent clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
 )
 
 --테이블 수정
@@ -155,13 +166,14 @@ alter table rent modify(state number default 0);
 delete from rent
 select * from rent
 insert into rent values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-12',1);
-insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(rent_seq.nextval,'java',3,'2017-05-11','2017-05-13');
+insert into rent(rentNo,renterId,bicycleNo,startDay,endDay) values(rent_seq.nextval,'java2',4,'2017-06-27','2017-06-27');
 select rent_seq.nextval from dual
 select bicycle_seq.nextval from dual
 
 
 
 select * from BICYCLE
+
 
 
 
@@ -446,14 +458,19 @@ insert into rent values(rent_seq.nextval,'java4',1,to_date('2017-06-13','yyyy/mm
 --4.임소영이 배서경자전거1 빌림 : 14일
 insert into rent values(rent_seq.nextval,'java2',1,to_date('2017-06-14','yyyy/mm/dd'),to_date('2017-06-14','yyyy/mm/dd'),1);
 
+insert into rent values(rent_seq.nextval,'java2',4,to_date('2017-06-08','yyyy/mm/dd'),to_date('2017-06-09','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java3',4,to_date('2017-06-10','yyyy/mm/dd'),to_date('2017-06-11','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java4',4,to_date('2017-06-12','yyyy/mm/dd'),to_date('2017-06-15','yyyy/mm/dd'),1);
+insert into rent values(rent_seq.nextval,'java2',4,to_date('2017-06-16','yyyy/mm/dd'),to_date('2017-06-17','yyyy/mm/dd'),1);
 select * from rent;
+
+select rentNo from rent
+		where renterId='java2' and bicycleNo=4 and state=1
 ------------------------------------------------
+select * from RB_REVIEW;
 
-insert into rb_review values(1,4,sysdate,'좋아요');
-insert into rb_review values(2,4,sysdate,'임쏘자전거좋아요');
-insert into rb_review values(3,5,sysdate,'좋아요3');
-insert into rb_review values(4,3,sysdate,'좋아요4');
 
+insert into rb_review values('java2',22,4,sysdate,'리뷰 첫번째');
 
 --==============서경==============================================================
 update rb_report set reportTitle='test',blackId='java',contents='test',reportDate=sysdate where reportNo=26
@@ -527,6 +544,9 @@ create table rb_review(
    cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
+<<<<<<< HEAD
+
+=======
 
 drop table rent
 delete table rent
@@ -540,8 +560,14 @@ create table rent(
    endDay date not null,
    state number default 0
 )
+<<<<<<< HEAD
 select * from POSSIBLE_DAY
 =======
+=======
+
+select * from POSSIBLE_DAY
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 --mypage 요청 리스트
 select r.*, b.*
 from rent r, bicycle b
@@ -602,16 +628,18 @@ from possible_day
 where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
 and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
 
-select (#{startDay} - possible.startDay), (possible.endDay-#{endDay})
 
-from(
-			p.startDay, p.endDay
-			from possible_day p, bicycle b
-			where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
-		to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-			and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
-) possible
+select p.startDay, p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
 
+<<<<<<< HEAD
+and
+<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 select * from possible_day
 
@@ -623,3 +651,6 @@ and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
 
 select * from possible_day
 select * from rent
+
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

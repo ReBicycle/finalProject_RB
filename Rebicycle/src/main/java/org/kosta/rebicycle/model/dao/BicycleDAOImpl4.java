@@ -38,7 +38,7 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 	}
 
 	public RentVO findRentByRentNo(int rentNo) {
-		return template.selectOne("bicycle.findRentByRnetNo", rentNo);
+		return template.selectOne("bicycle.findRentByRentNo", rentNo);
 	}
 
 	public void updateRentByRentNo(String rentNo) {
@@ -59,15 +59,16 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 		
 	}
 
-	public void updatePossibleCalendarVOType2(CalendarVO calendarVO) {
-		template.update("bicycle.updatePossibleCalendarVOType2", calendarVO);
+	public void updatePossibleCalendarVOType2(HashMap<String, CalendarVO> calendarMap) {
+		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
 		
 	}
 
-	public void updatePossibleCalendarVOType3(CalendarVO calendarVO) {
+	public void updatePossibleCalendarVOType3(HashMap<String, CalendarVO> calendarMap) {
 		//template.delete("bicycle.updatePossibleCalendarVOType1", calendarVO);
-		template.update("bicycle.updatePossibleCalendarVOType2", calendarVO);
-		template.insert("bicycle.updatePossibleCalendarVOType3", calendarVO);
+		template.insert("bicycle.updatePossibleCalendarVOType3", calendarMap);
+		template.update("bicycle.updatePossibleCalendarVOType0", calendarMap);
+		
 		
 	}
 

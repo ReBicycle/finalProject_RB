@@ -119,7 +119,7 @@ $(document).ready(function(){
 				</div>
 				<div class="panel-body">
 					<form id = "memberRegisterForm" class="form-horizontal" enctype="multipart/form-data"
-					 action="${pageContext.request.contextPath}/memberModify.do" method="POST">
+					 action="${pageContext.request.contextPath}/member/memberModify.do" method="POST">
 					
 					
 						<div class="row">

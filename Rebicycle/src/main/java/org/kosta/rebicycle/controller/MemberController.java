@@ -20,11 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberController {
 
 	
-	private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	//private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 
 	//private String uploadPath="C:\\Users\\소영\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	//종봉
-	//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	@Resource
 	private MemberService memberService;
 	
@@ -95,7 +95,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("memberModifyForm.do")
+	@RequestMapping("member/memberModifyForm.do")
 	public String memberModifyView(HttpServletRequest request,Model model){
 		//System.out.println("회원정보수정Controller");
 		HttpSession session=request.getSession(false);
@@ -110,7 +110,7 @@ public class MemberController {
 		return "member/member_modify_form.tiles";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="memberModify.do")
+	@RequestMapping(method=RequestMethod.POST,value="member/memberModify.do")
 	public String memberModify(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		//System.out.println("memberModify"+vo.getUploadFile());
 		

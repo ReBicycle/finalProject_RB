@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
-import org.kosta.rebicycle.model.service.BicycleServiceImpl5;
 import org.kosta.rebicycle.model.service.BicycleServiceImpl4;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl5;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -63,9 +63,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -159,7 +159,7 @@ public class BicycleController {
 		}
 		
 	///상세보기로 보낼 정보 처리 컨트롤러
-	@RequestMapping("findBicycleByNo.do")
+	@RequestMapping("/bicycle/bicycle_findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model, HttpServletRequest request){
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
@@ -357,9 +357,8 @@ public class BicycleController {
 		
 		//빌리려 하는 사람이 여러 날짜를 빌리고 싶은 경우
 		//각 날짜는 다른 tuple 에 들어간다.
+
 		for(int i=0; i<startDay.length; i++){
-			System.out.println("test     "+startDay[i]);
-			System.out.println("test2     "+endDay[i]);
 			cvo.setStartDay(startDay[i]);
 			cvo.setEndDay(endDay[i]);			
 			RentVO rvo=new RentVO(bvo,mvo,cvo);

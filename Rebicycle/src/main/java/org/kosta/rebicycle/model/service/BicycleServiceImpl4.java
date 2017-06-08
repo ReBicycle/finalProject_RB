@@ -1,11 +1,10 @@
 package org.kosta.rebicycle.model.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.kosta.rebicycle.model.dao.BicycleDAOImpl2;
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl3;
 import org.kosta.rebicycle.model.dao.BicycleDAOImpl4;
 import org.kosta.rebicycle.model.vo.BicycleVO;
@@ -43,8 +42,8 @@ public class BicycleServiceImpl4 implements BicycleService {
 	}
 
 	//해당 자전거를 요청한 내역 띄우기
-	public List<RentVO> findRentByBicycleNo(int bicycleNo){
-		return bicycleDAOImpl4.findBicycleByBicycleNo(bicycleNo);
+	public List<RentVO> getRentByBicycleNo(int bicycleNo){
+		return bicycleDAOImpl4.getRentByBicycleNo(bicycleNo);
 	}
 
 	public List<RentVO> findRentRequestById(String id) {
@@ -64,33 +63,53 @@ public class BicycleServiceImpl4 implements BicycleService {
 	public void deleteRentedDay(RentVO rvo) {
 		//System.out.println("deleRentedDay" + rvo);
 		
-		//System.out.println(rvo.getCalendarVO());
+		
 		String newStartDay = rvo.getCalendarVO().getStartDay().substring(0,10);
-		//System.out.println(newStartDay);
 		String newEndDay = rvo.getCalendarVO().getEndDay().substring(0, 10);
-		String type = "";
 		
 		rvo.getCalendarVO().setBicycleNo(rvo.getBicycleVO().getBicycleNo());
 		rvo.getCalendarVO().setStartDay(newStartDay);
 		rvo.getCalendarVO().setEndDay(newEndDay);
 		
-		CalendarVO possibleDay = bicycleDAOImpl4.getPossibleCalendarVO(rvo.getCalendarVO());
-		//6월2일에서 6월 9일 신청시
-		//db에서 해당 자전거의 가능일 중 6/2~6/9가 해당하는 기간 받아오기
 		
-		System.out.println("deleRentedDay" + possibleDay);
-		type = compareDay(possibleDay, rvo.getCalendarVO());
+		
+		CalendarVO compare= bicycleDAOImpl4.compareCalendarVO(rvo.getCalendarVO());
+		
+		HashMap<String, CalendarVO> calendarMap = new HashMap<>();
+		calendarMap.put("possible", bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
+		calendarMap.put("rent", rvo.getCalendarVO());
+		//System.out.println("possible" + bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
+		System.out.println("deleteRentedDay-cM" + calendarMap);
+		
+		
+		//System.out.println("deleteRentedDay" + compare);
+		
+		if(Integer.parseInt(compare.getStartDay()) == 0 && Integer.parseInt(compare.getEndDay())==0){
+			//다 자르기
+			System.out.println("type1");
+			bicycleDAOImpl4.updatePossibleCalendarVOType1(calendarMap);
+			
+		}else if(Integer.parseInt(compare.getStartDay())==0 && Integer.parseInt(compare.getEndDay())>0){
+			//type0 신청일의 종료일부터 가능일의 종료일로 update
+			System.out.println("type0");
+			bicycleDAOImpl4.updatePossibleCalendarVOType0(calendarMap);
+			
+		}
+		else if(Integer.parseInt(compare.getStartDay())>0 && Integer.parseInt(compare.getEndDay())==0){
+			//type2 
+			System.out.println("type2");
+			bicycleDAOImpl4.updatePossibleCalendarVOType2(calendarMap);
+			
+		}
+		else if(Integer.parseInt(compare.getStartDay())>0 && Integer.parseInt(compare.getEndDay())>0){
+			//type3
+			System.out.println("type3");
+			bicycleDAOImpl4.updatePossibleCalendarVOType3(calendarMap);
+			
+		}
 		
 	}
 
-	private String compareDay(CalendarVO possibleCalendarVO, CalendarVO rentCalendarVO) {
-		
-		//type = 0 기간의 시작날짜 = 신청한 시작날짜
-		//type = 1 기간의 시작날짜 < 신청한 시작날짜  이면서 기간의 종료날짜 >신청한 종료날짜 
-		//type = 2 기간의 종료날짜 = 신청한 종료날짜
-		//type= 3  기간의 시작날짜 = 신청한 시작날짜 &&  기간의 종료날짜 = 신청한 종료날짜 
-		
-		return null;
-	}
+	
 	
 }

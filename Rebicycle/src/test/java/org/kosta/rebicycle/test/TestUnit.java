@@ -20,7 +20,7 @@ public class TestUnit {
 	public void test1() {
 
 	}
-}
+
 /*@Resource
 private SqlSessionTemplate t;
 =======
@@ -40,3 +40,26 @@ private BicycleDAOImpl5 dao;
 	 * @Resource private BicycleDAOImpl5 dao;
 	 *
 	 */
+@Test
+public void test2(){
+/*	System.out.println("하이");
+	Map<String,String> map=new HashMap<String,String>();
+	map.put("address", "판교");
+	map.put("startDay", "2017-05-26");
+	map.put("endDay", "2017-05-28");
+	List<BicycleVO> list=template.selectList("bicycle.getBicycleListByAddressAndDay", map);
+	System.out.println(list);
+	System.out.println("바이");
+}
+	public List<BicycleVO> getBicycleListByAddressAndDay(String address, String startDay, String endDay) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("address", address);
+		map.put("startDay", startDay);
+		map.put("endDay", endDay);
+		List<BicycleVO> list = template.selectList("bicycle.getBicycleListByAddressAndDay", map);
+		System.out.println(list);
+		return list;*/
+	System.out.println(template.selectList("bicycle.getReviewByBicycle", "26"));
+	
+	}
+}

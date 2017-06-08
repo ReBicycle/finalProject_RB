@@ -27,7 +27,7 @@
                     <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/member/member_register_form.do">join</a>
                    </li>
-                 
+                 	
                     
                    
                     </c:when>
@@ -55,7 +55,7 @@
                      	<li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
                     	</li>
-                     
+                     	
 					</c:otherwise>
 					</c:choose> 
 					 <li class="page-scroll">
@@ -64,7 +64,9 @@
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
                     </li>
-                                   
+                      <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/donation/donation_register_form.do">기부</a>
+                   </li>             
                     
 
                     

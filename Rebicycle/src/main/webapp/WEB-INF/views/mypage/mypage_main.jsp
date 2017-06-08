@@ -18,53 +18,42 @@ tr:hover{background-color:#f5f5f5}
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#reviewForm").click(function(){
-			location.href="${pageContext.request.contextPath}/mypage/mypage_review_form.do";
+			location.href="${pageContext.request.contextPath}/bicycle/bicycle_detail.do?";
 		});
 		
-			
-		$(".dropdown-menu li a").on("click", function(){
-			//alert("ss");
-			//alert ($("input[id^='rentBicycleNo']").val());
-			
-				
-				var bSize = $("input[id^='rentBicycleNo']").size();
-				for(var i = 1; i<=bSize;i++){
-					var bicycleNo = $("#rentBicycleNo"+i).val();
-	
-					//alert("1" + bicycleNo);
-					$.ajax({
-						type:"get",
-						dataType:"json",
-						url:"${pageContext.request.contextPath}/getRentByBicycleNo.do?bicycleNo="+bicycleNo,
-						success:function(data){
-							//data[1]
-							var result = "";
-							var table = "";
-							for(var i = 0; i<data.length;i++){
-								//alert(data);
-								/* alert("rentNo" + data[i].rentNo);
-								alert("빌린사람 id" + data[i].memberVO.id)
-								alert("신청시작일" + data[i].calendarVO.startDay);
-								alert("신청종료일" + data[i].calendarVO.endDay);
-								result += data[i].rentNo + "/" + data[i].memberVO.id + "/" + data[i].calendarVO.startDay + "/" + data[i].calendarVO.endDay;
-								 */
-								 table += "<tr>"+
-									 		"<td>" + data[i].rentNo + "</td>"+
-									 		"<td>" + data[i].memberVO.id + "</td>"+
-									 		"<td>" + data[i].calendarVO.startDay + "</td>"+
-									 		"<td>" + data[i].calendarVO.endDay + "</td>"+
-									 		"<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
-									 		"<td><input type = 'button' id = 'delBtn' value = '거절' class='btn btn-danger'></td>"+
-									 		"</tr>"
-			
-							}
+		//rentList${order.count}
+		var rentListSize = $("a[id^='rentList']").size();
+		for(var j = 1;j<=rentListSize;j++){
+			$("#rentList"+j).click(function(){
+				var bicycleNo=$(this).children().val();
+				$.ajax({
+					type:"get",
+					dataType:"json",
+					url:"${pageContext.request.contextPath}/getRentByBicycleNo.do?bicycleNo="+bicycleNo,
+					success:function(data){
+						//data[1]
+						var result = "";
+						var table = "";
+						for(var i = 0; i<data.length;i++){
 							
-							$("#rentInfo").html(table); 
-							
-						} //success
-					});//ajax
-				}
-		});//a click
+							 table += "<tr>"+
+								 		"<td>" + data[i].rentNo + "</td>"+
+								 		"<td>" + data[i].memberVO.id + "</td>"+
+								 		"<td>" + data[i].calendarVO.startDay + "</td>"+
+								 		"<td>" + data[i].calendarVO.endDay + "</td>"+
+								 		"<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
+								 		"<td><input type = 'button' id = 'delBtn' value = '거절' class='btn btn-danger'></td>"+
+								 		"</tr>"
+		
+						}
+						
+						$("#rentInfo").html(table); 
+						
+					} //success
+				});//ajax
+			});
+		}
+		
 		
 		$("#rentInfo").on("click","#okBtn" ,function(){
 			if(confirm("수락하시겠습니까?")){
@@ -280,16 +269,19 @@ tr:hover{background-color:#f5f5f5}
                                 --등록자전거--
                                 <span class="caret"></span>
                             </button>
-                     <%-- ${requestScope.rentRequestList[0].memberVO.id} --%>
+                     <%-- ${requestScope.[0].memberVO.id} --%>
                     
                      	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 	                           	<c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
-
-		                             <li><a id = "rentList${order.count}">${registerList.title}</a></li>
-		                             <input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${registerList.bicycleNo}">
-
+									
+		                             <li>
+		                             	<a id = "rentList${order.count}">${registerList.title}
+		                              	<input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${registerList.bicycleNo}"></a>
+		                             </li>
+		                            
+									
 	                       		 </c:forEach>
-                       		 </ul> 
+                       </ul> 
                        
                      </div>
                     </span>
@@ -331,8 +323,8 @@ tr:hover{background-color:#f5f5f5}
                     </span>
                     <br><br>
 				<div align="left">
-					<c:forEach items="${requestScope.rentList}" var = "bList" varStatus="i">
-						 ${bList.bicycleVO.detail} <input type="button"  value="리뷰쓰기"  id="reviewForm"><br>                       
+					<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
+						<a href ="${pageContext.request.contextPath}/findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
 	                </c:forEach>
 				
 				</div>

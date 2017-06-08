@@ -5,250 +5,342 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 
 <mapper namespace="bicycle">
-	<insert id="registerBicycle" parameterType="bicycleVO">
-		<selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
-			select bicycle_seq.nextval from dual
-		</selectKey>
- 		insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo, title) 
- 		values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryVO.categoryNo}, #{title})
- 	</insert>
- 	
- 	<select id="findCategoryByNo" resultType="string">
- 		select categoryName from category where categoryNo=#{value}
- 	</select>
- 	
- 	<select id="calculateMinPrice" resultType="int">
- 		select min(rentPrice) from bicycle where categoryNo=#{value}
- 	</select>
-	
- 	<select id="calculateMaxPrice" resultType="int">
- 		select max(rentPrice) from bicycle where categoryNo=#{value}
- 	</select> 
- 	
- 	<select id="calculateAvgPrice" resultType="double">
- 		select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
- 	</select>
+   <insert id="registerBicycle" parameterType="bicycleVO">
+      <selectKey keyProperty="bicycleNo" resultType="int" order="BEFORE">
+         select bicycle_seq.nextval from dual
+      </selectKey>
+       insert into bicycle(bicycleNo, memberId, address, purchasePrice, rentPrice, detail, categoryNo, title) 
+       values(#{bicycleNo}, #{memberVO.id}, #{address}, #{purchasePrice}, #{rentPrice}, #{detail}, #{categoryVO.categoryNo}, #{title})
+    </insert>
+    
+    <select id="findCategoryByNo" resultType="string">
+       select categoryName from category where categoryNo=#{value}
+    </select>
+    
+    <select id="calculateMinPrice" resultType="int">
+       select min(rentPrice) from bicycle where categoryNo=#{value}
+    </select>
+   
+    <select id="calculateMaxPrice" resultType="int">
+       select max(rentPrice) from bicycle where categoryNo=#{value}
+    </select> 
+    
+    <select id="calculateAvgPrice" resultType="double">
+       select round(avg(rentPrice), 1) from bicycle where categoryNo=#{value}
+    </select>
 
- 	<insert id="registerPossibleDate" parameterType="calendarVO">
-		insert into possible_day(bicycleNo, startDay, endDay)
-		values(#{bicycleNo}, #{startDay}, #{endDay})
-	</insert>
-	
-	<select id="countCategory" resultType="int">
-		select count(*) from bicycle where categoryNo=#{value}
-	</select>
-	
-	<insert id="registerMap" parameterType="mapVO">
-		insert into map(bicycleNo, latitude, longitude) values(#{bicycleNo}, #{latitude}, #{longitude}) 
-	</insert>
-	
-	<update id="updateBicycle" parameterType="bicycleVO">
-		update bicycle set title=#{title}, categoryNo=#{categoryVO.categoryNo}, address=#{address},
-		purchasePrice=#{purchasePrice}, rentPrice=#{rentPrice}, detail=#{detail}
-		where bicycleNo=#{bicycleNo}
-	</update>
-	
-	<select id="findPossibleDay" resultType="calendarVO">
-		select bicycleNo, startDay, endDay from possible_day where bicycleNo=#{bicycleNo}
-	</select>
-	
-	<delete id="deletePossibleDay" parameterType="calendarVO">
-		delete from possible_day where bicycleNo=#{bicycleNo}
-	</delete>
-	
-	<insert id="insertPossibleDay" parameterType="calendarVO">
-		insert into possible_day(bicycleNo, startDay, endDay) values(#{bicycleNo}, #{startDay}, #{endDay})
-	</insert>
-	
-	<update id="updateMap" parameterType="mapVO">
-		update map set latitude=#{latitude}, longitude=#{longitude} where bicycleNo=#{bicycleNo}
-	</update>
-	
-	<select id="findMapByBicycleNo" resultType="mapVO">
-		select bicycleNo, latitude, longitude from map where bicycleNo=#{value}
-	</select>
-	
-	<select id="findAddressById" resultType="String">
-		select address from rb_member where id=#{value}
-	</select>
-	<!-- 종봉 자전거 검색 -->
-	<!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
-		resultType="bicycleVO">
-		select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice
-		,b.rentPrice , b.detail ,b.categoryNo,to_char(p.startDay) as
-		startDay,to_char(p.endDay) as endDay ,c.photo1,c.photo2,c.photo3
-		from bicycle b, possible_day p, bicycle_photo c
-		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
-		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo
-	</select> -->
-	<select id="getBicycleListByAddressAndDay" parameterType="map"
-		resultMap="bicycleMap" >
-		select b.bicycleNo,b.title ,b.memberId ,b.address
-		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
-		from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
-		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
-		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id
-	</select>
-	<select id="sortedListByAddressAndDayAndHigh" parameterType="map"
-		resultMap="bicycleRM" >
-		select b.bicycleNo,b.title, b.memberId ,b.address
-		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
-		from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
-		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
-		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id
-		order by b.rentPrice desc
-	</select>
-		<select id="sortedListByAddressAndDayAndLow" parameterType="map"
-		resultMap="bicycleMap" >
-		select b.bicycleNo,b.title, b.memberId ,b.address
-		,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
-		from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
-		where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
-		and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
-		b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id order by b.rentPrice asc
-	</select>
-	<!-- 현근/소영 -상세보기에 필요한 resultMap -->
+    <insert id="registerPossibleDate" parameterType="calendarVO">
+      insert into possible_day(bicycleNo, startDay, endDay)
+      values(#{bicycleNo}, #{startDay}, #{endDay})
+   </insert>
+   
+   <select id="countCategory" resultType="int">
+      select count(*) from bicycle where categoryNo=#{value}
+   </select>
+   
+   <insert id="registerMap" parameterType="mapVO">
+      insert into map(bicycleNo, latitude, longitude) values(#{bicycleNo}, #{latitude}, #{longitude}) 
+   </insert>
+   
+   <update id="updateBicycle" parameterType="bicycleVO">
+      update bicycle set title=#{title}, categoryNo=#{categoryVO.categoryNo}, address=#{address},
+      purchasePrice=#{purchasePrice}, rentPrice=#{rentPrice}, detail=#{detail}
+      where bicycleNo=#{bicycleNo}
+   </update>
+   
+   <select id="findPossibleDay" resultType="calendarVO">
+      select bicycleNo, startDay, endDay from possible_day where bicycleNo=#{bicycleNo}
+   </select>
+   
+   <delete id="deletePossibleDay" parameterType="calendarVO">
+      delete from possible_day where bicycleNo=#{bicycleNo}
+   </delete>
+   
+   <insert id="insertPossibleDay" parameterType="calendarVO">
+      insert into possible_day(bicycleNo, startDay, endDay) values(#{bicycleNo}, #{startDay}, #{endDay})
+   </insert>
+   
+   <update id="updateMap" parameterType="mapVO">
+      update map set latitude=#{latitude}, longitude=#{longitude} where bicycleNo=#{bicycleNo}
+   </update>
+   
+   <select id="findMapByBicycleNo" resultType="mapVO">
+      select bicycleNo, latitude, longitude from map where bicycleNo=#{value}
+   </select>
+   
+   <select id="findAddressById" resultType="String">
+      select address from rb_member where id=#{value}
+   </select>
+   <!-- 종봉 자전거 검색 -->
+   <!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
+      resultType="bicycleVO">
+      select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice
+      ,b.rentPrice , b.detail ,b.categoryNo,to_char(p.startDay) as
+      startDay,to_char(p.endDay) as endDay ,c.photo1,c.photo2,c.photo3
+      from bicycle b, possible_day p, bicycle_photo c
+      where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+      and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+      b.bicycleNo=c.bicycleNo
+   </select> -->
+   <select id="getBicycleListByAddressAndDay" parameterType="map"
+      resultMap="bicycleMap" >
+      select b.bicycleNo,b.title ,b.memberId ,b.address
+      ,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
+      from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
+      where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+      and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+      b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id
+   </select>
+   <select id="sortedListByAddressAndDayAndHigh" parameterType="map"
+      resultMap="bicycleRM" >
+      select b.bicycleNo,b.title, b.memberId ,b.address
+      ,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
+      from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
+      where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+      and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+      b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id
+      order by b.rentPrice desc
+   </select>
+      <select id="sortedListByAddressAndDayAndLow" parameterType="map"
+      resultMap="bicycleMap" >
+      select b.bicycleNo,b.title, b.memberId ,b.address
+      ,b.rentPrice, b.categoryNo,c.photo1,c.photo2,c.photo3,m.latitude,m.longitude,r.picture
+      from bicycle b, possible_day p, bicycle_photo c,map m,rb_member r
+      where b.address like '%' ||#{address}|| '%' and b.bicycleNo=p.bicycleNo and     <![CDATA[to_date(#{startDay})>=p.startDay ]]>
+      and <![CDATA[ to_date(#{endDay})<=p.endDay ]]>and
+      b.bicycleNo=c.bicycleNo and b.bicycleNo=m.bicycleNo and b.memberId=r.id order by b.rentPrice asc
+   </select>
+   <!-- 현근/소영 -상세보기에 필요한 resultMap -->
 
-	<resultMap type="bicycleVO" id="bicycleMap">
-		<result column="memberId" property="memberVO.id"/>
-		<result column="categoryNo" property="categoryVO.categoryNo"/>
-		<result column="photo1" property="photoVO.photo1"/>
-		<result column="photo2" property="photoVO.photo2"/>
-		<result column="photo3" property="photoVO.photo3"/>
-		<result column="longitude" property="map.longitude"/>
-		<result column="latitude" property="map.latitude"/>
-		<result column = "picture" property="memberVO.picture"/>
-	</resultMap>
-	<!-- 종봉 -->
-	<!-- 현근 -->
+   <resultMap type="bicycleVO" id="bicycleMap">
+      <result column="memberId" property="memberVO.id"/>
+      <result column="categoryNo" property="categoryVO.categoryNo"/>
+      <result column="photo1" property="photoVO.photo1"/>
+      <result column="photo2" property="photoVO.photo2"/>
+      <result column="photo3" property="photoVO.photo3"/>
+      <result column="longitude" property="map.longitude"/>
+      <result column="latitude" property="map.latitude"/>
+      <result column = "picture" property="memberVO.picture"/>
+   </resultMap>
+   <!-- 종봉 -->
+   <!-- 현근 -->
 
-	<resultMap type="bicycleVO" id="bicycleRM">
-		<!-- BicycleVO 의 MemberVO  -->
-		<result column="memberId" property="memberVO.id" />
-		<result column="name" property="memberVO.name"/>
-		<result column="phone" property="memberVO.phone" />
-		<result column="email" property="memberVO.email"/>
-		<result column = "picture" property="memberVO.picture"/>
-		
-		<!-- BicycleVO 의 PhotoVO  -->
-		<result column = "photo1" property="photoVO.photo1"/>
-		<result column = "photo2" property="photoVO.photo2"/>
-		<result column = "photo3" property="photoVO.photo3"/>
-		
-		<!-- BicycleVO 의 CategoryVO -->
-		<result column="categoryNo" property="categoryVO.categoryNo"/>
-		<result column="categoryName" property="categoryVO.categoryName"/>
-	</resultMap>
+   <resultMap type="bicycleVO" id="bicycleRM">
+      <!-- BicycleVO 의 MemberVO  -->
+      <result column="memberId" property="memberVO.id" />
+      <result column="name" property="memberVO.name"/>
+      <result column="phone" property="memberVO.phone" />
+      <result column="email" property="memberVO.email"/>
+      <result column = "picture" property="memberVO.picture"/>
+      
+      <!-- BicycleVO 의 PhotoVO  -->
+      <result column = "photo1" property="photoVO.photo1"/>
+      <result column = "photo2" property="photoVO.photo2"/>
+      <result column = "photo3" property="photoVO.photo3"/>
+      
+      <!-- BicycleVO 의 CategoryVO -->
+      <result column="categoryNo" property="categoryVO.categoryNo"/>
+      <result column="categoryName" property="categoryVO.categoryName"/>
+   </resultMap>
 
-	<select id="findBicycleByNo" resultMap="bicycleRM" parameterType="int">
-		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
-		from bicycle b,rb_member m 
-		where bicycleNo=#{value} and b.memberId=m.id
-	</select>
-	
-	<!-- 소영-mypage관련 -->
-	<select id="findBicycleById" resultType="bicycleVO">
-		select distinct bicycleNo, title
-		from bicycle
-		where memberId=#{value}
-	</select>
+   <select id="findBicycleByNo" resultMap="bicycleRM" parameterType="int">
+      select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
+      from bicycle b,rb_member m 
+      where bicycleNo=#{value} and b.memberId=m.id
+   </select>
+   
+   <!-- 소영-mypage관련 -->
+   <select id="findBicycleById" resultType="bicycleVO">
+      select distinct bicycleNo, title
+      from bicycle
+      where memberId=#{value}
+   </select>
 
-	
-	<insert id="registerFile" parameterType="photoVO">
-		insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
-	</insert>
-	
-	
-	
-	<select id="findRentById" resultMap="rentMap">
-		select renterId,bicycleNo, startDay, endDay, state 
-		from rent 
-		where renterId=#{value}
-	</select>
-	
-	<!-- 리스트 테스트 소영 -->
-	<select id="findBicycleList" resultType = "bicycleVO">
-		select bicycleNo 
-		from bicycle
-	</select>
-	
-	
-	<!-- 자전거 대여 가능일을 제외한 자전거 등록 정보 -->
-	<select id="findBicycleDetailByNo" resultMap = "bicycleRM">
-		select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
-		,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,	ph.*, b.title
-		from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca
-		where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=#{value} and ca.categoryNo=b.categoryNo
-	</select>
-	
-	
-	<select id = "findPossibleDayByNo" resultType="calendarVO">
-		select b.bicycleNo,to_char(p.startDay,'YYYY-MM-DD') as startDay,to_char(p.endDay,'YYYY-MM-DD') as endDay
-		from bicycle b, RB_MEMBER m, POSSIBLE_DAY p
-		where b.bicycleNo = p.bicycleNo and b.memberId=m.id and b.bicycleNo=#{value}
-		
-	</select>
+   
+   <insert id="registerFile" parameterType="photoVO">
+      insert into bicycle_photo values(#{bicycleNo},#{photo1},#{photo2},#{photo3})
+   </insert>
+   
+   
+   
+   <select id="findRentById" resultMap="rentMap">
+      select renterId,bicycleNo, startDay, endDay, state 
+      from rent 
+      where renterId=#{value}
+   </select>
+   
+   <!-- 리스트 테스트 소영 -->
+   <select id="findBicycleList" resultType = "bicycleVO">
+      select bicycleNo 
+      from bicycle
+   </select>
+   
+   
+   <!-- 자전거 대여 가능일을 제외한 자전거 등록 정보 -->
+   <select id="findBicycleDetailByNo" resultMap = "bicycleRM">
+      select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail
+      ,m.id,m.name,m.phone,m.email,m.picture, ca.categoryNo, ca.categoryName,   ph.*, b.title
+      from bicycle b, RB_MEMBER m,BICYCLE_PHOTO ph, category ca
+      where b.memberId = m.id  and b.bicycleNo=ph.bicycleNo and b.bicycleNo=#{value} and ca.categoryNo=b.categoryNo
+   </select>
+   
+   
+   <select id = "findPossibleDayByNo" resultType="calendarVO">
+      select b.bicycleNo,to_char(p.startDay,'YYYY-MM-DD') as startDay,to_char(p.endDay,'YYYY-MM-DD') as endDay
+      from bicycle b, RB_MEMBER m, POSSIBLE_DAY p
+      where b.bicycleNo = p.bicycleNo and b.memberId=m.id and b.bicycleNo=#{value}
+      
+   </select>
 
 
-	<!-- Rent 등록 -->
-	<insert id="rentRegister" parameterType="rentVO">
-		<selectKey keyProperty="rentNo" resultType="int" order="BEFORE">
-			select rent_seq.nextval from dual
-		</selectKey>
-		insert into rent(rentNo, renterId,bicycleNo, startDay, endDay)
-		values(#{rentNo}, #{memberVO.id}, #{bicycleVO.bicycleNo}, #{calendarVO.startDay}, #{calendarVO.endDay})
-	</insert>
+   <!-- Rent 등록 -->
+   <insert id="rentRegister" parameterType="rentVO">
+      <selectKey keyProperty="rentNo" resultType="int" order="BEFORE">
+         select rent_seq.nextval from dual
+      </selectKey>
+      insert into rent(rentNo, renterId,bicycleNo, startDay, endDay)
+      values(#{rentNo}, #{memberVO.id}, #{bicycleVO.bicycleNo}, #{calendarVO.startDay}, #{calendarVO.endDay})
+   </insert>
 
-	
+   
 
-	<!-- 해당 자전거 요청 내역 불러오기  -->
+   <!-- 해당 자전거 요청 내역 불러오기  -->
+   <resultMap type="rentVO" id="rentMap">
+      <result column="renterId" property="memberVO.id"/>
+      <result column="bicycleNo" property="bicycleVO.bicycleNo"/>
+      <result column = "title" property = "bicycleVO.title"/>
+      <!-- 요청리스트에 필요한 rentVO의 memberVO의 id 부분 추가 -->
+      <!-- <result column = "memberId" property = "bicycleVO.memberVO.id"/> -->
+      
+      <result column="startDay" property="calendarVO.startDay"/>
+      <result column="endDay" property="calendarVO.endDay"/>
+   </resultMap>
+   
+   
+   <select id="getRentByBicycleNo" resultMap="rentMap">
+      select rentNo,renterId,bicycleNo,startDay, endDay, state
+      from rent 
+      where bicycleNo=#{value} and state = 0
+   </select>
+      
+   
+   <select id="findRentRequestById" resultMap = "rentMap">
+      select r.*, b.bicycleNo, b.memberId, b.title
+      from rent r, bicycle b
+      where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
+   </select>
+   
+   <select id = "findRentByRentNo" resultMap = "rentMap">
+      select rentNo,bicycleNo, renterId, startDay, endDay
+      from rent
+      where rentNo = #{value}
+   </select>
 
-	
-	<select id="findBicycleByBicycleNo" resultMap="rentMap">
-		select rentNo,renterId,bicycleNo,startDay, endDay, state
+   <update id = "updateRentByRentNo">
+      update rent set state = 1
+      where rentNo = #{value}
+   </update>   
+   
+   <select id="compareCalendarVO" parameterType = "calendarVO" resultType = "calendarVO">
+      select 
+         
+         (to_date(#{startDay}, 'yyyy-mm-dd') - possible.startDay) as startDay, 
+         (possible.endDay-to_date(#{endDay}, 'yyyy-mm-dd')) as endDay
+         from(
+            select p.startDay, p.endDay, b.bicycleNo
+            from possible_day p, bicycle b
+            where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
+            <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+            and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+         ) possible
 
-		from rent 
-		where bicycleNo=#{value}
-	</select>
-		
-	<resultMap type="rentVO" id="rentMap">
-		<result column="renterId" property="memberVO.id"/>
-		<result column="bicycleNo" property="bicycleVO.bicycleNo"/>
-		<result column = "title" property = "bicycleVO.title"/>
-		<!-- 요청리스트에 필요한 rentVO의 memberVO의 id 부분 추가 -->
-		<!-- <result column = "memberId" property = "bicycleVO.memberVO.id"/> -->
-		
-		<result column="startDay" property="calendarVO.startDay"/>
-		<result column="endDay" property="calendarVO.endDay"/>
-	</resultMap>
-	
-	<select id="findRentRequestById" resultMap = "rentMap">
-		select r.*, b.bicycleNo, b.memberId, b.title
-		from rent r, bicycle b
-		where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
-	</select>
-	
-	<select id = "findRentByRnetNo" resultMap = "rentMap">
-		select rentNo,bicycleNo, renterId, startDay, endDay
-		from rent
-		where rentNo = #{value}
-	</select>
-
-	<update id = "updateRentByRentNo">
-		update rent set state = 1
-		where rentNo = #{value}
-	</update>
-	
-	
-	<select id="getPossibleCalendarVO" parameterType = "calendarVO" resultType = "calendarVO">
-		select p.startDay, p.endDay
-		from possible_day p, bicycle b
-		where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
-		<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-		and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
-	</select>
-	
+            
+   </select>
+   
+   <select id = "getPossibleCVO" parameterType = "calendarVO" resultType="calendarVO">
+         select  to_char(p.startDay, 'yyyy-mm-dd')as startDay ,to_char(p.endDay, 'yyyy-mm-dd') as endDay ,b.bicycleNo
+         from possible_day p, bicycle b
+         where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
+         <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+         and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+   </select>
+   
+   
+   <delete id="updatePossibleCalendarVOType1" parameterType = "hashMap">
+      delete 
+      from possible_day
+      where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
+      
+   </delete>
+   
+   <update id="updatePossibleCalendarVOType0" parameterType = "hashMap">
+      update possible_day
+      set startDay = to_date(#{rent.endDay}, 'yyyy-mm-dd')
+      where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
+   
+   </update>
+    
+   <update id="updatePossibleCalendarVOType2" parameterType="calendarVO">
+      update possible_day
+      set endDay = to_date(#{startDay}, 'yyyy-mm-dd')
+      from possible_day p, bicycle b
+      where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} 
+      and <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+      and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+   </update>
+   <!--
+   <insert id="updatePossibleCalendarVOType3" parameterType = "calendarVO">
+      insert into possible_day
+      values(#{bicycleNo}, to_date(#{endDay}), (
+         select  p.endDay
+         from possible_day p, bicycle b
+         where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
+         <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+         and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+      ))   
+   </insert> -->
+   
+     <!--리뷰 작성 -->
+   <insert id="writeReview" parameterType="reviewVO">
+      insert into rb_review(reviewerId,rentNo,star,reviewDate,content)
+       values(#{rentVO.memberVO.id},#{rentVO.rentNo},#{star},sysdate,#{content})
+   </insert>
+   
+   <resultMap type="rentVO" id="rentRM2">
+      <result column="startDay" property="calendarVO.startDay"/>
+      <result column="endDay" property="calendarVO.endDay"/>
+      <result column="renterId" property="memberVO.id"/>
+   </resultMap>
+   <select id="findRentVOForReview" parameterType="rentVO" resultMap="rentRM2">
+      select rentNo,renterId,startDay,endDay 
+      from rent
+      where renterId=#{memberVO.id} and bicycleNo=#{bicycleVO.bicycleNo} and state=1 
+      order by endDay desc
+   </select>
+   
+   <update id="updateRentStateTo3">
+      update rent set state=3
+      where rentNo=#{value}
+   </update>
+   <!--리뷰 조회-->
+   <resultMap type="reviewVO" id="reviewMap">
+      <result column="rentNo" property="rentVO.rentNo"/>   
+      <result column="reviewerId" property="rentVO.memberVO.id"/>
+      <result column="bicycleNo" property="rentVO.bicycleVO.bicycleNo"/>
+   </resultMap>
+   
+   <select id="getReviewListByBicycleNo" resultMap="reviewMap">
+      select rv.rentNo,rv.reviewerId,r.bicycleNo,rv.star,rv.reviewdate,rv.content
+      from rb_review rv, rent r 
+      where rv.rentNo=r.rentNo and r.bicycleNo=#{value}
+      order by rv.reviewDate desc
+   </select>
+<!-- 리뷰 쓸지안쓸지 체크 -->
+   <select id="reviewCheck" resultType="rentVO">
+      select rentNo from rent
+      where renterId=#{memberVO.id} and bicycleNo=#{bicycleVO.bicycleNo} and state=1
+   </select>
+   
+   
+   
 </mapper>

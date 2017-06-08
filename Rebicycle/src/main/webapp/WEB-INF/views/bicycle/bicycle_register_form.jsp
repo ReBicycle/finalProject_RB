@@ -204,6 +204,7 @@ function findGeo(){
 						$("#roadAddress").val(addArr[0]);
 						$("#jibunAddress").val(addArr[1]);
 						$("#detailAddress").val(addArr[2]); 
+						findGeo();
 					}
 				});
 			} else if ($(":radio[name='select_address']:checked").val()=='newAddress') {

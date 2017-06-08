@@ -630,7 +630,7 @@ select startDay, endDay
 from possible_day 
 where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
 and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
-
+select * from rent
 
 select p.startDay, p.endDay
 from possible_day p, bicycle b
@@ -640,3 +640,5 @@ and
 <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
 and <![CDATA[ to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>		
 >>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
+select to_date(startDay,'yy-mm-dd') from possible_day

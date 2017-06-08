@@ -24,9 +24,7 @@ tr:hover{background-color:#f5f5f5}
 		//rentList${order.count}
 	
 		$(".dropdown-menu li a").on("click", function(){
-			//alert("ss");
-			//alert ($("input[id^='rentBicycleNo']").val());
-			
+		
 				var bSize = $("input[id^='rentBicycleNo']").size();
 
 				//alert(bSize);
@@ -274,15 +272,18 @@ tr:hover{background-color:#f5f5f5}
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 --등록자전거--
-                                <span class="caret"></span>
+                                <span class="caret"></span>+
                             </button>
                      <%-- ${requestScope.[0].memberVO.id} --%>
                     
                      	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 	                           	<c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
 
-		                             <li><a id = "rentList${order.count}">${registerList.title}</a></li>
+		                             <li><a id = "rentList${order.count}">${registerList.title}
 		                             <input type = "hidden" id = "rentBicycleNo${order.count}"  value ="${registerList.bicycleNo}">
+		                             </a>
+		                             </li>
+		                             
 
 	                       		 </c:forEach>
                        </ul> 

@@ -228,11 +228,11 @@ section.awSlider>img {
     	var calculateResult=new Array();
    		
         $("#checkImg").click(function(){
-        	alert("test");
+        	
             if($("#checkResult").html()==""){
             	
             }else{
-            	alert("cat");
+            	
             	$("#checkResult").html("<font color='red'>test</font>");
             }
         	

@@ -279,7 +279,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
 	
 	</update>
-	<!-- 
+	 
 	<update id="updatePossibleCalendarVOType2" parameterType="calendarVO">
 		update possible_day
 		set endDay = to_date(#{startDay}, 'yyyy-mm-dd')
@@ -288,7 +288,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
 		and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
 	</update>
-	
+	<!--
 	<insert id="updatePossibleCalendarVOType3" parameterType = "calendarVO">
 		insert into possible_day
 		values(#{bicycleNo}, to_date(#{endDay}), (
@@ -297,8 +297,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
 			<![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
 			and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
-		))
-		
-		
+		))	
 	</insert> -->
 </mapper>

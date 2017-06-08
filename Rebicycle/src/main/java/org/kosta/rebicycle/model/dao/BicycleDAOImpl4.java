@@ -59,8 +59,8 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 		
 	}
 
-	public void updatePossibleCalendarVOType2(CalendarVO calendarVO) {
-		template.update("bicycle.updatePossibleCalendarVOType2", calendarVO);
+	public void updatePossibleCalendarVOType2(HashMap<String, CalendarVO> calendarMap) {
+		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
 		
 	}
 

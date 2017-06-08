@@ -22,8 +22,15 @@ tr:hover{background-color:#f5f5f5}
 		});
 	
 		var rentListSize = $("a[id^='rentList']").size();
+		 //day N:N - 각각의 startDay , endDay를 담기 위한 배열 선언
+		var startendDay=new Array();
+		var checkFailList=new Array();
+		
+		
 		for(var j = 1;j<=rentListSize;j++){
 			$("#rentList"+j).click(function(){
+				
+				 
 				var bicycleNo=$(this).children().val();
 				$.ajax({
 					type:"get",
@@ -33,21 +40,66 @@ tr:hover{background-color:#f5f5f5}
 						//data[1]
 						var result = "";
 						var table = "";
+
 						for(var i = 0; i<data.length;i++){
+
 							
 							 table += "<tr>"+
-								 		"<td>" + data[i].rentNo + "</td>"+
-								 		"<td>" + data[i].memberVO.id + "</td>"+
-								 		"<td>" + data[i].calendarVO.startDay + "</td>"+
-								 		"<td>" + data[i].calendarVO.endDay + "</td>"+
+								 		"<td>" + data[j].rentNo + "</td>"+
+								 		"<td>" + data[j].memberVO.id + "</td>"+
+								 		"<td>" + data[j].calendarVO.startDay + "</td>"+
+								 		"<td>" + data[j].calendarVO.endDay + "</td>"+
 								 		"<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
-								 		"<td><input type = 'button' id = 'delBtn' value = '거절' class='btn btn-danger'></td>"+
-								 		"</tr>"
-		
+								 		"</tr>";
+							
+							
+							dayMap.put("startDay", data[j].calendarVO.startDay.substring(0,10));
+							dayMap.put("endDay", data[j].calendarVO.endDay.substring(0,10));
+							startendDay[j] = dayMap;
+							//alert("ajax Rent"+data[j].calendarVO.startDay);
+							$.ajax({
+					            type:"get",
+					            data:"bicycleNo="+bicycleNo,
+					            dataType:"json",
+					            url:"${pageContext.request.contextPath}/dayCheck.do",
+					       
+					            success:function(data){                  
+					       			
+					               var flag=0;
+
+					                  for(var i=0; i<data.length; i++){
+					                	
+					                   
+					                   	
+					                    if(((data[i].startDay<=startendDay[j-1].get("startDay"))&&(startendDay[j-1].get("endDay")<=data[i].endDay))){
+					                    	alert("1로바뀜!");
+					                    	flag=1;
+					                     }                                     
+					                  }//for-data.length    
+					                
+					                  checkFailList[j-1]=flag;
+					                  if(checkFailList[j-1] == 0){
+								        	// alert("dd불가능!!!!!!");
+								        	 //alert("eee"+$("#rentInfo tr:eq(+"+i+")").children().eq(4).html());
+								        	 $("#rentInfo tr:eq(+"+(j-1)+")").children().eq(4).html("<input type = 'button' id = 'okBtn'  value = '수락불가' class='btn btn-warning'>");
+								        	 $("#rentInfo tr:eq(+"+(j-1)+")").children().eq(4).click(function(event){
+								        		 event.stopPropagation();
+								        		 event.preventDefault();
+								        	 });
+								        	return;
+								         }else{
+								        	 
+								        	 //alert("가능!!!!!");
+								         }
+					            } //success                  
+					         });//ajax
+							
+							
 						}
 						
 						$("#rentInfo").html(table); 
 						
+						 
 					} //success
 				});//ajax
 			});
@@ -65,7 +117,45 @@ tr:hover{background-color:#f5f5f5}
 			
 		});
 		
+		
+		 function newMap() {
+	           var map = {};
+	           map.value = {};
+	           map.getKey = function(id) {
+	             return "k_"+id;
+	           };
+	           map.put = function(id, value) {
+	             var key = map.getKey(id);
+	             map.value[key] = value;
+	           };
+	           map.contains = function(id) {
+	             var key = map.getKey(id);
+	             if(map.value[key]) {
+	               return true;
+	             } else {
+	               return false;
+	             }
+	           };
+	           map.get = function(id) {
+	             var key = map.getKey(id);
+	             if(map.value[key]) {
+	               return map.value[key];
+	             }
+	             return null;
+	           };
+	           map.remove = function(id) {
+	             var key = map.getKey(id);
+	             if(map.contains(id)){
+	               map.value[key] = undefined;
+	             }
+	           };
+	          
+	           return map;
+	         }
+	        
 	});
+	
+	
 </script>
 
 
@@ -289,7 +379,7 @@ tr:hover{background-color:#f5f5f5}
                    		<table>
 							<thead>
 								<tr>
-									<th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th><th>거절</th>
+									<th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th>
 								</tr>
 							</thead>
 							<tbody id = "rentInfo"></tbody>

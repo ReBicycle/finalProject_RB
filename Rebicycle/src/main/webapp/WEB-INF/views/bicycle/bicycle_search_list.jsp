@@ -121,7 +121,7 @@ appearance: none;
 </div>
 <div class="w3-row-padding w3-margin-top " id="listSpace" >
    <c:forEach items="${requestScope.bicycleList}" var="list" >
- <a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onmouseover=""> <div class="w3-second col-sm-6 w3-margin-top " >
+ <a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onclick="return loginCheck()"> <div class="w3-second col-sm-6 w3-margin-top " >
      <div class="w3-card-2 content " width="240px" height="180px">
       <img class="img" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="240px" height="180px">
       <div class="overlay" >
@@ -147,7 +147,7 @@ appearance: none;
  var map;
   mapSetting();
 function mapSetting(){
-
+	
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng("${requestScope.bicycleList[0].map.latitude}", "${requestScope.bicycleList[0].map.longitude}"), // 지도의 중심좌표
@@ -158,7 +158,8 @@ function mapSetting(){
 map=new daum.maps.Map(mapContainer, mapOption); 
 // 지도에 확대 축소 컨트롤을 생성한다
 	var zoomControl = new daum.maps.ZoomControl();
-
+	//범위재설정
+	var bounds = new daum.maps.LatLngBounds();   
 	// 지도의 우측에 확대 축소 컨트롤을 추가한다
 	map.addControl(zoomControl, daum.maps.ControlPosition.BOTTOMLEFT);
         var positions = [
@@ -187,6 +188,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
      '            <div class="desc">' + 
      '                <div class="ellipsis"> ${fn:substringBefore(addr, ",")}</div>' + 
      '                <div class="jibun ellipsis"> ${fn:substringAfter(addr, ",")}</div>' + 
+     '                <div class="ellipsis"> ${bicycleList.rentPrice}원/시간</div>' + 
      '            </div>' + 
      '        </div>' + 
      '    </div>' +    
@@ -198,6 +200,9 @@ map=new daum.maps.Map(mapContainer, mapOption);
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
  		//var imageSrc = "${pageContext.request.contextPath}/resources/img/images.jpg";
+ 		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+ 		 
+ 		
          for (var i = 0; i < positions.length; i ++) {
             
             // 마커 이미지의 이미지 크기 입니다
@@ -213,8 +218,10 @@ map=new daum.maps.Map(mapContainer, mapOption);
                 title :positions[i].title , // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image : markerImage // 마커 이미지 
             }); 
-            
-
+             
+              bounds.extend(positions[i].latlng);
+              
+              
  			 // 마커 위에 커스텀오버레이를 표시합니다
  			 // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 			  var overlay = new daum.maps.CustomOverlay({
@@ -231,10 +238,13 @@ map=new daum.maps.Map(mapContainer, mapOption);
               daum.maps.event.addListener(marker, 'mouseout', makeOutListener(overlay)); 
            // 마커를 클릭했을 때 디테일로 페이지이동
               daum.maps.event.addListener(marker, 'click', function() {
+            	  if(loginCheck())
                   location.href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+p;
               });
               
         }//for문 끝
+        
+        setBounds();
         
        //오버레이를 표시하는 클로저를 만드는 함수입니다 
          function makeOverListener(map, marker, overlay) {
@@ -251,13 +261,28 @@ map=new daum.maps.Map(mapContainer, mapOption);
                 
              };
          }  
-   
+         
+         function setBounds() {
+        	    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+        	    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+        	    map.setBounds(bounds);
+        	}
 
 }//mapSetting
 
 </script>
 <script type="text/javascript">
- 
+function loginCheck(){
+	var mvo="${sessionScope.mvo}";
+		if(mvo==""){
+			alert("로그인이 필요한 서비스 입니다.");
+			return false;
+		}
+		else
+			return true;
+}
+</script>
+<script type="text/javascript">
  	$(document).ready(function(){
  		$("#bikeTypeSelect").change(function(){
  			var bikeType=$("#bikeTypeSelect option:selected").val();
@@ -275,7 +300,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  					var contents=""; 
  					//alert(JSON.stringify(data)); 			
  			 		 for(var i=0;i<data.length;i++){
- 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
+ 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'"onclick="return loginCheck()">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
@@ -314,7 +339,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  					//alert(JSON.stringify(data)); 			
  					
  					  for(var i=0;i<data.length;i++){
- 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'">';
+ 					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'"onclick="return loginCheck()">';
  					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
  					contents+='<div class="w3-card-2 content ">';
  					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
@@ -332,6 +357,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
  			})//ajax   
  		   
  		});//price change
+ 		
  	});//ready
  		
  	

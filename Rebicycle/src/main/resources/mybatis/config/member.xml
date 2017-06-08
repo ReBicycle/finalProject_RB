@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <mapper namespace="member">   
  	
 	<select id="login" parameterType="memberVO" resultType="memberVO">
-		select id,name from rb_member
+		select id,name,picture from rb_member
 		where id=#{id} and password=#{password}
 	</select>	
 	

@@ -203,7 +203,7 @@ function findGeo(){
 				    <!-- 사진 -->
 				    <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
-				        <div class="controls col-md-8 " align="center"> 
+				        <div class="controls col-md-8 " align="center">  
 				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo1 }?ver=1">
 				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo2 }?ver=1">
 				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo3 }?ver=1"><br><br>

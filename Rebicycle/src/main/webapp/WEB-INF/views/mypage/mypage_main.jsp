@@ -105,7 +105,7 @@ tr:hover{background-color:#f5f5f5}
          }
       });
       
-     $("#modifyBtn").click(function(){
+      $("#registerTbody").on("click","#modifyBtn" ,function(){
     	 if(confirm("수정하시겠습니까?")){
              var bicycleNo = $("#modifyBtn").parent().parent().children().eq(0).text();
              location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo="+bicycleNo;
@@ -115,13 +115,22 @@ tr:hover{background-color:#f5f5f5}
      });
       
      
-    
+      /* $("#writeBtn").click(function(){
+ 	 if(confirm("후기/별점을 작성하시겠습니까??")){
+          var rentNo = $("#writeBtn").parent().parent().children().eq(0).text();//
+          var bicycleNo = $("#bicycleNoHidden").val();
+          alert(bicycleNo);
+          alert(rentNo);
+          location.href = "{pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+ bicycleNo +"&rentNo="+rentNo;
+          
+<!-- <li><a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a></li> -->
+
+       }
+  }); */
      
-     function toDetail(bicycleNo,rentNo){
-    	 alert(bicycleNo);
-    	 alert(rentNo);
-    	 location.href = "${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+bicyleNo+"&rentNo="+rentNo;
-     }
+  	
+  
+    
      
      
        function newMap() {
@@ -160,7 +169,13 @@ tr:hover{background-color:#f5f5f5}
             }
            
    });
-   
+   function toDetail(bicycleNo,rentNo){
+  	// alert(bicycleNo + "111111!!~!!!!");
+  	// alert(rentNo);
+  	 var b = bicycleNo;
+  	 var r = rentNo;
+  	 location.href = "${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+b+"&rentNo="+r;
+   }
    
 </script>
 
@@ -330,7 +345,7 @@ tr:hover{background-color:#f5f5f5}
 								
 								</thead>
 									
-								<tbody>
+								<tbody id = "registerTbody">
 									<c:forEach items="${requestScope.registerList}" var = "bList">
 	   
 	                                   <tr>   
@@ -338,9 +353,9 @@ tr:hover{background-color:#f5f5f5}
 	                                   	<td> ${bList.title}</td>
 	                                   	<td>
 	                                   	
-	                                   <!-- 	<input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정"> -->
-	                                   	<a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
-	                                   	
+	                                   		<input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정"> 
+	                                   	<%-- <a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
+	                                   	 --%>
 	                                   	</td>
 	                                   	
 	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
@@ -441,16 +456,16 @@ tr:hover{background-color:#f5f5f5}
 	                                   	
 	                                   	<c:if test = "${rList.state ==1}">
 	                                   		<td>
-	                                   			<%-- <input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})"> --%>
-	                                   			<a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
-	                                   			
+	                                   			<input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
+	                                   			<%-- <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
+	                                   			 --%>
 	                                   		</td>
 	                                   	</c:if>
 	                                   	
 	                                   	<c:if test="${rList.state == 3}">
 	                                   		<td>
 	                                   			<input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료">
-	                                   			<!-- <li><a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a></li> -->
+	                                   			
 	                                   		</td>
 	                                   	</c:if>	
 									

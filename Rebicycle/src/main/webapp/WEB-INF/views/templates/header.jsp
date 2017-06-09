@@ -74,9 +74,7 @@
                      	
 					</c:otherwise>
 					</c:choose> 
-					 <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_map.do">map</a>
-                    </li>
+					
                      <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
                     </li>

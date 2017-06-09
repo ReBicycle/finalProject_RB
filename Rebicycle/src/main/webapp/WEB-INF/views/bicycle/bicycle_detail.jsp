@@ -236,9 +236,17 @@ section.awSlider>img {
         $("#checkImg").click(function(){
            //day N:N - 배열 형태인 startDay 와 endDay 를 
            //startendDay[] 에 넣어준다.
-            
+           //여기서 날짜 전후 비교
            for(var i=0; i<=startLength; i++){
-                 //day N:N - 각 startDay와 endDay를 map에 넣어준다.
+                 
+        	   if($("#startDay"+i).val()>$("#endDay"+i).val()){
+					alert("입력한 날짜 전후를 확인하세요.")
+					 $("#startDay"+[i]).focus();
+		             $("#startDay"+[i]).val("");
+		             $("#endDay"+[i]).val("");
+					return false;
+				}
+        	   //day N:N - 각 startDay와 endDay를 map에 넣어준다.
                  var dayMap=newMap();
                  dayMap.put("startDay",$("#startDay"+i).val());
                  dayMap.put("endDay",$("#endDay"+i).val());
@@ -257,7 +265,7 @@ section.awSlider>img {
 		            	
 		            	  exit_for:
 		                  for(var j=0; j< data.length; j++){
-		                     //가능한 날짜일 경우 flag에 +1 한다.
+		                     //가능한 날짜일 경우 flag에 =1 한다.
 		                     
 		                     if(((data[j].startDay<=startendDay[i-1].get("startDay")) && (startendDay[i-1].get("endDay")<=data[j].endDay))	){
 		                    	 flag=1;
@@ -272,9 +280,9 @@ section.awSlider>img {
 		                     }else{ 
 		                    	 result = (i-1);
 		                    	 content = ("<font color='red'>"+result+"번 날짜 불가능</font><br>");
-		                    	 //$("#startDay"+[i-1]).focus();
-		                    	 //$("#startDay"+[i-1]).val("");
-		                    	 //$("#endDay"+[i-1]).val("");
+		                    	 $("#startDay"+[i-1]).focus();
+		                    	 $("#startDay"+[i-1]).val("");
+		                    	 $("#endDay"+[i-1]).val("");
 		                    	 
 		                    	 checkFlag[i-1] = false;
 		                    	 //alert("test" + checkFlag[i-1]);

@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>   
+ <style>
+ #designA :hover { 
+ background-color: #153a6d;
+ }
+ 	
+ </style>
     	<nav class="navbar navbar-inverse">
     	<!-- Navigation -->
+    	
+    	
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -34,9 +42,9 @@
                   
                     <c:otherwise>
 						<li class="dropdown">
-					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.mvo.name} 님 로그인
+					        <a id = "designA" class="dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.mvo.name} 님 로그인
 					        <span class="caret"></span></a>
-					        <ul class="dropdown-menu">
+					        <ul class="dropdown-menu" style = "background-color:#546da2;">
 					          <li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
 					          <li><a href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a></li>
 					          <li> <a href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a></li>

@@ -383,13 +383,13 @@ public class BicycleController {
 		
 		//RentVO rvo=new RentVO(bvo,mvo,cvo);
 		//serviceImpl3.rentRegister(rvo);		
-		return "redirect:rentRegister_result.do";
+		return "redirect:../mypage/mypage_main.do";
 	}
-	@RequestMapping("bicycle/rentRegister_result.do")
+	/*@RequestMapping("bicycle/rentRegister_result.do")
 	public String rentRegisterResult(){
 		System.out.println("dddd");
 		return "mypage/mypage_main.tiles";
-	}
+	}*/
 }
 
 

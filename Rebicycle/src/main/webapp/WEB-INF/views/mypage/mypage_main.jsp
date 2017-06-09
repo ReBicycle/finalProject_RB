@@ -114,7 +114,16 @@ tr:hover{background-color:#f5f5f5}
           }
      });
       
-      
+     
+    
+     
+     function toDetail(bicycleNo,rentNo){
+    	 alert(bicycleNo);
+    	 alert(rentNo);
+    	 location.href = "${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+bicyleNo+"&rentNo="+rentNo;
+     }
+     
+     
        function newMap() {
               var map = {};
               map.value = {};
@@ -327,7 +336,12 @@ tr:hover{background-color:#f5f5f5}
 	                                   <tr>   
 	                                   	<td>${bList.bicycleNo}</td>
 	                                   	<td> ${bList.title}</td>
-	                                   	<td><input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정"></td>
+	                                   	<td>
+	                                   	
+	                                   <!-- 	<input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정"> -->
+	                                   	<a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
+	                                   	
+	                                   	</td>
 	                                   	
 	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
 	                                    </tr>
@@ -422,17 +436,24 @@ tr:hover{background-color:#f5f5f5}
 	                                   	<td>${rList.calendarVO.startDay }</td>
 	                                   	<td>${rList.calendarVO.endDay }</td>
 	                                   	<c:if test= "${rList.state ==0}">
-	                                   		<td><input type = "button" id = "" class =" btn btn-success" value = "수락대기상태"></td>
+	                                   		<td><input type = "button" id = "" class ="btn btn-warning" value = "수락대기상태"></td>
 	                                   	</c:if>
 	                                   	
 	                                   	<c:if test = "${rList.state ==1}">
-	                                   		<td><input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성"></td>
+	                                   		<td>
+	                                   			<%-- <input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})"> --%>
+	                                   			<a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
+	                                   			
+	                                   		</td>
 	                                   	</c:if>
 	                                   	
 	                                   	<c:if test="${rList.state == 3}">
-	                                   		<td><input type = "button" id = "" class =" btn btn-success" value = "수락대기상태"></td>
+	                                   		<td>
+	                                   			<input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료">
+	                                   			<!-- <li><a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a></li> -->
+	                                   		</td>
 	                                   	</c:if>	
-	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
+									
 	                                    </tr>
 	                                </c:forEach>
 								

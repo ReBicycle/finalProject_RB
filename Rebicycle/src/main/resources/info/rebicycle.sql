@@ -608,7 +608,7 @@ select * from date_test;
 select id,sysdate-mydate from date_test;\
 
 select * from rent
-
+DELETE FROM RENT
 select r.*, p.*
 from rent r, possible_day p
 where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12

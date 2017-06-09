@@ -60,20 +60,22 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 	}
 
 	public void updatePossibleCalendarVOType2(HashMap<String, CalendarVO> calendarMap) {
-		System.out.println("test dao     "+calendarMap.get("rent").getStartDay());
-		System.out.println("test dao     "+calendarMap.get("rent").getEndDay());
-		System.out.println("test dao     "+calendarMap.get("rent").getBicycleNo());
 		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
+		
 		
 	}
 
 	public void updatePossibleCalendarVOType3(HashMap<String, CalendarVO> calendarMap) {
-		//template.delete("bicycle.updatePossibleCalendarVOType1", calendarVO);
-		template.insert("bicycle.updatePossibleCalendarVOType3", calendarMap);
-		template.update("bicycle.updatePossibleCalendarVOType0", calendarMap);
-		
-		
+		System.out.println("111111111");
+		template.insert("bicycle.updatePossibleCalendarVOType3", calendarMap);	
+		System.out.println("222222222");
+		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
+		System.out.println("333333333");
 	}
+	
+	/*public void updatePossibleCalendarVOType3_2(HashMap<String, CalendarVO> calendarMap) {
+		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
+	}*/
 
 	public CalendarVO getPossibleCVO(CalendarVO calendarVO) {
 		return template.selectOne("bicycle.getPossibleCVO",calendarVO);

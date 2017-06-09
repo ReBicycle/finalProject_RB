@@ -15,17 +15,14 @@ public class BicycleDAOImpl3 implements BicycleDAO{
 	private SqlSessionTemplate template;
 
 	public BicycleVO findBicycleByNo(int bicycleNo){
-		//System.out.println(template.selectOne("bicycle.findBicycleByNo",bicycleNo));
 		return template.selectOne("bicycle.findBicycleByNo",bicycleNo);
 	}
 
 	public List<BicycleVO> findBicycleList() {
-		
 		return template.selectList("bicycle.findBicycleList");
 	}
 
 	public BicycleVO findBicycleDetailByNo(int no) {
-		
 		return template.selectOne("bicycle.findBicycleDetailByNo", no);
 	}
 	
@@ -35,7 +32,6 @@ public class BicycleDAOImpl3 implements BicycleDAO{
 	
 	//빌리기
 	public void rentRegister(RentVO rvo){
-		System.out.println("mapper 실행 전 "+rvo);
 		template.insert("bicycle.rentRegister",rvo);
 	}
 	

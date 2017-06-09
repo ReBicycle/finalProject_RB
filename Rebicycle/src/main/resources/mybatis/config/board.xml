@@ -41,12 +41,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteReport">
 		delete from rb_report where reportNo=#{value}
 	</delete>
-	<select id="findBoardReplyNo" resultType="BoardReplyVO">
+	
+	<select id="findBoardReplyNo" resultType="boardReplyVO">
 		select
-		c.brdno,c.reno,c.retitle,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD HH:mm:ss') as 
-		redate from rb_boardreply 
-		c where reno=${value}
+		brdno,reno,retitle,rewriter,rememo,to_char(redate,'YYYY.MM.DD HH:mm:ss') as redate 
+		from rb_boardreply 
+		where brdno=#{value}
 	</select>
+	
 	<insert id="commentWrite" parameterType="BoardReplyVO">
  		<selectKey keyProperty="reno" resultType="int" order="BEFORE">
  			select
@@ -59,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select
 			c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD HH:mm:ss') as 
 			redate from rb_boardreply 
-			c where brdno=${value}
+			c where brdno=#{value}
 	</select>
  </mapper>
  

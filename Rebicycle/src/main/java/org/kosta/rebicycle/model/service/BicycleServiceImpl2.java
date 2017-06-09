@@ -1,7 +1,10 @@
 package org.kosta.rebicycle.model.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -15,7 +18,7 @@ public class BicycleServiceImpl2 implements BicycleService {
 	private BicycleDAOImpl5 dao;
 	
 	public List<BicycleVO> getBicycleListByAddressAndDay(String address,String startDay,String endDay){
-			
+	
 		return dao.getBicycleListByAddressAndDay(address, startDay, endDay);
 	}
 
@@ -35,9 +38,82 @@ public class BicycleServiceImpl2 implements BicycleService {
 
 	public List<BicycleVO> sortByPriceType(String address, String startDay, String endDay, String priceType) {
 		System.out.println("가격정렬서비스실행");
-		if(priceType.equals("low"))
-			return dao.sortedListByAddressAndDayAndLow(address, startDay, endDay);
-		else
-			return dao.sortedListByAddressAndDayAndHigh(address, startDay, endDay);
+		List<BicycleVO> list=dao.getBicycleListByAddressAndDay(address, startDay, endDay);
+		BicycleVO temp=null;
+		
+		
+		if(priceType.equals("low")){
+			/*//<---선택정렬 (오름차순)
+			for(int i=0;i<list.size()-1;i++){
+				int indexMin=i;
+				for(int j=i+1;j<list.size();j++){
+					if(list.get(indexMin).getRentPrice()>list.get(j).getRentPrice()){
+						temp=list.get(indexMin);
+						list.set(indexMin, list.get(j));
+						list.set(j,temp);
+					}
+				}
+			}//선택정렬 (오름차순)----->
+			//<---삽입정렬  (오름차순)
+			for(int i=1;i<list.size();i++){
+				temp=list.get(i);
+				int aux= i-1;
+				while(aux>=0&&list.get(aux).getRentPrice()>temp.getRentPrice()){
+						list.set(aux+1, list.get(aux));
+						aux--;
+				}//while 
+				list.set(aux+1,temp);
+			}// 삽입정렬  (오름차순)----->*/
+			//<--버블정렬 (오름차순
+			for(int i=0;i<list.size()-1;i++){
+				for(int j=0;j<list.size()-1-i;j++){
+					if(list.get(j).getRentPrice()>list.get(j+1).getRentPrice()){
+						temp=list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, temp);
+					}
+				}
+			}//버블정렬 -->
+		
+			return list;
+			//return dao.sortedListByAddressAndDayAndLow(address, startDay, endDay);
+		}
+			
+		else{
+			/*//<---선택정렬 (내림차순)
+			for(int i=0;i<list.size()-1;i++){
+				int indexMin=i;
+				for(int j=i+1;j<list.size();j++){
+					if(list.get(indexMin).getRentPrice()<list.get(j).getRentPrice()){
+						temp=list.get(indexMin);
+						list.set(indexMin, list.get(j));
+						list.set(j,temp);
+					}
+				}
+			}//선택정렬 (내림차순)----->
+			//<---삽입정렬  (내림차순)
+			for(int i=1;i<list.size();i++){
+				temp=list.get(i);
+				int aux= i-1;
+				while(aux>=0&&list.get(aux).getRentPrice()<temp.getRentPrice()){
+						list.set(aux+1, list.get(aux));
+						aux--;
+				}//while 
+				list.set(aux+1,temp);
+			}// 삽입정렬  (내림차순)----->*/
+			//<--버블정렬 (ㄴㅐ림차순
+			for(int i=0;i<list.size()-1;i++){
+				for(int j=0;j<list.size()-1-i;j++){
+					if(list.get(j).getRentPrice()<list.get(j+1).getRentPrice()){
+						temp=list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, temp);
+					}
+				}
+			}//버블정렬 (내림차순)-->
+			return list;
+			//return dao.sortedListByAddressAndDayAndHigh(address, startDay, endDay);
+		}
+			
 	}
 }

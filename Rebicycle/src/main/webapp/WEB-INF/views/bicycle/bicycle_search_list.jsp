@@ -185,8 +185,8 @@ map=new daum.maps.Map(mapContainer, mapOption);
      '                <img src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleList.photoVO.photo1}" width="73" height="70">' +
      '           </div>' + 
      '            <div class="desc">' + 
-     '                <div class="ellipsis"> ${fn:substringBefore(addr, ",")}</div>' + 
-     '                <div class="jibun ellipsis"> ${fn:substringAfter(addr, ",")}</div>' + 
+     '                <div class="ellipsis"> ${fn:substringBefore(addr, "%")}</div>' + 
+     '                <div class="jibun ellipsis"> ${fn:substringAfter(addr, "%")}</div>' + 
      '                <div class="ellipsis"> ${bicycleList.rentPrice}원/시간</div>' + 
      '            </div>' + 
      '        </div>' + 

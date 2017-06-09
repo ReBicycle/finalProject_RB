@@ -42,11 +42,11 @@ public class MypageController {
 		ArrayList<BicycleVO> registerList = (ArrayList<BicycleVO>) bicycleService4.findBicycleById(vo.getId());
 		model.addAttribute("registerList", registerList);
 		
-		/*//내가빌린내역 불러오기
+
+		//내가빌린내역 불러오기
 		ArrayList<RentVO> rentList = (ArrayList<RentVO>) bicycleService4.findRentById(vo.getId());
-		System.out.println(rentList);
+		System.out.println("rentListTest" + rentList);
 		model.addAttribute("rentList", rentList);
-		model.addAttribute("rentList", rentList);*/
 		
 		//요청 리스트 - 다른 사람이 요청한 내역 - bicycleVO의 memberId가 내 아이디인 rent정보 
 		ArrayList<RentVO> rentRequestList = (ArrayList<RentVO>) bicycleService4.findRentRequestById(vo.getId());
@@ -75,6 +75,7 @@ public class MypageController {
 		//System.out.println("rentOK rvo" + rvo);
 		bicycleService4.updateRentByRentNo(rentNo);
 		//t
+		System.out.println("rentOk  deleteRentedDay");
 		bicycleService4.deleteRentedDay(rvo);
 		return "redirect:mypage/mypage_main.do";
 	}

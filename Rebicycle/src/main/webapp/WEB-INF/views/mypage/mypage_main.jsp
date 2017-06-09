@@ -51,7 +51,7 @@ tr:hover{background-color:#f5f5f5}
                                "<td>" + data[j].memberVO.id + "</td>"+
                                "<td>" + data[j].calendarVO.startDay + "</td>"+
                                "<td>" + data[j].calendarVO.endDay + "</td>"+
-                               "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
+                               "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-success' ></td>"+
                                "</tr>";
                                           
                      dayMap.put("startDay", data[j].calendarVO.startDay.substring(0,10));
@@ -253,7 +253,7 @@ tr:hover{background-color:#f5f5f5}
                         <div class="media-body">
                             <hr>
                             <h3><strong>${requestScope.findVO.name}</strong></h3>
-                            <p>자기소개내용</p>
+                          
                             <hr>
                             <h3><strong>Location</strong></h3>
                             <c:set var="addr" value="${requestScope.findVO.address}"/>       
@@ -264,7 +264,7 @@ tr:hover{background-color:#f5f5f5}
                             <%-- <p>${fn:substringBefore(addr, "%")}</p> --%>
                             <hr>
                             <h3><strong>E-mail</strong></h3>
-                            <p>${requestScope.findVO.email}</p>
+                            <p style="font-size: 15px">${requestScope.findVO.email}</p>
                         </div>
                     </div>
                 </div>
@@ -296,12 +296,12 @@ tr:hover{background-color:#f5f5f5}
                     </span>
                     <br><br>
               		 <hr>
-                   <br><br>
+                   
                 </div>
             </div>
-            <br><br>
+            
             <hr>
-            <br><br>
+            
             <!-- 등록 자전거 관리 -->
                <div class="panel panel-default">
                 <div class="panel-body">
@@ -328,7 +328,7 @@ tr:hover{background-color:#f5f5f5}
 	                                   <tr>   
 	                                   	<td>${bList.bicycleNo}</td>
 	                                   	<td> ${bList.title}</td>
-	                                   	<td><input type = "button" id = "modifyBtn" class =" btn btn-success" value = "수정"></td>
+	                                   	<td><input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정"></td>
 	                                   	
 	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
 	                                    </tr>
@@ -378,41 +378,60 @@ tr:hover{background-color:#f5f5f5}
                     </span>
                     <br><br>
                       <div align = "left" id ="rentView">
-                      <span align = "center" id = "bicycleInfo">요청 내역</span>
+                      
                          <table>
-                     <thead>
-                        <tr>
-                           <th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th>
-                        </tr>
-                     </thead>
-                     <tbody id = "rentInfo"></tbody>
-                  </table>
+		                     <thead>
+		                        <tr>
+		                           <th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th>
+		                        </tr>
+		                     </thead>
+		                     <tbody id = "rentInfo"></tbody>
+                  		</table>
                       </div>
                     <br><br>
                
                     
                 </div>
             </div>
-             <br><br>
+            
             <hr>
-            <br><br>
+           
             <!-- 빌린 내역 리스트 -->
                <div class="panel panel-default">
                 <div class="panel-body">
                     <span>
                         <h1 class="panel-title pull-left" style="font-size:30px">빌린 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
-
                     </span>
                     <br><br>
 		            <div align="left" id = "rentListView">
 			          <%-- ${requestScope.rentList} --%>
-			            <div>
-			            	<ul>
-				               <c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
-				                  <li><a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a></li>                   
-				               </c:forEach>
-			               </ul>
-			            </div>
+			          
+			           <div align = "left" id ="rListView">
+                      
+                         <table>
+		                     <thead>
+		                        <tr>
+		                           <th>No</th><th>bicycle Title</th><th>startDay</th><th>endDay</th><th>후기/별점</th>
+		                        </tr>
+		                     </thead>
+		                  	 <tbody>
+									<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
+	   
+	                                   <tr>   
+	                                   	<td>${rList.rentNo}</td>
+	                                   	<td>${rList.bicycleVO.title }</td>
+	                                   	<td>${rList.calendarVO.startDay }</td>
+	                                   	<td>${rList.calendarVO.endDay }</td>
+	                                   	<td><input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성"></td>
+	                                   	
+	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
+	                                    </tr>
+	                                </c:forEach>
+								
+							</tbody>
+                  		</table>
+                      </div>
+			          
 		            </div>
                 </div>
             </div>

@@ -476,7 +476,7 @@ section.awSlider>img {
       margin: 10px 10px;
       padding: 0;
       font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-      font-size: 10px;
+      
    }
    #calendar {
       max-width: 900px;
@@ -780,9 +780,11 @@ section.awSlider>img {
                       <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
                      <br>${rList.rentVO.memberVO.id}
                   </div>
+                  
                   <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
                      ${rList.content}
                   </div>
+                  
                   <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
                      <c:forEach begin="1" end="${rList.star}">
                         <img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
@@ -790,6 +792,7 @@ section.awSlider>img {
                      <c:set var="TextValue" value="${rList.reviewDate}"/>
                          ${fn:substring(TextValue,0,10)}<br>                        
                   </div>
+                  
                </div>
             </c:forEach>
          </div>

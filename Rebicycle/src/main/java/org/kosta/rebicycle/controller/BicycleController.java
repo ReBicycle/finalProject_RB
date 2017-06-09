@@ -249,6 +249,8 @@ public class BicycleController {
 		int no=Integer.parseInt(bicycleNo);
 		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
 		
+		System.out.println("test             "+cList);
+		
 		//HashMap 을 사용해 return possibleStartDay,possibleEndDay 값을 넘겨줌 
 		ArrayList<Object> possibleDayList =new ArrayList<>();
 		for(int i=0; i<cList.size(); i++){
@@ -328,11 +330,14 @@ public class BicycleController {
 			possibleTotalDay.put("title", "예약 가능");
 			possibleTotalDay.put("start", possibleStartDay[i]);
 			possibleTotalDay.put("end", possibleEndDay[i]);
-			System.out.println("title   "+possibleTotalDay.get("start"));
-			System.out.println("TEST   dog   "+possibleTotalDay.get("start"));
-			System.out.println("TEST      "+possibleTotalDay.get("end"));
+			
+			System.out.println("@@@ title   "+possibleTotalDay.get("title"));
+			System.out.println("@@@ start   "+possibleTotalDay.get("start"));
+			System.out.println("@@@ end     "+possibleTotalDay.get("end"));
+		
 			possibleDayList.add(possibleTotalDay);
 		}
+
 		return possibleDayList;
 
 	}

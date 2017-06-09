@@ -270,34 +270,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       delete 
       from possible_day
       where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
-      and bicycleNo=#{bicycleNo}
+      and bicycleNo=#{rent.bicycleNo}
    </delete>
    
    <update id="updatePossibleCalendarVOType0" parameterType = "hashMap">
       update possible_day
-      set startDay = to_date(#{rent.endDay}, 'yyyy-mm-dd')
+      set startDay = to_date(#{rent.endDay}, 'yyyy-mm-dd')+1
       where startDay = to_date(#{possible.startDay}, 'yyyy-mm-dd') and endDay = to_date(#{possible.endDay},'yyyy-mm-dd')
-   	  and bicycleNo=#{bicycleNo}
+   	  and bicycleNo=#{rent.bicycleNo}
    </update>
     
    <update id="updatePossibleCalendarVOType2" parameterType="hashMap">
       update possible_day
       set endDay = to_date(#{rent.startDay}, 'yyyy-mm-dd')-1
       where <![CDATA[to_date(#{rent.startDay}, 'yyyy-mm-dd')>= startDay]]>
-      and <![CDATA[to_date(#{rent.endDay}, 'yyyy-mm-dd')= endDay]]>
+      and <![CDATA[to_date(#{rent.endDay}, 'yyyy-mm-dd')<= endDay]]>
   	  and bicycleNo = #{rent.bicycleNo} 
    </update>
   
-   <insert id="updatePossibleCalendarVOType3" parameterType = "calendarVO">
-      insert into possible_day
-      values(#{bicycleNo}, to_date(#{endDay}), (
-         select  p.endDay
-         from possible_day p, bicycle b
-         where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} and 
-         <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
-         and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
-      ))   
+   <insert id="updatePossibleCalendarVOType3" parameterType = "hashMap">
+	insert into possible_day
+	values(#{rent.bicycleNo},to_date(#{rent.endDay},'yyyy-mm-dd')+1,(
+	select endDay
+	from possible_day
+	where <![CDATA[to_date(#{rent.startDay},'yyyy-mm-dd')>=startDay]]>
+	and <![CDATA[to_date(#{rent.endDay},'yyyy-mm-dd')<=endDay]]>
+	and bicycleNo=#{rent.bicycleNo}))
    </insert>
+
    
      <!--리뷰 작성 -->
    <insert id="writeReview" parameterType="reviewVO">

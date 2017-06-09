@@ -75,6 +75,7 @@ public class MypageController {
 		//System.out.println("rentOK rvo" + rvo);
 		bicycleService4.updateRentByRentNo(rentNo);
 		//t
+		System.out.println("rentOk  deleteRentedDay");
 		bicycleService4.deleteRentedDay(rvo);
 		return "redirect:mypage/mypage_main.do";
 	}

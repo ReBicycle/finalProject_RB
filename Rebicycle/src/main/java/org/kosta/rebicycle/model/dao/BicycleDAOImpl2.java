@@ -28,7 +28,7 @@ public class BicycleDAOImpl2 implements BicycleDAO{
 	public List<ReviewVO> getReviewListByBicycleNo(int bicycleNo){
 		return template.selectList("bicycle.getReviewListByBicycleNo",bicycleNo);
 	}
-	public RentVO reviewCheck(RentVO rvo) {
-		return template.selectOne("bicycle.reviewCheck",rvo);
+	public List<RentVO> reviewCheck(RentVO rvo) {
+		return template.selectList("bicycle.reviewCheck",rvo);
 	}
 }

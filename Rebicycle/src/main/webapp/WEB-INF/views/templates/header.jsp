@@ -73,7 +73,7 @@
                         <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
                     </li>
                       <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/donation/donation_register_form.do">기부</a>
+                        <a href="${pageContext.request.contextPath}/donation/donation_register_form.do">donation</a>
                    </li>             
                     
 

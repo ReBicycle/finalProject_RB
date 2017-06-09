@@ -56,15 +56,16 @@ public class BoardServiceImpl implements BoardService{
 		return boardDAO.boardUpdateReportView(reportNo);
 	}	
 	@Override
-	public BoardReplyVO findBoardReplyNo(int reno){
-		return boardDAO.findBoardReplyNo(reno);
+	public BoardReplyVO findBoardReplyNo(int brdno){
+		return boardDAO.findBoardReplyNo(brdno);
 	}
 	@Override
 	public void commentWrite(BoardReplyVO bvo){
 		boardDAO.commentWrite(bvo);
 	}
 	@Override
-	public List<BoardReplyVO> getReplyList(BoardReplyVO brv){
+	public List<BoardReplyVO> getReplyList(int brv){
+		System.out.println("servic			"+brv);
 		return boardDAO.getReplyList(brv);
 	}
 }

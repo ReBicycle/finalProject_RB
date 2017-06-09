@@ -18,7 +18,10 @@
 		});//commantBtn clack
 		$("#registComment").click(function(){
 			$("#board_comment_write").submit();
-		});
+		});//registComment click
+		$(".detailReply").click(function(){
+			alert("메롱~");
+		})
 	});//ready
 </script>
 <br><br><br>
@@ -48,8 +51,9 @@
                      Content <textarea class="form-control" name="contents" cols="40" rows="5" readonly="readonly">${requestScope.rvo.contents}</textarea>
                   </div>
 <!-- ----------------------------------------------------------------------------------- -->
-			<form action="${pageContext.request.contextPath}/getReplyList.do" name="getReplyList" method="get">
-			<input type="hidden" name="brdno" value="<c:out value="${requestScope.rvo.reportNo}"/>"> 
+			<%-- <form action="${pageContext.request.contextPath}/getReplyList.do" name="getReplyList" method="get"> --%>
+			<%-- <input type="hidden" name="brdno" value="<c:out value="${requestScope.rvo.reportNo}"/>"> --%> 
+			<%-- <c:forEach var="brv" items="${}"> --%>
              <table class="table table-striped table-hover ">
             <thead>
                 <tr class="bg-primary">
@@ -59,14 +63,17 @@
                 </tr>
             </thead>
             <tbody>
+            <c:forEach items="${requestScope.brv}" var="brv" >
                 <tr>
-                    <td align="left">${requestScope.brv.rewriter}</td>
-                    <td align="left">${requestScope.brv.retitle}</td>
-                    <td align="left">${requestScope.brv.redate}</td> 
+                    <td align="left">${brv.rewriter}</td>
+            	    <td align="left"><a class="detailReply">${brv.retitle}</a></td>
+                    <td align="left">${brv.redate}</td> 
                 </tr>
+                </c:forEach> 
                 </tbody>
                 </table>
-           </form>
+                <%-- </c:forEach> --%>
+           <!-- </form> -->
 <!-- --------------------------------------------------------------------------------- -->
     				<br>
                   <button type="button" class="btn btn-default" id="commentBtn">commant</button>

@@ -306,18 +306,17 @@ reportDate,b.contents from rb_report
 b where reportNo=26
 ---------------------------대댓글 구간-------------------------------------
 
-CREATE TABLE TBL_BOARDREPLY (
-      BRDNO INT(11) NOT NULL constraint fk_rb_BRDNO references rb_report(reportNo),     -- 게시물 번호
-      RENO INT(11) NOT NULL,                         -- 댓글 번호
-      REWRITER VARCHAR(10) NOT NULL constraint fk_rb_REWRITER references rb_member(id),            -- 작성자
-      REMEMO VARCHAR(500) DEFAULT NULL,       -- 댓글내용
-      REDATE DATETIME DEFAULT NULL,              -- 작성일자
-      REDELETEFLAG VARCHAR(1) NOT NULL,        -- 삭제여부
-      PRIMARY KEY (RENO)
+CREATE TABLE rb_boardreply (
+      brdno number default 0,
+      reno number primary key,
+      retitle varchar(100) not null,
+      rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
+      rememo varchar(500) not null,
+      redate date not null
 )
 
 CREATE TABLE rb_boardreply (
-      brdno number not null constraint fk_rb_brdno references rb_report(reportNo),
+      brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo),
       reno number primary key,
       retitle varchar(100) not null,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
@@ -338,6 +337,8 @@ select
 c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD HH:mm:ss') as 
 redate from rb_boardreply 
 c where brdno=90
+
+select * from rb_boardreply
 
 drop table rb_boardreply;
 drop sequence rb_boardreply_seq;
@@ -365,8 +366,6 @@ select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.c
 from bicycle b,rb_member m 
 where bicycleNo=1 and b.memberId=m.id
 
-
-
  id varchar2(100) primary key,
    password varchar2(100) not null,
    name varchar2(100) not null,
@@ -376,6 +375,7 @@ where bicycleNo=1 and b.memberId=m.id
    account varchar2(100),
    picture varchar2(300) not null
 
+select
 
 
 

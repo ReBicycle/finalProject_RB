@@ -165,7 +165,7 @@ $(document).ready(function(){
 						<div class="row">
 							<div class="center-block">
 								<abbr title="프로필 이미지를 변경하시려면 클릭해주세요!">
-									<img id = "imgView"  class="profile-img" src="${pageContext.request.contextPath}/resources/upload/member/${modifyVO.picture}" alt="">
+									<img id = "imgView"  class="profile-img" src="${pageContext.request.contextPath}/resources/upload/member/${sessionScope.mvo.picture}" alt="">
 								</abbr> 
 							</div>
 						</div>

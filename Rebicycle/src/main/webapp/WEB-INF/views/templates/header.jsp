@@ -33,8 +33,16 @@
                     </c:when>
                   
                     <c:otherwise>
-						
-					 <li class="page-scroll">
+						<li class="dropdown">
+					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.mvo.name} 님 로그인
+					        <span class="caret"></span></a>
+					        <ul class="dropdown-menu">
+					          <li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+					          <li><a href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a></li>
+					          <li> <a href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a></li>
+					        </ul>
+					      </li>	
+					<%--  <li class="page-scroll">
                       	<a>${sessionScope.mvo.name} 님 로그인</a> 
                      </li>
                       <li class="page-scroll">
@@ -43,15 +51,15 @@
                       
                         <li class="page-scroll">
 						<a href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a>
-                        </li>
+                        </li> --%>
                         <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
 	                    </li>
-	      
+	      <%-- 
 	                    <li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a>
                    		</li>
-                     
+                      --%>
                      	<li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
                     	</li>

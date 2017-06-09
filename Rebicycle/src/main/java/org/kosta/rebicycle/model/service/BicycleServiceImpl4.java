@@ -71,8 +71,6 @@ public class BicycleServiceImpl4 implements BicycleService {
 		rvo.getCalendarVO().setStartDay(newStartDay);
 		rvo.getCalendarVO().setEndDay(newEndDay);
 		
-		
-		
 		CalendarVO compare= bicycleDAOImpl4.compareCalendarVO(rvo.getCalendarVO());
 		
 		HashMap<String, CalendarVO> calendarMap = new HashMap<>();
@@ -104,10 +102,7 @@ public class BicycleServiceImpl4 implements BicycleService {
 		}	
 		else if(Integer.parseInt(compare.getStartDay())>0 && Integer.parseInt(compare.getEndDay())>0){
 			//type3
-			System.out.println("type3");
-
 			bicycleDAOImpl4.updatePossibleCalendarVOType3(calendarMap);
-			
 		}
 		
 	}

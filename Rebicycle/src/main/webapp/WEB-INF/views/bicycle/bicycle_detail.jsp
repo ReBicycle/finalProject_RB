@@ -225,7 +225,7 @@ section.awSlider>img {
         var checkDayResultl=null;
         var checkFailList=new Array();
          
-         //사용자가 입력한 날짜별 계산된 대여료들
+        //사용자가 입력한 날짜별 계산된 대여료들
        	//calculateResult 변수에 넣는다.
 	     var calculateResult=new Array();
 	     var content = "";  
@@ -235,10 +235,6 @@ section.awSlider>img {
 	 		
 	 	
         $("#checkImg").click(function(){
-
-           //day N:N 비교한 결과 불가능한 input
-          
-        
            //day N:N - 배열 형태인 startDay 와 endDay 를 
            //startendDay[] 에 넣어준다.
             
@@ -251,51 +247,45 @@ section.awSlider>img {
                  checkFlag[i] = true;
                  
                  //alert("checkFlag i번째 - checkImg click" + checkFlag[i]);
-                 
-                 
 		         $.ajax({
 		            type:"get",
 		            data:"bicycleNo=${requestScope.findBvo.bicycleNo}",
 		            dataType:"json",
 		            url:"${pageContext.request.contextPath}/dayCheck.do",
-		            success:function(data){                  
+		            success:function(data){
 		            	 var flag=0;//불가능
 		            	 var result="";
 		            	
-		            
+		            	  exit_for:
 		                  for(var j=0; j< data.length; j++){
 		                     //가능한 날짜일 경우 flag에 +1 한다.
-		                    
+		                     
 		                     if(((data[j].startDay<=startendDay[i-1].get("startDay")) && (startendDay[i-1].get("endDay")<=data[j].endDay))	){
 		                    	 flag=1;
-		                    	 //alert("가능!!!!!!!!!");
 		                         content = ("<font color='blue'>가능</font><br>");
-		                        
+		                         
+		                         //?번 입력날짜가 possible_day 테이블의 데이터 범위안에 들어오면 "가능"
+		                         //exit_for 을 사용하지 않으면 
+		                         //다음 possible_day 와 비교결과 아래의 "else" 영역으로 넘어가 
+		                         //결국 불가능이 된다.
+		                         break exit_for;
 		                        
 		                     }else{ 
 		                    	 result = (i-1);
-		                    	 //alert("불가능!!!!!!!!");
 		                    	 content = ("<font color='red'>"+result+"번 날짜 불가능</font><br>");
-		                    	 $("#startDay"+[i-1]).focus();
-		                    	 $("#startDay"+[i-1]).val("");
-		                    	 $("#endDay"+[i-1]).val("");
+		                    	 //$("#startDay"+[i-1]).focus();
+		                    	 //$("#startDay"+[i-1]).val("");
+		                    	 //$("#endDay"+[i-1]).val("");
 		                    	 
 		                    	 checkFlag[i-1] = false;
 		                    	 //alert("test" + checkFlag[i-1]);
 		                     }
 		                  }
-		                  $("#checkResult").html(content);
-		                  
-			       } //success    
-		     
-			     });//ajax
-		        
-	     }//for-startendDay.length           
-
+		                  $("#checkResult").html(content);      
+			      	 } //success    		     
+			     });//ajax		        
+	     	}//for-startendDay.length           
         });
-           
-        //alert("content       "+content)
-       
         
         
         $("#plusImg").click(function(){

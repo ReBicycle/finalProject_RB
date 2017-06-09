@@ -14,7 +14,7 @@ drop sequence bicycle_seq;
 drop sequence rent_seq;
 drop sequence report_seq;
 drop sequence donation_seq;
-
+ 
 delete from rb_review;
 delete from rb_report;
 delete from donation;

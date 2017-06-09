@@ -141,7 +141,7 @@ appearance: none;
    </div><%--리스트 전체 div --%>
    <%-- 검색 리스트 --%>
    <!-- <div class="col-sm-12" style="height:200px;background-color:#F0FFFF;"></div> -->
-   <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
+   <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
  <script>
  var markers=[];
  var map;
@@ -186,8 +186,8 @@ map=new daum.maps.Map(mapContainer, mapOption);
      '                <img src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleList.photoVO.photo1}" width="73" height="70">' +
      '           </div>' + 
      '            <div class="desc">' + 
-     '                <div class="ellipsis"> ${fn:substringBefore(addr, ",")}</div>' + 
-     '                <div class="jibun ellipsis"> ${fn:substringAfter(addr, ",")}</div>' + 
+     '                <div class="ellipsis"> ${fn:substringBefore(addr, "%")}</div>' + 
+     '                <div class="jibun ellipsis"> ${fn:substringAfter(addr, "%")}</div>' + 
      '                <div class="ellipsis"> ${bicycleList.rentPrice}원/시간</div>' + 
      '            </div>' + 
      '        </div>' + 

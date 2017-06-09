@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <script src="http://momentjs.com/downloads/moment-with-locales.js"></script>
 <script src="http://momentjs.com/downloads/moment-timezone-with-data.js"></script>
-<<script type="text/javascript">
+<script type="text/javascript">
 function dateCheck(){
 	var startDay=document.searchForm.startDay.value;
 	var endDay=document.searchForm.endDay.value;
@@ -18,15 +17,45 @@ function dateCheck(){
  
 </script>
     
-    
+  <style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejuhallasan.css);
+.image {
+  opacity: 0.6;
+  width: 390px;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  position: relative;
+}
+.middle {
+  transition: .5s ease;
+  opacity: 1;
+  position: absolute;
+  color: white;
+  font-size: 60px;
+font-family: 'Jeju Gothic', serif;
+ top: 60%;
+ left: 65%;
+}
+.image:hover {
+  opacity: 1;
+}
+
+.image:hover .middle {
+  opacity:0;
+   position: absolute;
+}
+  
+  </style>
     <!-- Header -->
-   <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/seoul3.jpg'); background-repeat: no-repeat; background-size: cover; " >
-    <!-- <header  style="background-color:#7FFFD4; background-size: cover; " > -->
+  <%--  <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/seoul3.jpg'); background-repeat: no-repeat; background-size: cover; " > --%>
+    <header  style="background-color: #f5fafa" >
         <div class="container " id="maincontent" tabindex="-1" >
             <div class="row" >
-                <div class="col-lg-12">
-                    <div class="intro-text"  style="margin-bottom:300px;">
-                        <h2 style="color: ">Search a bike for you</h2><br>
+                <div class="col-lg-12" style="padding-bottom: 200px">
+                    <div class="intro-text"  style="margin-bottom:50px; color:#2c3e50 ">
+                        <h2 style="color: ">Search a bike for you</h2>
+                        <h5>Save money, meet awesome people, and consume less</h5>
                         	<div  style="margin-top:30px;">
 								<div class="row">
         			<form action="${pageContext.request.contextPath}/bicycle_search_list.do" method="post" name="searchForm" onsubmit="return dateCheck()">
@@ -48,13 +77,40 @@ function dateCheck(){
         </form>
 	</div>
 </div>
-                        
-                        <!-- <hr class="star-light"> -->
-                        <!-- <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span> -->
                     </div>
                 </div>
-            </div>
-        </div>
+                <div  style="margin-bottom: -20px">
+                	<div class="col-xs-6 col-md-4 col-lg-4 px-0" style="margin-bottom: -20px">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=판교"><img class="image" alt="" src="${pageContext.request.contextPath}/resources/img/pangyo.jpg"></a>
+              	 		<div class="middle">판교</div>
+              	 	</div>
+                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
+                	<div class="imgcon">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=잠실"><img   class="image" alt="" src="${pageContext.request.contextPath}/resources/img/jamsil.jpg" ></a>
+                			<div class="middle">잠실</div>
+                			</div>
+                	</div>
+                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
+                	<div class="imgcon">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=수원"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/suwonsi.jpg" ></a>
+                			<div class="middle">수원</div>
+                	</div></div>
+                </div>
+                <div  style="margin-bottom: -20px">
+                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
+                	<div class="imgcon">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=부산"><img  class="image"  alt="" src="${pageContext.request.contextPath}/resources/img/busan.jpg"></a>
+              	 	</div></div>
+                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
+                	<div class="imgcon">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=대구"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/daegu.jpg" ></a>
+                	</div></div>
+                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
+                	<div class="imgcon">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=서울시"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/seoulsi.jpg" ></a>
+                	</div></div>
+                </div>
+        </div></div>
     </header>
     
     

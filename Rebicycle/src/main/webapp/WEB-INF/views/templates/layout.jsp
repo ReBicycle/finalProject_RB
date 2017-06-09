@@ -44,11 +44,8 @@
 
 			<div id="header" ><tiles:insertAttribute name="header"/></div>
 			<div class="text-center">    
-		 	<!-- <div class="row content"> -->
-			<%-- <div id="left"  class="col-sm-2 sidenav"><tiles:insertAttribute name="left"/></div> --%>
+		 	
 			<div id="main" class="text-center"><tiles:insertAttribute name="main"/></div>
-		<%-- 	<div id="right" class="col-sm-2 sidenav"><tiles:insertAttribute name="right"/></div> --%>
-			<!-- </div> -->
 			</div>
 			<footer id="footer" class="text-center"><tiles:insertAttribute name="footer"/></footer>
 			<!-- jQuery -->

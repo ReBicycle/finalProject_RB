@@ -261,7 +261,6 @@ tr:hover{background-color:#f5f5f5}
 							<c:forEach items="${addd }" var="addd">
 								<p style="font-size: 15px">${addd }</p>
 							</c:forEach>
-                            <%-- <p>${fn:substringBefore(addr, "%")}</p> --%>
                             <hr>
                             <h3><strong>E-mail</strong></h3>
                             <p style="font-size: 15px">${requestScope.findVO.email}</p>
@@ -422,8 +421,17 @@ tr:hover{background-color:#f5f5f5}
 	                                   	<td>${rList.bicycleVO.title }</td>
 	                                   	<td>${rList.calendarVO.startDay }</td>
 	                                   	<td>${rList.calendarVO.endDay }</td>
-	                                   	<td><input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성"></td>
+	                                   	<c:if test= "${rList.state ==0}">
+	                                   		<td><input type = "button" id = "" class =" btn btn-success" value = "수락대기상태"></td>
+	                                   	</c:if>
 	                                   	
+	                                   	<c:if test = "${rList.state ==1}">
+	                                   		<td><input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성"></td>
+	                                   	</c:if>
+	                                   	
+	                                   	<c:if test="${rList.state == 3}">
+	                                   		<td><input type = "button" id = "" class =" btn btn-success" value = "수락대기상태"></td>
+	                                   	</c:if>	
 	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
 	                                    </tr>
 	                                </c:forEach>

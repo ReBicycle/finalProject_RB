@@ -31,6 +31,39 @@ tr:hover{background-color:#f5f5f5}
       
       
       for(var j = 1;j<=rentListSize;j++){
+    	  
+    	 $("#successList"+j).click(function(){
+    		//alert("sss"); 
+    		 var bicycleNo=$(this).children().val();
+            $.ajax({
+               type:"get",
+               dataType:"json",
+               url:"${pageContext.request.contextPath}/getRentSuccess.do?bicycleNo="+bicycleNo,
+               success:function(data){
+                  //data[1]
+                  var result = "";
+                  var table = "";
+                  for(var j = 0; j<data.length;j++){
+                     
+                     
+                      table += "<tr>"+
+                               "<td>" + data[j].rentNo + "</td>"+
+                               "<td>" + data[j].memberVO.id + "</td>"+
+                               "<td>" + data[j].calendarVO.startDay + "</td>"+
+                               "<td>" + data[j].calendarVO.endDay + "</td>"+
+                              
+                               "</tr>";
+                                          
+                     
+                     
+                  }
+                  $("#successInfo").html(table); 
+               } //success
+            });//ajax
+    	 });
+    	  
+    	  
+    	  
          $("#rentList"+j).click(function(){
             
              
@@ -114,8 +147,7 @@ tr:hover{background-color:#f5f5f5}
           }
      });
       
-     
-      /* $("#writeBtn").click(function(){
+     /* $("#writeBtn").click(function(){
  	 if(confirm("후기/별점을 작성하시겠습니까??")){
           var rentNo = $("#writeBtn").parent().parent().children().eq(0).text();//
           var bicycleNo = $("#bicycleNoHidden").val();
@@ -307,18 +339,34 @@ tr:hover{background-color:#f5f5f5}
                                 --등록자전거--
                                 <span class="caret"></span>
                             </button>
+                            
                            <%--  ${requestScope.bicycleList} --%>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                              <c:forEach items="${requestScope.bicycleList}" var = "bList">
-   
-                                      <li><a href="#">${bList.detail}</a></li>
-                                    
+                              <c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
+                           
+                                   <li>
+                                      <a id = "successList${order.count}">${registerList.title}
+                                       <input type = "hidden" id = "successBicycleNo${order.count}"  value ="${registerList.bicycleNo}"></a>
+                                   </li>
+
                                  </c:forEach>
                               </ul>
                         </div>
                     </span>
                     <br><br>
-              		 <hr>
+              		<div align = "left" id ="rentView">
+                      
+                         <table>
+		                     <thead>
+		                        <tr>
+		                           <th>No</th><th>Id</th><th>startDay</th><th>endDay</th>
+		                        </tr>
+		                     </thead>
+		                     <tbody id = "successInfo">
+		                     	
+		                     </tbody>
+                  		</table>
+                      </div>
                    
                 </div>
             </div>

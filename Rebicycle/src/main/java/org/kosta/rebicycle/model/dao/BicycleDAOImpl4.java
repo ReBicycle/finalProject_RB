@@ -1,5 +1,6 @@
 package org.kosta.rebicycle.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,6 +34,10 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 		return template.selectList("bicycle.getRentByBicycleNo", bicycleNo);	
 	}
 
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+		return template.selectList("bicycle.findRentSuccessById", bicycleNo);
+	}
+	
 	public List<RentVO> findRentRequestById(String id) {
 		return template.selectList("bicycle.findRentRequestById", id);
 	}
@@ -81,4 +86,6 @@ public class BicycleDAOImpl4 implements BicycleDAO{
 		return template.selectOne("bicycle.getPossibleCVO",calendarVO);
 		
 	}
+
+	
 }

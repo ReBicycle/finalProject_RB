@@ -1,5 +1,6 @@
 package org.kosta.rebicycle.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,12 +46,19 @@ public class BicycleServiceImpl4 implements BicycleService {
 	public List<RentVO> getRentByBicycleNo(int bicycleNo){
 		return bicycleDAOImpl4.getRentByBicycleNo(bicycleNo);
 	}
+	
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+		return bicycleDAOImpl4.findRentSuccessById(bicycleNo);
+	}
+	
 
 	public List<RentVO> findRentRequestById(String id) {
 		//System.out.println("DAO" +  bicycleDAOImpl4.findRentRequestById(id));
 		return bicycleDAOImpl4.findRentRequestById(id);
 	}
 
+	
+	
 	public RentVO findRentByRentNo(int rentNo) {
 		return bicycleDAOImpl4.findRentByRentNo(rentNo);
 	}
@@ -107,6 +115,7 @@ public class BicycleServiceImpl4 implements BicycleService {
 		
 	}
 
+	
 	
 	
 }

@@ -76,7 +76,7 @@
            <!-- </form> -->
 <!-- --------------------------------------------------------------------------------- -->
     				<br>
-                  <button type="button" class="btn btn-default" id="commentBtn">commant</button>
+                  <button type="button" class="btn btn-default" id="commentBtn">comment</button>
                   <br>
                   <form action="${pageContext.request.contextPath}/commentWrite.do" method="post" id="board_comment_write">
 				  	<div class="container" id="commentWrite">
@@ -99,9 +99,9 @@
 
                   <hr>
                   <c:if test="${requestScope.rvo.reporterId==sessionScope.mvo.id}">
-                  <button type="button" class="btn btn-info" id="updateBtn">UpDate</button>
+                  <button type="button" class="btn btn-info" id="updateBtn">수정</button>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+                  <button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
                   </c:if>
                   <br><br>
             </div>

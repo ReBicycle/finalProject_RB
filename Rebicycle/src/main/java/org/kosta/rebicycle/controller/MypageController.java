@@ -48,6 +48,8 @@ public class MypageController {
 		System.out.println("rentListTest" + rentList);
 		model.addAttribute("rentList", rentList);
 		
+		
+		
 		//요청 리스트 - 다른 사람이 요청한 내역 - bicycleVO의 memberId가 내 아이디인 rent정보 
 		ArrayList<RentVO> rentRequestList = (ArrayList<RentVO>) bicycleService4.findRentRequestById(vo.getId());
 		model.addAttribute("rentRequestList", rentRequestList);
@@ -56,15 +58,26 @@ public class MypageController {
 	}
 
 	
-	
+	//요청리스트 ajax
 	@RequestMapping("getRentByBicycleNo.do")
 	@ResponseBody 
 	public ArrayList<RentVO> getRentByBicycleNo(String bicycleNo){
 		
 		ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService4.getRentByBicycleNo(Integer.parseInt(bicycleNo));
-		System.out.println("rList" + rList);
+		//System.out.println("rList" + rList);
 		return rList;
 	}
+	
+	//빌려준 내역 ajax
+	@RequestMapping("getRentSuccess.do")
+	@ResponseBody
+	public ArrayList<RentVO> getRentSuccess(String bicycleNo){
+		//빌려준내역
+		ArrayList<RentVO> rentSuccessList = (ArrayList<RentVO>) bicycleService4.findRentSuccessById(Integer.parseInt(bicycleNo));
+		//model.addAttribute("rentSuccessList",rentSuccessList);
+		return rentSuccessList;
+	}
+	
 	
 	@RequestMapping("rentOk.do")
 	@Transactional

@@ -3,7 +3,7 @@
 
 <script src="http://momentjs.com/downloads/moment-with-locales.js"></script>
 <script src="http://momentjs.com/downloads/moment-timezone-with-data.js"></script>
-<<script type="text/javascript">
+<script type="text/javascript">
 function dateCheck(){
 	var startDay=document.searchForm.startDay.value;
 	var endDay=document.searchForm.endDay.value;

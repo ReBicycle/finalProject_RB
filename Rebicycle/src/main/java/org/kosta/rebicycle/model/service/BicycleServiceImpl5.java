@@ -45,7 +45,7 @@ public class BicycleServiceImpl5 {
 		rvo.setMemberVO(new MemberVO(id));
 		rvo.setBicycleVO(new BicycleVO(Integer.parseInt(bicycleNo)));		
 		if( bicycleDAOImpl2.reviewCheck(rvo)!=null)
-				return true;
+			return true;
 		else
 			return false;
 	}

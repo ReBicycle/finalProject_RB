@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <style>
 table {
     border-collapse: collapse;
@@ -44,7 +46,6 @@ tr:hover{background-color:#f5f5f5}
                   for(var j = 0; j<data.length;j++){
                      var dayMap = newMap();
                      
-                     
                       table += "<tr>"+
                                "<td>" + data[j].rentNo + "</td>"+
                                "<td>" + data[j].memberVO.id + "</td>"+
@@ -52,8 +53,7 @@ tr:hover{background-color:#f5f5f5}
                                "<td>" + data[j].calendarVO.endDay + "</td>"+
                                "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
                                "</tr>";
-                     
-                     
+                                          
                      dayMap.put("startDay", data[j].calendarVO.startDay.substring(0,10));
                      dayMap.put("endDay", data[j].calendarVO.endDay.substring(0,10));
                      startendDay[j] = dayMap;
@@ -86,18 +86,12 @@ tr:hover{background-color:#f5f5f5}
                                     });
                                    return;
                                  }else{
-                                    
                                     //alert("가능!!!!!");
                                  }
                            } //success                  
                         });//ajax
-                     
-                     
                   }
-                  
                   $("#rentInfo").html(table); 
-                  
-                   
                } //success
             });//ajax
          });
@@ -111,9 +105,14 @@ tr:hover{background-color:#f5f5f5}
          }
       });
       
-      $(".btn btn-danger").on("click", function(){
-         
-      });
+     $("#modifyBtn").click(function(){
+    	 if(confirm("수정하시겠습니까?")){
+             var bicycleNo = $("#modifyBtn").parent().parent().children().eq(0).text();
+             location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo="+bicycleNo;
+             
+             <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
+          }
+     });
       
       
        function newMap() {
@@ -156,7 +155,12 @@ tr:hover{background-color:#f5f5f5}
    
 </script>
 
-
+<style>
+	table,th,td{
+		text-align:center;
+	
+	}
+</style>
 
  <br><br>
 <div class="mainbody container-fluid">
@@ -244,7 +248,7 @@ tr:hover{background-color:#f5f5f5}
                 <div class="panel-body">
                     <div class="media">
                         <div align="center">
-                            <img class="thumbnail img-responsive" src="${pageContext.request.contextPath}/resources/upload/member/${requestScope.findVO.picture}" width="300px" height="300px">
+                            <img class="thumbnail img-responsive" src="${pageContext.request.contextPath}/resources/upload/member/${sessionScope.mvo.picture}" width="300px" height="300px">
                         </div>
                         <div class="media-body">
                             <hr>
@@ -252,7 +256,12 @@ tr:hover{background-color:#f5f5f5}
                             <p>자기소개내용</p>
                             <hr>
                             <h3><strong>Location</strong></h3>
-                            <p>${requestScope.findVO.address}</p>
+                            <c:set var="addr" value="${requestScope.findVO.address}"/>       
+							<c:set var="addd" value="${fn:split(addr, '%') }" />
+							<c:forEach items="${addd }" var="addd">
+								<p style="font-size: 15px">${addd }</p>
+							</c:forEach>
+                            <%-- <p>${fn:substringBefore(addr, "%")}</p> --%>
                             <hr>
                             <h3><strong>E-mail</strong></h3>
                             <p>${requestScope.findVO.email}</p>
@@ -286,59 +295,54 @@ tr:hover{background-color:#f5f5f5}
                         </div>
                     </span>
                     <br><br>
-               <hr>
-                    <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
-                    </span>
-                    <span class="pull-right">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                    </span>
+              		 <hr>
+                   <br><br>
                 </div>
             </div>
+            <br><br>
             <hr>
-            
+            <br><br>
             <!-- 등록 자전거 관리 -->
                <div class="panel panel-default">
                 <div class="panel-body">
                     <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px">등록된 자전거<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
-                        
-                        <div class="dropdown pull-right">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                --등록자전거--
-                                <span class="caret"></span>
-                            </button>
-                           <%--  ${requestScope.bicycleList} --%>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                              <c:forEach items="${requestScope.registerList}" var = "bList">
-   
-                                      <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
-                                    
-                                 </c:forEach>
-                              </ul>
-                        </div>
+                        <h1 class="panel-title pull-left" style="font-size:30px">등록된 자전거 관리<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+ 
                     </span>
+                   	
+                   	
                     <br><br>
-               <hr>
-                    <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
-                    </span>
-                    <span class="pull-right">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                    </span>
+					<div align = "left" id = "regieterListView">
+						<div>
+							<table>
+								<thead align = "center">
+								<tr>
+									<th>No</th><th>Title</th><th>수정</th>
+								</tr>
+								
+								</thead>
+									
+								<tbody>
+									<c:forEach items="${requestScope.registerList}" var = "bList">
+	   
+	                                   <tr>   
+	                                   	<td>${bList.bicycleNo}</td>
+	                                   	<td> ${bList.title}</td>
+	                                   	<td><input type = "button" id = "modifyBtn" class =" btn btn-success" value = "수정"></td>
+	                                   	
+	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
+	                                    </tr>
+	                                </c:forEach>
+								
+								</tbody>
+							</table>
+						<ul>
+                              	
+                        </ul>
+                        </div>
+					</div>
                 </div>
             </div>
-            
-          
-        
         </div>
         
         
@@ -355,10 +359,10 @@ tr:hover{background-color:#f5f5f5}
                         <div class="dropdown pull-right">
                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 --등록자전거--
-                                <span class="caret"></span>+
+                                <span class="caret"></span>
                             </button>
                      <%-- ${requestScope.[0].memberVO.id} --%>
-                    
+                   
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                  <c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
                            
@@ -389,32 +393,27 @@ tr:hover{background-color:#f5f5f5}
                     
                 </div>
             </div>
+             <br><br>
             <hr>
-            
+            <br><br>
             <!-- 빌린 내역 리스트 -->
                <div class="panel panel-default">
                 <div class="panel-body">
                     <span>
                         <h1 class="panel-title pull-left" style="font-size:30px">빌린 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
-                        
-                        <div class="dropdown pull-right">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                --등록자전거--
-                                <span class="caret"></span>
-                            </button>
-                           <%--  ${requestScope.bicycleList} --%>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                              
-                              </ul>
-                        </div>
+
                     </span>
                     <br><br>
-            <div align="left">
-               <c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
-                  <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a><br>                       
-                   </c:forEach>
-            
-            </div>
+		            <div align="left" id = "rentListView">
+			          <%-- ${requestScope.rentList} --%>
+			            <div>
+			            	<ul>
+				               <c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
+				                  <li><a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a></li>                   
+				               </c:forEach>
+			               </ul>
+			            </div>
+		            </div>
                 </div>
             </div>
             

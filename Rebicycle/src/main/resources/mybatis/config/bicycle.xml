@@ -144,10 +144,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </resultMap>
 
    <select id="findBicycleByNo" resultMap="bicycleRM" parameterType="int">
-      select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
+      select b.bicycleNo,b.title,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
       from bicycle b,rb_member m 
       where bicycleNo=#{value} and b.memberId=m.id
    </select>
+   
+   
+     <!-- 해당 자전거 요청 내역 불러오기  -->
+   <resultMap type="rentVO" id="rentMap">
+      <result column="renterId" property="memberVO.id"/>
+      <result column="bicycleNo" property="bicycleVO.bicycleNo"/>
+      <result column = "title" property = "bicycleVO.title"/>
+      <!-- 요청리스트에 필요한 rentVO의 memberVO의 id 부분 추가 -->
+      <!-- <result column = "memberId" property = "bicycleVO.memberVO.id"/> -->
+      
+      <result column="startDay" property="calendarVO.startDay"/>
+      <result column="endDay" property="calendarVO.endDay"/>
+   </resultMap>
+   
    
    <!-- 소영-mypage관련 -->
    <select id="findBicycleById" resultType="bicycleVO">
@@ -164,9 +178,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    
    <select id="findRentById" resultMap="rentMap">
-      select renterId,bicycleNo, startDay, endDay, state 
-      from rent 
-      where renterId=#{value}
+      select r.renterId,r.bicycleNo, r.startDay, r.endDay, r.state, b.bicycleNo, b.title 
+      from rent r, bicycle b
+      where r.bicycleNo = b.bicycleNo and r.renterId=#{value} and r.state=1
    </select>
    
    <!-- 리스트 테스트 소영 -->
@@ -204,17 +218,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
    
 
-   <!-- 해당 자전거 요청 내역 불러오기  -->
-   <resultMap type="rentVO" id="rentMap">
-      <result column="renterId" property="memberVO.id"/>
-      <result column="bicycleNo" property="bicycleVO.bicycleNo"/>
-      <result column = "title" property = "bicycleVO.title"/>
-      <!-- 요청리스트에 필요한 rentVO의 memberVO의 id 부분 추가 -->
-      <!-- <result column = "memberId" property = "bicycleVO.memberVO.id"/> -->
-      
-      <result column="startDay" property="calendarVO.startDay"/>
-      <result column="endDay" property="calendarVO.endDay"/>
-   </resultMap>
+ 
    
    
    <select id="getRentByBicycleNo" resultMap="rentMap">

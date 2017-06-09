@@ -705,17 +705,23 @@ section.awSlider>img {
 
                      <br>
                      
+                     
+                     <br>
+                  
                      <div id="success"></div>
-                     <div class="row">
-                        <div class="form-group col-xs-12" align="center">
-                        <input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-                        
-                           
-                           <button type="submit" class="btn btn-success btn-lg"
-                              id="rentBtn">빌리기</button>
-                        </div>
-                     </div>
-
+                   
+                     <c:if test="${sessionScope.mvo.id != requestScope.findBvo.memberVO.id}">
+	                     <div class="row">
+	                        <div class="form-group col-xs-12" align="center">
+	                        <input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+	                        
+	                           
+	                           <button type="submit" class="btn btn-success btn-lg"
+	                              id="rentBtn">빌리기</button>
+	                        
+	                        </div>
+	                     </div>
+					</c:if>
                   </form>
                </div>
             </div>
@@ -735,7 +741,7 @@ section.awSlider>img {
          <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
       </div>
       <!-- 리뷰작성칸 -->
-      <c:if test="${requestScope.reviewCheck }">
+      <c:if test="${requestScope.reviewCheck}">
          <div class="box container">
             <div class="row" align="left">
                <div class="col-sm-3">

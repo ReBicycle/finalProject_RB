@@ -90,30 +90,30 @@ font-family: 'Jeju Gothic', serif;
                 </div>
                 <div  style="margin-bottom: -20px">
                 	<div class="col-xs-6 col-md-4 col-lg-4 px-0" style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=판교"><img class="image" alt="" src="${pageContext.request.contextPath}/resources/img/pangyo.jpg"></a>
-              	 		<div class="middle"></div> <div class="cityfont">판교</div>
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=판교"><img class="image" alt="" src="${pageContext.request.contextPath}/resources/img/pangyo.jpg">
+              	 		<div class="middle"></div> <div class="cityfont">판교</div></a>
               	 	</div>
                 	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=잠실"><img   class="image" alt="" src="${pageContext.request.contextPath}/resources/img/jamsil.jpg" ></a>
-                		<div class="middle"></div> <div class="cityfont">잠실</div>
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=잠실"><img   class="image" alt="" src="${pageContext.request.contextPath}/resources/img/jamsil.jpg" >
+                		<div class="middle"></div> <div class="cityfont">잠실</div></a>
                 	</div>
                 	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=수원"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/suwonsi.jpg" ></a>
-                		<div class="middle"></div> <div class="cityfont">수원</div>
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=수원"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/suwonsi.jpg" >
+                		<div class="middle"></div> <div class="cityfont">수원</div></a>
                 	</div>
                 </div>
                 <div  style="margin-bottom: -20px">
                 	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=부산"><img  class="image"  alt="" src="${pageContext.request.contextPath}/resources/img/busan.jpg"></a>
-              	 		<div class="middle"></div> <div class="cityfont">부산</div>
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=부산"><img  class="image"  alt="" src="${pageContext.request.contextPath}/resources/img/busan.jpg">
+              	 		<div class="middle"></div> <div class="cityfont">부산</div></a>
               	 	</div>
                 	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=대구"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/daegu.jpg" ></a>
-                		<div class="middle"></div> <div class="cityfont">대구</div>
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=대구"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/daegu.jpg" >
+                		<div class="middle"></div> <div class="cityfont">대구</div></a>
                 	</div>
                 	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=서울시"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/seoulsi.jpg" ></a>
-                		<div class="middle"></div> <div class="cityfont">서울</div>
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=서울시"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/seoulsi.jpg" >
+                		<div class="middle"></div> <div class="cityfont">서울</div></a>
                 	</div>
                 </div>
         </div></div>

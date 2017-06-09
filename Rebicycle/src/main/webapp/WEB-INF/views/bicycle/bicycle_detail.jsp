@@ -741,7 +741,7 @@ section.awSlider>img {
          <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
       </div>
       <!-- 리뷰작성칸 -->
-      <c:if test="${requestScope.reviewCheck }">
+      <c:if test="${requestScope.reviewCheck}">
          <div class="box container">
             <div class="row" align="left">
                <div class="col-sm-3">

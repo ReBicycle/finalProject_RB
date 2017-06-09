@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-
-
 <style>
 table {
     border-collapse: collapse;
@@ -48,7 +46,6 @@ tr:hover{background-color:#f5f5f5}
                   for(var j = 0; j<data.length;j++){
                      var dayMap = newMap();
                      
-                     
                       table += "<tr>"+
                                "<td>" + data[j].rentNo + "</td>"+
                                "<td>" + data[j].memberVO.id + "</td>"+
@@ -56,8 +53,7 @@ tr:hover{background-color:#f5f5f5}
                                "<td>" + data[j].calendarVO.endDay + "</td>"+
                                "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-info' ></td>"+
                                "</tr>";
-                     
-                     
+                                          
                      dayMap.put("startDay", data[j].calendarVO.startDay.substring(0,10));
                      dayMap.put("endDay", data[j].calendarVO.endDay.substring(0,10));
                      startendDay[j] = dayMap;
@@ -90,18 +86,12 @@ tr:hover{background-color:#f5f5f5}
                                     });
                                    return;
                                  }else{
-                                    
                                     //alert("가능!!!!!");
                                  }
                            } //success                  
                         });//ajax
-                     
-                     
                   }
-                  
                   $("#rentInfo").html(table); 
-                  
-                   
                } //success
             });//ajax
          });
@@ -266,9 +256,12 @@ tr:hover{background-color:#f5f5f5}
                             <p>자기소개내용</p>
                             <hr>
                             <h3><strong>Location</strong></h3>
-                              <c:set var="addr" value="${requestScope.findVO.address}"/>       
-								
-                            <p>${fn:substringBefore(addr, "%")}</p>
+                            <c:set var="addr" value="${requestScope.findVO.address}"/>       
+							<c:set var="addd" value="${fn:split(addr, '%') }" />
+							<c:forEach items="${addd }" var="addd">
+								<p style="font-size: 15px">${addd }</p>
+							</c:forEach>
+                            <%-- <p>${fn:substringBefore(addr, "%")}</p> --%>
                             <hr>
                             <h3><strong>E-mail</strong></h3>
                             <p>${requestScope.findVO.email}</p>

@@ -20,11 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberController {
 
 	
-	//private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 
 	//private String uploadPath="C:\\Users\\소영\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	//종봉
-	String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	@Resource
 	private MemberService memberService;
 	
@@ -121,7 +121,7 @@ public class MemberController {
 	@RequestMapping(method=RequestMethod.POST,value="member/memberModify.do")
 	public String memberModify(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		//System.out.println("memberModify"+vo.getUploadFile());
-		
+
 		//만약 파일을 변경한 경우
 		if(vo.getUploadFile() != null){
 			MultipartFile file = vo.getUploadFile();
@@ -145,17 +145,12 @@ public class MemberController {
 				}
 			}
 			vo.setPicture(vo.getId()+fileExt);
-			//System.out.println("바뀐파일의경우" + vo);
-			
-			memberService.memberModify(vo);
-		}else{
-			//파일변경안한경우
-			//System.out.println("기존파일인경우" + vo);
-			memberService.memberModify(vo);
 		}
 		
+		String newAddress = roadAddress + "%" + jibunAddress + "%" + detailAddress;
+		vo.setAddress(newAddress);
+		memberService.memberModify(vo);
 		MemberVO newVO = memberService.findMemberById(vo.getId());
-		newVO.setAddress(roadAddress + "%" + jibunAddress + "%" + detailAddress);
 		HttpSession session = request.getSession(false);
 		session.setAttribute("mvo", newVO);
 		return "redirect:../home.do";

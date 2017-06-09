@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 		<!-- Google Fonts -->
@@ -42,11 +44,8 @@
 
 			<div id="header" ><tiles:insertAttribute name="header"/></div>
 			<div class="text-center">    
-		 	<!-- <div class="row content"> -->
-			<%-- <div id="left"  class="col-sm-2 sidenav"><tiles:insertAttribute name="left"/></div> --%>
+		 	
 			<div id="main" class="text-center"><tiles:insertAttribute name="main"/></div>
-		<%-- 	<div id="right" class="col-sm-2 sidenav"><tiles:insertAttribute name="right"/></div> --%>
-			<!-- </div> -->
 			</div>
 			<footer id="footer" class="text-center"><tiles:insertAttribute name="footer"/></footer>
 			<!-- jQuery -->

@@ -45,8 +45,8 @@
   font-size: 15px;
   position: absolute;
   overflow: hidden;
-  top: 60%;
-  left: 35%;
+  top: 65%;
+  left: 30%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
@@ -95,7 +95,7 @@ appearance: none;
    <div class="col-sm-6" id="map" style="height:700px;"></div>
    <%--지도 --%>
    <%-- 검색 리스트 --%>
-   <div class="col-sm-6" style="width:50%;;height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
+   <div class="col-sm-6" style="height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
 
  <!-- <section id="portfolio">  -->
 <div class="w3-container w3-teal" style="margin-top: 50px; " >
@@ -119,26 +119,25 @@ appearance: none;
 	<option value="high">높은가격순</option>
 </select>
 </div>
-<div class="w3-row-padding w3-margin-top " id="listSpace" >
-   <c:forEach items="${requestScope.bicycleList}" var="list" >
- <a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onclick="return loginCheck()"> <div class="w3-second col-sm-6 w3-margin-top " >
-     <div class="w3-card-2 content " width="240px" height="180px">
-      <img class="img" src="${pageContext.request.contextPath}/resources/upload/bicycle/${list.photoVO.photo1}" width="240px" height="180px">
-      <div class="overlay" >
-     	<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/${list.memberVO.picture}" width="20%" height="100%" align="right">
-         <span class="text" align="left" width="70%"  >
-         	${list.title }<br>
-               &#8361;${list.rentPrice}&nbsp;-&nbsp;No${list.bicycleNo}&nbsp;-&nbsp;Type${list.categoryVO.categoryNo }
-             </span>
-      </div>
-    </div> 
-  </div></a>
-</c:forEach>
-  
-  
-</div><%-- 자전거리스트 css --%>
-<!--       </section>   -->
-   </div><%--리스트 전체 div --%>
+<%-- 자전거리스트 css --%>
+ <div class="w3-row" id="listSpace" style="margin-top: 40px;">
+	<c:forEach items="${requestScope.bicycleList}" var="list" >
+    	<div class="content w3-half" >
+    	<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onclick="return loginCheck()">
+     		 <img src="${pageContext.request.contextPath }/resources/upload/bicycle/${list.photoVO.photo1}" style="width:100%;height:250px;" onclick="onClick(this)" >
+      		<div class="overlay">
+      					<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/${list.memberVO.picture}" width="25%" height="100%" align="right">
+      					<span class="text" align="left"  width="70%"  >	
+      										${list.title }<br>
+      										&#8361;${list.rentPrice}&nbsp;-&nbsp;No${list.bicycleNo}&nbsp;-&nbsp;Type${list.categoryVO.categoryNo }
+      					</span>
+      		</div>
+      		</a>
+     	</div>
+     
+     </c:forEach>
+   </div>
+ </div><%--리스트 출력 전체 div --%>
    <%-- 검색 리스트 --%>
    <!-- <div class="col-sm-12" style="height:200px;background-color:#F0FFFF;"></div> -->
    <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
@@ -186,8 +185,8 @@ map=new daum.maps.Map(mapContainer, mapOption);
      '                <img src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleList.photoVO.photo1}" width="73" height="70">' +
      '           </div>' + 
      '            <div class="desc">' + 
-     '                <div class="ellipsis"> ${fn:substringBefore(addr, ",")}</div>' + 
-     '                <div class="jibun ellipsis"> ${fn:substringAfter(addr, ",")}</div>' + 
+     '                <div class="ellipsis"> ${fn:substringBefore(addr, "%")}</div>' + 
+     '                <div class="jibun ellipsis"> ${fn:substringAfter(addr, "%")}</div>' + 
      '                <div class="ellipsis"> ${bicycleList.rentPrice}원/시간</div>' + 
      '            </div>' + 
      '        </div>' + 
@@ -300,16 +299,16 @@ function loginCheck(){
  					var contents=""; 
  					//alert(JSON.stringify(data)); 			
  			 		 for(var i=0;i<data.length;i++){
+ 					
+ 					contents+='<div class="content w3-half">';
  					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'"onclick="return loginCheck()">';
- 					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
- 					contents+='<div class="w3-card-2 content ">';
- 					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
+ 					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" style="width:100%;height:250px;">';
  					contents+='<div class="overlay" >';
- 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/'+data[i].memberVO.picture+'" width="20%" height="100%" align="right">';
+ 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/'+data[i].memberVO.picture+'" width="25%" height="100%" align="right">';
  					contents+=' <span class="text" align="left" width="70%" >';
  					contents+=data[i].title;
  					contents+='<br>&#8361;'+data[i].rentPrice+'&nbsp;-&nbsp;'+'No'+data[i].bicycleNo+'&nbsp;-&nbsp;Type'+data[i].categoryVO.categoryNo;
- 					contents+='</span></div></div></a></div>';
+ 					contents+='</span></div></a></div>';
  					}  
  				 	
  					$("#listSpace").html(contents);
@@ -340,15 +339,14 @@ function loginCheck(){
  					
  					  for(var i=0;i<data.length;i++){
  					contents+='<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo='+data[i].bicycleNo+'"onclick="return loginCheck()">';
- 					contents+='<div class="w3-second col-sm-6 w3-margin-top ">';
- 					contents+='<div class="w3-card-2 content ">';
- 					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" width="250px" height="180px">';
+ 					contents+='<div class="content w3-half ">';
+ 					contents+='<img src="${pageContext.request.contextPath}/resources/upload/bicycle/'+data[i].photoVO.photo1+'" style="width:100%;height:250px;">';
  					contents+='<div class="overlay" >';
- 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/'+data[i].memberVO.picture+'" width="20%" height="100%" align="right">';
+ 					contents+='<img class="w3-circle" src="${pageContext.request.contextPath}/resources/upload/member/'+data[i].memberVO.picture+'" width="25%" height="100%" align="right">';
  					contents+=' <span class="text" align="left" width="70%" >';
  					contents+=data[i].title;
  					contents+='<br>&#8361;'+data[i].rentPrice+'&nbsp;-&nbsp;'+'No'+data[i].bicycleNo+'&nbsp;-&nbsp;Type'+data[i].categoryVO.categoryNo;
- 					contents+='</span></div></div></a></div>';
+ 					contents+='</span></div></a></div>';
  					}  
  					//alert('${requestScope.bicycleList}');
  					$("#listSpace").html(contents);

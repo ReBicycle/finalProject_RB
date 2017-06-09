@@ -148,6 +148,23 @@ section.awSlider>img {
 <!-- http://blog.naver.com/yoocm1229/220442972831 해보기 -->
 <script>
    $(document).ready(function() {   
+	   $( ".star_rating a" ).click(function() {
+           event.preventDefault();
+           $(this).parent().children("a").removeClass("on");
+           $(this).addClass("on").prevAll("a").addClass("on");
+           $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
+           $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+           return false;
+        });
+        $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+  
+        $("#reviewSubmit").click(function(){
+           if($("#reviewContent").val() == ""){
+              alert("리뷰를 입력하세요");
+              return false;
+           }
+           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
+        }); 
       
       $('#calendar').fullCalendar({
          header: {
@@ -731,8 +748,10 @@ section.awSlider>img {
       <div id="banner-wrapper">
       <div align="left" style="padding-left: 15%; font-size: 15px">
          총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+         <c:if test="${fn:length(requestScope.reviewList)!=0}">
          <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
          <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
+         </c:if>
       </div>
       <!-- 리뷰작성칸 -->
       <c:if test="${requestScope.reviewCheck}">
@@ -771,7 +790,7 @@ section.awSlider>img {
             <c:forEach items="${requestScope.reviewList}" var="rList">
                <div class="col-sm-12 col-xs-12 p-0">
                   <div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
-                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
+                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.picture}">
                      <br>${rList.rentVO.memberVO.id}
                   </div>
                   <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">

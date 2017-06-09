@@ -37,7 +37,15 @@ public class BicycleServiceImpl5 {
 	}
 	
 	public List<ReviewVO> getReviewListByBicycleNo(int bicycleNo){
-		return bicycleDAOImpl2.getReviewListByBicycleNo(bicycleNo);
+		 List<ReviewVO> reviewList =  bicycleDAOImpl2.getReviewListByBicycleNo(bicycleNo);
+		 
+		 for(int i=0; i<reviewList.size(); i++){
+			String reviewerid= reviewList.get(i).getRentVO().getMemberVO().getId();
+			String pic = memberDAOImpl.findMemberById(reviewerid).getPicture();
+			reviewList.get(i).getRentVO().getMemberVO().setPicture(pic);
+		 }
+		 System.out.println(reviewList);
+		 return reviewList;
 	}
 
 	public boolean reviewCheck(String id, String bicycleNo) {

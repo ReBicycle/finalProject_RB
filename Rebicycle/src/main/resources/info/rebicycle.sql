@@ -304,6 +304,43 @@ select
 b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
 reportDate,b.contents from rb_report 
 b where reportNo=26
+---------------------------대댓글 구간-------------------------------------
+
+CREATE TABLE TBL_BOARDREPLY (
+      BRDNO INT(11) NOT NULL constraint fk_rb_BRDNO references rb_report(reportNo),     -- 게시물 번호
+      RENO INT(11) NOT NULL,                         -- 댓글 번호
+      REWRITER VARCHAR(10) NOT NULL constraint fk_rb_REWRITER references rb_member(id),            -- 작성자
+      REMEMO VARCHAR(500) DEFAULT NULL,       -- 댓글내용
+      REDATE DATETIME DEFAULT NULL,              -- 작성일자
+      REDELETEFLAG VARCHAR(1) NOT NULL,        -- 삭제여부
+      PRIMARY KEY (RENO)
+)
+
+CREATE TABLE rb_boardreply (
+      brdno number not null constraint fk_rb_brdno references rb_report(reportNo),
+      reno number primary key,
+      retitle varchar(100) not null,
+      rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
+      rememo varchar(500) not null,
+      redate date not null
+)
+select * from rb_boardreply
+select * from rb_report where reportNo=90
+
+
+insert into rb_boardreply(brdno,reno,rewriter,rememo,redate)
+ 		values(90,1,'jobman','크로캉~ 부슈우~~~~',sysdate)
+
+create sequence rb_boardreply_seq;
+select * from rb_boardreply;
+
+select
+c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD HH:mm:ss') as 
+redate from rb_boardreply 
+c where brdno=90
+
+drop table rb_boardreply;
+drop sequence rb_boardreply_seq;
 -----------------------------석희---------------------------------
 
 
@@ -580,5 +617,3 @@ where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12
 select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
-
-select * from possible_day where bicycleNo=28

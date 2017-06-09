@@ -23,23 +23,14 @@ public class TestUnit {
 
 /*@Resource
 private SqlSessionTemplate t;
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
-<<<<<<< HEAD
+
 @Resource
 private BicycleDAOImpl5 dao;
-*
+*/
 
-=======
-	@Resource
-	private SqlSessionTemplate t;
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
-	/*
-	 * @Resource private BicycleDAOImpl5 dao;
-	 *
-	 */
+	
 @Test
 public void test2(){
 /*	System.out.println("하이");

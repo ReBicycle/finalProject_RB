@@ -89,9 +89,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="org.kosta.rebicycle.model.service.BoardDAOImpl" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/service/BoardDAOImpl.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="org.kosta.rebicycle.model.dao.BoardDAOImpl" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/dao/BoardDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="449" y="1100"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -99,8 +98,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="12" language="java" name="org.kosta.rebicycle.model.service.BoardDAO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/service/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="12" language="java" name="org.kosta.rebicycle.model.dao.BoardDAO" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/dao/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="450" y="958"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -109,15 +108,15 @@
     </display>  
   </interface>  
   <association id="13">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="14" name="calendarVO">        
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="14" name="memberVO">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="15" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="16">    
@@ -132,24 +131,24 @@
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="19">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="12"/>  
-  </realization>  
-  <association id="20">    
+  <association id="19">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="21" name="rentVO">        
+      <attribute id="20" name="rentVO">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="22" minimum="0" maximum="1">        
+      <multiplicity id="21" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="22">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="12"/>  
+  </realization>  
   <association id="23">    
-    <end type="SOURCE" refId="2" navigable="false">      
+    <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="24" name="memberVO">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -162,44 +161,44 @@
   </association>  
   <association id="26">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="27" name="memberVO">        
+      <attribute id="27" name="bicycleVO">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="28" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="29">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="30" name="bicycleVO">        
+      <attribute id="30" name="memberVO">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="31" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="32">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="33" name="memberVO">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="34" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="35">    
+  <realization id="32">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="9"/>  
   </realization>  
+  <association id="33">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="34" name="calendarVO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="35" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

@@ -468,7 +468,7 @@ section.awSlider>img {
       margin: 10px 10px;
       padding: 0;
       font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-      font-size: 10px;
+      
    }
    #calendar {
       max-width: 900px;
@@ -683,6 +683,72 @@ section.awSlider>img {
 <br>
 <br>
 <!-- 리뷰 -->
+<%-- <<<<<<< HEAD
+      <div id="banner-wrapper">
+      <div align="left" style="padding-left: 15%; font-size: 15px">
+         총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+         <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+         <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
+      </div>
+      <!-- 리뷰작성칸 -->
+      <c:if test="${requestScope.reviewCheck}">
+         <div class="box container">
+            <div class="row" align="left">
+               <div class="col-sm-3">
+                  <p class="star_rating" style="padding-top:20px; padding-left: 30%">
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                  </p>
+               </div>
+               <div class="9u">
+                  <form id="reviewForm">
+                     <div class="w3-row w3-section">
+                        <div id="reviewSubmit" class="w3-col" style="float:right; padding-right: 16%"> 
+                           <i class="w3-xxlarge fa fa-pencil w3-text-blue"  style="font-size: 35px"></i>
+                        </div>
+                         <div class="w3-rest" >
+                           <textarea  id="reviewContent" STYLE="font-size:16px; padding-right: " class="w3-input w3-border" name="content" cols="65" rows="4" ></textarea>
+                         </div>
+                     </div>
+                     <input id="reviewHidden" type="text" style="display: none; width:auto;" />
+                  </form>
+               </div>
+            </div>
+         </div>
+         <br>
+         </c:if>
+         <br>
+         <br>         
+         <!-- 리뷰리스트 -->
+         <div class="box container">
+            <c:forEach items="${requestScope.reviewList}" var="rList">
+               <div class="col-sm-12 col-xs-12 p-0">
+                  <div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
+                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
+                     <br>${rList.rentVO.memberVO.id}
+                  </div>
+                  
+                  <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
+                     ${rList.content}
+                  </div>
+                  
+                  <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
+                     <c:forEach begin="1" end="${rList.star}">
+                        <img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+                     </c:forEach><br><br>
+                     <c:set var="TextValue" value="${rList.reviewDate}"/>
+                         ${fn:substring(TextValue,0,10)}<br>                        
+                  </div>
+                  
+               </div>
+            </c:forEach>
+         </div>
+      </div>
+      <br>
+======= --%>
 <div id="banner-wrapper">
 	<div align="left" style="padding-left: 15%; font-size: 15px">
 		총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
@@ -745,3 +811,4 @@ section.awSlider>img {
 </div>
 </div>
 <br>
+

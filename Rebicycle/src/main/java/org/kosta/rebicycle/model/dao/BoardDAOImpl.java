@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BoardDAOImpl implements BoardDAO{
 
-	@Resource(name="sqlSessionTemplate")
+	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
@@ -46,16 +46,19 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSessionTemplate.delete("board.deleteReport",reportNo);
 	}
 	@Override
-	public BoardReplyVO findBoardReplyNo(int reno){
-		return (BoardReplyVO)sqlSessionTemplate.selectOne("board.findBoardReplyNo",reno);
+	public BoardReplyVO findBoardReplyNo(int brdno){
+		System.out.println("dao   ㅜㅡ      "+brdno);
+		System.out.println("test   @@@    "+sqlSessionTemplate.selectOne("board.findBoardReplyNo",brdno));
+		return sqlSessionTemplate.selectOne("board.findBoardReplyNo",brdno);
 	}
 	@Override
 	public void commentWrite(BoardReplyVO bvo){
 		sqlSessionTemplate.insert("board.commentWrite",bvo);
 	}
 	@Override
-	public List<BoardReplyVO> getReplyList(BoardReplyVO brv){
-		System.out.println("ReplyList     "+brv);
+	public List<BoardReplyVO> getReplyList(int brv){
+		System.out.println("dao     "+brv);
+		System.out.println("return List       "+sqlSessionTemplate.selectList("board.findBoardReplyNo",brv) );
 		return sqlSessionTemplate.selectList("board.findBoardReplyNo",brv);
 	}
 }

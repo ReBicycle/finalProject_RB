@@ -1,5 +1,7 @@
 package org.kosta.rebicycle.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,7 +48,11 @@ public class BoardController {
 	public ModelAndView boardDetail(int reportNo, HttpServletRequest request) {		
 		System.out.println("컨트롤러 시작"+reportNo);
 		ReportVO rvo=boardService.boardDetail(reportNo);
+		System.out.println("2  **");
+		List<BoardReplyVO> brv=boardService.getReplyList(reportNo);
+		System.out.println("댓글    "+brv);
 		request.setAttribute("rvo",rvo);
+		request.setAttribute("brv", brv);
 		System.out.println(rvo);
 		return new ModelAndView("board/board_detail.tiles");
 	}
@@ -76,18 +82,14 @@ public class BoardController {
 	}
 	@RequestMapping("findBoardReplyNo.do")
 	public ModelAndView findBoardReplyNo(int brdno){
-		return new ModelAndView("board/board_detail.tiles","rvo",boardService.findBoardReplyNo(brdno));
+		return new ModelAndView("board/board_detail.tiles","brv",boardService.findBoardReplyNo(brdno));
 	}
 	@RequestMapping(value="commentWrite.do", method=RequestMethod.POST)
 	public ModelAndView commentWrite(HttpServletRequest request, BoardReplyVO bvo){
 		boardService.commentWrite(bvo);
 		System.out.println("댓글이다아아아아~~~~~~~      "+ bvo);
+		request.setAttribute("bvo", bvo);
+		/*return new ModelAndView("redirect:findReportNo.do?reportNo="+bvo.getBrdno());*/
 		return new ModelAndView("redirect:findReportNo.do?reportNo="+bvo.getBrdno());
 	}
-/*	@RequestMapping("replyList.do")
-	public String list(BoardReplyVO brv, HttpServletRequest request){
-		System.out.println(brv);
-		request.setAttribute("brv", brv);
-		return "board/board_list.tiles";
-	}*/
 }

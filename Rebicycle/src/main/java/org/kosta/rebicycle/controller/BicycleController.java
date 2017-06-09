@@ -59,7 +59,7 @@ public class BicycleController {
 		String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 		bvo.setAddress(address);
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
-		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
+		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
 		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
@@ -106,12 +106,12 @@ public class BicycleController {
 		bvo.getCategoryVO().setCategoryNo(categoryNo);
 		String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
-		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
+		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();

@@ -1,7 +1,10 @@
 package org.kosta.rebicycle.model.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -15,7 +18,7 @@ public class BicycleServiceImpl2 implements BicycleService {
 	private BicycleDAOImpl5 dao;
 	
 	public List<BicycleVO> getBicycleListByAddressAndDay(String address,String startDay,String endDay){
-			
+	
 		return dao.getBicycleListByAddressAndDay(address, startDay, endDay);
 	}
 

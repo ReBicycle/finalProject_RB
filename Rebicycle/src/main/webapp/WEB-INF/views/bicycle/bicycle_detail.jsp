@@ -4,16 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 달력 스크립트 -->
 <script type="text/javascript">
-   $(function() {
-      $('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
-            .popover(
-                  {
-                     container : 'body',
-                     content : 'Hello World',
-                     html : true,
-                     placement : 'bottom',
-                     template : '<div class="popover calendar-event-popover" role="tooltip"><div class="arrow"></div><h4 class="popover-title"></h4><div class="popover-content"></div></div>'
-                  });
+	$(function() {
+      	$('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
+			.popover({
+				container : 'body',
+				content : 'Hello World',
+				html : true,
+				placement : 'bottom',
+				template : '<div class="popover calendar-event-popover" role="tooltip"><div class="arrow"></div><h4 class="popover-title"></h4><div class="popover-content"></div></div>'
+			});
 
       $('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
             .on(
@@ -322,37 +321,30 @@ section.awSlider>img {
         });
          
          
-         $("#calImg").click(function(){
-          
-           
-               
-                  for(var i=0; i<=startLength; i++){
-                     
-                    if($("#startDay"+i).val()>$("#endDay"+i).val()){
-                          alert("입력한 날짜를 확인하세요.")
-                          return false;
-                      } 
-                     
-                      var dayMap=newMap();
-                         dayMap.put("startDay",$("#startDay"+i).val());
-                          dayMap.put("endDay",$("#endDay"+i).val());
-                         startendDay[i]=dayMap;                 
-                   }                            
+		$("#calImg").click(function(){
+          	for(var i=0; i<=startLength; i++){
+ 				if($("#startDay"+i).val()>$("#endDay"+i).val()){
+					alert("입력한 날짜를 확인하세요.")
+					return false;
+				}
+				var dayMap=newMap();
+				dayMap.put("startDay",$("#startDay"+i).val());
+				dayMap.put("endDay",$("#endDay"+i).val());
+				startendDay[i]=dayMap;                 
+			}                            
               
-               for(var i=0; i<=startLength; i++){
-                  // 대여료 계산 - calResult 영역에 
-                  // 각각의 대여료를 나타내기 위한 변수
-                 var dayFlag=0;
-                
-                 
-                 var start = startendDay[i].get("startDay");//사용자가 클릭한 시작일 2017-05-31
-                  var end = startendDay[i].get("endDay");//사용자가 클릭한 종료일 2017-05-31
-                  var startYear = parseInt(start.substring(0,4));
-                  var endYear = parseInt(end.substring(0,4));
-                  var startMonth = parseInt(start.substring(5,7));//5
-                  var endMonth = parseInt(end.substring(5,7));//7
-                  var startDay = parseInt(start.substring(8,10));//6
-                  var endDay = parseInt(end.substring(8,10));//8
+			for(var i=0; i<=startLength; i++){
+				// 대여료 계산 - calResult 영역에 
+				// 각각의 대여료를 나타내기 위한 변수
+				var dayFlag=0;
+				var start = startendDay[i].get("startDay");//사용자가 클릭한 시작일 2017-05-31
+				var end = startendDay[i].get("endDay");//사용자가 클릭한 종료일 2017-05-31
+				var startYear = parseInt(start.substring(0,4));
+				var endYear = parseInt(end.substring(0,4));
+				var startMonth = parseInt(start.substring(5,7));//5
+				var endMonth = parseInt(end.substring(5,7));//7
+				var startDay = parseInt(start.substring(8,10));//6
+				var endDay = parseInt(end.substring(8,10));//8
                   
                   $.ajax({
                      type:"get",
@@ -514,237 +506,201 @@ section.awSlider>img {
 <br>
 <br>
 <div class="container">
-   <section class="awSlider">
-      <div class="carousel slide" data-ride="carousel">
-         <!-- Indicators -->
-         <ol class="carousel-indicators">
-            <li data-target=".carousel" data-slide-to="0" class="active"></li>
-            <li data-target=".carousel" data-slide-to="1"></li>
-            <li data-target=".carousel" data-slide-to="2"></li>
-         </ol>
+   	<section class="awSlider">
+      	<div class="carousel slide" data-ride="carousel">
+         	<!-- Indicators -->
+         	<ol class="carousel-indicators">
+	            <li data-target=".carousel" data-slide-to="0" class="active"></li>
+	            <li data-target=".carousel" data-slide-to="1"></li>
+	            <li data-target=".carousel" data-slide-to="2"></li>
+         	</ol>
 
-         <!-- Wrapper for slides -->
-         <div class="carousel-inner" role="listbox">
-            <div class="item active">
-               <img
-                  src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}"
-                  style="max-width: 100%;">
-               <div class="carousel-caption">${requestScope.findBvo.photoVO.photo1}</div>
-            </div>
-            <div class="item">
-               <img
-                  src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}"
-                  style="max-width: 100%;">
-               <div class="carousel-caption">${requestScope.findBvo.photoVO.photo2}</div>
-            </div>
-            <div class="item">
-               <img
-                  src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}"
-                  style="max-width: 100%;">
-               <div class="carousel-caption">${requestScope.findBvo.photoVO.photo3}</div>
-            </div>
-         </div>
+         	<!-- Wrapper for slides -->
+         	<div class="carousel-inner" role="listbox">
+            	<div class="item active">
+               	<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="max-width: 100%;" width="500px">
+               		<div class="carousel-caption">${requestScope.findBvo.photoVO.photo1}</div>
+            	</div>
+            	<div class="item">
+               		<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="max-width: 100%;" width="500px">
+               		<div class="carousel-caption">${requestScope.findBvo.photoVO.photo2}</div>
+            	</div>
+            	<div class="item">
+               		<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="max-width: 100%;" width="500px">
+               		<div class="carousel-caption">${requestScope.findBvo.photoVO.photo3}</div>
+            	</div>
+         	</div>
         
-         
-         <!-- Controls -->
-         <a class="left carousel-control" href=".carousel" role="button"
-            data-slide="prev"> <span
-            class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Geri</span>
-         </a> <a class="right carousel-control" href=".carousel" role="button"
-            data-slide="next"> <span
-            class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">İleri</span>
-         </a>
-      </div>
-   </section>
+         	<!-- Controls -->
+         	<a class="left carousel-control" href=".carousel" role="button" data-slide="prev"> 
+	         	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	            <span class="sr-only">Geri</span>
+         	</a>
+         	<a class="right carousel-control" href=".carousel" role="button" data-slide="next"> 
+	         	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	            <span class="sr-only">İleri</span>
+         	</a>
+      	</div>
+   	</section>
    
-   <div class="row control-group">
-             <div class="form-group col-xs-12 floating-label-form-group controls">
-                 <label for="name">TITLE</label>
-                 <h3 align="center">- TITLE -</h3>
-                 <p class="help-block text-danger">${requestScope.findBvo.title}</p>
-             </div>
-  </div>
+   	<div class="row control-group">
+		<div class="form-group col-xs-12 floating-label-form-group controls">
+		    <label for="name">TITLE</label>
+		    <h3 align="center">- TITLE -</h3>
+		    <p class="help-block text-danger">${requestScope.findBvo.title}</p>
+		</div>
+  	</div>
    
    <!-- 달력 -->
-   <div class="row">
-      <div class="col-sm-6" style="height: 150%">
-         <div id="calendar"></div>
-      </div>
-      <div class="col-sm-6"></div>
-      <!-- 예약 부분 -->
-      <div class="col-sm-6">
-         <h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>
-         <div align="center">
+   	<div class="row">
+      	<div class="col-sm-6" style="height: 150%">
+         	<div id="calendar"></div>
+      	</div>
+      	<div class="col-sm-6"></div>
+      	<!-- 예약 부분 -->
+      	<div class="col-sm-6">
+         	<h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>
+         	<div align="center">
 
-            <!-- 예약 폼 -->
-            <div class="row">
-               <!-- <div class="col-lg-8 col-lg-offset-2"> -->
-               <div class="col-lg-10 col-lg-offset-1">
-                  <form name="rentForm" id="rentForm"
-                     action="${pageContext.request.contextPath}/bicycle/rentRegister.do" method="post">
+            	<!-- 예약 폼 -->
+            	<div class="row">
+               		<!-- <div class="col-lg-8 col-lg-offset-2"> -->
+               		<div class="col-lg-10 col-lg-offset-1">
+                  		<form name="rentForm" id="rentForm" action="${pageContext.request.contextPath}/bicycle/rentRegister.do" method="post">
+	                    	<table id = "addTable">                   
+                   				<div class="row control-group">
+		                           	<!-- input 달력 -->
+		                           	<!-- start date -->
+		                           	<div id="div_id_date" class="form-group required" >
+		                              	<h4><label for="id_date" class="control-label col-md-6  requiredField" align="left">Start Date</label></h4>
+		                              	<div class="controls col-md-5">
+		                              		<input type="date" name="startDay" class="startInput" id="startDay0">
+		                             	</div>
+                         			</div>    
+                     			</div>
+                          
+                           		<!-- class="input-md textinput textInput form-control" -->
+                     			<div class="row control-group">   
+                          			<!-- end date -->
+                          			<div id="div_id_date" class="form-group required">
+                             			<h4><label for="id_date" class="control-label col-md-6  requiredField" align="left">End Date</label></h4>
+                             			<div class="controls col-md-5">
+                                			<input type="date" name="endDay" class="endInput" id="endDay0"> 
+                                			<div id="calResult0"></div>
+                             			</div>
+			                   		</div>
+			        			</div>
+                       		</table>
+
+                   			<div class = "row control-group">
+                    			<div class="form-group col-xs-12 floating-label-form-group controls">
+                					<div class="col-sm-4">
+                           				<abbr title="대여가능체크">
+                           					<img id = "checkImg" class="check-img" src=" https://www.2buy2.com/images/icons/other/green-outline/tick.png" alt="" style = "width:">
+                           				</abbr>
+                        				<div id = "checkResult"></div>
+                     				</div>
                      
-                  <table id = "addTable">                   
+                     				<div class="col-sm-4"> 
+                           				<abbr title="대여 기간 추가">
+                           					<img id = "plusImg" class="plus-img" src="https://www.cambiaelmundo.net/images/covers/subSubjects/9166a4047e8a143a61a644603cedf4bf.jpg" alt="" style = "width:">
+                           				</abbr>
+                     				</div>
                     
-                        <div class="row control-group">
-                           <!-- input 달력 -->
-                           <!-- start date -->
-                           <div id="div_id_date" class="form-group required" >
-                              <label for="id_date"
-                                 class="control-label col-md-6  requiredField" align="left"><h4>Start Date</h4></label>
-                              <div class="controls col-md-5">
-                                 <input type="date" name="startDay" 
-                                    class="startInput"
-                                    id="startDay0">
-                             </div>
-                             
-                          </div>    
-                      </div>
-                           
-                            <!-- class="input-md textinput textInput form-control" -->
-                      <div class="row control-group">   
-                           <!-- end date -->
-                           <div id="div_id_date" class="form-group required">
-                              <label for="id_date"
-                                 class="control-label col-md-6  requiredField" align="left"><h4>End Date</h4></label>
-                              <div class="controls col-md-5">
-                                 <input type="date" name="endDay" 
-                                    class="endInput"
-                                    id="endDay0"> <div id="calResult0"></div>
-                              </div>
-                           </div>
-                      </div>
-                        
-                        </table>
+                     				<div class="col-sm-4">  
+                          				<abbr title="대여료 계산하기">
+                          					<img id = "calImg" class="cal-img" src="http://icon-icons.com/icons2/300/PNG/256/calculation-icon_31858.png" alt="" style = "width:">
+                          				</abbr>
+                        				<!-- <div id = "calResult"></div> -->
+                     				</div>
+                    			</div>
+                  			</div>
+	                       		
+                       		<div class="row control-group">
+                        		<div class="form-group col-xs-12 floating-label-form-group controls">
+                           			<label for="name">ID</label>
+                           			<h4 align="left">ID</h4>
+                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.id}</p>
+                        		</div>
+                     		</div>
+                     		
+                     		<div class="row control-group">
+                        		<div class="form-group col-xs-12 floating-label-form-group controls">
+                           			<label for="name">Price</label>
+                           			<h4 align="left">Price</h4>
+                           			<p class="help-block text-danger" id = "rentPrice">${requestScope.findBvo.rentPrice}</p>
+                        		</div>
+                     		</div>
+	                     
+	                     
+                     		<div class="row control-group">
+                        		<div class="form-group col-xs-12 floating-label-form-group controls">
+                           			<label for="email">Email Address</label>
+                           			<h4 align="left">Email Address</h4>
+                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
+                        		</div>
+                     		</div>
                      
-               
-                      
-                      
-                
-                
-                   <div class = "row control-group">
-                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                <div class="col-sm-4">
-                           <abbr title="대여가능체크"><img id = "checkImg" class="check-img"
-                     src=" https://www.2buy2.com/images/icons/other/green-outline/tick.png" alt="" style = "width:"></abbr>
-                        <div id = "checkResult"></div>
-                     </div>
+                     		<div class="row control-group">
+                        		<div class="form-group col-xs-12 floating-label-form-group controls">
+                           			<label for="phone">Phone Number</label>
+                           			<h4 align="left">Phone Number</h4>
+                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
+                        		</div>
+                     		</div>
+	                     
+                     		<div class="row control-group">
+                        		<div class="form-group col-xs-12 floating-label-form-group controls">
+                           			<label for="phone">Share Address</label>
+                           			<h4 align="left">Share Address</h4>
+                           			<c:set var="addr" value="${requestScope.findBvo.address}"/>       
+									<c:set var="addd" value="${fn:split(addr, '%') }" />
+									<c:forEach items="${addd }" var="addd">
+										<p style="font-size: 15px">${addd }</p>
+									</c:forEach>
+                        		</div>
+                     		</div>
+	                     
                      
-                     <div class="col-sm-4"> 
-                           <abbr title="대여 기간 추가"><img id = "plusImg" class="plus-img"
-                     src="https://www.cambiaelmundo.net/images/covers/subSubjects/9166a4047e8a143a61a644603cedf4bf.jpg" alt="" style = "width:"></abbr>
-                     </div>
-                    
-                     <div class="col-sm-4">  
-                          <abbr title="대여료 계산하기"><img id = "calImg" class="cal-img"
-                     src="http://icon-icons.com/icons2/300/PNG/256/calculation-icon_31858.png" alt="" style = "width:"></abbr>
-                        <!-- <div id = "calResult"></div> -->
-                     </div>
-                    </div>
-                  </div>
-                       
-               
-                 
+	                     	<div class="row control-group">
+	                        	<div class="form-group col-xs-12 floating-label-form-group controls">
+		                           	<label for="message">Detail</label>
+		                           	<h4 align="left">Detail</h4>
+		                           	<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
+		                        </div>
+							</div>
+                     
+                     		<c:forEach items="${requestScope.findBvo.possibleList}" var="possibleDay" varStatus="order">
+								<div id="possible${order.count}">
+									<input type="hidden" class="possibleStartDay${order.count}" value="${possibleDay.startDay}" id="pStartDay${order.count}">
+                           			<input type="hidden" class="possibleEndDay${order.count}" value="${possibleDay.endDay}" id="pEndDay${order.count}">
+                        		</div>
+                     		</c:forEach>
 
-
-                     <div class="row control-group">
-                        <div
-                           class="form-group col-xs-12 floating-label-form-group controls">
-                           <label for="name">ID</label>
-                           <h4 align="left">ID</h4>
-                           <p class="help-block text-danger">${requestScope.findBvo.memberVO.id}</p>
-                        </div>
-                     </div>
-                     
-                     
-                     <div class="row control-group">
-                        <div
-                           class="form-group col-xs-12 floating-label-form-group controls">
-                           <label for="name">Price</label>
-                           <h4 align="left">Price</h4>
-                           <p class="help-block text-danger" id = "rentPrice">${requestScope.findBvo.rentPrice}</p>
-                        </div>
-                     </div>
-                     
-                     
-                     <div class="row control-group">
-                        <div
-                           class="form-group col-xs-12 floating-label-form-group controls">
-                           <label for="email">Email Address</label>
-                           <h4 align="left">Email Address</h4>
-                           <p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
-                        </div>
-                     </div>
-                     
-                     
-                     <div class="row control-group">
-                        <div
-                           class="form-group col-xs-12 floating-label-form-group controls">
-                           <label for="phone">Phone Number</label>
-                           <h4 align="left">Phone Number</h4>
-                           <p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
-                        </div>
-                     </div>
-                     
-                     
-                     <div class="row control-group">
-                        <div
-                           class="form-group col-xs-12 floating-label-form-group controls">
-                           <label for="phone">Share Address</label>
-                           <h4 align="left">Share Address</h4>
-                           <p class="help-block text-danger">${requestScope.findBvo.address}</p>
-                        </div>
-                     </div>
-                     
-                     
-                     <div class="row control-group">
-                        <div
-                           class="form-group col-xs-12 floating-label-form-group controls">
-                           <label for="message">Detail</label>
-                           <h4 align="left">Detail</h4>
-                           <p class="help-block text-danger">${requestScope.findBvo.detail}</p>
-                        </div>
-                     </div>
-                     
-                     
-                     <c:forEach items="${requestScope.findBvo.possibleList}"
-                        var="possibleDay" varStatus="order">
-
-                        <div id="possible${order.count}">
-
-                           <input type="hidden" class="possibleStartDay${order.count}"
-                              value="${possibleDay.startDay}" id="pStartDay${order.count}">
-                           <input type="hidden" class="possibleEndDay${order.count}"
-                              value="${possibleDay.endDay}" id="pEndDay${order.count}">
-                        </div>
-                     </c:forEach>
-
-                     <br>
-                     
-                     <div id="success"></div>
-                     <div class="row">
-                        <div class="form-group col-xs-12" align="center">
-                        <input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-                        
-                           
-                           <button type="submit" class="btn btn-success btn-lg"
-                              id="rentBtn">빌리기</button>
-                        </div>
-                     </div>
-
-                  </form>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+	                		<br><br>
+	                  
+	                     	<div id="success"></div>
+                     		<c:if test="${sessionScope.mvo.id != requestScope.findBvo.memberVO.id}">
+	                     		<div class="row">
+	                        		<div class="form-group col-xs-12" align="center">
+	                        			<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
+			                        	<button type="submit" class="btn btn-success btn-lg" id="rentBtn">빌리기</button>
+	                        		</div>
+	                     		</div>
+							</c:if>
+                  		</form>
+               		</div>
+            	</div>
+         	</div>
+      	</div>
+   	</div>
 </div>
 <br>
 <br>
 <br>
 <br>
 <!-- 리뷰 -->
+<<<<<<< HEAD
       <div id="banner-wrapper">
       <div align="left" style="padding-left: 15%; font-size: 15px">
          총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;

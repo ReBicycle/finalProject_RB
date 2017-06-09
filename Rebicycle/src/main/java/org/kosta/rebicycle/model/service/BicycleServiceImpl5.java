@@ -52,6 +52,7 @@ public class BicycleServiceImpl5 {
 		RentVO rvo = new RentVO();
 		rvo.setMemberVO(new MemberVO(id));
 		rvo.setBicycleVO(new BicycleVO(Integer.parseInt(bicycleNo)));		
+
 		List<RentVO> list = bicycleDAOImpl2.reviewCheck(rvo);
 		if(list.size()!=0)
 				return true;

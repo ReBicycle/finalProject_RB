@@ -261,7 +261,7 @@ public class BicycleController {
 			//	즉, 오류가 발생하여 Month 와 day 각각 +1 한다
 			int endMonthOfDay=0;
 			int endYearOfDay=0;
-			
+			String ResultOfEndDay=null;
 			//System.out.println("test        "+cList.get(i).getStartDay()+"        "+cList.get(i).getEndDay());
 			
 			// YYYY-MM-DD 0:00:00 형식 뒤 0:00:00을 자르기 위한 과정
@@ -323,8 +323,17 @@ public class BicycleController {
 				}else{
 					endDayOfDay=endDayOfDay+1;
 				}		
+				
+			if(endMonthOfDay<10){
+				endMonthOfDay=Integer.parseInt("0"+endMonthOfDay);
+			}
+
+			if(endMonthOfDay<10){
+				ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-0"+endMonthOfDay+"-"+endDayOfDay;
+			}else{
+				ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-"+endDayOfDay;
+			}
 			
-			String ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-"+endDayOfDay;
 			//String ResultOfEndDay=endYearOfDay+"-"+endMonthOfDay+"-"+endDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
 			possibleTotalDay.put("title", "예약 가능");

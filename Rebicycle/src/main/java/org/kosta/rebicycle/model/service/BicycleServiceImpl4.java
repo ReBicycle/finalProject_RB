@@ -77,7 +77,9 @@ public class BicycleServiceImpl4 implements BicycleService {
 		
 		HashMap<String, CalendarVO> calendarMap = new HashMap<>();
 		calendarMap.put("possible", bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
+		System.out.println("possible dog     "+calendarMap.get("possible"));
 		calendarMap.put("rent", rvo.getCalendarVO());
+		System.out.println("rent dog     "+calendarMap.get("rent"));
 		//System.out.println("possible" + bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
 		System.out.println("deleteRentedDay-cM" + calendarMap);
 		

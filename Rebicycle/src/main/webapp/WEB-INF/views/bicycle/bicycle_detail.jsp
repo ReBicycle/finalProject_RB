@@ -175,7 +175,7 @@ section.awSlider>img {
    
    //day N:N - 각각의 startDay , endDay를 담기 위한 배열 선언
    var startendDay=new Array();
-   
+  
    var oTbl;
    
    //day N:N 로 비교하기 위해 
@@ -211,7 +211,7 @@ section.awSlider>img {
         for( var i = 0; i <= frm.elements.length - 1; i++ ){
           if( frm.elements[i].name == "addText[]" ) {
                if( !frm.elements[i].value ){
-                   alert("텍스트박스에 값을 입력하세요!");
+                   alert("텍스트박스에 값을 입력하세요!!!");
                    frm.elements[i].focus();
                    return;
                 }
@@ -222,93 +222,101 @@ section.awSlider>img {
    $(document).ready(function(){
       
          //day N:N - 사용가능 결과 변수
-         var checkDayResultl=null;
-         var checkFailList=new Array();
+        var checkDayResultl=null;
+        var checkFailList=new Array();
          
          //사용자가 입력한 날짜별 계산된 대여료들
-       //calculateResult 변수에 넣는다.
-       var calculateResult=new Array();
-         
+       	//calculateResult 변수에 넣는다.
+	     var calculateResult=new Array();
+	     var content = "";  
+	     var checkFlag = new Array();
+	     
+	     checkFlag[0] = false;
+	 		
+	 	
         $("#checkImg").click(function(){
-       
+
            //day N:N 비교한 결과 불가능한 input
-           var result="";
+          
         
-           /* for(var j=0; j<startendDay.length; j++){
-            if((startendDay[j].get("startDay")==null&&startendDay[j].get("endDay")==null)||(startendDay[j].get("startDay")==""&&startendDay[j].get("endDay")=="")){
-               alert((j+1)+"번째 날짜를 입력하세요.");
-               return false;
-            }
-           } */
-           
            //day N:N - 배열 형태인 startDay 와 endDay 를 
            //startendDay[] 에 넣어준다.
+            
            for(var i=0; i<=startLength; i++){
                  //day N:N - 각 startDay와 endDay를 map에 넣어준다.
                  var dayMap=newMap();
                  dayMap.put("startDay",$("#startDay"+i).val());
                  dayMap.put("endDay",$("#endDay"+i).val());
                  startendDay[i]=dayMap;
-           }
-         
-         $.ajax({
-            type:"get",
-            data:"bicycleNo=${requestScope.findBvo.bicycleNo}",
-            dataType:"json",
-            url:"${pageContext.request.contextPath}/dayCheck.do",
-            success:function(data){                  
-               
-               for(var j=0; j<startendDay.length; j++){   
-                  var flag=0;   
-                  exit_for:
-                  for(var i=0; i<data.length; i++){
-                     //가능한 날짜일 경우 flag에 +1 한다.
-                     if((data[i].startDay<=startendDay[j].get("startDay"))&&(startendDay[j].get("endDay")<=data[i].endDay)){
-                        flag=1;
-                        break exit_for;
-                     }else{
-                        flag=0;   
-                     }                                       
-                  }//for-data.length    
-                  //가능한 날짜 - +1 담긴 flag 를
-                  //불가능한 날짜 - 0 담긴 flag 를  배열에 넣는다.
-                  checkFailList[j]=flag;
-               }//for-startendDay.length      
-               } //success                  
-         });
-         
-         //detail(빌리기) 페이지에서 
-         //사용자가 빌리고자 하는 날짜 중 
-         //불가능한 날짜를 result 에 담는다.
-          for(var i=0;i<startendDay.length; i++){
-                if(checkFailList[i]<=0){
-                  //resutl 에 +1 하니깐 이래
-                  result=result+(i+1)+" ";
-               }   
-          }
-          if(result==""){
-             $("#checkResult").html("<font color='blue'>가능</font>");
-          }else if(result==null){
-             $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
-          }else{
-             $("#checkResult").html("<font color='red'>"+result+"번 날짜 불가능</font>");
-          }
-         
-         //checkInput();     
+                 checkFlag[i] = true;
+                 
+                 //alert("checkFlag i번째 - checkImg click" + checkFlag[i]);
+                 
+                 
+		         $.ajax({
+		            type:"get",
+		            data:"bicycleNo=${requestScope.findBvo.bicycleNo}",
+		            dataType:"json",
+		            url:"${pageContext.request.contextPath}/dayCheck.do",
+		            success:function(data){                  
+		            	 var flag=0;//불가능
+		            	 var result="";
+		            	
+		            
+		                  for(var j=0; j< data.length; j++){
+		                     //가능한 날짜일 경우 flag에 +1 한다.
+		                    
+		                     if(((data[j].startDay<=startendDay[i-1].get("startDay")) && (startendDay[i-1].get("endDay")<=data[j].endDay))	){
+		                    	 flag=1;
+		                    	 //alert("가능!!!!!!!!!");
+		                         content = ("<font color='blue'>가능</font><br>");
+		                        
+		                        
+		                     }else{ 
+		                    	 result = (i-1);
+		                    	 //alert("불가능!!!!!!!!");
+		                    	 content = ("<font color='red'>"+result+"번 날짜 불가능</font><br>");
+		                    	 $("#startDay"+[i-1]).focus();
+		                    	 $("#startDay"+[i-1]).val("");
+		                    	 $("#endDay"+[i-1]).val("");
+		                    	 
+		                    	 checkFlag[i-1] = false;
+		                    	 //alert("test" + checkFlag[i-1]);
+		                     }
+		                  }
+		                  $("#checkResult").html(content);
+		                  
+			       } //success    
+		     
+			     });//ajax
+		        
+	     }//for-startendDay.length           
 
         });
            
+        //alert("content       "+content)
+       
+        
         
         $("#plusImg").click(function(){
+        	checkFlag[clickCount+1] = false;
+        	//alert(clickCount);
+        	if(checkFlag[clickCount]==false){
+	 			alert("가능일 확인 절차가 필요합니다!");
+	 			return false;
+	 		}
            //day N:N 검사에서 id에 0,1,2,,, 를 붙이기 위해 
            //clickCount 변수에 +1 을 한다
+           
+           //+를 누를때 이전 startDay값과 endDay값이 있는지 없는지 check
+           
            clickCount=clickCount+1;
            insRow();
         });
          
          
          $("#calImg").click(function(){
-            //checkInput(); 
+          
            
                
                   for(var i=0; i<=startLength; i++){
@@ -361,7 +369,7 @@ section.awSlider>img {
          $("#startDay").click(function(){
             $("#checkResult").html("시작 날짜를 검사해야 합니다.");
          });
-       $("#endDay").click(function(){
+       	$("#endDay").click(function(){
           $("#checkResult").html("끝 날짜를 검사해야 합니다.");
          });
          

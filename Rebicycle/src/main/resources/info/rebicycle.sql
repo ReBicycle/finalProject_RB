@@ -304,6 +304,43 @@ select
 b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
 reportDate,b.contents from rb_report 
 b where reportNo=26
+---------------------------대댓글 구간-------------------------------------
+
+CREATE TABLE TBL_BOARDREPLY (
+      BRDNO INT(11) NOT NULL constraint fk_rb_BRDNO references rb_report(reportNo),     -- 게시물 번호
+      RENO INT(11) NOT NULL,                         -- 댓글 번호
+      REWRITER VARCHAR(10) NOT NULL constraint fk_rb_REWRITER references rb_member(id),            -- 작성자
+      REMEMO VARCHAR(500) DEFAULT NULL,       -- 댓글내용
+      REDATE DATETIME DEFAULT NULL,              -- 작성일자
+      REDELETEFLAG VARCHAR(1) NOT NULL,        -- 삭제여부
+      PRIMARY KEY (RENO)
+)
+
+CREATE TABLE rb_boardreply (
+      brdno number not null constraint fk_rb_brdno references rb_report(reportNo),
+      reno number primary key,
+      retitle varchar(100) not null,
+      rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
+      rememo varchar(500) not null,
+      redate date not null
+)
+select * from rb_boardreply
+select * from rb_report where reportNo=90
+
+
+insert into rb_boardreply(brdno,reno,rewriter,rememo,redate)
+ 		values(90,1,'jobman','크로캉~ 부슈우~~~~',sysdate)
+
+create sequence rb_boardreply_seq;
+select * from rb_boardreply;
+
+select
+c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD HH:mm:ss') as 
+redate from rb_boardreply 
+c where brdno=90
+
+drop table rb_boardreply;
+drop sequence rb_boardreply_seq;
 -----------------------------석희---------------------------------
 
 
@@ -343,7 +380,7 @@ where bicycleNo=1 and b.memberId=m.id
 
 
 
-
+select * from possible_day
 
 
 
@@ -580,4 +617,86 @@ where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12
 select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
+
+<<<<<<< HEAD
+update possible_day
+set endDay = to_date(('2017-06-14', 'yyyy-mm-dd')-1)
+
+select p.startDay,p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7 
+and '2017-06-14'>= to_char(p.startDay,'yyyy-mm-dd')
+and '2017-06-17' = to_char(p.endDay,'yyyy-mm-dd')
+
+select p.startDay,p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7 
+and '2017-06-14'>= p.startDay
+and '2017-06-17' = p.endDay
+
+
+select * from possible_day where bicycleNo=7
+and endDay = to_char('2017-06-16','yyyy-mm-dd') and startDay <= to_char('2017-06-14','yyyy-mm-dd');
+
+select to_char(startDay,'yyyy-mm-dd') from possible_day where bicycleNo=7
+
+create table daytest(
+	id varchar2(100) primary key,
+	startDay date not null,
+	endDay date not null
+)
+
+insert into daytest values('java',sysdate,sysdate+1)
+select * from daytest
+
+select to_date(startDay,'yy-mm-dd') from daytest
+where startDay=sysdate
+
+create table tt(
+	id varchar2(100) primary key,
+	startDay varchar2(100) not null
+)
+insert into tt values('java','2017-05-05')
+
+select to_date(startDay,'yyyy-mm-dd') from tt
+
+select * from possible_day where bicycleNo=15
+select * from rent where rentNo=36
+
+update possible_day
+set endDay = to_date('2017-06-08', 'yyyy-mm-dd')
+
+update possible_day 
+set endDay = to_date('2017-06-10', 'yyyy-mm-dd')
+where bicycleNo = 8
+and to_date('2017-06-08', 'yyyy-mm-dd')>= startDay
+and to_date('2017-06-10', 'yyyy-mm-dd')= endDay;
+
+select * from possible_day where bicycleNo=8
+=======
+<<<<<<< HEAD
+select startDay, endDay
+from possible_day 
+where to_date('2017-1-1 9:00:10', 'yyyy-mm-dd')>= startDay
+and  to_date('2017-1-5 9:00:10', 'yyyy-mm-dd')<= endDay
+
+
+select p.startDay, p.endDay
+from possible_day p, bicycle b
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = 7
+
+select * from possible_day
+
+delete 
+from possible_day p, bicycle b	
+where p.bicycleNo = b.bicycleNo and b.bicycleNo = #{bicycleNo} 
+and <![CDATA[to_date(#{startDay}, 'yyyy-mm-dd')>= p.startDay]]>
+and <![CDATA[to_date(#{endDay}, 'yyyy-mm-dd')<= p.endDay]]>
+
+select * from possible_day
+select * from rent
+
+select * from bicycle
+
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 

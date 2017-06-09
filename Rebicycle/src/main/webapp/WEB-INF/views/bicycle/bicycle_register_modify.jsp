@@ -137,9 +137,61 @@ function findGeo(){
 	}
 </script>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#addTable").on("change",".id_endDay",function(){
+			var stid = "id_startDay"+$(this).attr('id').substring(9,10);
+			var endid = "id_endDay"+$(this).attr('id').substring(9,10);
+			var startDate = $("input[id="+stid+"]").val();
+	        var startDateArr = startDate.split('-');
+	        var endDate = $("input[id="+endid+"]").val();
+	        var endDateArr = endDate.split('-');
+	                 
+	        var startDateCompare = new Date(startDateArr[0], startDateArr[1], startDateArr[2]);
+	        var endDateCompare = new Date(endDateArr[0], endDateArr[1], endDateArr[2]);
+	         
+	        if(startDateCompare.getTime() > endDateCompare.getTime()) {
+				alert("시작날짜와 종료날짜를 확인해 주세요.");
+				$("input[id="+endid+"]").val("연도-월-일");
+	        }
+		});
+		
+		$("#addTable").on("click","#checkBtn",function(){
+			var stCount = $(".id_startDay").length;
+			var stid = "id_startDay";
+			var endid = "id_endDay";
+			var arr1 = [];
+			var arr2 = [];
+			var k = 0;
+			
+			for(var i=0 ; i<stCount-1 ; i++) {
+				if($("#"+stid+i).val() > $("#"+endid+(i+1)) || $("#"+endid+i).val() < $("#"+stid+(i+1)).val()){
+					arr1[i] = "0";
+				} else {
+					arr1[i] = "1";
+					arr2[k] = i+1;
+					k++;
+				}
+			}
+			
+			for(var j=0 ; j<arr1.length ; j++) {
+				if(arr1[j] == "1") {
+					alert("날짜를 제대로 선택해주세요");
+					break;
+				}
+			}
+			
+			for(var h=0 ; h<arr2.length ; h++) {
+				$("#id_startDay"+arr2[h]).val("연도-월-일");
+				$("#id_endDay"+arr2[h]).val("연도-월-일");
+			}
+		});
+	});
+</script>
+
 <div class="container">
 <br><br><br>
-    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-7 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="panel-title">자전거 정보 수정</div>
@@ -151,10 +203,10 @@ function findGeo(){
 				    <!-- 사진 -->
 				    <div id="div_id_photo" class="form-group required"> 
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
-				        <div class="controls col-md-8 "> 
+				        <div class="controls col-md-8 " align="center"> 
 				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo1 }?ver=1">
 				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo2 }?ver=1">
-				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo3 }?ver=1">
+				        	<img width="100px" height="90" src="${pageContext.request.contextPath}/resources/upload/bicycle/${bicycleVO.photoVO.photo3 }?ver=1"><br><br>
 							<input type="file" name="file[0]"><br>
 							<input type="file" name="file[1]"><br>
 							<input type="file" name="file[2]"><br>
@@ -203,7 +255,6 @@ function findGeo(){
 				        </div>
 				        <label for="id_address" class="control-label col-md-3  requiredField"></label>
 				   	 	<div class="controls col-md-8 ">
-				            <!-- <input class="input-md  textinput textInput form-control" id="id_address" name="address" placeholder="주소를 입력하세요" style="margin-bottom: 10px" type="text" /> -->
 							<input type="text" class="input-md emailinput form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소" value="${requestScope.roadAddress }" required="required">
 							<input type="text" class="input-md emailinput form-control" id="jibunAddress" name="jibunAddress" placeholder="지번주소" value="${requestScope.jibunAddress }" required="required">
 							<input type="text" class="input-md emailinput form-control" id="detailAddress" name="detailAddress" placeholder="상세주소" value="${requestScope.detailAddress }" required="required">
@@ -239,72 +290,36 @@ function findGeo(){
 
 				 	<!-- 달력 날짜 추가 -->
 				 	<div id="div_id_date" class="form-group required">
-				 	<label for="id_detail" class="control-label col-md-3  requiredField">가능일</label>
-					<table id="addTable">
-						<c:forEach items="${possibleDayList }" var="clist" varStatus="order">
-						<c:choose>
-							<c:when test="${order.count==1 }">
+					 	<label for="id_addDate" class="control-label col-md-3  requiredField">가능일</label>
+					 	<div class="controls col-md-8" align="center">
+							<table id="addTable">
 								<tr>
-									<td>
-										<input type="date" name="startDay" id=id_startDay value="${clist.startDay }" required="required">
-										<input type="date" name="endDay" id=id_endDay value="${clist.endDay }" required="required">	
+									<td align="center">
+										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
+										<input type="button" style="cursor:hand" id="checkBtn" value="체크">
+										<input type=button value='삭제' onClick='delete_row()' style='cursor:hand'>
 									</td>
 								</tr>
-							</c:when>
-							<c:otherwise>
-								<tr>
-									<td>
-										<input type="date" name="startDay" id=id_startDay value="${clist.startDay }" required="required">
-										<input type="date" name="endDay" id=id_endDay value="${clist.endDay }" required="required">	
-										<!-- <input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">	 -->
-									</td>	
-								</tr>
-							</c:otherwise>
-						</c:choose>			
-						</c:forEach>
-					</table>
+								<c:forEach items="${possibleDayList }" var="clist" varStatus="order">
+									<tr>
+										<td>
+											<input type="date" name="startDay" id="id_startDay${order.count-1}" class="id_startDay" value="${clist.startDay }" required="required">
+											<input type="date" name="endDay" id="id_endDay${order.count-1}" class="id_endDay" value="${clist.endDay }" required="required">	
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
 					</div>
-					
-					<div class="form-group required" align="center">
-						<label for="id_detail" class="control-label col-md-3  requiredField"></label>
-						 <div class="controls col-md-3">
-							<input name="addButton" class="input-md emailinput form-control" type="button" style="cursor:hand" onClick="insRow()" value="추가">
-				        </div>
-				        <div class="controls col-md-3">
-							<input type="button" class="input-md emailinput form-control"value="삭제" onClick="delete_row()" style="cursor:hand">
-				        </div>
-					</div>
-					<!-- 달력 -->
-				    <!-- <div id="div_id_date" class="form-group required"> 
-				        <label for="id_date" class="control-label col-md-3  requiredField">시작일</label>
-				        <div class="controls col-md-8 "> 
-							<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
-				        </div>
-				        <label for="id_date" class="control-label col-md-3  requiredField">종료일</label>
-				        <div class="controls col-md-8 ">
-							<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
-				        </div>
-				    </div> -->
-				    
-				    <!-- 달력 안쓰는거 -->
-				   <!--  
-			        <div class="controls col-md-8 "> 
-						<input type="date" name="startDay" class="input-md textinput textInput form-control" id="id_detail">
-			        </div>
-			        <div class="controls col-md-8 ">
-						<input type="date" name="endDay" class="input-md textinput textInput form-control" id="id_detail">
-			        </div> -->
-				    
-				    
+
 				    <div class="form-group"> 
-				        <div class="aab controls col-md-4 "></div>
-				        <div class="controls col-md-8 ">
+				    	<div class="aab controls col-md-3 "></div>
+				        <div class="controls col-md-8">
 				            <input type="submit" name="modify_bicycle" value="수정" class="btn btn-primary btn btn-info" id="submit-id-signup" />
 				        </div>
-				    </div>
-				    
+			   		</div>
 				</form>
-            </div>
-        </div>
+           	</div>
+       	</div>
     </div> 
 </div>

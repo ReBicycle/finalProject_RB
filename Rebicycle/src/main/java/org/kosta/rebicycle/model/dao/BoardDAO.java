@@ -1,7 +1,8 @@
-package org.kosta.rebicycle.model.service;
+package org.kosta.rebicycle.model.dao;
 
 import java.util.List;
 
+import org.kosta.rebicycle.model.vo.BoardReplyVO;
 import org.kosta.rebicycle.model.vo.PagingBean;
 import org.kosta.rebicycle.model.vo.ReportVO;
 
@@ -20,5 +21,11 @@ public interface BoardDAO {
 	ReportVO boardUpdateReportView(int reportNo);
 
 	void deleteReport(int reportNo);
+
+	void commentWrite(BoardReplyVO bvo);
+
+	BoardReplyVO findBoardReplyNo(int reno);
+
+	List<BoardReplyVO> getReplyList(BoardReplyVO brv);
 
 }

@@ -261,7 +261,6 @@ tr:hover{background-color:#f5f5f5}
 							<c:forEach items="${addd }" var="addd">
 								<p style="font-size: 15px">${addd }</p>
 							</c:forEach>
-                            <%-- <p>${fn:substringBefore(addr, "%")}</p> --%>
                             <hr>
                             <h3><strong>E-mail</strong></h3>
                             <p>${requestScope.findVO.email}</p>

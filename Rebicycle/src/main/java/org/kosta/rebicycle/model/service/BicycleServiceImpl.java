@@ -8,8 +8,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.kosta.rebicycle.model.dao.BicycleDAOImpl;
-import org.kosta.rebicycle.model.dao.MemberDAOImpl;
+import org.kosta.rebicycle.model.dao.BicycleDAO;
+import org.kosta.rebicycle.model.dao.MemberDAO;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
 import org.kosta.rebicycle.model.vo.MapVO;
@@ -23,11 +23,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BicycleServiceImpl implements BicycleService {
-	@Resource
-	private BicycleDAOImpl bicycleDAOImpl;
-	@Resource
-	private MemberDAOImpl memberDAOImpl;
+	@Resource(name="bicycleDAOImpl")
+	private BicycleDAO bicycleDAOImpl;
+	@Resource(name="memberDAOImpl")
+	private MemberDAO memberDAOImpl;
 	
+	public BicycleServiceImpl() {
+		System.out.println(11);
+	}
 	/////////impl1/////////	
 	@Override
 	public String findCategoryByNo(int categoryNo) {

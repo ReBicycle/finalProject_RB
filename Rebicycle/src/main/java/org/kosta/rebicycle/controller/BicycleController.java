@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.rebicycle.model.service.BicycleServiceImpl;
+import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BicycleController {
 	  
 	@Resource
-	private BicycleServiceImpl bicycleServiceImpl;
+	private BicycleService  bicycleServiceImpl;
 	
 	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/registerBicycle.do")

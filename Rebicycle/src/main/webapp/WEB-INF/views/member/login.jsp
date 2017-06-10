@@ -35,7 +35,7 @@
 								<div class="row">
 									<div class="center-block">
 										<img class="profile-img"
-											src="https://cdn.pixabay.com/photo/2016/03/31/15/33/contact-1293388_960_720.png?sz=120" alt="">
+											src="https://t3.ftcdn.net/jpg/01/14/60/02/240_F_114600287_gGMW6jM4l7NYPKlcbRsg8F7mdb18yFUU.jpg?sz=200" alt="">
 									</div>
 								</div>
 								<div class="row">

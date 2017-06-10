@@ -24,8 +24,8 @@ public interface BoardDAO {
 
 	void commentWrite(BoardReplyVO bvo);
 
-	BoardReplyVO findBoardReplyNo(int reno);
+	BoardReplyVO findBoardReplyNo(int brdno);
 
-	List<BoardReplyVO> getReplyList(BoardReplyVO brv);
+	List<BoardReplyVO> getReplyList(int brv);
 
 }

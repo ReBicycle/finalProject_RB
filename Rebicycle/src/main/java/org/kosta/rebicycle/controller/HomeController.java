@@ -38,14 +38,7 @@ public class HomeController {
 		@RequestMapping("bicycle_search_list.do")
 		public ModelAndView bicycleList(HttpServletRequest request,String address,String startDay,String endDay){
 			System.out.println("검색 컨트롤러실행"+address+startDay+endDay);
-			SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-			Date currentTime = new Date ();
-			String mTime = mSimpleDateFormat.format ( currentTime );
-			System.out.println(mTime);
-			if(startDay==null)
-				startDay=mTime;
-			if(endDay==null)
-				endDay=mTime;
+		
 			List<BicycleVO>list=service.getBicycleListByAddressAndDay(address, startDay, endDay);
 			return new ModelAndView("bicycle/bicycle_search_list.tiles","bicycleList",list);
 		}

@@ -253,7 +253,6 @@ tr:hover{background-color:#f5f5f5}
                         <div class="media-body">
                             <hr>
                             <h3><strong>${requestScope.findVO.name}</strong></h3>
-                            <p>자기소개내용</p>
                             <hr>
                             <h3><strong>Location</strong></h3>
                             <c:set var="addr" value="${requestScope.findVO.address}"/>       

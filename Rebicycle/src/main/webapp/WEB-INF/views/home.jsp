@@ -74,9 +74,9 @@ font-family: 'Jeju Gothic', serif;
 					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
 					            		<input class="form-control" name="address" id="" type="text" size="15" required="required">
 					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-					            		<input class="form-control" name="startDay" id="" type="date" size="" required="required">
+					            		<input class="form-control" name="startDay" id="" type="date" size="" >
 					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-					            		<input class="form-control" name="endDay" id="" type="date"size="" required="required">
+					            		<input class="form-control" name="endDay" id="" type="date"size="" >
 					            		<span class="input-group-btn">
 					                    	<!-- <button class="btn btn-default" type="button" onclick="searchNow()"> Search &nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
 					                    	<input type="submit" class="btn btn-default" value="Search">%nbsp;<button  class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

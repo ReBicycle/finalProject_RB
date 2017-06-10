@@ -197,7 +197,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
      
      
         // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+        var imageSrc = "${pageContext.request.contextPath}/resources/img/marker4.png"; 
  		//var imageSrc = "${pageContext.request.contextPath}/resources/img/images.jpg";
  		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
  		 
@@ -205,7 +205,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
          for (var i = 0; i < positions.length; i ++) {
             
             // 마커 이미지의 이미지 크기 입니다
-            var imageSize = new daum.maps.Size(24, 35); 
+            var imageSize = new daum.maps.Size(30,40); 
             
             // 마커 이미지를 생성합니다    
             var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 

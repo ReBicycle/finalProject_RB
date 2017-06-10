@@ -9,11 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.rebicycle.model.service.BicycleServiceImpl1;
-import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
-import org.kosta.rebicycle.model.service.BicycleServiceImpl3;
-import org.kosta.rebicycle.model.service.BicycleServiceImpl4;
-import org.kosta.rebicycle.model.service.BicycleServiceImpl5;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -33,18 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BicycleController {
 	  
 	@Resource
-	private BicycleServiceImpl1 serviceImpl1;
-	@Resource
-	private BicycleServiceImpl2 serviceImpl2;
-	//정태형//////////////////
-	@Resource
-	private BicycleServiceImpl3 serviceImpl3;
-	@Resource
-	private BicycleServiceImpl5 serviceImpl5;
-
-	@Resource
-	private BicycleServiceImpl4 serviceImpl4;
-		
+	private BicycleServiceImpl bicycleServiceImpl;
+	
 	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
@@ -77,7 +63,7 @@ public class BicycleController {
 		String longitude = request.getParameter("longitude");
 		MapVO map = new MapVO(latitude, longitude);
 		
-		serviceImpl1.registerBicycle(bvo, calList, uploadPath, map);
+		bicycleServiceImpl.registerBicycle(bvo, calList, uploadPath, map);
 
 		return "redirect:bicycle_register_result.do";
 	}
@@ -92,7 +78,7 @@ public class BicycleController {
 	public HashMap<String, String> findAddressById(String memberId, HttpServletResponse response){
 		response.setContentType("text/html;charset=UTF-8"); 
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("address", serviceImpl1.findAddressById(memberId));
+		map.put("address", bicycleServiceImpl.findAddressById(memberId));
 		return map;
 	}
 	//자전거 수정
@@ -124,7 +110,7 @@ public class BicycleController {
 		MapVO map = new MapVO(latitude, longitude);			
 
 		// Map 수정
-		serviceImpl1.modifyBicycle(bvo, calList, uploadPath, map, address);
+		bicycleServiceImpl.modifyBicycle(bvo, calList, uploadPath, map, address);
 		return "redirect:bicycle_modify_result.do";
 	}
 	
@@ -137,10 +123,10 @@ public class BicycleController {
 	@ResponseBody
 	public ArrayList<Object> calculatePrice(int categoryNo){
 		ArrayList<Object> calList = new ArrayList<Object>();
-		if(serviceImpl1.calculatePrice(categoryNo)==null){
+		if(bicycleServiceImpl.calculatePrice(categoryNo)==null){
 			calList.add("없음");
 		} else {
-			calList = serviceImpl1.calculatePrice(categoryNo);
+			calList = bicycleServiceImpl.calculatePrice(categoryNo);
 		}
 		return calList;
 	}
@@ -148,7 +134,7 @@ public class BicycleController {
 	//소영 bicycle_search_list_test로
 		@RequestMapping("listViewTest.do")
 		public String listViewTest(Model model){
-			ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) serviceImpl3.findBicycleList();
+			ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) bicycleServiceImpl.findBicycleList();
 			model.addAttribute("bList", bList);
 			return "bicycle/bicycle_search_list_test.tiles";
 			
@@ -158,22 +144,22 @@ public class BicycleController {
 	@RequestMapping("bicycle/bicycle_findBicycleByNo.do")
 	public String findBicycleByNo(String bicycleNo,Model model, HttpServletRequest request){
 		int no=Integer.parseInt(bicycleNo);
-		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
-		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(no);
+		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) bicycleServiceImpl.findPossibleDayByNo(no);
+		BicycleVO bvo = bicycleServiceImpl.findBicycleDetailByNo(no);
 		bvo.setPossibleList(cList);		
 		
 		//리뷰WriteCheck
 		MemberVO mvo = (MemberVO)request.getSession().getAttribute("mvo");
 		if(mvo!=null){
-			System.out.println(serviceImpl5.reviewCheck(mvo.getId(),bicycleNo));
-			model.addAttribute("reviewCheck", serviceImpl5.reviewCheck(mvo.getId(),bicycleNo));
+			System.out.println(bicycleServiceImpl.reviewCheck(mvo.getId(),bicycleNo));
+			model.addAttribute("reviewCheck", bicycleServiceImpl.reviewCheck(mvo.getId(),bicycleNo));
 		}
 		else	{
 			System.out.println("else에 들어감-비로그인상태");
 			model.addAttribute("reviewCheck",false);
 		}
 		//리뷰리스트
-		List<ReviewVO> reviewList = serviceImpl5.getReviewListByBicycleNo(no);
+		List<ReviewVO> reviewList = bicycleServiceImpl.getReviewListByBicycleNo(no);
 		model.addAttribute("reviewList",reviewList);
 		double avg=0.0;
 		for(int i=0; i<reviewList.size();i++){
@@ -188,12 +174,12 @@ public class BicycleController {
 	//기간을 계산하기 위해 사용자가 입력한 신청 시작 월의 값을 받아와 그 월에 해당하는 정보를 반환
 	@RequestMapping("bicycle/bicycleModifyForm.do")
 	public String bicycleModifyForm(String memberId, int bicycleNo, Model model){
-		BicycleVO bvo = serviceImpl3.findBicycleDetailByNo(bicycleNo);
+		BicycleVO bvo = bicycleServiceImpl.findBicycleDetailByNo(bicycleNo);
 		String[] address = bvo.getAddress().split("%");
 		String roadAddress = address[0];
 		String jibunAddress = address[1];
 		String detailAddress = address[2];
-		ArrayList<CalendarVO> calList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(bicycleNo);
+		ArrayList<CalendarVO> calList = (ArrayList<CalendarVO>) bicycleServiceImpl.findPossibleDayByNo(bicycleNo);
 		ArrayList<CalendarVO> newCalList = new ArrayList<CalendarVO>();
 		
 		for(int i=0 ; i<calList.size() ; i++){
@@ -247,7 +233,7 @@ public class BicycleController {
 	@ResponseBody
 	public ArrayList<Object> appearDate(String bicycleNo){
 		int no=Integer.parseInt(bicycleNo);
-		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) serviceImpl3.findPossibleDayByNo(no);
+		ArrayList<CalendarVO> cList = (ArrayList<CalendarVO>) bicycleServiceImpl.findPossibleDayByNo(no);
 		
 		System.out.println("test             "+cList);
 		
@@ -357,7 +343,7 @@ public class BicycleController {
 	@ResponseBody
 	public List<CalendarVO> dayCheck(String bicycleNo){
 		int no=Integer.parseInt(bicycleNo);
-		return serviceImpl3.findPossibleDayByNo(no);
+		return bicycleServiceImpl.findPossibleDayByNo(no);
 	}
 	
 	@RequestMapping("bicycle/rentRegister.do")
@@ -375,7 +361,7 @@ public class BicycleController {
 			cvo.setStartDay(startDay[i]);
 			cvo.setEndDay(endDay[i]);			
 			RentVO rvo=new RentVO(bvo,mvo,cvo);
-			serviceImpl3.rentRegister(rvo);
+			bicycleServiceImpl.rentRegister(rvo);
 		}
 		//cvo.setStartDay(startDay);
 		//cvo.setEndDay(endDay);		

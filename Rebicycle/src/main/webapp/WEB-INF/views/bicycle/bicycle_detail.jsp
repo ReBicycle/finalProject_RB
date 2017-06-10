@@ -147,23 +147,7 @@ section.awSlider>img {
 <!-- http://blog.naver.com/yoocm1229/220442972831 해보기 -->
 <script>
    $(document).ready(function() {   
-	   $( ".star_rating a" ).click(function() {
-           event.preventDefault();
-           $(this).parent().children("a").removeClass("on");
-           $(this).addClass("on").prevAll("a").addClass("on");
-           $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
-           $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
-           return false;
-        });
-        $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
-  
-        $("#reviewSubmit").click(function(){
-           if($("#reviewContent").val() == ""){
-              alert("리뷰를 입력하세요");
-              return false;
-           }
-           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
-        }); 
+	  
       
       $('#calendar').fullCalendar({
          header: {
@@ -236,7 +220,23 @@ section.awSlider>img {
    }     
           
    $(document).ready(function(){
-      
+	   $( ".star_rating a" ).click(function() {
+           event.preventDefault();
+           $(this).parent().children("a").removeClass("on");
+           $(this).addClass("on").prevAll("a").addClass("on");
+           $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
+           $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+           return false;
+        });
+        $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+  
+        $("#reviewSubmit").click(function(){
+           if($("#reviewContent").val() == ""){
+              alert("리뷰를 입력하세요");
+              return false;
+           }
+           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
+        }); 
          //day N:N - 사용가능 결과 변수
         var checkDayResultl=null;
         var checkFailList=new Array();
@@ -700,7 +700,6 @@ section.awSlider>img {
 <br>
 <br>
 <!-- 리뷰 -->
-<<<<<<< HEAD
       <div id="banner-wrapper">
       <div align="left" style="padding-left: 15%; font-size: 15px">
          총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;

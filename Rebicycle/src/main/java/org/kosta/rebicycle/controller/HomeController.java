@@ -1,17 +1,13 @@
 package org.kosta.rebicycle.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.kosta.rebicycle.model.service.BicycleServiceImpl2;
+import org.kosta.rebicycle.model.service.BicycleServiceImpl;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 		@Resource
-		private BicycleServiceImpl2 service;
+		private BicycleServiceImpl service;
 		@RequestMapping("home.do")
 		public String home(){
 			

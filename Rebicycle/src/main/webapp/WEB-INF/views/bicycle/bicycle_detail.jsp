@@ -147,6 +147,7 @@ section.awSlider>img {
 <!-- http://blog.naver.com/yoocm1229/220442972831 해보기 -->
 <script>
    $(document).ready(function() {   
+	  
       
       $('#calendar').fullCalendar({
          header: {
@@ -219,7 +220,23 @@ section.awSlider>img {
    }     
           
    $(document).ready(function(){
-      
+	   $( ".star_rating a" ).click(function() {
+           event.preventDefault();
+           $(this).parent().children("a").removeClass("on");
+           $(this).addClass("on").prevAll("a").addClass("on");
+           $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
+           $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+           return false;
+        });
+        $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+  
+        $("#reviewSubmit").click(function(){
+           if($("#reviewContent").val() == ""){
+              alert("리뷰를 입력하세요");
+              return false;
+           }
+           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
+        }); 
          //day N:N - 사용가능 결과 변수
         var checkDayResultl=null;
         var checkFailList=new Array();
@@ -691,12 +708,13 @@ section.awSlider>img {
 <br>
 <br>
 <!-- 리뷰 -->
-<%-- <<<<<<< HEAD
       <div id="banner-wrapper">
       <div align="left" style="padding-left: 15%; font-size: 15px">
          총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+         <c:if test="${fn:length(requestScope.reviewList)!=0}">
          <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
          <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
+         </c:if>
       </div>
       <!-- 리뷰작성칸 -->
       <c:if test="${requestScope.reviewCheck}">
@@ -735,14 +753,12 @@ section.awSlider>img {
             <c:forEach items="${requestScope.reviewList}" var="rList">
                <div class="col-sm-12 col-xs-12 p-0">
                   <div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
-                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
+                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.picture}">
                      <br>${rList.rentVO.memberVO.id}
                   </div>
-                  
                   <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
                      ${rList.content}
                   </div>
-                  
                   <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
                      <c:forEach begin="1" end="${rList.star}">
                         <img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
@@ -750,73 +766,8 @@ section.awSlider>img {
                      <c:set var="TextValue" value="${rList.reviewDate}"/>
                          ${fn:substring(TextValue,0,10)}<br>                        
                   </div>
-                  
                </div>
             </c:forEach>
          </div>
       </div>
       <br>
-======= --%>
-<div id="banner-wrapper">
-	<div align="left" style="padding-left: 15%; font-size: 15px">
-		총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
-    	<img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
-        <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
-	</div>
-<!-- 리뷰작성칸 -->
-<c:if test="${requestScope.reviewCheck}">
-	<div class="box container">
-		<div class="row" align="left">
-         	<div class="col-sm-3">
-            	<p class="star_rating" style="padding-top:20px; padding-left: 30%">
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-            	</p>
-			</div>
-			<div class="9u">
-				<form id="reviewForm">
-	               	<div class="w3-row w3-section">
-	                  	<div id="reviewSubmit" class="w3-col" style="float:right; padding-right: 16%"> 
-	                     	<i class="w3-xxlarge fa fa-pencil w3-text-blue"  style="font-size: 35px"></i>
-						</div>
-		        		<div class="w3-rest" >
-		          			<textarea  id="reviewContent" STYLE="font-size:16px; padding-right: " class="w3-input w3-border" name="content" cols="65" rows="4" ></textarea>
-		          		</div>
-		        	</div>
-					<input id="reviewHidden" type="text" style="display: none; width:auto;" />
-	            </form>
-			</div>
-		</div>
-	</div>
-	<br>
-</c:if>
-<br>
-<br>    
-     
-<!-- 리뷰리스트 -->
-<div class="box container">
-	<c:forEach items="${requestScope.reviewList}" var="rList">
-		<div class="col-sm-12 col-xs-12 p-0">
-			<div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
-				<img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
-				<br>${rList.rentVO.memberVO.id}
-			</div>
-			<div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
-				${rList.content}
-			</div>
-			<div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
-				<c:forEach begin="1" end="${rList.star}">
-					<img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
-				</c:forEach><br><br>
-				<c:set var="TextValue" value="${rList.reviewDate}"/>
-				${fn:substring(TextValue,0,10)}<br>                        
-			</div>
-		</div>
-	</c:forEach>
-</div>
-</div>
-<br>
-

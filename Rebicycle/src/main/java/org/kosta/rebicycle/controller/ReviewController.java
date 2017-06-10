@@ -34,7 +34,7 @@ public class ReviewController {
 		reviewVO.setContent(content);
 		System.out.println(reviewVO);
 		serviceImpl5.writeReview(reviewVO);
-		return "redirect:/findBicycleByNo.do?bicycleNo="+bicycleNo;
+		return "redirect:/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+bicycleNo;
 	}
 	
 }

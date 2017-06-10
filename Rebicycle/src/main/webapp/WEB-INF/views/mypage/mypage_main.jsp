@@ -31,10 +31,10 @@ tr:hover{background-color:#f5f5f5}
       
       
       for(var j = 1;j<=rentListSize;j++){
-    	  
-    	 $("#successList"+j).click(function(){
-    		//alert("sss"); 
-    		 var bicycleNo=$(this).children().val();
+         
+        $("#successList"+j).click(function(){
+          //alert("sss"); 
+           var bicycleNo=$(this).children().val();
             $.ajax({
                type:"get",
                dataType:"json",
@@ -60,10 +60,10 @@ tr:hover{background-color:#f5f5f5}
                   $("#successInfo").html(table); 
                } //success
             });//ajax
-    	 });
-    	  
-    	  
-    	  
+        });
+         
+         
+         
          $("#rentList"+j).click(function(){
             
              
@@ -139,7 +139,7 @@ tr:hover{background-color:#f5f5f5}
       });
       
       $("#registerTbody").on("click","#modifyBtn" ,function(){
-    	 if(confirm("수정하시겠습니까?")){
+        if(confirm("수정하시겠습니까?")){
              var bicycleNo = $("#modifyBtn").parent().parent().children().eq(0).text();
              location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo="+bicycleNo;
              
@@ -148,7 +148,7 @@ tr:hover{background-color:#f5f5f5}
      });
       
      /* $("#writeBtn").click(function(){
- 	 if(confirm("후기/별점을 작성하시겠습니까??")){
+     if(confirm("후기/별점을 작성하시겠습니까??")){
           var rentNo = $("#writeBtn").parent().parent().children().eq(0).text();//
           var bicycleNo = $("#bicycleNoHidden").val();
           alert(bicycleNo);
@@ -160,7 +160,7 @@ tr:hover{background-color:#f5f5f5}
        }
   }); */
      
-  	
+     
   
     
      
@@ -202,20 +202,20 @@ tr:hover{background-color:#f5f5f5}
            
    });
    function toDetail(bicycleNo,rentNo){
-  	// alert(bicycleNo + "111111!!~!!!!");
-  	// alert(rentNo);
-  	 var b = bicycleNo;
-  	 var r = rentNo;
-  	 location.href = "${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+b+"&rentNo="+r;
+     // alert(bicycleNo + "111111!!~!!!!");
+     // alert(rentNo);
+      var b = bicycleNo;
+      var r = rentNo;
+      location.href = "${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+b+"&rentNo="+r;
    }
    
 </script>
 
 <style>
-	table,th,td{
-		text-align:center;
-	
-	}
+   table,th,td{
+      text-align:center;
+   
+   }
 </style>
 
  <br><br>
@@ -313,10 +313,10 @@ tr:hover{background-color:#f5f5f5}
                             <hr>
                             <h3><strong>Location</strong></h3>
                             <c:set var="addr" value="${requestScope.findVO.address}"/>       
-							<c:set var="addd" value="${fn:split(addr, '%') }" />
-							<c:forEach items="${addd }" var="addd">
-								<p style="font-size: 15px">${addd }</p>
-							</c:forEach>
+                     <c:set var="addd" value="${fn:split(addr, '%') }" />
+                     <c:forEach items="${addd }" var="addd">
+                        <p style="font-size: 15px">${addd }</p>
+                     </c:forEach>
                             <hr>
                             <h3><strong>E-mail</strong></h3>
                             <p style="font-size: 15px">${requestScope.findVO.email}</p>
@@ -354,18 +354,18 @@ tr:hover{background-color:#f5f5f5}
                         </div>
                     </span>
                     <br><br>
-              		<div align = "left" id ="rentView">
+                    <div align = "left" id ="rentView">
                       
                          <table>
-		                     <thead>
-		                        <tr>
-		                           <th>No</th><th>Id</th><th>startDay</th><th>endDay</th>
-		                        </tr>
-		                     </thead>
-		                     <tbody id = "successInfo">
-		                     	
-		                     </tbody>
-                  		</table>
+                           <thead>
+                              <tr>
+                                 <th>No</th><th>Id</th><th>startDay</th><th>endDay</th>
+                              </tr>
+                           </thead>
+                           <tbody id = "successInfo">
+                              
+                           </tbody>
+                        </table>
                       </div>
                    
                 </div>
@@ -380,43 +380,43 @@ tr:hover{background-color:#f5f5f5}
                         <h1 class="panel-title pull-left" style="font-size:30px">등록된 자전거 관리<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
  
                     </span>
-                   	
-                   	
+                      
+                      
                     <br><br>
-					<div align = "left" id = "regieterListView">
-						<div>
-							<table>
-								<thead align = "center">
-								<tr>
-									<th>No</th><th>Title</th><th>수정</th>
-								</tr>
-								
-								</thead>
-									
-								<tbody id = "registerTbody">
-									<c:forEach items="${requestScope.registerList}" var = "bList">
-	   
-	                                   <tr>   
-	                                   	<td>${bList.bicycleNo}</td>
-	                                   	<td> ${bList.title}</td>
-	                                   	<td>
-	                                   	
-	                                   		<input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정"> 
-	                                   	<%-- <a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
-	                                   	 --%>
-	                                   	</td>
-	                                   	
-	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
-	                                    </tr>
-	                                </c:forEach>
-								
-								</tbody>
-							</table>
-						<ul>
-                              	
+               <div align = "left" id = "regieterListView">
+                  <div>
+                     <table>
+                        <thead align = "center">
+                        <tr>
+                           <th>No</th><th>Title</th><th>수정</th>
+                        </tr>
+                        
+                        </thead>
+                           
+                        <tbody id = "registerTbody">
+                           <c:forEach items="${requestScope.registerList}" var = "bList">
+      
+                                      <tr>   
+                                         <td>${bList.bicycleNo}</td>
+                                         <td> ${bList.title}</td>
+                                         <td>
+                                         
+                                            <input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정"> 
+                                         <%-- <a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
+                                          --%>
+                                         </td>
+                                         
+                                     <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
+                                       </tr>
+                                   </c:forEach>
+                        
+                        </tbody>
+                     </table>
+                  <ul>
+                                 
                         </ul>
                         </div>
-					</div>
+               </div>
                 </div>
             </div>
         </div>
@@ -456,13 +456,13 @@ tr:hover{background-color:#f5f5f5}
                       <div align = "left" id ="rentView">
                       
                          <table>
-		                     <thead>
-		                        <tr>
-		                           <th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th>
-		                        </tr>
-		                     </thead>
-		                     <tbody id = "rentInfo"></tbody>
-                  		</table>
+                           <thead>
+                              <tr>
+                                 <th>No</th><th>Id</th><th>startDay</th><th>endDay</th><th>수락</th>
+                              </tr>
+                           </thead>
+                           <tbody id = "rentInfo"></tbody>
+                        </table>
                       </div>
                     <br><br>
                
@@ -479,52 +479,52 @@ tr:hover{background-color:#f5f5f5}
                         <h1 class="panel-title pull-left" style="font-size:30px">빌린 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
                     </span>
                     <br><br>
-		            <div align="left" id = "rentListView">
-			          <%-- ${requestScope.rentList} --%>
-			          
-			           <div align = "left" id ="rListView">
+                  <div align="left" id = "rentListView">
+                   <%-- ${requestScope.rentList} --%>
+                   
+                    <div align = "left" id ="rListView">
                       
                          <table>
-		                     <thead>
-		                        <tr>
-		                           <th>No</th><th>bicycle Title</th><th>startDay</th><th>endDay</th><th>후기/별점</th>
-		                        </tr>
-		                     </thead>
-		                  	 <tbody>
-									<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
-	   
-	                                   <tr>   
-	                                   	<td>${rList.rentNo}</td>
-	                                   	<td>${rList.bicycleVO.title }</td>
-	                                   	<td>${rList.calendarVO.startDay }</td>
-	                                   	<td>${rList.calendarVO.endDay }</td>
-	                                   	<c:if test= "${rList.state ==0}">
-	                                   		<td><input type = "button" id = "" class ="btn btn-warning" value = "수락대기상태"></td>
-	                                   	</c:if>
-	                                   	
-	                                   	<c:if test = "${rList.state ==1}">
-	                                   		<td>
-	                                   			<input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
-	                                   			<%-- <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
-	                                   			 --%>
-	                                   		</td>
-	                                   	</c:if>
-	                                   	
-	                                   	<c:if test="${rList.state == 3}">
-	                                   		<td>
-	                                   			<input type = "button" id = "" class =" btn btn-info" value = "후기작성 완료">
-	                                   			
-	                                   		</td>
-	                                   	</c:if>	
-									
-	                                    </tr>
-	                                </c:forEach>
-								
-							</tbody>
-                  		</table>
+                           <thead>
+                              <tr>
+                                 <th>No</th><th>bicycle Title</th><th>startDay</th><th>endDay</th><th>후기/별점</th>
+                              </tr>
+                           </thead>
+                            <tbody>
+                           <c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
+      
+                                      <tr>   
+                                         <td>${rList.rentNo}</td>
+                                         <td>${rList.bicycleVO.title }</td>
+                                         <td>${rList.calendarVO.startDay }</td>
+                                         <td>${rList.calendarVO.endDay }</td>
+                                         <c:if test= "${rList.state ==0}">
+                                            <td><input type = "button" id = "" class ="btn btn-warning" value = "수락대기상태"></td>
+                                         </c:if>
+                                         
+                                         <c:if test = "${rList.state ==1}">
+                                            <td>
+                                               <input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
+                                               <%-- <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
+                                                --%>
+                                            </td>
+                                         </c:if>
+                                         
+                                         <c:if test="${rList.state == 3}">
+                                            <td>
+                                               <input type = "button" id = "" class =" btn btn-info" value = "후기작성 완료">
+                                               
+                                            </td>
+                                         </c:if>   
+                           
+                                       </tr>
+                                   </c:forEach>
+                        
+                     </tbody>
+                        </table>
                       </div>
-			          
-		            </div>
+                   
+                  </div>
                 </div>
             </div>
             

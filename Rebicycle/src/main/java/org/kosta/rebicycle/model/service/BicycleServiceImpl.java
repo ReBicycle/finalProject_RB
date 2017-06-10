@@ -350,7 +350,8 @@ public class BicycleServiceImpl implements BicycleService {
 		RentVO rentVO = new RentVO();
 		rentVO.setBicycleVO(bicycleDAOImpl.findBicycleByNo(bicycleNo));
 		rentVO.setMemberVO(memberDAOImpl.findMemberById(id));
-		return bicycleDAOImpl.findRentVOForReview(rentVO);
+		List<RentVO> list = bicycleDAOImpl.findRentVOForReview(rentVO);
+		return list.get(0);
 	}
 	@Override
 	public List<ReviewVO> getReviewListByBicycleNo(int bicycleNo){

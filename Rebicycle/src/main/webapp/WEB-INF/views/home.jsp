@@ -58,7 +58,7 @@ font-family: 'Jeju Gothic', serif;
   </style>
     <!-- Header -->
   <%--  <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/seoul3.jpg'); background-repeat: no-repeat; background-size: cover; " > --%>
-    <header  style="background-color: #f5fafa" >
+    <header  style="background-color: #f6f8ff" >
         <div class="container " id="maincontent" tabindex="-1" >
             <div class="row" >
                 <div class="col-lg-12" style="padding-bottom: 200px">
@@ -67,26 +67,28 @@ font-family: 'Jeju Gothic', serif;
                         <h5>Save money, meet awesome people, and consume less</h5>
                         	<div  style="margin-top:30px;">
 								<div class="row">
-        			<form action="${pageContext.request.contextPath}/bicycle_search_list.do" method="post" name="searchForm" onsubmit="return dateCheck()">
-            		<div class="form-group registration-date" style="width:800px; margin-left:16%;">
-            		<div class="input-group registration-date-time"  >
-            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
-            		<input class="form-control" name="address" id="" type="text" size="15" required="required">
-            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-            		<input class="form-control" name="startDay" id="" type="date" size="" required="required">
-            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-            		<input class="form-control" name="endDay" id="" type="date"size="" required="required">
-            		<span class="input-group-btn">
-                    	<!-- <button class="btn btn-default" type="button" onclick="searchNow()"> Search &nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
-                    	<input type="submit" class="btn btn-default" value="Search">%nbsp;<button  class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    	
-                    </span>
-            	</div>
-            </div>
-        </form>
-	</div>
-</div>
+
+					        			<form action="${pageContext.request.contextPath}/bicycle_search_list.do"  name="searchForm" onsubmit="return dateCheck()">
+					            		<div class="form-group registration-date" style="width:800px; margin-left:16%;">
+					            		<div class="input-group registration-date-time"  >
+					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
+					            		<input class="form-control" name="address" id="" type="text" size="15" required="required">
+					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+					            		<input class="form-control" name="startDay" id="" type="date" size="" required="required">
+					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+					            		<input class="form-control" name="endDay" id="" type="date"size="" required="required">
+					            		<span class="input-group-btn">
+					                    	<!-- <button class="btn btn-default" type="button" onclick="searchNow()"> Search &nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
+					                    	<input type="submit" class="btn btn-default" value="Search">%nbsp;<button  class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					                    	
+					                    </span>
+					            	</div>
+					            </div>
+					        </form>
+						</div>
+					</div>
                     </div>
+
                 </div>
                 <div  style="margin-bottom: -20px">
                 	<div class="col-xs-6 col-md-4 col-lg-4 px-0" style="margin-bottom: -20px">

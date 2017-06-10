@@ -147,6 +147,7 @@ section.awSlider>img {
 <!-- http://blog.naver.com/yoocm1229/220442972831 해보기 -->
 <script>
    $(document).ready(function() {   
+	  
       
       $('#calendar').fullCalendar({
          header: {
@@ -219,7 +220,23 @@ section.awSlider>img {
    }     
           
    $(document).ready(function(){
-      
+	   $( ".star_rating a" ).click(function() {
+           event.preventDefault();
+           $(this).parent().children("a").removeClass("on");
+           $(this).addClass("on").prevAll("a").addClass("on");
+           $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
+           $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+           return false;
+        });
+        $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+  
+        $("#reviewSubmit").click(function(){
+           if($("#reviewContent").val() == ""){
+              alert("리뷰를 입력하세요");
+              return false;
+           }
+           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
+        }); 
          //day N:N - 사용가능 결과 변수
         var checkDayResultl=null;
         var checkFailList=new Array();
@@ -236,9 +253,17 @@ section.awSlider>img {
         $("#checkImg").click(function(){
            //day N:N - 배열 형태인 startDay 와 endDay 를 
            //startendDay[] 에 넣어준다.
-            
+           //여기서 날짜 전후 비교
            for(var i=0; i<=startLength; i++){
-                 //day N:N - 각 startDay와 endDay를 map에 넣어준다.
+                 
+        	   if($("#startDay"+i).val()>$("#endDay"+i).val()){
+					alert("입력한 날짜 전후를 확인하세요.")
+					 $("#startDay"+[i]).focus();
+		             $("#startDay"+[i]).val("");
+		             $("#endDay"+[i]).val("");
+					return false;
+				}
+        	   //day N:N - 각 startDay와 endDay를 map에 넣어준다.
                  var dayMap=newMap();
                  dayMap.put("startDay",$("#startDay"+i).val());
                  dayMap.put("endDay",$("#endDay"+i).val());
@@ -257,7 +282,7 @@ section.awSlider>img {
 		            	
 		            	  exit_for:
 		                  for(var j=0; j< data.length; j++){
-		                     //가능한 날짜일 경우 flag에 +1 한다.
+		                     //가능한 날짜일 경우 flag에 =1 한다.
 		                     
 		                     if(((data[j].startDay<=startendDay[i-1].get("startDay")) && (startendDay[i-1].get("endDay")<=data[j].endDay))	){
 		                    	 flag=1;
@@ -272,9 +297,9 @@ section.awSlider>img {
 		                     }else{ 
 		                    	 result = (i-1);
 		                    	 content = ("<font color='red'>"+result+"번 날짜 불가능</font><br>");
-		                    	 //$("#startDay"+[i-1]).focus();
-		                    	 //$("#startDay"+[i-1]).val("");
-		                    	 //$("#endDay"+[i-1]).val("");
+		                    	 $("#startDay"+[i-1]).focus();
+		                    	 $("#startDay"+[i-1]).val("");
+		                    	 $("#endDay"+[i-1]).val("");
 		                    	 
 		                    	 checkFlag[i-1] = false;
 		                    	 //alert("test" + checkFlag[i-1]);
@@ -468,7 +493,7 @@ section.awSlider>img {
       margin: 10px 10px;
       padding: 0;
       font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-      font-size: 10px;
+      
    }
    #calendar {
       max-width: 900px;
@@ -683,65 +708,66 @@ section.awSlider>img {
 <br>
 <br>
 <!-- 리뷰 -->
-<div id="banner-wrapper">
-	<div align="left" style="padding-left: 15%; font-size: 15px">
-		총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
-    	<img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
-        <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
-	</div>
-<!-- 리뷰작성칸 -->
-<c:if test="${requestScope.reviewCheck}">
-	<div class="box container">
-		<div class="row" align="left">
-         	<div class="col-sm-3">
-            	<p class="star_rating" style="padding-top:20px; padding-left: 30%">
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-					<a href="#" class="on"></a>
-            	</p>
-			</div>
-			<div class="9u">
-				<form id="reviewForm">
-	               	<div class="w3-row w3-section">
-	                  	<div id="reviewSubmit" class="w3-col" style="float:right; padding-right: 16%"> 
-	                     	<i class="w3-xxlarge fa fa-pencil w3-text-blue"  style="font-size: 35px"></i>
-						</div>
-		        		<div class="w3-rest" >
-		          			<textarea  id="reviewContent" STYLE="font-size:16px; padding-right: " class="w3-input w3-border" name="content" cols="65" rows="4" ></textarea>
-		          		</div>
-		        	</div>
-					<input id="reviewHidden" type="text" style="display: none; width:auto;" />
-	            </form>
-			</div>
-		</div>
-	</div>
-	<br>
-</c:if>
-<br>
-<br>    
-     
-<!-- 리뷰리스트 -->
-<div class="box container">
-	<c:forEach items="${requestScope.reviewList}" var="rList">
-		<div class="col-sm-12 col-xs-12 p-0">
-			<div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
-				<img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.id}.JPG">
-				<br>${rList.rentVO.memberVO.id}
-			</div>
-			<div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
-				${rList.content}
-			</div>
-			<div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
-				<c:forEach begin="1" end="${rList.star}">
-					<img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
-				</c:forEach><br><br>
-				<c:set var="TextValue" value="${rList.reviewDate}"/>
-				${fn:substring(TextValue,0,10)}<br>                        
-			</div>
-		</div>
-	</c:forEach>
-</div>
-</div>
-<br>
+      <div id="banner-wrapper">
+      <div align="left" style="padding-left: 15%; font-size: 15px">
+         총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+         <c:if test="${fn:length(requestScope.reviewList)!=0}">
+         <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+         <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
+         </c:if>
+      </div>
+      <!-- 리뷰작성칸 -->
+      <c:if test="${requestScope.reviewCheck}">
+         <div class="box container">
+            <div class="row" align="left">
+               <div class="col-sm-3">
+                  <p class="star_rating" style="padding-top:20px; padding-left: 30%">
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                      <a href="#" class="on"></a>
+                  </p>
+               </div>
+               <div class="9u">
+                  <form id="reviewForm">
+                     <div class="w3-row w3-section">
+                        <div id="reviewSubmit" class="w3-col" style="float:right; padding-right: 16%"> 
+                           <i class="w3-xxlarge fa fa-pencil w3-text-blue"  style="font-size: 35px"></i>
+                        </div>
+                         <div class="w3-rest" >
+                           <textarea  id="reviewContent" STYLE="font-size:16px; padding-right: " class="w3-input w3-border" name="content" cols="65" rows="4" ></textarea>
+                         </div>
+                     </div>
+                     <input id="reviewHidden" type="text" style="display: none; width:auto;" />
+                  </form>
+               </div>
+            </div>
+         </div>
+         <br>
+         </c:if>
+         <br>
+         <br>         
+         <!-- 리뷰리스트 -->
+         <div class="box container">
+            <c:forEach items="${requestScope.reviewList}" var="rList">
+               <div class="col-sm-12 col-xs-12 p-0">
+                  <div class="review-item__img ember-view" style="float: left; width: 30%; padding:10px; font-size:11px; font-weight: 400;">
+                      <img style="width: 80px" alt="${rList.rentVO.memberVO.id}" src="${pageContext.request.contextPath}/resources/upload/member/${rList.rentVO.memberVO.picture}">
+                     <br>${rList.rentVO.memberVO.id}
+                  </div>
+                  <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
+                     ${rList.content}
+                  </div>
+                  <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
+                     <c:forEach begin="1" end="${rList.star}">
+                        <img style='width:20px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
+                     </c:forEach><br><br>
+                     <c:set var="TextValue" value="${rList.reviewDate}"/>
+                         ${fn:substring(TextValue,0,10)}<br>                        
+                  </div>
+               </div>
+            </c:forEach>
+         </div>
+      </div>
+      <br>

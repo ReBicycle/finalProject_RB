@@ -178,9 +178,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    
    <select id="findRentById" resultMap="rentMap">
-      select r.renterId,r.bicycleNo, r.startDay, r.endDay, r.state, b.bicycleNo, b.title 
+      select r.rentNo,r.renterId,r.bicycleNo, r.startDay, r.endDay, r.state, b.bicycleNo, b.title 
       from rent r, bicycle b
-      where r.bicycleNo = b.bicycleNo and r.renterId=#{value} and r.state=1
+      where r.bicycleNo = b.bicycleNo and r.renterId=#{value} order by r.rentNo
    </select>
    
    <!-- 리스트 테스트 소영 -->
@@ -227,12 +227,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       where bicycleNo=#{value} and state = 0
    </select>
       
+    <select id="findRentSuccessById" resultMap = "rentMap">
+      select rentNo,renterId,bicycleNo,startDay, endDay, state
+      from rent 
+      where bicycleNo=#{value}  and state <![CDATA[ > ]]>  0
+   </select>
+   
    
    <select id="findRentRequestById" resultMap = "rentMap">
       select r.*, b.bicycleNo, b.memberId, b.title
       from rent r, bicycle b
       where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
    </select>
+   
+   
    
    <select id = "findRentByRentNo" resultMap = "rentMap">
       select rentNo,bicycleNo, renterId, startDay, endDay

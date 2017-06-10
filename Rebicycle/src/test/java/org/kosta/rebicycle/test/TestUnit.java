@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kosta.rebicycle.model.dao.BicycleDAOImpl6;
+import org.kosta.rebicycle.model.dao.BicycleDAOImpl;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,7 +15,7 @@ public class TestUnit {
 	@Resource
 	private SqlSessionTemplate template;
 	@Resource
-	private BicycleDAOImpl6 BicycleDAOImpl6;
+	private BicycleDAOImpl bicycleDAOImpl;
 	@Test
 	public void test1() {
 

@@ -512,7 +512,7 @@ tr:hover{background-color:#f5f5f5}
 	                                   	
 	                                   	<c:if test="${rList.state == 3}">
 	                                   		<td>
-	                                   			<input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료">
+	                                   			<input type = "button" id = "" class =" btn btn-info" value = "후기작성 완료">
 	                                   			
 	                                   		</td>
 	                                   	</c:if>	

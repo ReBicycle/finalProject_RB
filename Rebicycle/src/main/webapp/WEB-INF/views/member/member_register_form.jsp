@@ -60,8 +60,7 @@
 		$("#id").keyup(function(){
 			var id=$("#id").val().trim();
 			if(id.length<4 || id.length>10){
-				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css(
-						"background","pink");
+				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css("color","red");
 				checkResultId="";
 				return;
 			}			
@@ -71,11 +70,10 @@
 				data:"id="+id,	
 				success:function(data){		
 					if(data=="fail"){
-					$("#idCheckView").html(id+" 사용불가!").css("background","red");
+					$("#idCheckView").html(id+" 사용불가!").css("color","red");
 						checkResultId="";
 					}else{						
-						$("#idCheckView").html(id+" 사용가능!").css(
-								"background","yellow");		
+						$("#idCheckView").html(id+" 사용가능!").css("color","green");		
 						checkResultId=id;
 					}					
 				}//callback			

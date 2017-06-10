@@ -331,6 +331,10 @@ public class BicycleServiceImpl implements BicycleService {
 		}
 		
 	}
+	@Override
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+	      return bicycleDAOImpl.findRentSuccessById(bicycleNo);
+	   }
 	
 	//////////impl5//////////////////
 	@Override

@@ -93,6 +93,8 @@ public interface BicycleDAO {
 	List<BicycleVO> sortedListByAddressAndDayAndLow(String address, String startDay, String endDay);
 
 	List<BicycleVO> sortedListByAddressAndDayAndHigh(String address, String startDay, String endDay);
+
+	List<RentVO> findRentSuccessById(int bicycleNo);
 	
 	
 

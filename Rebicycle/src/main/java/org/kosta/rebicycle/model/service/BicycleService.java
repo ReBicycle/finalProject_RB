@@ -62,4 +62,6 @@ public interface BicycleService {
 
 	List<ReviewVO> getReviewListByBicycleNo(int bicycleNo);
 
+	List<RentVO> findRentSuccessById(int bicycleNo);
+
 }

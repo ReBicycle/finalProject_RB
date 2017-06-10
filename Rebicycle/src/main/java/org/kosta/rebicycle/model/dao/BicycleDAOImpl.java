@@ -189,6 +189,10 @@ public class BicycleDAOImpl implements BicycleDAO {
 	public CalendarVO getPossibleCVO(CalendarVO calendarVO) {
 		return template.selectOne("bicycle.getPossibleCVO",calendarVO);
 	}
+	@Override
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+	      return template.selectList("bicycle.findRentSuccessById", bicycleNo);
+	   }
 	
 	///////////impl5//////////////
 	@Override

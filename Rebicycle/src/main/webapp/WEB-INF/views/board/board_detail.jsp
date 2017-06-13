@@ -5,6 +5,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#commentWrite").hide();
+		$(".memo").hide();
 		$("#updateBtn").click(function(){
 			if(confirm("게시글을 수정하시겠습니까?"))
 				location.href="${pageContext.request.contextPath}/boardUpdateReportView.do?reportNo=${requestScope.rvo.reportNo}";
@@ -20,7 +21,7 @@
 			$("#board_comment_write").submit();
 		});//registComment click
 		$(".detailReply").click(function(){
-			alert("메롱~");
+			$(".memo").toggle();
 		})
 	});//ready
 </script>
@@ -66,8 +67,15 @@
             <c:forEach items="${requestScope.brv}" var="brv" >
                 <tr>
                     <td align="left">${brv.rewriter}</td>
-            	    <td align="left"><a class="detailReply">${brv.retitle}</a></td>
-                    <td align="left">${brv.redate}</td> 
+            	    <td align="left" class="detailReply"><a>${brv.retitle}</a></td>
+                    <td align="left">${brv.redate}</td>
+                </tr>
+                <br>
+                <tr class="memo">
+                	<td>
+                    <%-- <textarea placeholder="${brv.rememo}" maxlength="500" rows="4" readonly="readonly"></textarea> --%>
+                    <p><h7>${brv.rememo}</h7></p>
+                    </td>
                 </tr>
                 </c:forEach> 
                 </tbody>

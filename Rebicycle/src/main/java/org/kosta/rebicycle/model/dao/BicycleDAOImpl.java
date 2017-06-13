@@ -102,8 +102,8 @@ public class BicycleDAOImpl implements BicycleDAO {
 		template.update("bicycle.updateRentStateTo3", rentNo);
 	}
 	@Override
-	public RentVO findRentVOForReview(RentVO rentVO) {
-		return template.selectOne("bicycle.findRentVOForReview", rentVO);
+	public List<RentVO> findRentVOForReview(RentVO rentVO) {
+		return template.selectList("bicycle.findRentVOForReview", rentVO);
 	}
 	@Override
 	public List<ReviewVO> getReviewListByBicycleNo(int bicycleNo){

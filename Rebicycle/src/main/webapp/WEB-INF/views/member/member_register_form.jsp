@@ -60,7 +60,7 @@
 		$("#id").keyup(function(){
 			var id=$("#id").val().trim();
 			if(id.length<4 || id.length>10){
-				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css("color","red");
+				$("#idCheckView").html("<p style = 'text-color:red'>아이디는 4자이상 10자 이하여야 함!</p>");
 				checkResultId="";
 				return;
 			}			

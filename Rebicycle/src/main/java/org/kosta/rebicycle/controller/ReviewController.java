@@ -3,7 +3,7 @@ package org.kosta.rebicycle.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.kosta.rebicycle.model.service.BicycleServiceImpl;
+import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.RentVO;
 import org.kosta.rebicycle.model.vo.ReviewVO;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ReviewController {
 	@Resource
-	private BicycleServiceImpl serviceImpl;
+	private BicycleService serviceImpl;
 	
 	@RequestMapping( "writeReview.do")
 	public String writeReview(int bicycleNo, String content, int star, HttpServletRequest request){

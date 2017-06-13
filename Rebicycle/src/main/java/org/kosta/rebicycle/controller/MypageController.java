@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.rebicycle.model.service.BicycleServiceImpl;
+import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
@@ -22,7 +22,7 @@ public class MypageController {
 	@Resource
 	private MemberService memberService;	
 	@Resource
-	private BicycleServiceImpl bicycleService;
+	private BicycleService bicycleService;
 	
 	@RequestMapping("mypage/mypage_main.do")
 	public String mypageMain(HttpServletRequest request,Model model){

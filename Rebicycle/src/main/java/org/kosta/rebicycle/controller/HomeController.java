@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.kosta.rebicycle.model.service.BicycleServiceImpl;
+import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 		@Resource
-		private BicycleServiceImpl service;
+		private BicycleService service;
 		@RequestMapping("home.do")
 		public String home(){
 			

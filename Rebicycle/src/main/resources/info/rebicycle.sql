@@ -669,3 +669,21 @@ where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12
 select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
+
+select  r.rentNo, m.id, b.memberId
+from rent r , bicycle b, rb_member m
+where  r.bicycleNo = b.bicycleNo and b.memberId=m.id and r.state>0 and b.memberId = 'java'
+
+select  r.rentNo,r.renterId,r.startDay,r.endDay, m.id, b.memberId
+		from rent r , bicycle b, rb_member m
+		where  r.bicycleNo = b.bicycleNo and b.memberId=m.id 
+		and state >  0 and b.memberId =  'java'
+select * from bicycle where memberId='java'
+
+select * from rent
+select * from bicycle
+
+
+select r.*, b.bicycleNo, b.memberId, b.title
+from rent r, bicycle b
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0

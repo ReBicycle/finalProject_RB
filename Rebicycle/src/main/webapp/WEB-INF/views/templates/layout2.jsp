@@ -40,8 +40,8 @@
 <body id="page-top" class="index">
 <div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
 
-			<div id="header" ><tiles:insertAttribute name="header"/></div>
-			<div class="text-center">    
+	<div id="header" ><tiles:insertAttribute name="header"/></div>
+	<div class="text-center">    
 			<div id="main" class="text-center"><tiles:insertAttribute name="main"/></div>
 			</div>
 			<!-- jQuery -->

@@ -68,8 +68,8 @@ public class BoardController {
 	public ModelAndView updateReport(ReportVO rvo, HttpServletRequest request) {
 		boardService.updateReport(rvo);
 		System.out.println("업데이트"+rvo);
-		request.setAttribute("rvo", rvo);
-		return new ModelAndView("redirect:findReportNo.do?reportNo="+rvo.getReportNo());
+		/*request.setAttribute("rvo", rvo);*/
+		return new ModelAndView("redirect:boardDetail.do?reportNo="+rvo.getReportNo());
 	}
 	@RequestMapping("deleteReport.do")
 	public ModelAndView deleteReport(int reportNo) {		
@@ -81,15 +81,30 @@ public class BoardController {
 		return new ModelAndView("board/board_detail.tiles","rvo",boardService.findReportNo(reportNo));
 	}
 	@RequestMapping("findBoardReplyNo.do")
-	public ModelAndView findBoardReplyNo(int brdno){
-		return new ModelAndView("board/board_detail.tiles","brv",boardService.findBoardReplyNo(brdno));
+	public ModelAndView findBoardReplyNo(int brdno, HttpServletRequest request){
+		System.out.println("컨트롤러 시작"+brdno);
+		ReportVO rvo=boardService.boardDetail(brdno);
+		System.out.println("2  **");
+		List<BoardReplyVO> brv=boardService.getReplyList(brdno);
+		System.out.println("댓글    "+brv);
+		request.setAttribute("rvo",rvo);
+		request.setAttribute("brv", brv);
+		System.out.println(rvo);
+		return new ModelAndView("board/board_detail.tiles");
 	}
 	@RequestMapping(value="commentWrite.do", method=RequestMethod.POST)
-	public ModelAndView commentWrite(HttpServletRequest request, BoardReplyVO bvo){
-		boardService.commentWrite(bvo);
-		System.out.println("댓글이다아아아아~~~~~~~      "+ bvo);
-		request.setAttribute("bvo", bvo);
-		/*return new ModelAndView("redirect:findReportNo.do?reportNo="+bvo.getBrdno());*/
-		return new ModelAndView("redirect:findReportNo.do?reportNo="+bvo.getBrdno());
+	public ModelAndView commentWrite(HttpServletRequest request, BoardReplyVO brv){
+		boardService.commentWrite(brv);
+		System.out.println("댓글이다아아아아~~~~~~~      "+ brv);
+		/*request.setAttribute("brv", brv);*/
+		
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+brv.getBrdno());
 	}
+	//참고용
+	/*@RequestMapping(value="write.do" , method=RequestMethod.POST)
+	public ModelAndView write(HttpServletRequest request, ReportVO rvo){
+	boardService.write(rvo);
+	System.out.println("fdjsklfjskldfjlsk"+ rvo);
+	return new ModelAndView("redirect:findReportNo.do?reportNo="+rvo.getReportNo());
+}*/
 }

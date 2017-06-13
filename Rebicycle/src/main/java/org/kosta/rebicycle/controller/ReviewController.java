@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.service.BicycleService;
-import org.kosta.rebicycle.model.service.BicycleServiceImpl;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.RentVO;
 import org.kosta.rebicycle.model.vo.ReviewVO;

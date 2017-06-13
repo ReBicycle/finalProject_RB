@@ -335,9 +335,9 @@ public class BicycleServiceImpl implements BicycleService {
 		
 	}
 	@Override
-	public List<RentVO> findRentSuccessById(int bicycleNo) {
-	      return bicycleDAOImpl.findRentSuccessById(bicycleNo);
-	   }
+	public List<RentVO> findRentSuccessByBicycleNo(int bicycleNo) {
+	      return bicycleDAOImpl.findRentSuccessByBicycleNo(bicycleNo);
+	}
 	
 	//////////impl5//////////////////
 	@Override
@@ -350,7 +350,8 @@ public class BicycleServiceImpl implements BicycleService {
 		RentVO rentVO = new RentVO();
 		rentVO.setBicycleVO(bicycleDAOImpl.findBicycleByNo(bicycleNo));
 		rentVO.setMemberVO(memberDAOImpl.findMemberById(id));
-		return bicycleDAOImpl.findRentVOForReview(rentVO);
+		List<RentVO> list = bicycleDAOImpl.findRentVOForReview(rentVO);
+		return list.get(0);
 	}
 	@Override
 	public List<ReviewVO> getReviewListByBicycleNo(int bicycleNo){
@@ -375,5 +376,9 @@ public class BicycleServiceImpl implements BicycleService {
 				return true;
 		else
 			return false;
+	}
+	@Override
+	public List<RentVO> findRentSuccessById(String id) {
+		return bicycleDAOImpl.findRentSuccessById(id);
 	}
 }

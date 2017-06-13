@@ -49,7 +49,7 @@ public interface BicycleDAO {
 
 	void updateRentStateTo3(int rentNo);
 
-	RentVO findRentVOForReview(RentVO rentVO);
+	List<RentVO> findRentVOForReview(RentVO rentVO);
 
 	List<ReviewVO> getReviewListByBicycleNo(int bicycleNo);
 

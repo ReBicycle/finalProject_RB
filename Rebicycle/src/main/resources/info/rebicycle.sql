@@ -25,6 +25,7 @@ delete from map;
 delete from bicycle;
 delete from category;
 delete from rb_member;
+delete from RB_BOARDREPLY
 
 create sequence category_seq nocache;
 create sequence bicycle_seq nocache;
@@ -253,6 +254,7 @@ select * from rb_member
 select * from rb_report;
 alter table rb_report
 add reportTitle varchar2(100) not null
+
 create table rb_report(
 	reportNo number primary key,
 	reportTitle varchar2(100) not null,
@@ -261,6 +263,17 @@ create table rb_report(
 	contents clob not null,
 	reportDate date not null
 )
+
+CREATE TABLE rb_boardreply (
+      brdno number default 0,
+      reno number primary key,
+      retitle varchar(100) not null,
+      rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
+      rememo varchar(500) not null,
+      redate date not null
+)
+
+
 
 select * from rb_report
 ================================= 등록 테스트 =================================

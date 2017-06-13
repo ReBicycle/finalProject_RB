@@ -2,13 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<!DOCTYPE html>
-<html> 
-  <head>
-      <meta charset="UTF-8">
-      <title>자전거 검색</title>
-      
       <style>
 .content {
   position: relative;
@@ -80,10 +73,6 @@ appearance: none;
 
 </style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  </head>
- 
- 
-  <body>
   <script type="text/javascript">
   		<c:if test="${empty requestScope.bicycleList}">
   		alert("검색결과가 없습니다. 메인화면으로 이동합니다.");
@@ -362,5 +351,3 @@ function loginCheck(){
  </script>
 <script src="//code.jquery.com/jquery.min.js"></script>
  
-</body>
-</html>

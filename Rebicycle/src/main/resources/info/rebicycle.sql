@@ -133,7 +133,10 @@ create table donation(
    donationBicycleNo number primary key,
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
-   picture varchar2(300) not null
+   picture varchar2(300) not null,
+   status number default 0,
+   address varchar2(300) not null,
+   title varchar2(100) not null
 )
 create table rb_review(
    reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
@@ -173,11 +176,31 @@ select bicycle_seq.nextval from dual
 
 
 select * from BICYCLE
+------------------------------------donation 테이블 수정---
+delete from donation
+alter table donation
+add (address varchar2(300) not null)
+alter table donation
+add (title varchar2(100) not null)
+alter table donation
+modify (status number default 0)
+select * from donation
+select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.rnum 
+from (select donationbicycleno,donorId,address,detail,picture,
+ row_number() over(order by donationbicycleno desc) rnum from donation where status=0) D
+ where rnum between 1 and 1
+select count(*)from donation
 
+insert into donation (donationBicycleNo,donorId,detail,picture,address,title)
+values(donation_seq.nextval,'spring','아끼는 건데 너 줄게 ','1_photo1.jpg','판교역주변','안쓰는 자전거 나눔해요~!')
+-------------------------------------------------------------
 
-
-
-
+   donationBicycleNo number primary key,
+   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   detail clob not null,
+   picture varchar2(300) not null,
+   status number default 0,
+   address varchar2(300) not null
 
 
 

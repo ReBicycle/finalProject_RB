@@ -4,6 +4,7 @@
 <!-- ------------------------------------------------------------------------------------- -->
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(".updateCommentArea").hide();
 		$("#commentWrite").hide();
 		$(".memo").hide();
 		$("#updateBtn").click(function(){
@@ -20,14 +21,16 @@
 		$("#registComment").click(function(){
 			$("#board_comment_write").submit();
 		});//registComment click
-		$(".detailReply").click(function(){
-			$(".memo").toggle();
-		})
+		$("#comment").on("click",".btn-primary",function(){
+			$(".updateCommentArea").toggle(function(){
+				
+			}); //updateComment toggle
+		});//btn-primary click
 	});//ready
 </script>
 <br><br><br>
 <div class="container"> 
-	<div class="row">
+	<div c	lass="row">
          <div class="col-md-6 col-md-offset-3">
             <div class="well text-center">
                   <div class="form-group">
@@ -55,28 +58,36 @@
 			<%-- <form action="${pageContext.request.contextPath}/getReplyList.do" name="getReplyList" method="get"> --%>
 			<%-- <input type="hidden" name="brdno" value="<c:out value="${requestScope.rvo.reportNo}"/>"> --%> 
 			<%-- <c:forEach var="brv" items="${}"> --%>
-             <table class="table table-striped table-hover ">
+             <table class="table table-striped table-hover " id="comment">
             <thead>
                 <tr class="bg-primary">
                     <th width="0px">작성자</th>
-                    <th width="0px">제목</th>
+                    <th width="0px">내용</th>
                     <th>작성일시</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
-            <c:forEach items="${requestScope.brv}" var="brv" >
+            <c:forEach items="${requestScope.brv}" var="brv">
                 <tr>
                     <td align="left">${brv.rewriter}</td>
-            	    <td align="left" class="detailReply"><a>${brv.retitle}</a></td>
+            	    <td align="left">${brv.rememo}</td>
                     <td align="left">${brv.redate}</td>
+                    <td>
+                    <button type="button" class="btn-primary">수정</button><br>
+            	    <button type="button" class="btn-danger">삭제</button></td>
                 </tr>
-                <br>
-                <tr class="memo">
+                <tr>
                 	<td>
-                    <%-- <textarea placeholder="${brv.rememo}" maxlength="500" rows="4" readonly="readonly"></textarea> --%>
-                    <p><h7>${brv.rememo}</h7></p>
-                    </td>
+                		<textarea class="updateCommentArea"></textarea>
+                	</td>
                 </tr>
+                <hr>
+                <!-- <tr class="memo">
+                	<td> -->
+                    <%-- <h7>${brv.rememo}</h7> --%>
+                    <!-- </td>
+                </tr> -->
                 </c:forEach> 
                 </tbody>
                 </table>
@@ -93,7 +104,7 @@
             				<div class="form-group col-md-5">                                
                 			<label id="messageLabel" for="message">Message </label>
                 			<input type="hidden" name="brdno" value="<c:out value="${requestScope.rvo.reportNo}"/>"> 
-                			<input class="form-control input-sm " type="text" name="retitle">
+                			<!-- <input class="form-control input-sm " type="text" name="retitle" placeholder="Title"> -->
                 			<input class="form-control input-sm " type="text" name="rewriter" value="${sessionScope.mvo.id}" readonly="readonly">
                 			<textarea class="form-control input-sm " type="textarea" id="message" name="rememo" placeholder="Message" maxlength="140" rows="7"></textarea>
             				</div>

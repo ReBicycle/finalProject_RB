@@ -294,10 +294,50 @@ insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDat
 			FROM rb_report
 			) r where rnum between 1 and 5 order by reportNo desc;
 ============================================================================================
-
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
- 		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
-
+values(50,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(51,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(52,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(53,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(54,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(55,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(56,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(57,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(58,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(59,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(60,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(61,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(62,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(63,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(64,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(65,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(66,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(67,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(68,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(69,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(70,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(71,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 --------------------------------- 성공 -----------------------------------------------------
 			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
@@ -318,16 +358,15 @@ b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD
 reportDate,b.contents from rb_report 
 b where reportNo=26
 ---------------------------대댓글 구간-------------------------------------
-
+--대댓글 테이블--
 CREATE TABLE rb_boardreply (
       brdno number default 0,
       reno number primary key,
-      retitle varchar(100) not null,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,
       redate date not null
 )
-
+--brdno(게시판 넘버)를 rb_report를 fk로 뒀을때 댓글이 달려있는 게시물이 삭제 안됨--
 CREATE TABLE rb_boardreply (
       brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo),
       reno number primary key,

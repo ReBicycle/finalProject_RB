@@ -104,7 +104,6 @@ create table map(
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
-   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
    startDay date not null,
    endDay date not null,
    state number default 0

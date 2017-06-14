@@ -23,6 +23,11 @@ public class HomeController {
 		private BicycleService service;
 		@RequestMapping("home.do")
 		public String home(HttpServletRequest request){
+			return "home.tiles";
+		}
+		@RequestMapping("member_login.do")
+		public String showLoginForm(HttpServletRequest request){
+			
 			HttpSession session=request.getSession(false);
 			if(session!=null){
 				MemberVO vo=(MemberVO) session.getAttribute("mvo");
@@ -41,10 +46,6 @@ public class HomeController {
 				
 				session.setAttribute("totalRequest", totalRequest);
 			}
-			return "home.tiles";
-		}
-		@RequestMapping("member_login.do")
-		public String showLoginForm(){
 			return "member/member_login.tiles";
 		}
 		@RequestMapping("{dirName}/{viewName}.do")

@@ -124,7 +124,9 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							<li class="page-scroll"><a
 								href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
 							</li>
-
+						<li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/error.do">에러테스트</a>
+                    	</li>
 							<li class="page-scroll"><a
 								href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
 							</li>
@@ -140,6 +142,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 
 					<c:if test="${sessionScope.mvo!=null}">
 						<li class="dropdown">
+
 							<a href="javascript:void(0)" class="dropbtn">
 								<i class="fa fa-bell-o fa-lg" aria-hidden="true"></i>
 								<c:if test="${totalRequest.total!=0}">
@@ -167,6 +170,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							</c:if>
 						</a>
 					</li> --%>
+
 
 				</ul>
 			</div>

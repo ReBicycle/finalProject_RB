@@ -227,17 +227,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       where bicycleNo=#{value} and state = 0
    </select>
       
-    <select id="findRentSuccessById" resultMap = "rentMap">
+    <select id="findRentSuccessByBicycleNo" resultMap = "rentMap">
       select rentNo,renterId,bicycleNo,startDay, endDay, state
       from rent 
       where bicycleNo=#{value}  and state <![CDATA[ > ]]>  0
    </select>
    
+	<select id = "findRentSuccessById" resultMap = "rentMap">
+		select  r.rentNo,r.renterId,r.startDay,r.endDay, m.id, b.memberId
+		from rent r , bicycle b, rb_member m
+		where  r.bicycleNo = b.bicycleNo and b.memberId=m.id 
+		and state <![CDATA[ > ]]>  0 and b.memberId =  #{value} order by r.rentNo desc
+	</select>
    
    <select id="findRentRequestById" resultMap = "rentMap">
       select r.*, b.bicycleNo, b.memberId, b.title
       from rent r, bicycle b
-      where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
+      where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0 order by r.rentNo desc
    </select>
    
    

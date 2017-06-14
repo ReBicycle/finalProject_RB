@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.HeartVO;
 import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.RentVO;
 import org.kosta.rebicycle.model.vo.ReviewVO;
@@ -67,5 +68,15 @@ public interface BicycleService {
 	List<RentVO> findRentSuccessById(String id);
 
 	void checkState(ArrayList<RentVO> otherList);
+
+	void deleteReview(int rentNo);
+
+	void updateReview(ReviewVO review);
+
+	boolean heartCheck(HeartVO heartVO);
+
+	void heartOff(HeartVO hvo);
+
+	void heartOn(HeartVO hvo);
 
 }

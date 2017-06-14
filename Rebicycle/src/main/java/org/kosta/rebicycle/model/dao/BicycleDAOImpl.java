@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.HeartVO;
 import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.PhotoVO;
 import org.kosta.rebicycle.model.vo.RentVO;
@@ -237,12 +238,37 @@ public class BicycleDAOImpl implements BicycleDAO {
 		return list;
 	}
 	@Override
+	public void deleteReview(int rentNo) {
+		template.delete("bicycle.deleteReview",rentNo);
+		template.update("bicycle.updateRentStateTo1",rentNo);
+	}
+	@Override
+	public void updateReview(ReviewVO reviewVO) {
+		template.update("bicycle.updateReview",reviewVO);
+	}
+	@Override
+	public int heartCheck(HeartVO heartVO) {
+		return template.selectOne("bicycle.heartCheck", heartVO);
+	}
+	@Override
+	public void heartOff(HeartVO hvo) {
+		template.delete("bicycle.heartOff",hvo);
+	}
+	@Override
+	public void heartOn(HeartVO hvo) {
+		template.insert("bicycle.heartOn",hvo);
+	}
+	@Override
 	public List<RentVO> findRentSuccessById(String id) {
 		return template.selectList("bicycle.findRentSuccessById",id);
 	}
 	@Override
 	public void changeState(int rentNo) {
 		template.update("bicycle.changeState", rentNo);
-		
+	}
+	@Override
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

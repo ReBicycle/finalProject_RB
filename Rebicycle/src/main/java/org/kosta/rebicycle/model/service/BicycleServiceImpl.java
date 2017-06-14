@@ -400,8 +400,20 @@ public class BicycleServiceImpl implements BicycleService {
 			return false;
 	}
 	@Override
+	public int findAcceptRequest(String id) {
+		return bicycleDAOImpl.findAcceptRequest(id);
+	}
+	@Override
 	public void deleteReview(int rentNo) {
 		bicycleDAOImpl.deleteReview(rentNo);
+	}
+	@Override
+	public int findRefuseRequest(String id) {
+		return bicycleDAOImpl.findRefuseRequest(id);
+	}
+	@Override
+	public int findGetRequest(String id) {
+		return bicycleDAOImpl.findGetRequest(id);
 	}
 	@Override
 	public void updateReview(ReviewVO reviewVO) {
@@ -423,6 +435,7 @@ public class BicycleServiceImpl implements BicycleService {
 		bicycleDAOImpl.heartOn(hvo);
 	}
 	
+	@Override
 	public List<RentVO> findRentSuccessById(String id) {
 		return bicycleDAOImpl.findRentSuccessById(id);
 	}

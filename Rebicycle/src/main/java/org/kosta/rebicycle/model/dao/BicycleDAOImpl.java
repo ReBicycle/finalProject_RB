@@ -238,9 +238,21 @@ public class BicycleDAOImpl implements BicycleDAO {
 		return list;
 	}
 	@Override
+	public int findAcceptRequest(String id) {
+		return template.selectOne("bicycle.findAcceptRequest",id);
+	}
+	@Override
 	public void deleteReview(int rentNo) {
 		template.delete("bicycle.deleteReview",rentNo);
 		template.update("bicycle.updateRentStateTo1",rentNo);
+	}
+	@Override
+	public int findRefuseRequest(String id) {
+		return template.selectOne("bicycle.findRefuseRequest",id);
+	}
+	@Override
+	public int findGetRequest(String id) {
+		return template.selectOne("bicycle.findGetRequest",id);
 	}
 	@Override
 	public void updateReview(ReviewVO reviewVO) {
@@ -265,10 +277,5 @@ public class BicycleDAOImpl implements BicycleDAO {
 	@Override
 	public void changeState(int rentNo) {
 		template.update("bicycle.changeState", rentNo);
-	}
-	@Override
-	public List<RentVO> findRentSuccessById(int bicycleNo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

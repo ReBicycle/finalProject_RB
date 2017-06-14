@@ -59,13 +59,13 @@ input[type=search] {
 /* input[type=search]:focus {
     width: 50%;
 } */
-.btn { 
+.btn {  
     border: none; /* Remove borders */
     color: white; /* Add a text color */
     padding: 12px 20px 12px; /* Add some padding */
     cursor: pointer; /* Add a pointer cursor on mouse-over */
 } 
-#153a6d
+
 .success {background-color: #153a6d;} 
 .success:hover {background-color: #d9edf7;}
 </style>

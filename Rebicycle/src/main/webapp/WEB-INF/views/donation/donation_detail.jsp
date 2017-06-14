@@ -93,7 +93,7 @@ function showDivs(n) {
 
   <div class="w3-row-padding w3-section">
     <div class="w3-col s4">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:100%" onclick="currentDiv(1)">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:90%" onclick="currentDiv(1)">
     </div>
     <div class="w3-col s4">
       <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:90%" onclick="currentDiv(2)">

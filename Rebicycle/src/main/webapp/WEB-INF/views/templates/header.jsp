@@ -137,7 +137,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 						href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
 					</li>
 					<li class="page-scroll"><a
-						href="${pageContext.request.contextPath}/donation/donation_register_form.do">donation</a>
+						href="${pageContext.request.contextPath}/donation/donation_list.do">기부</a>
 					</li>
 
 					<c:if test="${sessionScope.mvo!=null}">

@@ -12,10 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <result column="photo2" property="photoVO.photo2"/>
  <result column="photo3" property="photoVO.photo3"/>	
  </resultMap>
-<insert id="registerDonation" parameterType="donationVO">
-<selectKey order="BEFORE" keyProperty="donationBicycleNo" resultType="int">
+ <select id="getDonationBicycleNo" resultType="int">
 	select donation_seq.nextval from dual
-</selectKey>
+</select>
+<insert id="registerDonation" parameterType="donationVO">
 	insert into donation(donation_bicycle_no,donor_id,address,title,detail,photo1,photo2,photo3)
 	values(#{donationBicycleNo},#{donorId},#{address},#{title},#{detail},#{photoVO.photo1},#{photoVO.photo2},#{photoVO.photo3})
 </insert> 	

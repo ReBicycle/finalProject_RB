@@ -25,7 +25,6 @@ public class DonationController {
 			if(nowPage!=null)
 				page=nowPage;
 			ListVO listVO=donationService.getDonationList(page);
-			System.out.println(listVO.getdonationList().get(0).getPhotoVO().getPhoto1());
 			return new ModelAndView("donation/donation_list.tiles","listVO",listVO);
 		}
 		@RequestMapping("donation/donation_register.do")
@@ -33,7 +32,7 @@ public class DonationController {
 			String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 			dvo.setAddress(address);
 				donationService.registerDonation(dvo);
-			return new ModelAndView("redirect:donation/donation_detail.do?donationbicycleno="+dvo.getDonationBicycleNo());
+			return new ModelAndView("redirect:donation_detail.do?donationbicycleno="+dvo.getDonationBicycleNo());
 		}
 		@RequestMapping("donation/donation_detail.do")
 		public ModelAndView findDonationDetailByNo(String donationbicycleno){

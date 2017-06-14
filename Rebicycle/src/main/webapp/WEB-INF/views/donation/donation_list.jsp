@@ -65,9 +65,9 @@ input[type=search] {
     padding: 12px 20px 12px; /* Add some padding */
     cursor: pointer; /* Add a pointer cursor on mouse-over */
 } 
-
-.success {background-color: #4CAF50;} /* Green */
-.success:hover {background-color: #46a049;}
+#153a6d
+.success {background-color: #153a6d;} 
+.success:hover {background-color: #d9edf7;}
 </style>
 <div class="container" style="margin-top: 50px;margin-bottom: 50px"> 
 <div style="margin-top:20px;margin-botton:200px;">
@@ -80,9 +80,9 @@ input[type=search] {
    
     <c:forEach items="${requestScope.listVO.donationList}" var="list">
     
-    <div class="content w3-third w3-padding"> 
+    <div class="content w3-half w3-padding" > 
     <a href="${pageContext.request.contextPath}/donation/donation_detail.do?donationbicycleno=${list.donationBicycleNo}">
-     <img src="${pageContext.request.contextPath}/resources/upload/donation/${list.photoVO.photo1}" style="width:100%;">
+     <img src="${pageContext.request.contextPath}/resources/upload/donation/${list.photoVO.photo1}" style="width:70%;"> 
     	 	<div class="overlay">
      		<span class="text" align="left"  width="70%"  >
       										${list.title }<br>

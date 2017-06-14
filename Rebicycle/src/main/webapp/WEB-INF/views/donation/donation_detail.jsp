@@ -44,7 +44,7 @@ function showDivs(n) {
     font-weight: bold;
     font-size: 25px;
 } 
-.success {background-color: #d9edf7;} /* Green */
+.success {background-color: #d9edf7;} 
 .success:hover {background-color: #d9cff7;
 			color: white;
 }
@@ -56,7 +56,7 @@ function showDivs(n) {
 
 		<div class="panel panel-info">
             <div class="panel-heading"> 
-                <div class="panel-title"><h4>기부자 정보</h4></div>
+                <div class="panel-title"><h5>기부자 정보</h5></div>
             </div> 
             	<div class="panel-body" > 
        					<div align="center">
@@ -80,13 +80,13 @@ function showDivs(n) {
     <div id="signupbox" style="margin-top:45px;" class="mainbox col-sm-9">
         <div class="panel panel-info"> 
             <div class="panel-heading">
-                <div class="panel-title"><h4>${donationVO.title }</h4></div>
+                <div class="panel-title"><h5>${donationVO.title }</h5></div>
             </div> 
             	<div class="panel-body" >
             	
             	
             	
-<div class="w3-content" style="width:70%;hight:70%;">
+<div class="w3-content" style="width:50%;hight:50%;">
   <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:100%;display: table;">
   <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:100%">
   <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo3}" style="width:100%">
@@ -96,21 +96,14 @@ function showDivs(n) {
       <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:100%" onclick="currentDiv(1)">
     </div>
     <div class="w3-col s4">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:100%" onclick="currentDiv(2)">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:90%" onclick="currentDiv(2)">
     </div>
     <div class="w3-col s4">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo3}" style="width:100%" onclick="currentDiv(3)">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo3}" style="width:90%" onclick="currentDiv(3)">
     </div>
   </div>
 </div>
-            	
-            	
-      
-
-
-            	
-				
-				    <br><br><hr style="color:cyan;">
+		<hr style="color:cyan;">
 		                              	
 		                              <h4><label for="id_date" class="control-label col-md-9  requiredField" align="left">기부자의 말</label></h4><br>
 		                              <label for="id_date" class="control-label col-md-9  requiredField" align="left">${donationVO.detail}</label><br><br>
@@ -121,9 +114,10 @@ function showDivs(n) {
          
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="panel-title"><h4>사연신청</h4></div>
-            </div> 
+                <div class="panel-title"><h5>사연신청</h5></div>
+            	</div> 
             	<div class="panel-body" > 
+				  <br><br><br><br><br><br>
 				  
                   </div>    
          

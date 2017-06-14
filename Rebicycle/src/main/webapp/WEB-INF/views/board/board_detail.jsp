@@ -21,11 +21,16 @@
 		$("#registComment").click(function(){
 			$("#board_comment_write").submit();
 		});//registComment click
-		$("#comment").on("click",".btn-primary",function(){
+		$("#comment").on("click",".updateBtn-primary",function(){
 			$(".updateCommentArea").toggle(function(){
 				
 			}); //updateComment toggle
 		});//btn-primary click
+		/* $(".updateBtn-primary").click(function(){
+			alert(1);
+			$(this).parent().parent().next().children(".updateCommentArea").toggle();
+		}); */
+		
 	});//ready
 </script>
 <br><br><br>
@@ -61,10 +66,10 @@
              <table class="table table-striped table-hover " id="comment">
             <thead>
                 <tr class="bg-primary">
-                    <th width="0px">작성자</th>
-                    <th width="0px">내용</th>
-                    <th>작성일시</th>
-                    <th> </th>
+                    <th width="30">작성자</th>
+                    <th width="280">내용</th>
+                    <th width="50">작성일시</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -73,26 +78,15 @@
                     <td align="left">${brv.rewriter}</td>
             	    <td align="left">${brv.rememo}</td>
                     <td align="left">${brv.redate}</td>
-                    <td>
-                    <button type="button" class="btn-primary">수정</button><br>
+                    <td><button type="button" class="updateBtn-primary">수정</button>
             	    <button type="button" class="btn-danger">삭제</button></td>
                 </tr>
                 <tr>
-                	<td>
-                		<textarea class="updateCommentArea"></textarea>
-                	</td>
+                	<td colspan="3"><textarea class="updateCommentArea">1111</textarea></td>
                 </tr>
-                <hr>
-                <!-- <tr class="memo">
-                	<td> -->
-                    <%-- <h7>${brv.rememo}</h7> --%>
-                    <!-- </td>
-                </tr> -->
                 </c:forEach> 
                 </tbody>
                 </table>
-                <%-- </c:forEach> --%>
-           <!-- </form> -->
 <!-- --------------------------------------------------------------------------------- -->
     				<br>
                   <button type="button" class="btn btn-default" id="commentBtn">comment</button>

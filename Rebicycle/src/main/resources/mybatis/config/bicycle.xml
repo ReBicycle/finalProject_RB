@@ -351,7 +351,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       select rentNo from rent
       where renterId=#{memberVO.id} and bicycleNo=#{bicycleVO.bicycleNo} and state=1
    </select>
-   
-   
-   
+  <!-- 리뷰 삭제 -->
+   <delete id="deleteReview">
+   		delete from rb_review where rentNo=#{value}
+   </delete>
+   <update id="updateRentStateTo1">
+   		update rent set state=1
+   		where rentNo=#{value}
+   </update>
+   <!--리뷰수정-->
+   <update id="updateReview" parameterType="reviewVO">
+   		update rb_review
+   		set content=#{content}, star=#{star}  
+   		where rentNo=#{rentVO.rentNo}
+   </update>
+   <!-- 하트 -->
+   <select id="heartCheck" parameterType="heartVO" resultType="int">
+   		select count(*)
+   		from heart
+   		where id=#{id} and bicycleNo=#{bicycleNo} 
+   </select>
+   <delete id="heartOff">
+   		delete from heart
+   		where id=#{id} and bicycleNo=#{bicycleNo} 
+   </delete>
+   <insert id="heartOn">
+   		 insert into heart(id,bicycleNo) 
+   		 values(#{id},#{bicycleNo})
+   </insert>
 </mapper>

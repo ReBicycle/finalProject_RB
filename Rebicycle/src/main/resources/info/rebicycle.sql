@@ -32,6 +32,7 @@ create sequence rent_seq nocache;
 create sequence report_seq nocache;
 create sequence donation_seq nocache;
 
+select * from heart;
 select * from rb_member;
 select * from category order by categoryNo;
 select * from bicycle;
@@ -144,6 +145,12 @@ create table rb_review(
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
 
+create table heart(
+	id varchar2(100) constraint fk_heart_id references rb_member(id),
+	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo),
+	constraint pk_heart primary key(id,bicycleNo)
+)
+
 --테이블 수정
 alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
@@ -176,7 +183,9 @@ select * from BICYCLE
 
 
 
-
+select count(*)
+   		from heart
+   		where id='java1' and bicycleNo=14
 
 
 

@@ -221,7 +221,6 @@ tr:hover{background-color:#f5f5f5}
     
     //<li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
     
-<<<<<<< HEAD
 	function toModify(bicycleNo){
  		//alert(memberId + "	TESTTEST");
  		//alert("TEST		" + bicycleNo);
@@ -572,7 +571,5 @@ tr:hover{background-color:#f5f5f5}
              
              </div>
         </div> 
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-        
        </div>
 </div>   

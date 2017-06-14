@@ -2,7 +2,10 @@ package org.kosta.rebicycle.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -265,9 +268,30 @@ public class BicycleServiceImpl implements BicycleService {
 	@Override
 	public List<RentVO> findRentById(String id) {
 		List<RentVO> list = bicycleDAOImpl.findRentById(id);
-		for(int i=0; i<list.size();i++){		
+		for(int i=0; i<list.size();i++){	
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date startDate = null;
+			Date endDate = null;
+			Date sDate = null;
+			Date eDate = null;
 			BicycleVO bvo=bicycleDAOImpl.findBicycleByNo(list.get(i).getBicycleVO().getBicycleNo());
 			list.get(i).setBicycleVO(bvo);
+			bvo.setPossibleList((ArrayList<CalendarVO>) bicycleDAOImpl.findPossibleDayByNo(list.get(i).getBicycleVO().getBicycleNo()));
+			try {
+				for(int j=0 ; j<bvo.getPossibleList().size() ; j++) {
+					startDate = format.parse(list.get(i).getCalendarVO().getStartDay());//렌트날짜
+					endDate = format.parse(list.get(i).getCalendarVO().getEndDay());
+					sDate = format.parse(bvo.getPossibleList().get(j).getStartDay()); //자전거날짜
+					eDate = format.parse(bvo.getPossibleList().get(j).getEndDay());
+					System.out.println(sDate.compareTo(startDate));
+					if(list.get(i).getState()==0 && (sDate.compareTo(startDate)> 0 || eDate.compareTo(endDate) < 0)){
+						list.get(i).setState(2);
+					}
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
 		}
 		return list;
 	}
@@ -304,11 +328,8 @@ public class BicycleServiceImpl implements BicycleService {
 		
 		HashMap<String, CalendarVO> calendarMap = new HashMap<>();
 		calendarMap.put("possible", bicycleDAOImpl.getPossibleCVO(rvo.getCalendarVO()));
-		System.out.println("possible dog     "+calendarMap.get("possible"));
+		
 		calendarMap.put("rent", rvo.getCalendarVO());
-		System.out.println("rent dog     "+calendarMap.get("rent"));
-		//System.out.println("possible" + bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
-		System.out.println("deleteRentedDay-cM" + calendarMap);
 		
 		
 		//System.out.println("deleteRentedDay" + compare);
@@ -336,9 +357,9 @@ public class BicycleServiceImpl implements BicycleService {
 		
 	}
 	@Override
-	public List<RentVO> findRentSuccessById(int bicycleNo) {
-	      return bicycleDAOImpl.findRentSuccessById(bicycleNo);
-	   }
+	public List<RentVO> findRentSuccessByBicycleNo(int bicycleNo) {
+	      return bicycleDAOImpl.findRentSuccessByBicycleNo(bicycleNo);
+	}
 	
 	//////////impl5//////////////////
 	@Override
@@ -400,5 +421,20 @@ public class BicycleServiceImpl implements BicycleService {
 	@Override
 	public void heartOn(HeartVO hvo) {
 		bicycleDAOImpl.heartOn(hvo);
+	}
+	
+	public List<RentVO> findRentSuccessById(String id) {
+		return bicycleDAOImpl.findRentSuccessById(id);
+	}
+	@Override
+	public void checkState(ArrayList<RentVO> otherList) {
+		//rList에 있는 다른 요청들(state == 0인)을 bicycleVO의 Possible과 다시 비교
+		//비교 결과, 불가능인 요청의 상태를 2로 바꿈
+		for(int i = 0;i<otherList.size();i++){
+			CalendarVO checkCVO = bicycleDAOImpl.getPossibleCVO(otherList.get(i).getCalendarVO());
+			if(checkCVO ==null){
+				bicycleDAOImpl.changeState(otherList.get(i).getRentNo());
+			}
+		}
 	}
 }

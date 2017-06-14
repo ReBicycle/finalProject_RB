@@ -106,7 +106,12 @@ public interface BicycleDAO {
 	void heartOff(HeartVO hvo);
 
 	void heartOn(HeartVO hvo);
-	
+
+	List<RentVO> findRentSuccessByBicycleNo(int bicycleNo);
+
+	List<RentVO> findRentSuccessById(String id);
+
+	void changeState(int rentNo);
 	
 
 }

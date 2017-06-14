@@ -1,6 +1,7 @@
 package org.kosta.rebicycle.model.dao;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -191,8 +192,8 @@ public class BicycleDAOImpl implements BicycleDAO {
 		return template.selectOne("bicycle.getPossibleCVO",calendarVO);
 	}
 	@Override
-	public List<RentVO> findRentSuccessById(int bicycleNo) {
-	      return template.selectList("bicycle.findRentSuccessById", bicycleNo);
+	public List<RentVO> findRentSuccessByBicycleNo(int bicycleNo) {
+	      return template.selectList("bicycle.findRentSuccessByBicycleNo", bicycleNo);
 	   }
 	
 	///////////impl5//////////////
@@ -256,5 +257,18 @@ public class BicycleDAOImpl implements BicycleDAO {
 	@Override
 	public void heartOn(HeartVO hvo) {
 		template.insert("bicycle.heartOn",hvo);
+	}
+	@Override
+	public List<RentVO> findRentSuccessById(String id) {
+		return template.selectList("bicycle.findRentSuccessById",id);
+	}
+	@Override
+	public void changeState(int rentNo) {
+		template.update("bicycle.changeState", rentNo);
+	}
+	@Override
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,5 @@
 package org.kosta.rebicycle.model.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -98,7 +97,7 @@ public interface BicycleDAO {
 	List<RentVO> findRentSuccessByBicycleNo(int bicycleNo);
 
 	List<RentVO> findRentSuccessById(String id);
-	
-	
+
+	List<RentVO> findRentRequestByBicycleNo(int bicycleNo);
 
 }

@@ -282,7 +282,6 @@ public class BicycleServiceImpl implements BicycleService {
 					endDate = format.parse(list.get(i).getCalendarVO().getEndDay());
 					sDate = format.parse(bvo.getPossibleList().get(j).getStartDay()); //자전거날짜
 					eDate = format.parse(bvo.getPossibleList().get(j).getEndDay());
-					System.out.println(sDate.compareTo(startDate));
 					if(list.get(i).getState()==0 && (sDate.compareTo(startDate)> 0 || eDate.compareTo(endDate) < 0)){
 						list.get(i).setState(2);
 					}
@@ -303,6 +302,10 @@ public class BicycleServiceImpl implements BicycleService {
 	public List<RentVO> findRentRequestById(String id) {
 		//System.out.println("DAO" +  bicycleDAOImpl4.findRentRequestById(id));
 		return bicycleDAOImpl.findRentRequestById(id);
+	}
+	@Override
+	public List<RentVO> findRentRequestByBicycleNo(int bicycleNo){
+		return bicycleDAOImpl.findRentRequestByBicycleNo(bicycleNo);
 	}
 	@Override
 	public RentVO findRentByRentNo(int rentNo) {

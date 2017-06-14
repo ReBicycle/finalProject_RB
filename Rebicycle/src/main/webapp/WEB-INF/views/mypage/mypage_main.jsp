@@ -26,7 +26,6 @@ tr:hover{background-color:#f5f5f5}
        //day N:N - 각각의 startDay , endDay를 담기 위한 배열 선언
       var startendDay=new Array();
       var checkFailList=new Array();
-
       
       $("#resetList").click(function(){
     	  $.ajax({
@@ -275,8 +274,9 @@ tr:hover{background-color:#f5f5f5}
 	}
 	
 	function toDelete(bicycleNo){
+ 	 	var m = "${requestScope.findVO.id}";
  	 	var b = bicycleNo;
-		location.href = "${pageContext.request.contextPath}/bicycle/bicycleDeleteForm.do?bicycleNo="+b;
+		location.href = "${pageContext.request.contextPath}/bicycle/bicycleDeleteForm.do?memberId="+m+"&bicycleNo="+b;
 	}
    
 </script>
@@ -396,10 +396,7 @@ tr:hover{background-color:#f5f5f5}
 			                <div class="panel-body">
 			                    <span>
 			                        <h1 class="panel-title pull-left" style="font-size:30px">등록된 자전거 관리<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
-			 
 			                    </span>
-			                   	
-			                   	
 			                    <br><br>
 								<div align = "left" id = "regieterListView">
 									<div>
@@ -418,9 +415,8 @@ tr:hover{background-color:#f5f5f5}
 				                                   	<td>${bList.bicycleNo}</td>
 				                                   	<td> ${bList.title}</td>
 				                                   	<td>
-				                                   	
-				                                   		<input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정" onclick = "toModify(${bList.bicycleNo})"> 
-				                                   		<input type="button" id ="deleteBtn" class="btn btn-warning" value="삭제" onclick="toDelete(${bList.bicycleNo})">
+				                                   		<input type="button" id="modifyBtn" class="btn btn-success" value="수정" onclick="toModify(${bList.bicycleNo})"> 
+				                                   		<input type="button" id="deleteBtn" class="btn btn-warning" value="삭제" onclick="toDelete(${bList.bicycleNo})">
 				                                   	<%-- <a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
 				                                   	 --%>
 				                                   	</td>
@@ -431,9 +427,6 @@ tr:hover{background-color:#f5f5f5}
 											
 											</tbody>
 										</table>
-									<ul>
-			                              	
-			                        </ul>
 			                        </div>
 								</div>
 			                </div>

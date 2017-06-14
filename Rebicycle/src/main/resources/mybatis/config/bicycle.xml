@@ -246,7 +246,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0 order by r.rentNo desc
    </select>
    
-   
+   <select id="findRentRequestByBicycleNo" resultMap = "rentMap">
+      select r.*, b.bicycleNo, b.memberId, b.title
+      from rent r, bicycle b
+      where r.bicycleNo = b.bicycleNo and b.bicycleNo = #{value} and r.state = 0 order by r.rentNo desc
+   </select>
    
    <select id = "findRentByRentNo" resultMap = "rentMap">
       select rentNo,bicycleNo, renterId, startDay, endDay

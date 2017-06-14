@@ -154,6 +154,11 @@ public class BicycleDAOImpl implements BicycleDAO {
 	public List<RentVO> findRentRequestById(String id) {
 		return template.selectList("bicycle.findRentRequestById", id);
 	}
+	
+	@Override
+	public List<RentVO> findRentRequestByBicycleNo(int bicycleNo){
+		return template.selectList("bicycle.findRentRequestByBicycleNo", bicycleNo);
+	}
 	@Override
 	public RentVO findRentByRentNo(int rentNo) {
 		return template.selectOne("bicycle.findRentByRentNo", rentNo);

@@ -96,14 +96,23 @@ public class MypageController {
 	@RequestMapping("rentOk.do")
 	@Transactional
 	public String rentOk(String rentNo){
-		System.out.println("test       rentOk    "+rentNo);
-		//System.out.println("rentOK" + rentNo);
+		//System.out.println("test       rentOk    "+rentNo);
+		
 		RentVO rvo = bicycleService.findRentByRentNo(Integer.parseInt(rentNo));
-		//System.out.println("rentOK rvo" + rvo);
-		bicycleService.updateRentByRentNo(rentNo);
-		//t
-		System.out.println("rentOk  deleteRentedDay");
-		bicycleService.deleteRentedDay(rvo);
+		// select rentNo,bicycleNo, renterId, startDay, endDay
+		bicycleService.updateRentByRentNo(rentNo);//state == 1로 바꾸는거
+		
+		bicycleService.deleteRentedDay(rvo);//자전거 가능일 수정
+		
+		//다른 요청을 바뀐 possible과 비교
+		
+		//rvo의 bicycleVO의 bicycleNO로 들어온 요청리스트를 찾아서
+		//ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService.getRentByBicycleNo(Integer.parseInt(bicycleNo));
+		//rList에 있는 다른 요청들을 bicycleVO의 Possible과 다시 비교
+		//비교 결과, 불가능인 요청의 상태를 2로 바꿈
+		int bicycleNo = rvo.getBicycleVO().getBicycleNo();
+		ArrayList<RentVO> otherList = (ArrayList<RentVO>)bicycleService.getRentByBicycleNo(bicycleNo);
+		bicycleService.checkState(otherList);
 		return "redirect:mypage/mypage_main.do";
 	}
 

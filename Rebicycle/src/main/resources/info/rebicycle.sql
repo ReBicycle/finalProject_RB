@@ -33,6 +33,7 @@ create sequence rent_seq nocache;
 create sequence report_seq nocache;
 create sequence donation_seq nocache;
 
+select * from heart;
 select * from rb_member;
 select * from category order by categoryNo;
 select * from bicycle;
@@ -147,6 +148,12 @@ create table rb_review(
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
 
+create table heart(
+	id varchar2(100) constraint fk_heart_id references rb_member(id),
+	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo),
+	constraint pk_heart primary key(id,bicycleNo)
+)
+
 --테이블 수정
 alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
@@ -195,12 +202,31 @@ insert into donation (donationBicycleNo,donorId,detail,picture,address,title)
 values(donation_seq.nextval,'spring','아끼는 건데 너 줄게 ','1_photo1.jpg','판교역주변','안쓰는 자전거 나눔해요~!')
 -------------------------------------------------------------
 
+<<<<<<< HEAD
+
+select count(*)
+   		from heart
+   		where id='java1' and bicycleNo=14
+
+=======
+<<<<<<< HEAD
+select count(*)
+   		from heart
+   		where id='java1' and bicycleNo=14
+
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
    donationBicycleNo number primary key,
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    picture varchar2(300) not null,
    status number default 0,
    address varchar2(300) not null
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 
@@ -712,4 +738,12 @@ select * from bicycle
 
 select r.*, b.bicycleNo, b.memberId, b.title
 from rent r, bicycle b
-where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and (r.state = 0 or r.state = 2)
+
+
+select r.*, b.bicycleNo, b.memberId, b.title,m.id
+from rent r, bicycle b,rb_member m
+where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id  and r.state = 0 or r.state = 2 order by r.rentNo desc
+
+commit
+

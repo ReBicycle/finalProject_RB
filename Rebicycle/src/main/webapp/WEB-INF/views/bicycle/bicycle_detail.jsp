@@ -220,6 +220,30 @@ section.awSlider>img {
    }     
           
    $(document).ready(function(){
+	   $.ajax({
+			type:"get",
+			url:"${pageContext.request.contextPath }/heartCheck.do",
+			data:"id=${sessionScope.mvo.id}&bicycleNo=${requestScope.findBvo.bicycleNo}",
+			success:function(data){
+				//alert(data);
+				$("#heart").html("<img alt='찜하기' src='${pageContext.request.contextPath}/resources/img/heart"+data+".png' style='width:50px'>");
+			}
+		});
+	   $("#heart").click(function(){
+			$.ajax({
+				type:"get",
+				url:"${pageContext.request.contextPath }/heartOnOff.do",
+				data:"id=${sessionScope.mvo.id}&bicycleNo=${requestScope.findBvo.bicycleNo}",
+				success:function(data){
+					if(data=="on")
+						alert("내 자전거로 찜하기!");
+					else
+						alert("내 자전거에서 삭제!");
+					$("#heart").html("<br><img alt='찜하기' src='${pageContext.request.contextPath}/resources/img/heart"+data+".png' style='width:50px'>");
+				}
+			});
+		});
+	   
 	   $( ".star_rating a" ).click(function() {
            event.preventDefault();
            $(this).parent().children("a").removeClass("on");
@@ -237,6 +261,27 @@ section.awSlider>img {
            }
            location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
         }); 
+        $(".deleteReview").click(function(){
+        	if(confirm('리뷰를 삭제하시겠습니까?')){
+        		var no = $("#rentNo").val();
+        		location.href="${pageContext.request.contextPath}/deleteReview.do?rentNo="+no;
+        	}       		
+        });
+        $(".updateReview").click(function(){
+        	if(confirm('리뷰를 수정하시겠습니까?')){
+        		var no = $("#rentNo").val();
+        		var content = $("#content").val();
+        		var star=$("#star").val();
+        	    var newcontent = prompt("리뷰내용수정:", content);
+        	    if (newcontent == null || newcontent == "") {
+        	    	return;
+        	    } else {
+        	    	//alert(newcontent);
+        	       location.href="${pageContext.request.contextPath}/updateReview.do?rentNo="+no+"&star="+star+"&content="+newcontent;
+        	    }
+        	}       		
+        }); 
+        
          //day N:N - 사용가능 결과 변수
         var checkDayResultl=null;
         var checkFailList=new Array();
@@ -550,13 +595,15 @@ section.awSlider>img {
          	</a>
       	</div>
    	</section>
-   
+   <div id="heart"></div>
    	<div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
 		    <label for="name">TITLE</label>
 		    <h3 align="center">- TITLE -</h3>
 		    <p class="help-block text-danger">${requestScope.findBvo.title}</p>
 		</div>
+		
+		
   	</div>
    
    <!-- 달력 -->
@@ -565,6 +612,7 @@ section.awSlider>img {
          	<div id="calendar"></div>
       	</div>
       	<div class="col-sm-6"></div>
+      	
       	<!-- 예약 부분 -->
       	<div class="col-sm-6">
          	<h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>
@@ -717,8 +765,9 @@ section.awSlider>img {
          </c:if>
       </div>
       <!-- 리뷰작성칸 -->
+       <div class="box container" id="writeReviewForm">
       <c:if test="${requestScope.reviewCheck}">
-         <div class="box container">
+        
             <div class="row" align="left">
                <div class="col-sm-3">
                   <p class="star_rating" style="padding-top:20px; padding-left: 30%">
@@ -743,9 +792,10 @@ section.awSlider>img {
                   </form>
                </div>
             </div>
+            </c:if>
          </div>
          <br>
-         </c:if>
+         
          <br>
          <br>         
          <!-- 리뷰리스트 -->
@@ -757,7 +807,14 @@ section.awSlider>img {
                      <br>${rList.rentVO.memberVO.id}
                   </div>
                   <div style="float: left; width: 30%; padding-top:4%;font-size: 15px;text-align: left; ">
-                     ${rList.content}
+                     ${rList.content}&nbsp;&nbsp;&nbsp;
+               <c:if test="${rList.rentVO.memberVO.id ==sessionScope.mvo.id}">               
+            	 <input type="hidden" id="rentNo" value="${rList.rentVO.rentNo}" />
+            	 <input type="hidden" id="content" value="${rList.content}" />
+            	 <input type="hidden" id="star" value="${rList.star}" />
+            	 <font size="1px" color="#999999"  class="updateReview"> 수정&nbsp;|</font>
+            	 <font size="1px" color="#999999"  class="deleteReview"> 삭제</font>
+            	</c:if>
                   </div>
                   <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
                      <c:forEach begin="1" end="${rList.star}">
@@ -767,7 +824,7 @@ section.awSlider>img {
                          ${fn:substring(TextValue,0,10)}<br>                        
                   </div>
                </div>
-            </c:forEach>
+            </c:forEach>            
          </div>
       </div>
       <br>

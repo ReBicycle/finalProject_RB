@@ -15,6 +15,7 @@ import org.kosta.rebicycle.model.dao.BicycleDAO;
 import org.kosta.rebicycle.model.dao.MemberDAO;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.HeartVO;
 import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.PhotoVO;
@@ -330,11 +331,8 @@ public class BicycleServiceImpl implements BicycleService {
 		
 		HashMap<String, CalendarVO> calendarMap = new HashMap<>();
 		calendarMap.put("possible", bicycleDAOImpl.getPossibleCVO(rvo.getCalendarVO()));
-		System.out.println("possible dog     "+calendarMap.get("possible"));
+		
 		calendarMap.put("rent", rvo.getCalendarVO());
-		System.out.println("rent dog     "+calendarMap.get("rent"));
-		//System.out.println("possible" + bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
-		System.out.println("deleteRentedDay-cM" + calendarMap);
 		
 		
 		//System.out.println("deleteRentedDay" + compare);
@@ -405,7 +403,54 @@ public class BicycleServiceImpl implements BicycleService {
 			return false;
 	}
 	@Override
+	public int findAcceptRequest(String id) {
+		return bicycleDAOImpl.findAcceptRequest(id);
+	}
+	@Override
+	public void deleteReview(int rentNo) {
+		bicycleDAOImpl.deleteReview(rentNo);
+	}
+	@Override
+	public int findRefuseRequest(String id) {
+		return bicycleDAOImpl.findRefuseRequest(id);
+	}
+	@Override
+	public int findGetRequest(String id) {
+		return bicycleDAOImpl.findGetRequest(id);
+	}
+	@Override
+	public void updateReview(ReviewVO reviewVO) {
+		bicycleDAOImpl.updateReview(reviewVO);
+	}
+	@Override
+	public boolean heartCheck(HeartVO heartVO) {		
+		int check =  bicycleDAOImpl.heartCheck(heartVO);
+		if(check==0)
+			return false;
+		return true;
+	}
+	@Override
+	public void heartOff(HeartVO hvo) {
+		bicycleDAOImpl.heartOff(hvo);		
+	}
+	@Override
+	public void heartOn(HeartVO hvo) {
+		bicycleDAOImpl.heartOn(hvo);
+	}
+	
+	@Override
 	public List<RentVO> findRentSuccessById(String id) {
 		return bicycleDAOImpl.findRentSuccessById(id);
+	}
+	@Override
+	public void checkState(ArrayList<RentVO> otherList) {
+		//rList에 있는 다른 요청들(state == 0인)을 bicycleVO의 Possible과 다시 비교
+		//비교 결과, 불가능인 요청의 상태를 2로 바꿈
+		for(int i = 0;i<otherList.size();i++){
+			CalendarVO checkCVO = bicycleDAOImpl.getPossibleCVO(otherList.get(i).getCalendarVO());
+			if(checkCVO ==null){
+				bicycleDAOImpl.changeState(otherList.get(i).getRentNo());
+			}
+		}
 	}
 }

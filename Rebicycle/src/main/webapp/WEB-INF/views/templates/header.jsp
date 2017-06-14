@@ -153,10 +153,10 @@ function spawnNotification(theBody,theIcon,theTitle) {
 								<a href="${pageContext.request.contextPath}/mypage/mypage_main.do"><font color="black">Request</font>
 								<span class="badge badge-success">${totalRequest.findGetRequest}</span>
 								</a> 
-								<a href="#"><font color="black">Accept</font>
+								<a href="${pageContext.request.contextPath}/mypage/mypage_main.do"><font color="black">Accept</font>
 								<span class="badge badge-info">${totalRequest.findAcceptRequest}</span>
 								</a> 
-								<a href="#"><font color="black">Refuse</font>
+								<a href="${pageContext.request.contextPath}/mypage/mypage_main.do"><font color="black">Refuse</font>
 								<span class="badge badge-warning">${totalRequest.findRefuseRequest}</span>
 								</a>
 							</div>

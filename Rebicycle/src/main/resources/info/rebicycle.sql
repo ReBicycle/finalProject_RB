@@ -745,5 +745,7 @@ select r.*, b.bicycleNo, b.memberId, b.title,m.id
 from rent r, bicycle b,rb_member m
 where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id  and r.state = 0 or r.state = 2 order by r.rentNo desc
 
+select * from rent
+
 commit
 

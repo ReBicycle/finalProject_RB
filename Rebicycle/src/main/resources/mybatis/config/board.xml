@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="findBoardReplyNo" resultType="boardReplyVO">
 		select
-		brdno,reno,rewriter,rememo,to_char(redate,'YYYY.MM.DD HH:mm:ss') as redate 
+		brdno,reno,rewriter,rememo,to_char(redate,'YYYY.MM.DD') as redate 
 		from rb_boardreply 
 		where brdno=#{value}
 	</select>
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	<select id="getReplyList" resultType="BoardReplyVO">
 			select
-			c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD HH:mm:ss') as 
+			c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD') as 
 			redate from rb_boardreply 
 			c where brdno=#{value}
 	</select>

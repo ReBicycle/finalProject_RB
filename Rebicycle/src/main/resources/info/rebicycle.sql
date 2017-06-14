@@ -33,6 +33,7 @@ create sequence rent_seq nocache;
 create sequence report_seq nocache;
 create sequence donation_seq nocache;
 
+select * from heart;
 select * from rb_member;
 select * from category order by categoryNo;
 select * from bicycle;
@@ -147,6 +148,12 @@ create table rb_review(
    constraint pk_rb_review primary key(reviewerId, rentNo)
 )
 
+create table heart(
+	id varchar2(100) constraint fk_heart_id references rb_member(id),
+	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo),
+	constraint pk_heart primary key(id,bicycleNo)
+)
+
 --테이블 수정
 alter table rb_member modify address varchar2(300);
 alter table bicycle modify address varchar2(300);
@@ -195,12 +202,18 @@ insert into donation (donationBicycleNo,donorId,detail,picture,address,title)
 values(donation_seq.nextval,'spring','아끼는 건데 너 줄게 ','1_photo1.jpg','판교역주변','안쓰는 자전거 나눔해요~!')
 -------------------------------------------------------------
 
+
+select count(*)
+   		from heart
+   		where id='java1' and bicycleNo=14
+
    donationBicycleNo number primary key,
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    picture varchar2(300) not null,
    status number default 0,
    address varchar2(300) not null
+
 
 
 
@@ -692,24 +705,6 @@ select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
 
-<<<<<<< HEAD
-select * from rent
-
--------- ajax 라는 사람이 보낸 요청들
-select r.* from rent r, rb_member m, bicycle b
-where r.renterId='json' and r.bicycleNo=b.bicycleNo
-and m.id=b.memberId and (r.state=1 or r.state=2)
-
--------- java 받은 요청들
-select r.* from rent r, rb_member m, bicycle b
-where m.id='json' and r.bicycleNo=b.bicycleNo
-and m.id=b.memberId and r.state=0
-
-select count(r.state)
-from rent r, rb_member m, bicycle b
-where r.renterId='java' and r.bicycleNo=b.bicycleNo
-and m.id=b.memberId and r.state=1
-=======
 select  r.rentNo, m.id, b.memberId
 from rent r , bicycle b, rb_member m
 where  r.bicycleNo = b.bicycleNo and b.memberId=m.id and r.state>0 and b.memberId = 'java'
@@ -734,4 +729,4 @@ from rent r, bicycle b,rb_member m
 where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id  and r.state = 0 or r.state = 2 order by r.rentNo desc
 
 commit
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+

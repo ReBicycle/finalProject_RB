@@ -257,4 +257,8 @@ public class BicycleDAOImpl implements BicycleDAO {
 		template.update("bicycle.changeState", rentNo);
 		
 	}
+	@Override
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+		return null;
+	}
 }

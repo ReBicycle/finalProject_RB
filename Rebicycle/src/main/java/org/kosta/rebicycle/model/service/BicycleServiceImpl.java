@@ -410,6 +410,7 @@ public class BicycleServiceImpl implements BicycleService {
 	public int findGetRequest(String id) {
 		return bicycleDAOImpl.findGetRequest(id);
 	}
+	@Override
 	public List<RentVO> findRentSuccessById(String id) {
 		return bicycleDAOImpl.findRentSuccessById(id);
 	}
@@ -425,5 +426,9 @@ public class BicycleServiceImpl implements BicycleService {
 		}
 		
 		//bicycleDAOImpl.getPossibleCVO(calendarVO);
+	}
+	@Override
+	public List<RentVO> findRentSuccessById(int bicycleNo) {
+		return bicycleDAOImpl.findRentSuccessById(bicycleNo);
 	}
 }

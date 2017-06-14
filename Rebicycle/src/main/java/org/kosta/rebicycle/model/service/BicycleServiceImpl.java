@@ -15,6 +15,7 @@ import org.kosta.rebicycle.model.dao.BicycleDAO;
 import org.kosta.rebicycle.model.dao.MemberDAO;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.HeartVO;
 import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.PhotoVO;
@@ -403,6 +404,10 @@ public class BicycleServiceImpl implements BicycleService {
 		return bicycleDAOImpl.findAcceptRequest(id);
 	}
 	@Override
+	public void deleteReview(int rentNo) {
+		bicycleDAOImpl.deleteReview(rentNo);
+	}
+	@Override
 	public int findRefuseRequest(String id) {
 		return bicycleDAOImpl.findRefuseRequest(id);
 	}
@@ -410,6 +415,26 @@ public class BicycleServiceImpl implements BicycleService {
 	public int findGetRequest(String id) {
 		return bicycleDAOImpl.findGetRequest(id);
 	}
+	@Override
+	public void updateReview(ReviewVO reviewVO) {
+		bicycleDAOImpl.updateReview(reviewVO);
+	}
+	@Override
+	public boolean heartCheck(HeartVO heartVO) {		
+		int check =  bicycleDAOImpl.heartCheck(heartVO);
+		if(check==0)
+			return false;
+		return true;
+	}
+	@Override
+	public void heartOff(HeartVO hvo) {
+		bicycleDAOImpl.heartOff(hvo);		
+	}
+	@Override
+	public void heartOn(HeartVO hvo) {
+		bicycleDAOImpl.heartOn(hvo);
+	}
+	
 	@Override
 	public List<RentVO> findRentSuccessById(String id) {
 		return bicycleDAOImpl.findRentSuccessById(id);
@@ -424,11 +449,5 @@ public class BicycleServiceImpl implements BicycleService {
 				bicycleDAOImpl.changeState(otherList.get(i).getRentNo());
 			}
 		}
-		
-		//bicycleDAOImpl.getPossibleCVO(calendarVO);
-	}
-	@Override
-	public List<RentVO> findRentSuccessById(int bicycleNo) {
-		return bicycleDAOImpl.findRentSuccessById(bicycleNo);
 	}
 }

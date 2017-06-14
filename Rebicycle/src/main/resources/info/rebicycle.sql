@@ -202,18 +202,31 @@ insert into donation (donationBicycleNo,donorId,detail,picture,address,title)
 values(donation_seq.nextval,'spring','아끼는 건데 너 줄게 ','1_photo1.jpg','판교역주변','안쓰는 자전거 나눔해요~!')
 -------------------------------------------------------------
 
+<<<<<<< HEAD
 
 select count(*)
    		from heart
    		where id='java1' and bicycleNo=14
 
+=======
+<<<<<<< HEAD
+select count(*)
+   		from heart
+   		where id='java1' and bicycleNo=14
+
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
    donationBicycleNo number primary key,
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    picture varchar2(300) not null,
    status number default 0,
    address varchar2(300) not null
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 

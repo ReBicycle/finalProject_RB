@@ -377,7 +377,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		from heart
    		where id=#{id} and bicycleNo=#{bicycleNo} 
    </select>
-   
+
    <!-- 빌리고자 하는 사람 보낸 요청들 -->
    <!-- 1. 수락 받을 경우(1) / 2. 거절/불가능할 경우 /(2) -->
    <!-- 내가 빌리는 , 빌려주는 사람이면,, -->

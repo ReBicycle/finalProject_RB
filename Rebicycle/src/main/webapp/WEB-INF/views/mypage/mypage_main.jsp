@@ -210,13 +210,18 @@ tr:hover{background-color:#f5f5f5}
     
     //<li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
     
-   function toModify(bicycleNo){
+	function toModify(bicycleNo){
  		//alert(memberId + "	TESTTEST");
  		//alert("TEST		" + bicycleNo);
  	 	var m = "${requestScope.findVO.id}";
  	 	var b = bicycleNo;
- 	 location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId="+m+"&bicycleNo="+b;
-  }
+		location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId="+m+"&bicycleNo="+b;
+	}
+	
+	function toDelete(bicycleNo){
+ 	 	var b = bicycleNo;
+		location.href = "${pageContext.request.contextPath}/bicycle/bicycleDeleteForm.do?bicycleNo="+b;
+	}
    
 </script>
 
@@ -382,57 +387,48 @@ tr:hover{background-color:#f5f5f5}
             
             <hr>
             
-            <!-- 등록 자전거 관리 -->
-               <div class="panel panel-default">
-                <div class="panel-body">
-                    <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px">등록된 자전거 관리<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
- 
-                    </span>
-                   	
-                   	
-                    <br><br>
-					<div align = "left" id = "regieterListView">
-						<div>
-							<table>
-								<thead align = "center">
-								<tr>
-									<th>No</th><th>Title</th><th>수정</th>
-								</tr>
-								
-								</thead>
-									
-								<tbody id = "registerTbody">
-									<c:forEach items="${requestScope.registerList}" var = "bList">
-	   
-	                                   <tr>   
-	                                   	<td>${bList.bicycleNo}</td>
-	                                   	<td> ${bList.title}</td>
-	                                   	<td>
-	                                   	
-	                                   		<input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정" onclick = "toModify(${bList.bicycleNo})"> 
-	                                   	<%-- <a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
-	                                   	 --%>
-	                                   	</td>
-	                                   	
-	                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
-	                                    </tr>
-	                                </c:forEach>
-								
-								</tbody>
-							</table>
-						<ul>
-                              	
-                        </ul>
-                        </div>
+		            <!-- 등록 자전거 관리 -->
+					<div class="panel panel-default">
+		                <div class="panel-body">
+		                    <span>
+		                        <h1 class="panel-title pull-left" style="font-size:30px">등록된 자전거 관리<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+		                    </span>
+		                    <br><br>
+							<div align = "left" id = "regieterListView">
+								<div>
+									<table>
+										<thead align = "center">
+											<tr>
+												<th>No</th><th>Title</th><th>수정</th>
+											</tr>
+										</thead>
+										<tbody id = "registerTbody">
+											<c:forEach items="${requestScope.registerList}" var = "bList">
+			   
+				                             	<tr>   
+				                                   	<td>${bList.bicycleNo}</td>
+				                                   	<td> ${bList.title}</td>
+				                            		<td>
+				                                   		<input type="button" id ="modifyBtn" class="btn btn-success" value="수정" onclick="toModify(${bList.bicycleNo})">
+				                                   		<input type="button" id ="deleteBtn" class="btn btn-warning" value="삭제" onclick="toDelete(${bList.bicycleNo})">
+			                                   	<%-- <a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
+			                                   	 --%>
+			                                   		</td>
+			                                   	
+			                                  <%--  <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li> --%>
+			                             		</tr>
+			                           		</c:forEach>
+										</tbody>
+									</table>
+								<ul>
+        					</ul>
+           				</div>
 					</div>
-                </div>
+        		</div>
             </div>
         </div>
         
-        
-        
-        
+
         <!-- -------------------------------- -->
         <!-- 요청 리스트 -->
             <div class="col-lg-4 col-xs-12">
@@ -481,67 +477,60 @@ tr:hover{background-color:#f5f5f5}
             
             <hr>
            
-            <!-- 빌린 내역 리스트 -->
-               <div class="panel panel-default">
-                <div class="panel-body">
-                    <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px">빌린 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
-                    </span>
-                    <br><br>
-		            <div align="left" id = "rentListView">
-			          <%-- ${requestScope.rentList} --%>
-			          
-			           <div align = "left" id ="rListView">
-                      
-                         <table>
-		                     <thead>
-		                        <tr>
-		                           <th>No</th><th>bicycle Title</th><th>startDay</th><th>endDay</th><th>후기/별점</th>
-		                        </tr>
-		                     </thead>
-		                  	 <tbody>
-									<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
-	   
-	                                   <tr>   
-	                                   	<td>${rList.rentNo}</td>
-	                                   	<td>${rList.bicycleVO.title }</td>
-	                                   	<td>${rList.calendarVO.startDay }</td>
-	                                   	<td>${rList.calendarVO.endDay }</td>
-	                                   	<c:if test= "${rList.state ==0}">
-	                                   		<td><input type = "button" id = "" class ="btn btn-warning" value = "수락대기상태"></td>
-	                                   	</c:if>
-	                                   	
-	                                   	<c:if test = "${rList.state ==1}">
-	                                   		<td>
-	                                   			<input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
-	                                   			<%-- <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
-	                                   			 --%>
-	                                   		</td>
-	                                   	</c:if>
-	                                   	
-	                                   	<c:if test="${rList.state == 3}">
-	                                   		<td>
-	                                   			<input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료">
-	                                   			
-	                                   		</td>
-	                                   	</c:if>	
-									
-	                                    </tr>
-	                                </c:forEach>
-								
-							</tbody>
-                  		</table>
-                      </div>
-			          
-		            </div>
-                </div>
-            </div>
-            
-          
-        
-        </div>
-        
-
-        
-    </div>
+		            <!-- 빌린 내역 리스트 -->
+					<div class="panel panel-default">
+						<div class="panel-body">
+		     				<span>
+		                        <h1 class="panel-title pull-left" style="font-size:30px">빌린 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+		                    </span>
+		                    <br><br>
+				            <div align="left" id = "rentListView">
+					        <%-- ${requestScope.rentList} --%>
+					          
+					      	<div align = "left" id ="rListView">
+		                     	<table>
+				             		<thead>
+				                		<tr>
+				                           	<th>No</th><th>bicycle Title</th><th>startDay</th><th>endDay</th><th>후기/별점</th>
+				                        </tr>
+				              		</thead>
+				              		<tbody>
+										<c:forEach items="${requestScope.rentList}" var = "rList" varStatus="i">
+		                                <tr>   
+		                                	<td>${rList.rentNo}</td>
+		                                	<td>${rList.bicycleVO.title }</td>
+		                                	<td>${rList.calendarVO.startDay }</td>
+		                                	<td>${rList.calendarVO.endDay }</td>
+		                                	<c:if test= "${rList.state ==0}">
+		                                		<td>
+		                                			<input type = "button" id = "" class ="btn btn-warning" value = "수락대기상태">
+		                                		</td>
+		                                	</c:if>
+		                                	<c:if test = "${rList.state ==1}">
+		                                		<td>
+		                                			<input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
+		                                			<%-- <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
+		                                			 --%>
+		                                		</td>
+		                                	</c:if>
+		                                	<c:if test="${rList.state == 2}">
+		                                		<td>
+		                                			<input type = "button" id = "" class =" btn btn-warning" value = "대여 불가">	
+		                                		</td>
+		                                	</c:if>	
+		                                	<c:if test="${rList.state == 3}">
+		                                		<td>
+		                                			<input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료">	
+		                                		</td>
+		                                	</c:if>	
+		                                 </tr>
+		                             </c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

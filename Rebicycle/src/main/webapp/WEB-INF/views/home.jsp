@@ -4,12 +4,25 @@
 <script src="http://momentjs.com/downloads/moment-timezone-with-data.js"></script>
 <script type="text/javascript">
 function dateCheck(){
+	var now= new Date();
+	var year=now.getFullYear();
+	var month=now.getMonth()+1;
+	if((month+"").length<2){
+		month="0"+month;
+	}
+
+	var day=now.getDate();
+	if((day+"").length<2)
+		day="0"+day;
+	var today=year+"-"+month+"-"+day;
 	var startDay=document.searchForm.startDay.value;
 	var endDay=document.searchForm.endDay.value;
-	
+	if(today>startDay){
+		alert("오늘 날짜 이후를 선택하여 주세요.");
+		return false;
+	}
 	 if(startDay>endDay){
-		 alert("시작날과 종료날을 확인하세요!");
-		 document.searchForm.reset();
+		 alert("시작일과 종료일을 확인하세요!");
 		 return false;
 	 }
 	 
@@ -57,7 +70,7 @@ font-family: 'Jeju Gothic', serif;
   
   </style>
     <!-- Header -->
-  <%--  <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/seoul3.jpg'); background-repeat: no-repeat; background-size: cover; " > --%>
+  <%--  <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/portfolio/seoul.jpg'); background-repeat: no-repeat; background-size: cover; " > --%>
     <header  style="background-color: #f6f8ff" >
         <div class="container " id="maincontent" tabindex="-1" >
             <div class="row" >

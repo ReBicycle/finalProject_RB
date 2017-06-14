@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
+
+ <mapper namespace="donation">   
+<insert id="donationBicycle" parameterType="bicycleVO">
+	insert into donation (donationBicycleNo,donorId,detail,picture,address )
+values(donation_seq.nextval,#{memberVO.id},#{detail},#{photoVO.photo1},#{address})
+</insert> 	
+<select id="getTotalContentsNo" resultType="string">
+select count(*) from donation
+</select>
+<select id="getDonationList" parameterType="pagingBean" resultType="donationVO">
+select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.title
+from (select donationbicycleno,donorId,address,detail,picture,title,
+ row_number() over(order by donationbicycleno desc) rnum from donation where status=0) D
+ where rnum between #{startRowNumber} and #{endRowNumber}
+</select>
+
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

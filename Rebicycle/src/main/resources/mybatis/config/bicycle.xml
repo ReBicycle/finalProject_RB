@@ -167,7 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="findBicycleById" resultType="bicycleVO">
       select distinct bicycleNo, title
       from bicycle
-      where memberId=#{value}
+      where memberId=#{value} order by bicycleNo
    </select>
 
    
@@ -224,26 +224,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="getRentByBicycleNo" resultMap="rentMap">
       select rentNo,renterId,bicycleNo,startDay, endDay, state
       from rent 
-      where bicycleNo=#{value} and state = 0
+      where bicycleNo=#{value} and (state = 0 or state = 2)
    </select>
       
     <select id="findRentSuccessByBicycleNo" resultMap = "rentMap">
       select rentNo,renterId,bicycleNo,startDay, endDay, state
       from rent 
-      where bicycleNo=#{value}  and state <![CDATA[ > ]]>  0
+      where bicycleNo=#{value}  and (state =1 or state =3 )
    </select>
    
 	<select id = "findRentSuccessById" resultMap = "rentMap">
 		select  r.rentNo,r.renterId,r.startDay,r.endDay, m.id, b.memberId
 		from rent r , bicycle b, rb_member m
 		where  r.bicycleNo = b.bicycleNo and b.memberId=m.id 
-		and state <![CDATA[ > ]]>  0 and b.memberId =  #{value} order by r.rentNo desc
+		and state =1 and b.memberId =  #{value} order by r.rentNo desc
 	</select>
    
    <select id="findRentRequestById" resultMap = "rentMap">
       select r.*, b.bicycleNo, b.memberId, b.title
       from rent r, bicycle b
-      where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0 order by r.rentNo desc
+      where r.bicycleNo = b.bicycleNo and b.memberId = #{value}  and (r.state = 0 or r.state = 2) order by r.rentNo desc
    </select>
    
    
@@ -357,7 +357,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       select rentNo from rent
       where renterId=#{memberVO.id} and bicycleNo=#{bicycleVO.bicycleNo} and state=1
    </select>
+  <!-- 리뷰 삭제 -->
+   <delete id="deleteReview">
+   		delete from rb_review where rentNo=#{value}
+   </delete>
+   <update id="updateRentStateTo1">
+   		update rent set state=1
+   		where rentNo=#{value}
+   </update>
+   <!--리뷰수정-->
+   <update id="updateReview" parameterType="reviewVO">
+   		update rb_review
+   		set content=#{content}, star=#{star}  
+   		where rentNo=#{rentVO.rentNo}
+   </update>
+   <!-- 하트 -->
+   <select id="heartCheck" parameterType="heartVO" resultType="int">
+   		select count(*)
+   		from heart
+   		where id=#{id} and bicycleNo=#{bicycleNo} 
+   </select>
+
+   <!-- 빌리고자 하는 사람 보낸 요청들 -->
+   <!-- 1. 수락 받을 경우(1) / 2. 거절/불가능할 경우 /(2) -->
+   <!-- 내가 빌리는 , 빌려주는 사람이면,, -->
+   <select id="findAcceptRequest" resultType="int">
+   		select count(*)
+		from rent r, rb_member m, bicycle b
+		where r.renterId=#{value} and r.bicycleNo=b.bicycleNo
+		and m.id=b.memberId and r.state=1
+   </select>
+   <select id="findRefuseRequest" resultType="int">
+   		select count(*)
+		from rent r, rb_member m, bicycle b
+		where r.renterId=#{value} and r.bicycleNo=b.bicycleNo
+		and m.id=b.memberId and r.state=2
+   </select>
    
+   <!-- 빌려주는 사람의 경우 -->
+   <!-- 1. 받은 요청에 대해서  -->
+   <select id="findGetRequest" resultType="int">
+   		select count(*)
+   		from rent r, rb_member m, bicycle b
+		where m.id=#{value} and r.bicycleNo=b.bicycleNo
+		and m.id=b.memberId and r.state=0
+   </select>	
    
+   <delete id="heartOff">
+   		delete from heart
+   		where id=#{id} and bicycleNo=#{bicycleNo} 
+   </delete>
+   <insert id="heartOn">
+   		 insert into heart(id,bicycleNo) 
+   		 values(#{id},#{bicycleNo})
+   </insert>
+   
+   <update id = "changeState">
+   	  update rent
+   	  set state = 2
+   	  where rentNo = #{value}
+   </update>
    
 </mapper>

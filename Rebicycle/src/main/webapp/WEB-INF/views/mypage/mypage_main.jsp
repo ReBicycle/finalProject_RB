@@ -526,54 +526,62 @@ tr:hover{background-color:#f5f5f5}
           
           
              <div id = "menu4" class = "tab-pne fade">
-             
-                    <div class="panel panel-default">
-                     <!-- 내가찜한내역 -->
-                         <div class="panel-body">
-                             <span>
-                                 <h1 class="panel-title pull-left" style="font-size:30px">내가 찜한 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
-                                 
-                                 <div class="dropdown pull-right">
-                                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                         --등록자전거--
-                                         <span class="caret"></span>
-                                     </button>
-                                     
-                                    <%--  ${requestScope.bicycleList} --%>
-                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                          <li><a id = "resetList">-----전체-----</a></li>
-                                       <c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
-                                    
-                                            <li>
-                                               <a id = "successList${order.count}">${registerList.title}
-                                                <input type = "hidden" id = "successBicycleNo${order.count}"  value ="${registerList.bicycleNo}"></a>
-                                            </li>
-         
-                                          </c:forEach>
-                                       </ul>
-                                 </div>
-                             </span>
-                             <br><br>
-                             <div align = "left" id ="">
-                               
-                                  <table>
-                                    <thead>
-                                       <tr>
-                                          <th>No</th><th>Id</th><th>startDay</th><th>endDay</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody id = "">
-                                       
-                                       
-                                    </tbody>
-                                 </table>
-                               </div>
-                            
-                         </div>
-                     </div>
-             
-             
-             </div>
+
+					<div class="panel panel-default">
+						<!-- 내가찜한내역 -->
+						<div class="panel-body">
+							<span>
+								<h1 class="panel-title pull-left" style="font-size: 30px">
+									내가 찜한 내역<i class="fa fa-check text-success" aria-hidden="true"
+										data-toggle="tooltip" data-placement="bottom"
+										title="John Doe is sharing with you"></i>
+								</h1>
+
+								<div class="dropdown pull-right">
+									<button class="btn btn-success dropdown-toggle" type="button"
+										id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="true">
+										--등록자전거-- <span class="caret"></span>
+									</button>
+
+									<%--  ${requestScope.bicycleList} --%>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										<li><a id="resetList">-----전체-----</a></li>
+										<c:forEach items="${requestScope.registerList}"
+											var="registerList" varStatus="order">
+
+											<li><a id="successList${order.count}">${registerList.title}
+													<input type="hidden" id="successBicycleNo${order.count}"
+													value="${registerList.bicycleNo}">
+											</a></li>
+
+										</c:forEach>
+									</ul>
+								</div>
+							</span> <br>
+							<br>
+							<div align="left" id="">
+								<table>
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>Id</th>
+											<th>startDay</th>
+											<th>endDay</th>
+										</tr>
+									</thead>
+									<tbody id="">
+
+
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
         </div> 
         
        </div>

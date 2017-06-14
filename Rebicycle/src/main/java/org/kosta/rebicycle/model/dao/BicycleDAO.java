@@ -1,11 +1,11 @@
 package org.kosta.rebicycle.model.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarVO;
+import org.kosta.rebicycle.model.vo.HeartVO;
 import org.kosta.rebicycle.model.vo.MapVO;
 import org.kosta.rebicycle.model.vo.PhotoVO;
 import org.kosta.rebicycle.model.vo.RentVO;
@@ -95,10 +95,29 @@ public interface BicycleDAO {
 
 	List<BicycleVO> sortedListByAddressAndDayAndHigh(String address, String startDay, String endDay);
 
+	void deleteReview(int rentNo);
+
+	void updateReview(ReviewVO review);
+
+	int heartCheck(HeartVO heartVO);
+
+	void heartOff(HeartVO hvo);
+
+	void heartOn(HeartVO hvo);
+
 	List<RentVO> findRentSuccessByBicycleNo(int bicycleNo);
 
 	List<RentVO> findRentSuccessById(String id);
-	
-	
 
-}
+
+	List<RentVO> findRentRequestByBicycleNo(int bicycleNo);
+
+	void changeState(int rentNo);
+
+	//빌리고자 하는 사람이 보낸 요청들 상태 - 수락,거절
+	int findAcceptRequest(String id);
+	int findRefuseRequest(String id);
+	//빌려주는 사람이 받은 요청
+	int findGetRequest(String id);
+}	
+

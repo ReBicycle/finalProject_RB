@@ -18,8 +18,7 @@ public class HomeController {
 		@Resource
 		private BicycleService service;
 		@RequestMapping("home.do")
-		public String home(){
-			
+		public String home(HttpServletRequest request){
 			return "home.tiles";
 		}
 		@RequestMapping("member_login.do")

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.rebicycle.model.service.BicycleService;
+import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -21,6 +22,7 @@ import org.kosta.rebicycle.model.vo.RentVO;
 import org.kosta.rebicycle.model.vo.ReviewVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +32,8 @@ public class BicycleController {
 	  
 	@Resource
 	private BicycleService  bicycleServiceImpl;
+	@Resource
+	private MemberService memberServiceImpl;
 	
 	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/registerBicycle.do")
@@ -130,6 +134,26 @@ public class BicycleController {
 		}
 		return calList;
 	}
+	
+	@RequestMapping("bicycle/bicycleDeleteForm.do")
+	public String bicycleDeleteForm(String memberId, int bicycleNo, Model model){
+		ArrayList<RentVO> rvoList = (ArrayList<RentVO>) bicycleServiceImpl.findRentRequestByBicycleNo(bicycleNo);
+		if(rvoList.isEmpty()){
+			model.addAttribute("memberId", memberId);
+			model.addAttribute("bicycleNo", bicycleNo);
+			return "bicycle/bicycle_delete_ok.tiles";			
+		} else {
+			return "bicycle/bicycle_delete_fail.tiles";
+		}
+	}
+	
+	@RequestMapping("bicycle/deleteBicycle.do")
+	public String deleteBicycle(String memberId, int bicycleNo, String password){
+		//삭제
+		
+		return "";
+	}
+	
 	
 	//소영 bicycle_search_list_test로
 		@RequestMapping("listViewTest.do")
@@ -310,15 +334,19 @@ public class BicycleController {
 					endDayOfDay=endDayOfDay+1;
 				}		
 				
-			if(endMonthOfDay<10){
+/*			if(endMonthOfDay<10){
 				endMonthOfDay=Integer.parseInt("0"+endMonthOfDay);
-			}
+			}*/
 
-			if(endMonthOfDay<10){
-				ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-0"+endMonthOfDay+"-"+endDayOfDay;
-			}else{
-				ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-"+endDayOfDay;
-			}
+			if(endDayOfDay<10&&endMonthOfDay<10){
+	               ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-0"+endMonthOfDay+"-0"+endDayOfDay;
+	         }else if(endMonthOfDay<10){
+	            ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-0"+endMonthOfDay+"-"+endDayOfDay;
+	         }else if(endDayOfDay<10){
+	            ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-0"+endDayOfDay;
+	         }else{
+	            ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-"+endDayOfDay;
+	         }
 			
 			//String ResultOfEndDay=endYearOfDay+"-"+endMonthOfDay+"-"+endDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
@@ -377,6 +405,7 @@ public class BicycleController {
 		System.out.println("dddd");
 		return "mypage/mypage_main.tiles";
 	}*/
+
 }
 
 

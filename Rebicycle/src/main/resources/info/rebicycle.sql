@@ -33,6 +33,7 @@ create sequence rent_seq nocache;
 create sequence report_seq nocache;
 create sequence donation_seq nocache;
 
+select * from heart;
 select * from rb_member;
 select * from category order by categoryNo;
 select * from bicycle;
@@ -105,7 +106,6 @@ create table map(
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
-   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
    startDay date not null,
    endDay date not null,
    state number default 0
@@ -148,6 +148,12 @@ create table rb_review(
    reviewDate date not null,
    cotent clob not null,
    constraint pk_rb_review primary key(reviewerId, rentNo)
+)
+
+create table heart(
+	id varchar2(100) constraint fk_heart_id references rb_member(id),
+	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo),
+	constraint pk_heart primary key(id,bicycleNo)
 )
 
 --테이블 수정
@@ -205,12 +211,31 @@ alter table donation
 add donor_id varchar2(100) not null
 -------------------------------------------------------------
 
+<<<<<<< HEAD
+
+select count(*)
+   		from heart
+   		where id='java1' and bicycleNo=14
+
+=======
+<<<<<<< HEAD
+select count(*)
+   		from heart
+   		where id='java1' and bicycleNo=14
+
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
    donationBicycleNo number primary key,
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    picture varchar2(300) not null,
    status number default 0,
    address varchar2(300) not null
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 
 
@@ -444,6 +469,10 @@ alter table bicycle add title varchar2(100) not null;
 
 select * from possible_day
 select address from rb_member where id='java';
+
+select r.*, b.bicycleNo, b.memberId, b.title
+      from rent r, bicycle b
+      where r.bicycleNo = b.bicycleNo and b.bicycleNo = 5 and r.state = 0 order by r.rentNo desc
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 
@@ -718,4 +747,14 @@ select * from bicycle
 
 select r.*, b.bicycleNo, b.memberId, b.title
 from rent r, bicycle b
-where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and r.state = 0
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and (r.state = 0 or r.state = 2)
+
+
+select r.*, b.bicycleNo, b.memberId, b.title,m.id
+from rent r, bicycle b,rb_member m
+where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id  and r.state = 0 or r.state = 2 order by r.rentNo desc
+
+select * from rent
+
+commit
+

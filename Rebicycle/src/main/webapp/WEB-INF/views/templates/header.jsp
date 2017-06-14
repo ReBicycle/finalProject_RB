@@ -11,34 +11,6 @@
  </style>
  <!-- dropdown -->
  <style>
-/* ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-} 
-
- li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-}
-
-*/
-
-li {
-    float: left;
-}
-
-li a, .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-
-
 li.dropdown {
     display: inline-block;
 }
@@ -175,7 +147,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 								</c:if>	
 							</a>
 							<div class="dropdown-content">
-								<a href="#"><font color="black">Request</font>
+								<a href="${pageContext.request.contextPath}/mypage/mypage_main.do"><font color="black">Request</font>
 								<span class="badge badge-success">${totalRequest.findGetRequest}</span>
 								</a> 
 								<a href="#"><font color="black">Accept</font>
@@ -188,7 +160,6 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							</li>
 					</c:if>
 					
-<<<<<<< HEAD
 					<%-- <li onclick="notifyMe()">
 						<a class="fa fa-bell-o fa-lg" aria-hidden="true">
 							<c:if test="${alertSize!=0}">
@@ -196,15 +167,6 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							</c:if>
 						</a>
 					</li> --%>
-=======
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
-                    </li>
-                      <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/donation/donation_list.do">donation</a>
-                   </li>             
-                    
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 				</ul>
 			</div>

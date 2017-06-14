@@ -394,14 +394,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and m.id=b.memberId and r.state=2
    </select>
    
-   <delete id="heartOff">
-   		delete from heart
-   		where id=#{id} and bicycleNo=#{bicycleNo} 
-   </delete>
-   <insert id="heartOn">
-   		 insert into heart(id,bicycleNo) 
-   		 values(#{id},#{bicycleNo})
-   </insert>
+   <!-- 빌려주는 사람의 경우 -->
+   <!-- 1. 받은 요청에 대해서  -->
+   <select id="findGetRequest" resultType="int">
+   		select count(*)
+   		from rent r, rb_member m, bicycle b
+		where m.id=#{value} and r.bicycleNo=b.bicycleNo
+		and m.id=b.memberId and r.state=0
+   </select>	
    
    <delete id="heartOff">
    		delete from heart

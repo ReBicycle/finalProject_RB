@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="findBoardReplyNo" resultType="boardReplyVO">
 		select
-		brdno,reno,retitle,rewriter,rememo,to_char(redate,'YYYY.MM.DD HH:mm:ss') as redate 
+		brdno,reno,rewriter,rememo,to_char(redate,'YYYY.MM.DD HH:mm:ss') as redate 
 		from rb_boardreply 
 		where brdno=#{value}
 	</select>
@@ -54,8 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			select
  			rb_boardreply_seq.nextval from dual
  		</selectKey>
- 		insert into rb_boardreply(brdno,reno,retitle,rewriter,rememo,redate)
- 		values(#{brdno},#{reno},#{retitle},#{rewriter},#{rememo},sysdate)
+ 		insert into rb_boardreply(brdno,reno,rewriter,rememo,redate)
+ 		values(#{brdno},#{reno},#{rewriter},#{rememo},sysdate)
  	</insert>
  	<select id="getReplyList" resultType="BoardReplyVO">
 			select

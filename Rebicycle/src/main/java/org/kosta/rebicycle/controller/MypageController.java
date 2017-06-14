@@ -44,11 +44,14 @@ public class MypageController {
 		System.out.println("rentListTest" + rentList);
 		model.addAttribute("rentList", rentList);
 		
-		
+		//거래 성공 내역-빌려준 내역
+		ArrayList<RentVO> rentSuccessAllList = (ArrayList<RentVO>) bicycleService.findRentSuccessById(vo.getId());
+		model.addAttribute("rentSuccessAllList", rentSuccessAllList);
 		
 		//요청 리스트 - 다른 사람이 요청한 내역 - bicycleVO의 memberId가 내 아이디인 rent정보 
-		ArrayList<RentVO> rentRequestList = (ArrayList<RentVO>) bicycleService.findRentRequestById(vo.getId());
-		model.addAttribute("rentRequestList", rentRequestList);
+		ArrayList<RentVO> rentRequestAllList = (ArrayList<RentVO>) bicycleService.findRentRequestById(vo.getId());
+		model.addAttribute("rentRequestAllList", rentRequestAllList);
+		
 		//System.out.println(rentRequestList);
 		return "mypage/mypage_main.tiles";
 	}
@@ -63,28 +66,53 @@ public class MypageController {
 		return rList;
 	}
 	
+	
+	@RequestMapping("getRentAll.do")
+	@ResponseBody
+	public ArrayList<RentVO> getRentAll(String id){
+		ArrayList<RentVO> rentRequestAllList = (ArrayList<RentVO>) bicycleService.findRentRequestById(id);
+		return rentRequestAllList;
+		
+	}	
+		
 	//빌려준 내역 ajax
 	@RequestMapping("getRentSuccess.do")
 	@ResponseBody
 	public ArrayList<RentVO> getRentSuccess(String bicycleNo){
 		//빌려준내역
-		ArrayList<RentVO> rentSuccessList = (ArrayList<RentVO>) bicycleService.findRentSuccessById(Integer.parseInt(bicycleNo));
+		ArrayList<RentVO> rentSuccessList = (ArrayList<RentVO>) bicycleService.findRentSuccessByBicycleNo(Integer.parseInt(bicycleNo));
 		//model.addAttribute("rentSuccessList",rentSuccessList);
 		return rentSuccessList;
+	}
+	
+	@RequestMapping("getRentSuccessAll.do")
+	@ResponseBody
+	public ArrayList<RentVO> getRentSuccessAll(String id){
+		ArrayList<RentVO> rentSuccessAllList = (ArrayList<RentVO>) bicycleService.findRentSuccessById(id);
+		return rentSuccessAllList;
 	}
 	
 	
 	@RequestMapping("rentOk.do")
 	@Transactional
 	public String rentOk(String rentNo){
-		System.out.println("test       rentOk    "+rentNo);
-		//System.out.println("rentOK" + rentNo);
+		//System.out.println("test       rentOk    "+rentNo);
+		
 		RentVO rvo = bicycleService.findRentByRentNo(Integer.parseInt(rentNo));
-		//System.out.println("rentOK rvo" + rvo);
-		bicycleService.updateRentByRentNo(rentNo);
-		//t
-		System.out.println("rentOk  deleteRentedDay");
-		bicycleService.deleteRentedDay(rvo);
+		// select rentNo,bicycleNo, renterId, startDay, endDay
+		bicycleService.updateRentByRentNo(rentNo);//state == 1로 바꾸는거
+		
+		bicycleService.deleteRentedDay(rvo);//자전거 가능일 수정
+		
+		//다른 요청을 바뀐 possible과 비교
+		
+		//rvo의 bicycleVO의 bicycleNO로 들어온 요청리스트를 찾아서
+		//ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService.getRentByBicycleNo(Integer.parseInt(bicycleNo));
+		//rList에 있는 다른 요청들을 bicycleVO의 Possible과 다시 비교
+		//비교 결과, 불가능인 요청의 상태를 2로 바꿈
+		int bicycleNo = rvo.getBicycleVO().getBicycleNo();
+		ArrayList<RentVO> otherList = (ArrayList<RentVO>)bicycleService.getRentByBicycleNo(bicycleNo);
+		bicycleService.checkState(otherList);
 		return "redirect:mypage/mypage_main.do";
 	}
 

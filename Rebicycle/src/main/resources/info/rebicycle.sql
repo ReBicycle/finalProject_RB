@@ -105,7 +105,6 @@ create table map(
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
-   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
    startDay date not null,
    endDay date not null,
    state number default 0
@@ -134,7 +133,10 @@ create table donation(
    donationBicycleNo number primary key,
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
-   picture varchar2(300) not null
+   picture varchar2(300) not null,
+   status number default 0,
+   address varchar2(300) not null,
+   title varchar2(100) not null
 )
 create table rb_review(
    reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
@@ -174,11 +176,31 @@ select bicycle_seq.nextval from dual
 
 
 select * from BICYCLE
+------------------------------------donation 테이블 수정---
+delete from donation
+alter table donation
+add (address varchar2(300) not null)
+alter table donation
+add (title varchar2(100) not null)
+alter table donation
+modify (status number default 0)
+select * from donation
+select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.rnum 
+from (select donationbicycleno,donorId,address,detail,picture,
+ row_number() over(order by donationbicycleno desc) rnum from donation where status=0) D
+ where rnum between 1 and 1
+select count(*)from donation
 
+insert into donation (donationBicycleNo,donorId,detail,picture,address,title)
+values(donation_seq.nextval,'spring','아끼는 건데 너 줄게 ','1_photo1.jpg','판교역주변','안쓰는 자전거 나눔해요~!')
+-------------------------------------------------------------
 
-
-
-
+   donationBicycleNo number primary key,
+   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   detail clob not null,
+   picture varchar2(300) not null,
+   status number default 0,
+   address varchar2(300) not null
 
 
 
@@ -294,10 +316,50 @@ insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDat
 			FROM rb_report
 			) r where rnum between 1 and 5 order by reportNo desc;
 ============================================================================================
-
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
- 		values(1,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate)
-
+values(50,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(51,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(52,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(53,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(54,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(55,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(56,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(57,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(58,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(59,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(60,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(61,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(62,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(63,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(64,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(65,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(66,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(67,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(68,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(69,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(70,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(71,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 --------------------------------- 성공 -----------------------------------------------------
 			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
@@ -318,16 +380,15 @@ b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD
 reportDate,b.contents from rb_report 
 b where reportNo=26
 ---------------------------대댓글 구간-------------------------------------
-
+--대댓글 테이블--
 CREATE TABLE rb_boardreply (
       brdno number default 0,
       reno number primary key,
-      retitle varchar(100) not null,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,
       redate date not null
 )
-
+--brdno(게시판 넘버)를 rb_report를 fk로 뒀을때 댓글이 달려있는 게시물이 삭제 안됨--
 CREATE TABLE rb_boardreply (
       brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo),
       reno number primary key,
@@ -631,6 +692,7 @@ select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
 
+<<<<<<< HEAD
 select * from rent
 
 -------- ajax 라는 사람이 보낸 요청들
@@ -647,3 +709,29 @@ select count(r.state)
 from rent r, rb_member m, bicycle b
 where r.renterId='java' and r.bicycleNo=b.bicycleNo
 and m.id=b.memberId and r.state=1
+=======
+select  r.rentNo, m.id, b.memberId
+from rent r , bicycle b, rb_member m
+where  r.bicycleNo = b.bicycleNo and b.memberId=m.id and r.state>0 and b.memberId = 'java'
+
+select  r.rentNo,r.renterId,r.startDay,r.endDay, m.id, b.memberId
+		from rent r , bicycle b, rb_member m
+		where  r.bicycleNo = b.bicycleNo and b.memberId=m.id 
+		and state >  0 and b.memberId =  'java'
+select * from bicycle where memberId='java'
+
+select * from rent
+select * from bicycle
+
+
+select r.*, b.bicycleNo, b.memberId, b.title
+from rent r, bicycle b
+where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and (r.state = 0 or r.state = 2)
+
+
+select r.*, b.bicycleNo, b.memberId, b.title,m.id
+from rent r, bicycle b,rb_member m
+where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id  and r.state = 0 or r.state = 2 order by r.rentNo desc
+
+commit
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git

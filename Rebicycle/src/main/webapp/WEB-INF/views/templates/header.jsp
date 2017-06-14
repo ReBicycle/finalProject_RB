@@ -188,6 +188,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							</li>
 					</c:if>
 					
+<<<<<<< HEAD
 					<%-- <li onclick="notifyMe()">
 						<a class="fa fa-bell-o fa-lg" aria-hidden="true">
 							<c:if test="${alertSize!=0}">
@@ -195,6 +196,15 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							</c:if>
 						</a>
 					</li> --%>
+=======
+                     <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
+                    </li>
+                      <li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/donation/donation_list.do">donation</a>
+                   </li>             
+                    
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 
 				</ul>
 			</div>

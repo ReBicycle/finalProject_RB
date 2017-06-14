@@ -353,6 +353,7 @@ public class BicycleController {
 	
 	@RequestMapping("bicycle/rentRegister.do")
 	public String rentRegister(String bicycleNo,String[] startDay,String[] endDay,HttpServletRequest request){
+		System.out.println("rent신청");
 		HttpSession session = request.getSession(false);
 		MemberVO mvo = (MemberVO) session.getAttribute("mvo");		
 		BicycleVO bvo=new BicycleVO();

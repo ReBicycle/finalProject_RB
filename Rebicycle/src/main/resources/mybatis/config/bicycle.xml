@@ -167,7 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="findBicycleById" resultType="bicycleVO">
       select distinct bicycleNo, title
       from bicycle
-      where memberId=#{value}
+      where memberId=#{value} order by bicycleNo
    </select>
 
    
@@ -224,20 +224,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="getRentByBicycleNo" resultMap="rentMap">
       select rentNo,renterId,bicycleNo,startDay, endDay, state
       from rent 
-      where bicycleNo=#{value} and state = 0
+      where bicycleNo=#{value} and (state = 0 or state = 2)
    </select>
       
-    <select id="findRentSuccessById" resultMap = "rentMap">
+    <select id="findRentSuccessByBicycleNo" resultMap = "rentMap">
       select rentNo,renterId,bicycleNo,startDay, endDay, state
       from rent 
-      where bicycleNo=#{value}  and state <![CDATA[ > ]]>  0
+      where bicycleNo=#{value}  and (state =1 or state =3 )
    </select>
    
+	<select id = "findRentSuccessById" resultMap = "rentMap">
+		select  r.rentNo,r.renterId,r.startDay,r.endDay, m.id, b.memberId
+		from rent r , bicycle b, rb_member m
+		where  r.bicycleNo = b.bicycleNo and b.memberId=m.id 
+		and state =1 and b.memberId =  #{value} order by r.rentNo desc
+	</select>
    
    <select id="findRentRequestById" resultMap = "rentMap">
       select r.*, b.bicycleNo, b.memberId, b.title
       from rent r, bicycle b
-      where r.bicycleNo = b.bicycleNo and b.memberId = #{value} and r.state = 0
+      where r.bicycleNo = b.bicycleNo and b.memberId = #{value}  and (r.state = 0 or r.state = 2) order by r.rentNo desc
    </select>
    
    
@@ -352,6 +358,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       where renterId=#{memberVO.id} and bicycleNo=#{bicycleVO.bicycleNo} and state=1
    </select>
    
+<<<<<<< HEAD
    <!-- 빌리고자 하는 사람 보낸 요청들 -->
    <!-- 1. 수락 받을 경우(1) / 2. 거절/불가능할 경우 /(2) -->
    <!-- 내가 빌리는 , 빌려주는 사람이면,, -->
@@ -381,4 +388,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where m.id=#{value} and r.bicycleNo=b.bicycleNo
 		and m.id=b.memberId and r.state=0
    </select>		
+=======
+   <update id = "changeState">
+   	  update rent
+   	  set state = 2
+   	  where rentNo = #{value}
+   </update>
+   
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 </mapper>

@@ -235,4 +235,17 @@ public class BicycleDAOImpl implements BicycleDAO {
 		System.out.println(list);
 		return list;
 	}
+	@Override
+	public int findAcceptRequest(String id) {
+		return template.selectOne("bicycle.findAcceptRequest",id);
+	}
+	@Override
+	public int findRefuseRequest(String id) {
+		return template.selectOne("bicycle.findRefuseRequest",id);
+	}
+	@Override
+	public int findGetRequest(String id) {
+		return template.selectOne("bicycle.findGetRequest",id);
+	}
+	
 }

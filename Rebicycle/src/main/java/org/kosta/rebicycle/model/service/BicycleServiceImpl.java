@@ -377,4 +377,17 @@ public class BicycleServiceImpl implements BicycleService {
 		else
 			return false;
 	}
+	@Override
+	public int findAcceptRequest(String id) {
+		return bicycleDAOImpl.findAcceptRequest(id);
+	}
+	@Override
+	public int findRefuseRequest(String id) {
+		return bicycleDAOImpl.findRefuseRequest(id);
+	}
+	@Override
+	public int findGetRequest(String id) {
+		return bicycleDAOImpl.findGetRequest(id);
+	}
+
 }

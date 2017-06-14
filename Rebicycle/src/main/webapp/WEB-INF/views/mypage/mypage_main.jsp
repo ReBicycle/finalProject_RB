@@ -238,7 +238,7 @@ tr:hover{background-color:#f5f5f5}
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
                                     class="icon-bar"></span><span class="icon-bar"></span>
-                            </button>
+                            </button> 
                             <a class="navbar-brand" href="./ORqmj" style="margin-right:-8px; margin-top:-5px;">
                                 <img alt="Brand" src="https://lut.im/7trApsDX08/GeilMRp1FIm4f2p7.png" width="30px" height="30px">
                             </a>
@@ -250,7 +250,7 @@ tr:hover{background-color:#f5f5f5}
 
                                 <li><span class="badge badge-important">2</span><a href="#"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
-                            </ul>
+                            </ul> 
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
@@ -259,6 +259,7 @@ tr:hover{background-color:#f5f5f5}
                                     <span class="user-name">
                                         ${requestScope.findVO.name}
                                     </span>
+                            
                                     <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li>

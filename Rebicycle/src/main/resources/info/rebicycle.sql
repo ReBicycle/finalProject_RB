@@ -630,3 +630,20 @@ where r.bicycleNo = p.bicycleNo and r.bicycleNo = 12
 select DATEDIFF(day ,to_date('2017/1/1 9:00:10') ,to_date('2017/1/1 9:00:10')+1)
 from dual
 ==> 1 일 (1일)
+
+select * from rent
+
+-------- ajax 라는 사람이 보낸 요청들
+select r.* from rent r, rb_member m, bicycle b
+where r.renterId='json' and r.bicycleNo=b.bicycleNo
+and m.id=b.memberId and (r.state=1 or r.state=2)
+
+-------- java 받은 요청들
+select r.* from rent r, rb_member m, bicycle b
+where m.id='json' and r.bicycleNo=b.bicycleNo
+and m.id=b.memberId and r.state=0
+
+select count(r.state)
+from rent r, rb_member m, bicycle b
+where r.renterId='java' and r.bicycleNo=b.bicycleNo
+and m.id=b.memberId and r.state=1

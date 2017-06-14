@@ -5,88 +5,201 @@
  #designA :hover { 
  background-color: #153a6d;
  }
- 	
+ .button{
+ background-color: #ffffff;
+ }
  </style>
-    	<nav class="navbar navbar-inverse">
-    	<!-- Navigation -->
-    	
-    	
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/home.do">Rebicycle</a>
-            </div>
+ <!-- dropdown -->
+ <style>
+/* ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+} 
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <c:choose>
-					<c:when test="${sessionScope.mvo==null}">
-                    <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/member/login.do">login</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/member/register_member_form.do">join</a>
-                   </li>
-                 	
-                    
-                   
-                    </c:when>
-                  
-                    <c:otherwise>
+ li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+*/
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+	font: black;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+background-color: #ffffff
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.badge-error {
+  background-color: #b94a48;
+}
+.badge-warning {
+  background-color: #f89406;
+}
+.badge-success {
+  background-color: #468847;
+}
+.badge-info {
+  background-color: #3a87ad;
+}
+</style>
+
+<!-- notification --> 
+<script type="text/javascript">
+  
+function notifyMe() {
+  if (Notification.permission === "granted") {
+    var notification = new Notification("222!");
+  }
+
+}
+/* Notification.requestPermission().then(function(result) {
+  console.log(result);
+}); */
+function spawnNotification(theBody,theIcon,theTitle) {
+	theBody="a";
+	theTitle="s";
+  var options = {
+      body: theBody,
+      icon: theIcon
+  }
+  var n = new Notification(theTitle,options);
+}
+
+</script>
+<nav class="navbar navbar-inverse">
+	<!-- Navigation -->
+	<nav id="mainNav"
+		class="navbar navbar-default navbar-fixed-top navbar-custom">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> Menu <i
+						class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/home.do">Rebicycle</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="hidden"><a href="#page-top"></a></li>
+					<c:choose>
+						<c:when test="${sessionScope.mvo==null}">
+							<li class="page-scroll"><a
+								href="${pageContext.request.contextPath}/member/login.do">login</a>
+							</li>
+							<li class="page-scroll"><a
+								href="${pageContext.request.contextPath}/member/register_member_form.do">join</a>
+							</li>
+						</c:when>
+
+						<c:otherwise>
+							<li class="dropdown"><a id="designA" class="dropdown-toggle"
+								data-toggle="dropdown" href="#">${sessionScope.mvo.name} 님
+									로그인 <span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu" style="background-color: #546da2;">
+									<li><a
+										href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a></li>
+								</ul></li>
+							<li class="page-scroll"><a
+								href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
+							</li>
+
+							<li class="page-scroll"><a
+								href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+
+					<li class="page-scroll"><a
+						href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
+					</li>
+					<li class="page-scroll"><a
+						href="${pageContext.request.contextPath}/donation/donation_register_form.do">donation</a>
+					</li>
+
+					<c:if test="${sessionScope.mvo!=null}">
 						<li class="dropdown">
-					        <a id = "designA" class="dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.mvo.name} 님 로그인
-					        <span class="caret"></span></a>
-					        <ul class="dropdown-menu" style = "background-color:#546da2;">
-					          <li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
-					          <li><a href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a></li>
-					          <li> <a href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a></li>
-					        </ul>
-					      </li>	
-					<%--  <li class="page-scroll">
-                      	<a>${sessionScope.mvo.name} 님 로그인</a> 
-                     </li>
-                      <li class="page-scroll">
-						<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
-                      </li>
-                      
-                        <li class="page-scroll">
-						<a href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a>
-                        </li> --%>
-                        <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
-	                    </li>
-	      <%-- 
-	                    <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a>
-                   		</li>
-                      --%>
-                     	<li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
-                    	</li>
-                     	
-					</c:otherwise>
-					</c:choose> 
+							<a href="javascript:void(0)" class="dropbtn">
+								<i class="fa fa-bell-o fa-lg" aria-hidden="true"></i>
+								<c:if test="${totalRequest.total!=0}">
+									<span class="badge badge-error">${totalRequest.total}</span>
+								</c:if>	
+							</a>
+							<div class="dropdown-content">
+								<a href="#"><font color="black">Request</font>
+								<span class="badge badge-success">${totalRequest.findGetRequest}</span>
+								</a> 
+								<a href="#"><font color="black">Accept</font>
+								<span class="badge badge-info">${totalRequest.findAcceptRequest}</span>
+								</a> 
+								<a href="#"><font color="black">Refuse</font>
+								<span class="badge badge-warning">${totalRequest.findRefuseRequest}</span>
+								</a>
+							</div>
+							</li>
+					</c:if>
 					
-                     <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
-                    </li>
-                      <li class="page-scroll">
-                        <a href="${pageContext.request.contextPath}/donation/donation_register_form.do">donation</a>
-                   </li>             
-                    
+					<%-- <li onclick="notifyMe()">
+						<a class="fa fa-bell-o fa-lg" aria-hidden="true">
+							<c:if test="${alertSize!=0}">
+								${alertSize}
+							</c:if>
+						</a>
+					</li> --%>
 
-                    
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+</nav>

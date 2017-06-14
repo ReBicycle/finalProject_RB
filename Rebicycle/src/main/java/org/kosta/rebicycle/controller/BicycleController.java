@@ -21,6 +21,7 @@ import org.kosta.rebicycle.model.vo.RentVO;
 import org.kosta.rebicycle.model.vo.ReviewVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,9 +49,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -310,15 +311,19 @@ public class BicycleController {
 					endDayOfDay=endDayOfDay+1;
 				}		
 				
-			if(endMonthOfDay<10){
+/*			if(endMonthOfDay<10){
 				endMonthOfDay=Integer.parseInt("0"+endMonthOfDay);
-			}
+			}*/
 
-			if(endMonthOfDay<10){
-				ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-0"+endMonthOfDay+"-"+endDayOfDay;
-			}else{
-				ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-"+endDayOfDay;
-			}
+			if(endDayOfDay<10&&endMonthOfDay<10){
+	               ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-0"+endMonthOfDay+"-0"+endDayOfDay;
+	         }else if(endMonthOfDay<10){
+	            ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-0"+endMonthOfDay+"-"+endDayOfDay;
+	         }else if(endDayOfDay<10){
+	            ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-0"+endDayOfDay;
+	         }else{
+	            ResultOfEndDay=cList.get(i).getEndDay().subSequence(0, 4)+"-"+endMonthOfDay+"-"+endDayOfDay;
+	         }
 			
 			//String ResultOfEndDay=endYearOfDay+"-"+endMonthOfDay+"-"+endDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
@@ -376,6 +381,7 @@ public class BicycleController {
 		System.out.println("dddd");
 		return "mypage/mypage_main.tiles";
 	}*/
+
 }
 
 

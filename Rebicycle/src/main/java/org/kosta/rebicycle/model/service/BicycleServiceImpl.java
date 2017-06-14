@@ -399,7 +399,6 @@ public class BicycleServiceImpl implements BicycleService {
 			return false;
 	}
 	@Override
-<<<<<<< HEAD
 	public int findAcceptRequest(String id) {
 		return bicycleDAOImpl.findAcceptRequest(id);
 	}
@@ -411,8 +410,6 @@ public class BicycleServiceImpl implements BicycleService {
 	public int findGetRequest(String id) {
 		return bicycleDAOImpl.findGetRequest(id);
 	}
-
-=======
 	public List<RentVO> findRentSuccessById(String id) {
 		return bicycleDAOImpl.findRentSuccessById(id);
 	}
@@ -429,5 +426,4 @@ public class BicycleServiceImpl implements BicycleService {
 		
 		//bicycleDAOImpl.getPossibleCVO(calendarVO);
 	}
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 }

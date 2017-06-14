@@ -96,13 +96,13 @@ public interface BicycleDAO {
 	List<BicycleVO> sortedListByAddressAndDayAndHigh(String address, String startDay, String endDay);
 
 	List<RentVO> findRentSuccessById(int bicycleNo);
-	//빌리고자 하는 사람이 보낸 요청들 상태 - 수락,거절
+	
 	List<RentVO> findRentSuccessByBicycleNo(int bicycleNo);
 
 	List<RentVO> findRentSuccessById(String id);
 
 	void changeState(int rentNo);
-	
+	//빌리고자 하는 사람이 보낸 요청들 상태 - 수락,거절
 	int findAcceptRequest(String id);
 	int findRefuseRequest(String id);
 	//빌려주는 사람이 받은 요청

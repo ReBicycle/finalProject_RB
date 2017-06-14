@@ -222,13 +222,18 @@ tr:hover{background-color:#f5f5f5}
     
     //<li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
     
-   function toModify(bicycleNo){
+	function toModify(bicycleNo){
  		//alert(memberId + "	TESTTEST");
  		//alert("TEST		" + bicycleNo);
  	 	var m = "${requestScope.findVO.id}";
  	 	var b = bicycleNo;
- 	 location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId="+m+"&bicycleNo="+b;
-  }
+		location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId="+m+"&bicycleNo="+b;
+	}
+	
+	function toDelete(bicycleNo){
+ 	 	var b = bicycleNo;
+		location.href = "${pageContext.request.contextPath}/bicycle/bicycleDeleteForm.do?bicycleNo="+b;
+	}
    
 </script>
 
@@ -371,6 +376,7 @@ tr:hover{background-color:#f5f5f5}
 				                                   	<td>
 				                                   	
 				                                   		<input type = "button" id = "modifyBtn" class ="btn btn-success" value = "수정" onclick = "toModify(${bList.bicycleNo})"> 
+				                                   		<input type="button" id ="deleteBtn" class="btn btn-warning" value="삭제" onclick="toDelete(${bList.bicycleNo})">
 				                                   	<%-- <a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">수정</a>
 				                                   	 --%>
 				                                   	</td>
@@ -494,14 +500,13 @@ tr:hover{background-color:#f5f5f5}
 				                                   			 --%>
 				                                   		</td>
 				                                   	</c:if>
-				                                   	
-				                                   	<c:if test = "${rList.state ==2}">
+													<c:if test = "${rList.state ==2}">
 				                                   		<td>
-				                                   			<input type = "button" class =" btn btn-warning" value = "수락 거절됨">
+				                                   			<input type = "button" class =" btn btn-warning" value = "대여 불가">
 				                                   			
 				                                   		</td>
 				                                   	</c:if>
-				                                   	
+
 				                                   	<c:if test="${rList.state == 3}">
 				                                   		<td>
 				                                   			<input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료">
@@ -524,4 +529,3 @@ tr:hover{background-color:#f5f5f5}
         
     	</div>
 </div>	
-</div>

@@ -167,7 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="findBicycleById" resultType="bicycleVO">
       select distinct bicycleNo, title
       from bicycle
-      where memberId=#{value}
+      where memberId=#{value} order by bicycleNo
    </select>
 
    

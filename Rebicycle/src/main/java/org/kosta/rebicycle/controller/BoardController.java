@@ -68,8 +68,8 @@ public class BoardController {
 	public ModelAndView updateReport(ReportVO rvo, HttpServletRequest request) {
 		boardService.updateReport(rvo);
 		System.out.println("업데이트"+rvo);
-		request.setAttribute("rvo", rvo);
-		return new ModelAndView("redirect:findReportNo.do?reportNo="+rvo.getReportNo());
+		/*request.setAttribute("rvo", rvo);*/
+		return new ModelAndView("redirect:boardDetail.do?reportNo="+rvo.getReportNo());
 	}
 	@RequestMapping("deleteReport.do")
 	public ModelAndView deleteReport(int reportNo) {		

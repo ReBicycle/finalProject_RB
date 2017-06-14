@@ -276,7 +276,7 @@ section.awSlider>img {
         	    if (newcontent == null || newcontent == "") {
         	    	return;
         	    } else {
-        	    	alert(newcontent);
+        	    	//alert(newcontent);
         	       location.href="${pageContext.request.contextPath}/updateReview.do?rentNo="+no+"&star="+star+"&content="+newcontent;
         	    }
         	}       		
@@ -595,13 +595,15 @@ section.awSlider>img {
          	</a>
       	</div>
    	</section>
-   
+   <div id="heart"></div>
    	<div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
 		    <label for="name">TITLE</label>
 		    <h3 align="center">- TITLE -</h3>
 		    <p class="help-block text-danger">${requestScope.findBvo.title}</p>
 		</div>
+		
+		
   	</div>
    
    <!-- 달력 -->
@@ -610,7 +612,7 @@ section.awSlider>img {
          	<div id="calendar"></div>
       	</div>
       	<div class="col-sm-6"></div>
-      	<div id="heart""></div>
+      	
       	<!-- 예약 부분 -->
       	<div class="col-sm-6">
          	<h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>

@@ -71,7 +71,9 @@
                      	<li class="page-scroll">
                         <a href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
                     	</li>
-                     	
+                     	<li class="page-scroll">
+                        <a href="${pageContext.request.contextPath}/error.do">에러테스트</a>
+                    	</li>
 					</c:otherwise>
 					</c:choose> 
 					

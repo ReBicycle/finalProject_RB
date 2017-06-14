@@ -32,25 +32,18 @@
   
   <error-page>
   	<exception-type>java.lang.Throwable</exception-type>
-  	<location>/error/error.tiles</location>
+  	<location>/error/error.do</location>
   </error-page>
   
   <error-page>
   	<error-code>404</error-code>
-  	<location>/error/error.tiles</location>
+  	<location>/error/error.do</location>
   </error-page>
-  
-  
-  
+
   <error-page>
   	<error-code>500</error-code>
-  	<location>/error/error.tiles</location>
+  	<location>/error/error.do</location>
   </error-page>
   
-  
-  
-  
-  
-  
-  
+
 </web-app>

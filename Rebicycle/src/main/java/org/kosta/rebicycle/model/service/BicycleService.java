@@ -67,6 +67,9 @@ public interface BicycleService {
 
 	List<RentVO> findRentSuccessById(String id);
 
+
+	List<RentVO> findRentRequestByBicycleNo(int bicycleNo);
+
 	void checkState(ArrayList<RentVO> otherList);
 	
 	//빌리고자 하는 사람이 보낸 요청들 상태 - 수락,거절
@@ -84,5 +87,4 @@ public interface BicycleService {
 	void heartOff(HeartVO hvo);
 
 	void heartOn(HeartVO hvo);
-
 }

@@ -179,4 +179,16 @@ public class MemberController {
 		session.setAttribute("mvo", newVO);
 		return "redirect:../home.do";
 	}
+	
+	@RequestMapping("member/passwordCheck.do")
+	public String passworwdCheck(String memberId, int bicycleNo, String password, Model model){
+		MemberVO mvo = memberService.findMemberById(memberId);
+		if(mvo.getPassword().equals(password)){
+			model.addAttribute("memberId", memberId);
+			model.addAttribute("bicycleNo", bicycleNo);
+			return "bicycle/deleteBicycle.do"; 			
+		} else {
+			return "member/member_password_check_fail.tiles";
+		}
+	}
 }

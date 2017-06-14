@@ -460,6 +460,10 @@ alter table bicycle add title varchar2(100) not null;
 
 select * from possible_day
 select address from rb_member where id='java';
+
+select r.*, b.bicycleNo, b.memberId, b.title
+      from rent r, bicycle b
+      where r.bicycleNo = b.bicycleNo and b.bicycleNo = 5 and r.state = 0 order by r.rentNo desc
 -----------------------태형-----------------------------------------
 
 select b.bicycleNo,b.memberId,b.address,b.purchasePrice,b.rentPrice,b.detail,b.categoryNo,m.phone,m.address 

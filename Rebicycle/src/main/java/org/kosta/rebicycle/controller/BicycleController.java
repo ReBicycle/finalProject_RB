@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.rebicycle.model.service.BicycleService;
+import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -31,6 +32,8 @@ public class BicycleController {
 	  
 	@Resource
 	private BicycleService  bicycleServiceImpl;
+	@Resource
+	private MemberService memberServiceImpl;
 	
 	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/registerBicycle.do")
@@ -131,6 +134,26 @@ public class BicycleController {
 		}
 		return calList;
 	}
+	
+	@RequestMapping("bicycle/bicycleDeleteForm.do")
+	public String bicycleDeleteForm(String memberId, int bicycleNo, Model model){
+		ArrayList<RentVO> rvoList = (ArrayList<RentVO>) bicycleServiceImpl.findRentRequestByBicycleNo(bicycleNo);
+		if(rvoList.isEmpty()){
+			model.addAttribute("memberId", memberId);
+			model.addAttribute("bicycleNo", bicycleNo);
+			return "bicycle/bicycle_delete_ok.tiles";			
+		} else {
+			return "bicycle/bicycle_delete_fail.tiles";
+		}
+	}
+	
+	@RequestMapping("bicycle/deleteBicycle.do")
+	public String deleteBicycle(String memberId, int bicycleNo, String password){
+		//삭제
+		
+		return "";
+	}
+	
 	
 	//소영 bicycle_search_list_test로
 		@RequestMapping("listViewTest.do")

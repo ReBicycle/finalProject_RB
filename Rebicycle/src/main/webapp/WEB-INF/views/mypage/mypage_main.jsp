@@ -72,10 +72,16 @@ tr:hover{background-color:#f5f5f5}
                               "<td>" + data[j].rentNo + "</td>"+
                               "<td>" + data[j].memberVO.id + "</td>"+
                               "<td>" + data[j].calendarVO.startDay + "</td>"+
-                              "<td>" + data[j].calendarVO.endDay + "</td>"+
-                             
-                              "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-success' ></td>"+
-                              "</tr>";
+                              "<td>" + data[j].calendarVO.endDay + "</td>";
+                              
+                              
+                     if(data[j].state == 2){
+                        table += "<td><input type = 'button' id = 'noBtn'  value = '수락불가' class='btn btn-warning' ></td>"+
+                                  			"</tr>";
+                    }else{
+                        table += "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-success' ></td>"+
+                        			"</tr>";
+                    }
                                          
                     
                     
@@ -133,94 +139,44 @@ tr:hover{background-color:#f5f5f5}
                   for(var j = 0; j<data.length;j++){
                      var dayMap = newMap();
                      
-                      table += "<tr>"+
-                               "<td>" + data[j].rentNo + "</td>"+
-                               "<td>" + data[j].memberVO.id + "</td>"+
+                      table += 
+                    	  	   "<tr>"+
+                               "<td>" + data[j].rentNo +"</td>"+
+                               "<td>" + data[j].memberVO.id + "</td>"+                                                                                        
                                "<td>" + data[j].calendarVO.startDay + "</td>"+
-                               "<td>" + data[j].calendarVO.endDay + "</td>"+
-                               "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-success' ></td>"+
-                               "</tr>";
-                                          
-                     dayMap.put("startDay", data[j].calendarVO.startDay.substring(0,10));
-                     dayMap.put("endDay", data[j].calendarVO.endDay.substring(0,10));
-                     startendDay[j] = dayMap;
-                     //alert("ajax Rent"+data[j].calendarVO.startDay);
-                     $.ajax({
-                           type:"get",
-                           data:"bicycleNo="+bicycleNo,
-                           dataType:"json",
-                           url:"${pageContext.request.contextPath}/dayCheck.do",
-                      
-                           success:function(data){                  
+                               "<td>" + data[j].calendarVO.endDay + "</td>";
+                      if(data[j].state == 2){
+                    	  table += "<td><input type = 'button' id = 'noBtn'  value = '수락불가' class='btn btn-warning' ></td>"+
+                          			"</tr>";
+                      }else{
+                    	  table += "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-success' ></td>"+
+                			"</tr>";
+                      }
                                
-                              var flag=0;
-                                 for(var i=0; i<data.length; i++){
-                                    
-                                   if(((data[i].startDay<=startendDay[j-1].get("startDay"))&&(startendDay[j-1].get("endDay")<=data[i].endDay))){        
-                                      flag=1;
-                                    }                                     
-                                 }//for-data.length    
-                               
-                                 checkFailList[j-1]=flag;
-                                 if(checkFailList[j-1] == 0){
-                                   // alert("dd불가능!!!!!!");
-                                    //alert("eee"+$("#rentInfo tr:eq(+"+i+")").children().eq(4).html());
-                                    $("#rentInfo tr:eq(+"+(j-1)+")").children().eq(4).html("<input type = 'button' id = 'okBtn'  value = '수락불가' class='btn btn-warning'>");
-                                    $("#rentInfo tr:eq(+"+(j-1)+")").children().eq(4).click(function(event){
-                                       event.stopPropagation();
-                                       event.preventDefault();
-                                    });
-                                   return;
-                                 }else{
-                                    //alert("가능!!!!!");
-                                 }
-                           } //success                  
-                        });//ajax
+                  
                   }
+                  
                   $("#rentInfo").html(table); 
                } //success
             });//ajax
+            
          });
       }
       
       
       $("#rentInfo").on("click","#okBtn" ,function(){
+    	  
          if(confirm("수락하시겠습니까?")){
             var rentNo = $("#okBtn").parent().parent().children().eq(0).text();
+           
             location.href = "${pageContext.request.contextPath}/rentOk.do?rentNo="+rentNo;
+         	//수락한 자전거를 제외한 나머지 내가 등록한 자전거의 요청을 가능일과 비교
+         	
          }
       });
       
-    <%--   $("#registerTbody").on("click","#modifyBtn" ,function(){
-    	 if(confirm("수정하시겠습니까?")){
-             var bicycleNo = $("#modifyBtn").parent().parent().children().eq(0).text();
-             alert(bicycleNo);
-             alert("${requestScope.findVO.id}");
-             location.href = "${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo="+bicycleNo;
-             
-              <li><a href="${pageContext.request.contextPath}/bicycle/bicycleModifyForm.do?memberId=${requestScope.findVO.id}&bicycleNo=${bList.bicycleNo}">${bList.bicycleNo}. ${bList.title}</a></li>
-          }
-     }); --%>
-      
-     /* $("#writeBtn").click(function(){
- 	 if(confirm("후기/별점을 작성하시겠습니까??")){
-          var rentNo = $("#writeBtn").parent().parent().children().eq(0).text();//
-          var bicycleNo = $("#bicycleNoHidden").val();
-          alert(bicycleNo);
-          alert(rentNo);
-          location.href = "{pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+ bicycleNo +"&rentNo="+rentNo;
-          
-<!-- <li><a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> ${rList.bicycleVO.title}</a></li> -->
-       }
-  }); */
-     
-  	
-  
-    
-     
-     
-       function newMap() {
-              var map = {};
+      function newMap(){
+         var map = {};
               map.value = {};
               map.getKey = function(id) {
                 return "k_"+id;
@@ -466,7 +422,7 @@ tr:hover{background-color:#f5f5f5}
 			                    </span>
 			                    <br><br>
 			                      <div align = "left" id ="rentView">
-			                      
+			                      <span id = "bicycleNoView"></span>
 			                         <table>
 					                     <thead>
 					                        <tr>
@@ -481,7 +437,13 @@ tr:hover{background-color:#f5f5f5}
 					                     			<td>${rentRequestAllList.memberVO.id }</td>
 					                     			<td>${rentRequestAllList.calendarVO.startDay }</td>
 					                     			<td>${rentRequestAllList.calendarVO.endDay }</td>
+					                     			
+					                     			<c:if test="${rentRequestAllList.state != 2}">
 					                     			<td><input type = "button" id = "okBtn"  value = "수락" class="btn btn-success" ></td>
+					                     			</c:if>
+					                     			<c:if test = "${rentRequestAllList.state == 2}">
+					                     			<td><input type = "button" id = "noBtn"  value = "수락불가" class="btn btn-warning" ></td>
+					                     			</c:if>
 					                     		</tr>
 					                     	</c:forEach>
 					                     </tbody>
@@ -530,6 +492,13 @@ tr:hover{background-color:#f5f5f5}
 				                                   			<input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
 				                                   			<%-- <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
 				                                   			 --%>
+				                                   		</td>
+				                                   	</c:if>
+				                                   	
+				                                   	<c:if test = "${rList.state ==2}">
+				                                   		<td>
+				                                   			<input type = "button" class =" btn btn-warning" value = "수락 거절됨">
+				                                   			
 				                                   		</td>
 				                                   	</c:if>
 				                                   	

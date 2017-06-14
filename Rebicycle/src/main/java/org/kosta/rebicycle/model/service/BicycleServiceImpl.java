@@ -303,11 +303,8 @@ public class BicycleServiceImpl implements BicycleService {
 		
 		HashMap<String, CalendarVO> calendarMap = new HashMap<>();
 		calendarMap.put("possible", bicycleDAOImpl.getPossibleCVO(rvo.getCalendarVO()));
-		System.out.println("possible dog     "+calendarMap.get("possible"));
+		
 		calendarMap.put("rent", rvo.getCalendarVO());
-		System.out.println("rent dog     "+calendarMap.get("rent"));
-		//System.out.println("possible" + bicycleDAOImpl4.getPossibleCVO(rvo.getCalendarVO()));
-		System.out.println("deleteRentedDay-cM" + calendarMap);
 		
 		
 		//System.out.println("deleteRentedDay" + compare);
@@ -380,5 +377,18 @@ public class BicycleServiceImpl implements BicycleService {
 	@Override
 	public List<RentVO> findRentSuccessById(String id) {
 		return bicycleDAOImpl.findRentSuccessById(id);
+	}
+	@Override
+	public void checkState(ArrayList<RentVO> otherList) {
+		//rList에 있는 다른 요청들(state == 0인)을 bicycleVO의 Possible과 다시 비교
+		//비교 결과, 불가능인 요청의 상태를 2로 바꿈
+		for(int i = 0;i<otherList.size();i++){
+			CalendarVO checkCVO = bicycleDAOImpl.getPossibleCVO(otherList.get(i).getCalendarVO());
+			if(checkCVO ==null){
+				bicycleDAOImpl.changeState(otherList.get(i).getRentNo());
+			}
+		}
+		
+		//bicycleDAOImpl.getPossibleCVO(calendarVO);
 	}
 }

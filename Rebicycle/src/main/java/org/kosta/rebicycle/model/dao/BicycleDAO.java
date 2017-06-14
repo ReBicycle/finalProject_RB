@@ -98,6 +98,8 @@ public interface BicycleDAO {
 	List<RentVO> findRentSuccessByBicycleNo(int bicycleNo);
 
 	List<RentVO> findRentSuccessById(String id);
+
+	void changeState(int rentNo);
 	
 	
 

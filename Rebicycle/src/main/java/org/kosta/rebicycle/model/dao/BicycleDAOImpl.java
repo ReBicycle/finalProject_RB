@@ -240,4 +240,9 @@ public class BicycleDAOImpl implements BicycleDAO {
 	public List<RentVO> findRentSuccessById(String id) {
 		return template.selectList("bicycle.findRentSuccessById",id);
 	}
+	@Override
+	public void changeState(int rentNo) {
+		template.update("bicycle.changeState", rentNo);
+		
+	}
 }

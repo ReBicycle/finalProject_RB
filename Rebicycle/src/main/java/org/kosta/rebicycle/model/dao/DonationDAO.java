@@ -11,4 +11,8 @@ public interface DonationDAO {
 
 	List<DonationVO> getDonationList(PagingBean pb);
 
+	DonationVO findDonationDetailByNo(String donationbicycleno);
+
+	void registerDonation(DonationVO dvo);
+
 }

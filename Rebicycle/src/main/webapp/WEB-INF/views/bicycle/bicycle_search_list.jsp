@@ -16,14 +16,14 @@
 
 .overlay {
   position: absolute;
-  bottom: 100%;
+  bottom: 0%;
   left: 0;
   right: 0;
   background-color: #006666;
   overflow: hidden;
   width: 100%;
-  height:0;
-  transition: .10s ease;
+  height:0%;
+  transition: .05s ease;
   opacity: 0.9;
 }
 
@@ -31,6 +31,7 @@
   bottom: 0;
   height: 30%;
 }
+
 
 .text {
   white-space: nowrap; 

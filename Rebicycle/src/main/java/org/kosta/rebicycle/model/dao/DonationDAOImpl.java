@@ -23,5 +23,15 @@ public class DonationDAOImpl implements DonationDAO {
 	
 		return template.selectList("donation.getDonationList",pb);
 	}
+	@Override
+	public DonationVO findDonationDetailByNo(String donationbicycleno) {
+		
+		return template.selectOne("donation.findDonationDetailByNo",Integer.parseInt(donationbicycleno));
+	}
+	@Override
+	public void registerDonation(DonationVO dvo) {
+		System.out.println(dvo);
+		template.insert("donation.registerDonation",dvo);
+	}
 
 }

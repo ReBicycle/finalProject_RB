@@ -12,6 +12,7 @@ import org.kosta.rebicycle.model.vo.DonationVO;
 import org.kosta.rebicycle.model.vo.ListVO;
 import org.kosta.rebicycle.model.vo.PagingBean;
 import org.kosta.rebicycle.model.vo.PhotoVO;
+import org.kosta.rebicycle.model.vo.StoryVO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 @Service
@@ -35,6 +36,11 @@ private DonationDAO donationDAO;
 	public void registerDonation(DonationVO dvo) {
 		dvo.setDonationBicycleNo(donationDAO.getDonationBicycleNo());
 		donationDAO.registerDonation(dvo);
+	}
+	@Override
+	public void donationStoryRegister(StoryVO svo) {
+		donationDAO.donationStoryRegister(svo);
+		
 	}
 	
 	

@@ -1,31 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
  <style>
-/* .mySlides {display:none} */
 .demo {cursor:pointer}
 </style> 
-<!-- <script>
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  x[slideIndex-1].style.display = "block";  
-}
-</script> -->
 <script>
 var slideIndex = 1;
 showDivs(slideIndex);
@@ -56,7 +37,7 @@ function showDivs(n) {
 </script> 
 <style>
 .btn {  
-    border: thick; /* Remove borders */ 
+    border: none; /* Remove borders */ 
     color: #31708f; /* Add a text color */
     padding: 12px 20px 12px; /* Add some padding */
     cursor: pointer; /* Add a pointer cursor on mouse-over */
@@ -67,6 +48,34 @@ function showDivs(n) {
 .success:hover {background-color: #d9cff7;
 			color: white;
 }
+
+<%-- 모달css--%>
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+    height: 75%;
+}
+
 </style>
 
 <div class="container">       
@@ -80,7 +89,7 @@ function showDivs(n) {
             	<div class="panel-body" > 
        					<div align="center">
        					<h3><strong>기부자 정보</strong></h3>
-                            <img class="thumbnail img-responsive" src="${pageContext.request.contextPath}/resources/upload/member/${donationVO.donorId}.jpg" width="300px" height="300px">
+                            <img class="thumbnail img-responsive" src="${pageContext.request.contextPath}/resources/upload/member/${donationVO.donorPhoto}" width="300px" height="300px">
                         </div> 
                         <hr> 
                         <h3><strong>아이디</strong></h3>
@@ -93,14 +102,59 @@ function showDivs(n) {
                         <p style="font-size: 15px"></p>
        		   </div>    
            </div> 
-        <button class="btn success" style="width:100%"><h4><strong>사연신청</strong></h4></button>
+        <button class="btn success" style="width:100%" onclick="document.getElementById('id01').style.display='block'" style="width:auto;"><h4><strong>사연신청</strong></h4></button>
+        <%--modal --%>
+        <div id="id01" class="modal" align="center" >
+  <form method="post" class="modal-content animate mainbox"  action="${pageContext.request.contextPath}/donation/donation_story_register.do?donationBicycleNo=${requestScope.donationVO.donationBicycleNo}" >
+    <div class=" panel panel-default" style="height: 100%;">
+    <%--내용물영역 --%>
+            <div class="panel-heading">
+                <div class="panel-title"><h4><strong>사연작성하기</strong></h4></div>
+            </div>
+            <div class="panel-body">
+            	    <!-- Title -->
+				    <div id="div_id_title" class="form-group required"> 
+				        <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
+				        <div class="controls col-md-8 "> 
+				            <input class="input-md textinput textInput form-control" id="id_title" name="title" style="margin-bottom: 30px" type="text" required="required"/>
+				        </div>
+				    </div>
+				    
+				    <!-- 아이디 -->
+				    <div id="div_id_memberId" class="form-group required"> 
+				        <label for="id_memberId" class="control-label col-md-3  requiredField">아이디</label> 
+				        <div class="controls col-md-8 "> 
+				            <input class="input-md textinput textInput form-control" id="id_memberId" name="id" style="margin-bottom: 30px" type="text" value="${sessionScope.mvo.id }" readonly="readonly">
+				        </div>
+				    </div>
+         	
+				    <!-- Detail -->
+				    <div id="div_id_detail" class="form-group required">
+				         <label for="id_detail" class="control-label col-md-3  requiredField">상세내용</label>
+				         <div class="controls col-md-8 ">
+				        	<textarea class="input-md textinput textInput form-control" name="detail" placeholder="추가정보를 입력하세요" required="required"  style="margin-bottom: 20px;height:120px;"></textarea>
+				        </div>
+				    </div>
+             </div>
+           
+   <%--버튼영역 --%>
+            <div class="form-group" style="margin-bottom: 30px;"> 
+				        <div class="aab controls col-md-12"></div>
+				        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
+				         <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" style="font-size: 15px;"/>
+			</div> 
+       
+    </div>
+  </form>
+</div>
+        <%--modal end --%>
 </div> 
       
  
     <div id="signupbox" style="margin-top:45px;" class="mainbox col-sm-9">
         <div class="panel panel-default"> 
             <div class="panel-heading">
-                <div class="panel-title" style="color:#31708f"><h5>${donationVO.title }</h5></div>
+                <div class="panel-title" style="color:#31708f"><h5><strong>${donationVO.title }</strong></h5></div>
             </div> 
             	<div class="panel-body" >
             	
@@ -129,21 +183,26 @@ function showDivs(n) {
          
         <div class="panel panel-default">
             <div class="panel-heading"> 
-                <div class="panel-title" style="color:#31708f;"><h5><strong>사연신청</strong></h5></div>
-            	</div> 
-            	<div class="panel-body" > 
-				  <br><br><br><br><br><br>
+                <div class="panel-title" style="color:#31708f;"><h5><strong>사연있어요</strong></h5></div>
+            </div>  
+            	<div class="panel-body" align="left" style="margin-left: 50px;"> 
+				  <br><br><br>
+				  <table>
+				  <c:forEach items="${requestScope.donationVO.storyList }" var="list">
 				  
-                  </div>    
+				  <tr>
+					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:150px;height:150px;" class="w3-circle">
+				  		${list.title }
+				  </tr>
+				  </c:forEach> 
+				  
+				  </table>
+				  <br><br><br>
+                 </div>    
          
         </div>
         
      </div>
      
-     
-     
-   
-     
-     
-      
+
   </div>

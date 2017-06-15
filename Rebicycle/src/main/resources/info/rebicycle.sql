@@ -135,6 +135,14 @@ create table donation(
    title varchar2(100) not null
 )
 
+create table story(
+donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
+story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
+title varchar2(100) not null,
+detail clob not null,
+constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
+)
+
 create table heart(
 	id varchar2(100) constraint fk_heart_id references rb_member(id),
 	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo),
@@ -207,6 +215,19 @@ alter table donation
 drop column donorId
 alter table donation
 add donor_id varchar2(100) not null
+
+-----story 등록
+insert into story (donation_bicycle_no,story_id,title,detail)
+values(27,'ttt342','저 공유가 필요합니다','요즘 쉬느라 자전거를 타고싶네요 저 주세요')
+--story 검색
+select s.story_id as id, s.title, s.detail, r.picture as photo
+from (select story_id, title, detail from story where donation_bicycle_no=27) s,rb_member r
+where s.story_id=r.id
+delete from STORY
+alter table story
+add constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
+ 
+
 -------------------------------------------------------------
 select * from rb_report;
 

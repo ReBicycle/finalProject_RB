@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
       <style>
 .content {
   position: relative;
@@ -19,12 +20,12 @@
   bottom: 0%;
   left: 0;
   right: 0;
-  background-color: #006666;
+  background-color: #153a6d; 
   overflow: hidden;
   width: 100%;
   height:0%;
-  transition: .05s ease;
-  opacity: 0.9;
+  transition: ;
+  opacity: 0.8;
 }
 
 .content:hover .overlay{
@@ -40,10 +41,11 @@
   position: absolute;
   overflow: hidden;
   top: 65%;
-  left: 30%;
+  left: 33%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
+
 select { 
 width: 120px; /* 원하는 너비설정 */ 
 padding: .3em .3em; /* 여백으로 높이 설정 */ 
@@ -82,19 +84,20 @@ appearance: none;
   
   </script>
   <%--지도 --%>
-   <div class="col-sm-6" id="map" style="height:700px;"></div>
+   <div class="col-sm-6" id="map" style="height:650px;margin-top:35px;"></div>
    <%--지도 --%>
    <%-- 검색 리스트 --%>
-   <div class="col-sm-6" style="height:700px;background-color:white;overflow:auto;overflow-x:hidden;" >
+   <div class="col-sm-6" style="height:650px;background-color:white;overflow:auto;overflow-x:hidden;margin-top:35px;" >
 
- <!-- <section id="portfolio">  -->
-<div class="w3-container w3-teal" style="margin-top: 50px; " >
-  <h1>Bicycle List</h1>
-</div>
-
-<div style="float:right;">
+<div class="panel panel-default">
+           <!--  <div class="panel-heading" style="background-color:#153a6d;"> 
+                <div class="panel-title" ></div>
+            </div>   -->
+            	<div class="panel-body" style="min-height: 650px;"> 
+       				
+                        <div style="float:right;">
 정렬&nbsp;<select id="bikeTypeSelect" >
-	<option value="">B-Type</option>
+	<option value="">종류</option>
 	<option value="1">MTB</option>
 	<option value="2">로드</option>
 	<option value="3">픽시</option>
@@ -104,13 +107,14 @@ appearance: none;
 	<option value="7">기타</option>
 </select>
 <select id="rentalPrice">
-<option value="">Price</option>
+<option value="">가격</option>
 	<option value="low">낮은가격순</option>
 	<option value="high">높은가격순</option>
 </select>
 </div>
-<%-- 자전거리스트 css --%>
- <div class="w3-row" id="listSpace" style="margin-top: 40px;">
+       		  	
+       		  	<%-- 자전거리스트 css --%>
+ <div class="w3-row" id="listSpace" style="margin-top: 50px;">
 	<c:forEach items="${requestScope.bicycleList}" var="list" >
     	<div class="content w3-half" >
     	<a href="${pageContext.request.contextPath }/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${list.bicycleNo}" onclick="return loginCheck()">
@@ -127,6 +131,17 @@ appearance: none;
      
      </c:forEach>
    </div>
+       		  	
+       		  	</div>    
+       		  	
+</div> 
+
+
+
+
+
+
+
  </div><%--리스트 출력 전체 div --%>
    <%-- 검색 리스트 --%>
    <!-- <div class="col-sm-12" style="height:200px;background-color:#F0FFFF;"></div> -->
@@ -287,7 +302,8 @@ function loginCheck(){
  					$("#listSpace").html("");
  					var sortedList=JSON.stringify(data);
  					var contents=""; 
- 					//alert(JSON.stringify(data)); 			
+ 					//alert(JSON.stringify(data)); 		
+ 					
  			 		 for(var i=0;i<data.length;i++){
  					
  					contents+='<div class="content w3-half">';
@@ -300,8 +316,12 @@ function loginCheck(){
  					contents+='<br>&#8361;'+data[i].rentPrice+'&nbsp;-&nbsp;'+'No'+data[i].bicycleNo+'&nbsp;-&nbsp;Type'+data[i].categoryVO.categoryNo;
  					contents+='</span></div></a></div>';
  					}  
- 				 	
- 					$("#listSpace").html(contents);
+					if(contents!=""){
+						$("#listSpace").html(contents);
+					} 				
+					else{
+						$("#listSpace").html('<div align="center" style="margin-top:200px;font-size:20px">결과가 없습니다.</div>');
+					}
  				
  					$("#rentalPrice").val(""); 
  					}

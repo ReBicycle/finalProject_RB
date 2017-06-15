@@ -133,6 +133,11 @@ public class BicycleServiceImpl implements BicycleService {
 		return bicycleDAOImpl.findAddressById(id);
 	}
 	
+	@Override
+	public void deleteBicycle(int bicycleNo){
+		bicycleDAOImpl.deleteBicycle(bicycleNo);
+	}
+	
 	///////////////impl2//////////////////////////
 	@Override
 	public List<BicycleVO> getBicycleListByAddressAndDay(String address,String startDay,String endDay){		
@@ -452,5 +457,14 @@ public class BicycleServiceImpl implements BicycleService {
 				bicycleDAOImpl.changeState(otherList.get(i).getRentNo());
 			}
 		}
+	}
+	@Override
+	public List<BicycleVO> getHeartList(String id) {
+		List<HeartVO> heartlist = bicycleDAOImpl.getHeartList(id);
+		List<BicycleVO> bheartList = new ArrayList<BicycleVO>();
+		for(int i=0; i<heartlist.size(); i++){
+			bheartList.add(findBicycleDetailByNo(heartlist.get(i).getBicycleNo()));
+		}
+		return bheartList;
 	}
 }

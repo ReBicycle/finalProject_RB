@@ -27,15 +27,15 @@ opacity: 1;
   width: 100%;
   opacity: 0;
   transition: .5s ease;
-  background-color: #008CBA;
+  background-color: #f5f5f5;
 }
 
 .content:hover .overlay {
-  opacity: 0.9;
+  opacity: 0.9; 
 }
 
 .text {
-  color: white;
+  color: black;
   font-size: 20px;
   position: absolute;
   top: 50%;
@@ -59,15 +59,15 @@ input[type=search] {
 /* input[type=search]:focus {
     width: 50%;
 } */
-.btn { 
+.btn {  
     border: none; /* Remove borders */
     color: white; /* Add a text color */
     padding: 12px 20px 12px; /* Add some padding */
     cursor: pointer; /* Add a pointer cursor on mouse-over */
 } 
 
-.success {background-color: #4CAF50;} /* Green */
-.success:hover {background-color: #46a049;}
+.success {background-color: #153a6d;} 
+.success:hover {background-color: #d9edf7;}
 </style>
 <div class="container" style="margin-top: 50px;margin-bottom: 50px"> 
 <div style="margin-top:20px;margin-botton:200px;">
@@ -80,9 +80,9 @@ input[type=search] {
    
     <c:forEach items="${requestScope.listVO.donationList}" var="list">
     
-    <div class="content w3-third w3-padding"> 
-    <a href="${pageContext.request.contextPath}/donation/donation_detail.do?donationbicycleno=${list.donationBicycleNo}">
-     <img src="${pageContext.request.contextPath}/resources/upload/donation/${list.photoVO.photo1}" style="width:100%;">
+    <div class="content w3-half w3-padding" > 
+    <a href="${pageContext.request.contextPath}/donation/donation_detail.do?donationBicycleNo=${list.donationBicycleNo}">
+     <img src="${pageContext.request.contextPath}/resources/upload/donation/${list.photoVO.photo1}" style="width:70%;"> 
     	 	<div class="overlay">
      		<span class="text" align="left"  width="70%"  >
       										${list.title }<br>

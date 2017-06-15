@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-.mySlides {display:none}
+ <style>
 .demo {cursor:pointer}
-</style>
+</style> 
 <script>
 var slideIndex = 1;
 showDivs(slideIndex);
@@ -34,19 +34,64 @@ function showDivs(n) {
   x[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " w3-opacity-off";
 }
-</script>
+</script> 
 <style>
-.btn { 
-    border: none; /* Remove borders */
+.btn {  
+    border: none; /* Remove borders */ 
     color: #31708f; /* Add a text color */
     padding: 12px 20px 12px; /* Add some padding */
     cursor: pointer; /* Add a pointer cursor on mouse-over */
     font-weight: bold;
     font-size: 25px;
 } 
-.success {background-color: #d9edf7;} /* Green */
+.success {background-color: #f5f5f5;} 
 .success:hover {background-color: #d9cff7;
 			color: white;
+}
+.story:hover{
+  opacity: 0.9;
+  background-color:#f5f5f5;
+}
+
+<%-- 모달css--%>
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+    height:80%; 
+}
+.close {
+    position: absolute;
+    right: 20%;  
+    top: 10%;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
 }
 </style>
 
@@ -54,16 +99,17 @@ function showDivs(n) {
    
 <div id="signupbox" style="margin-top:45px;" class="mainbox col-sm-3">
 
-		<div class="panel panel-info">
-            <div class="panel-heading"> 
-                <div class="panel-title"><h4>기부자 정보</h4></div>
-            </div> 
+		<div class="panel panel-default">
+         <!--    <div class="panel-heading"> 
+                <div class="panel-title"><h5>기부자 정보</h5></div>
+            </div>  -->
             	<div class="panel-body" > 
        					<div align="center">
-                            <img class="thumbnail img-responsive" src="${pageContext.request.contextPath}/resources/upload/member/${donationVO.donorId}.jpg" width="300px" height="300px">
-                        </div>
+       					<h3><strong>기부자 정보</strong></h3>
+                            <img class="thumbnail img-responsive" src="${pageContext.request.contextPath}/resources/upload/member/${donationVO.donorPhoto}" width="300px" height="300px">
+                        </div> 
                         <hr> 
-                        <h3><strong>기부자</strong></h3>
+                        <h3><strong>아이디</strong></h3>
                         <p style="font-size: 15px">${requestScope.donationVO.donorId}</p>
                         <hr>
                         <h3><strong>주소</strong></h3>
@@ -73,44 +119,77 @@ function showDivs(n) {
                         <p style="font-size: 15px"></p>
        		   </div>    
            </div> 
-        <button class="btn success" style="width:100%"><h4>사연신청</h4></button>
+        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="document.getElementById('id01').style.display='block'"><h4><strong>사연신청</strong></h4></button>
+        <%--modal --%>
+        <div id="id01" class="modal" align="center" >
+  <form method="post" class="modal-content animate mainbox"  action="${pageContext.request.contextPath}/donation/donation_story_register.do?donationBicycleNo=${requestScope.donationVO.donationBicycleNo}" >
+    <div class=" panel panel-default" style="height: 100%;">
+    <%--내용물영역 --%>
+            <div class="panel-heading">
+                <div class="panel-title"><h4><strong>사연작성하기</strong></h4></div>
+            </div>
+            <div class="panel-body">
+            	    <!-- Title -->
+				    <div id="div_id_title" class="form-group required"> 
+				        <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
+				        <div class="controls col-md-8 "> 
+				            <input class="input-md textinput textInput form-control" id="id_title" name="title" style="margin-bottom: 30px" type="text" required="required"/>
+				        </div>
+				    </div>
+				    
+				    <!-- 아이디 -->
+				    <div id="div_id_memberId" class="form-group required"> 
+				        <label for="id_memberId" class="control-label col-md-3  requiredField">아이디</label> 
+				        <div class="controls col-md-8 "> 
+				            <input class="input-md textinput textInput form-control" id="id_memberId" name="id" style="margin-bottom: 30px" type="text" value="${sessionScope.mvo.id }" readonly="readonly">
+				        </div>
+				    </div>
+         	
+				    <!-- Detail -->
+				    <div id="div_id_detail" class="form-group required">
+				         <label for="id_detail" class="control-label col-md-3  requiredField">상세내용</label>
+				         <div class="controls col-md-8 ">
+				        	<textarea class="input-md textinput textInput form-control" name="detail" placeholder="추가정보를 입력하세요" required="required"  style="margin-bottom: 20px;height:120px;"></textarea>
+				        </div>
+				    </div>
+             </div>
+           
+   <%--버튼영역 --%>
+            <div class="form-group" style="margin-bottom: 30px;"> 
+				        <div class="aab controls col-md-12"></div>
+				        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
+				         <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" style="font-size: 15px;"/>
+			</div> 
+       
+    </div>
+  </form>
+</div>
+        <%--modal end --%>
 </div> 
       
  
     <div id="signupbox" style="margin-top:45px;" class="mainbox col-sm-9">
-        <div class="panel panel-info"> 
+        <div class="panel panel-default"> 
             <div class="panel-heading">
-                <div class="panel-title"><h4>${donationVO.title }</h4></div>
+                <div class="panel-title" style="color:#31708f"><h5><strong>${donationVO.title }</strong></h5></div>
             </div> 
             	<div class="panel-body" >
             	
-            	
-            	
-<div class="w3-content" style="width:70%;hight:70%;">
-  <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:100%;display: table;">
-  <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:100%">
-  <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo3}" style="width:100%">
+            	<div class="w3-content w3-display-container" align="center">
+  <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:50%">
+  <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:50%;display: none;">
+  <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo3}" style="width:50%;display: none;">
 
-  <div class="w3-row-padding w3-section">
-    <div class="w3-col s4">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:100%" onclick="currentDiv(1)">
-    </div>
-    <div class="w3-col s4">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:100%" onclick="currentDiv(2)">
-    </div>
-    <div class="w3-col s4">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo3}" style="width:100%" onclick="currentDiv(3)">
-    </div>
+  <button class="w3-button  w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+  <button class="w3-button  w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+    <div class="w3-row-padding w3-section">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:10%" onclick="currentDiv(1)">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:10%" onclick="currentDiv(2)">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo3}" style="width:10%" onclick="currentDiv(3)">
   </div>
 </div>
-            	
-            	
-      
 
-
-            	
-				
-				    <br><br><hr style="color:cyan;">
+		<hr style="color:cyan;">
 		                              	
 		                              <h4><label for="id_date" class="control-label col-md-9  requiredField" align="left">기부자의 말</label></h4><br>
 		                              <label for="id_date" class="control-label col-md-9  requiredField" align="left">${donationVO.detail}</label><br><br>
@@ -118,23 +197,58 @@ function showDivs(n) {
          
         </div>
         
-         
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="panel-title"><h4>사연신청</h4></div>
-            </div> 
-            	<div class="panel-body" > 
+         <%-- 사연있어요 영역 --%>
+        <div class="panel panel-default">
+            <div class="panel-heading"> 
+                <div class="panel-title" style="color:#31708f;"><h5><strong>사연있어요</strong></h5></div>
+            </div>  
+            	<div class="panel-body w3-row" align="left" style="margin-left: 50px;max-height: 500px;"> 
+			
+				  <c:forEach items="${requestScope.donationVO.storyList }" var="list">
+				<div class="story w3-half w3-padding" onclick="document.getElementById('${list.id}').style.display='block'"> 
+				
+					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" align="left"  width="40%" style="width:100px;height:100px;" class="w3-circle">
+				  		<span style="text-align:center;color:#31708f;"  width="60%" >${list.title}</span>
+				</div>
+				<%--모달내용 --%>
+				  <div id="${list.id}" class="modal" align="center" >
+				   <span onclick="document.getElementById('${list.id}').style.display='none'" class="close" title="Close Modal" >×</span>
+						<div class="modal-content animate mainbox" >
+							<div class=" panel panel-default" style="height: 100%;" >
+							 		<div class="panel-heading">
+                							<div class="panel-title"><strong>${list.id }님의 사연</strong></div>
+            						</div>
+            						<div class="panel-body">
+            					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:100px;height:100px;margin-top:10px;margin-bottom:20px;" class="w3-circle">
+            						  <!-- Title -->
+				    					<div id="div_id_title" class="form-group required" style="margin-bottom: 50px"> 
+				       						 <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
+				        					<div class="controls col-md-8 "> 
+				            				<span>${list.title}</span>
+				       						 </div>
+				    					</div>
+				    					 <!-- Detail -->
+				   						 <div id="div_id_detail" class="form-group required" >
+				         						<label for="id_detail" class="control-label col-md-3  requiredField">상세내용</label>
+				         						<div class="controls col-md-8 "> 
+				        						<textarea class="input-md textinput textInput form-control" name="detail"  required="required"  style="height:170px;" readonly="readonly">${list.detail}</textarea>
+				        						
+				        						</div>
+				    					</div>
+				    					
+				    					
+            						</div>
+						
+							</div>
+						</div>
+				  </div><%--모달 끝 --%>
+				  </c:forEach> 
 				  
-                  </div>    
+                 </div>    
          
         </div>
         
      </div>
      
-     
-     
-   
-     
-     
-      
+
   </div>

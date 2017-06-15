@@ -1,19 +1,25 @@
 drop table rb_review;
+drop table rb_boardreply;
 drop table rb_report;
 drop table donation;
 drop table rent;
 drop table possible_day;
 drop table bicycle_photo;
 drop table map;
+drop table heart;
 drop table bicycle;
 drop table category;
 drop table rb_member;
 
+
 drop sequence category_seq;
 drop sequence bicycle_seq;
 drop sequence rent_seq;
+drop sequence report_boardreply_seq;
 drop sequence report_seq;
 drop sequence donation_seq;
+
+
  
 delete from rb_review;
 delete from rb_report;
@@ -27,12 +33,16 @@ delete from category;
 delete from rb_member;
 delete from RB_BOARDREPLY
 
+
+
 create sequence category_seq nocache;
 create sequence bicycle_seq nocache;
 create sequence rent_seq nocache;
 create sequence report_seq nocache;
 create sequence donation_seq nocache;
+create sequence report_boardreply_seq nocache;
 
+select * from rent;
 select * from heart;
 select * from rb_member;
 select * from category order by categoryNo;
@@ -43,6 +53,7 @@ select * from possible_day;
 select * from rent;
 select * from donation;
 select * from rb_report;
+select * from rb_boardreply;
 select * from rb_review;
 
 --테이블 생성
@@ -55,80 +66,65 @@ create table rb_member(
    email varchar2(100) not null,
    account varchar2(100),
    picture varchar2(300) not null
-)
+  
+);
+
+
 
 create table category(
    categoryNo number primary key,
    categoryName varchar2(100) not null
-)
+);
 
 create table bicycle(
    bicycleNo number primary key,
    title varchar2(100) not null,
-   memberId varchar2(100) not null constraint fk_borrower_id references rb_member(id),
+   memberId varchar2(100) not null constraint fk_rb_borrower_id references rb_member(id),
    address varchar2(300) not null,
-   title varchar2(100) not null,
    purchasePrice number not null,
    rentPrice number not null,
    detail clob not null,
-   categoryNo number not null constraint fk_category_no references category(categoryNo)
-)
+   categoryNo number not null constraint fk_rb_category_no references category(categoryNo)
+);
 
 create table bicycle_photo(
-   bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo),
+   bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo) on delete cascade,
    photo1 varchar2(100) not null,
    photo2 varchar2(100) null,
    photo3 varchar2(100) null
-)
+);
 
 create table possible_day(
-   bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
+   bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo) on delete cascade,
    startDay date not null,
    endDay date not null,
    constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
-)
+);
 
 create table map(
-   bicycleNo number primary key constraint fk_bicycle_no_map references bicycle(bicycleNo),
+   bicycleNo number primary key constraint fk_bicycle_no_map references bicycle(bicycleNo) on delete cascade,
    latitude varchar2(100) not null,
    longitude varchar2(100) not null
-)
-
---create table rent(
---   rentNo number primary key,
---  renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
---   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
---   startDay date not null,
---   endDay date not null,
---   state number not null
---)
+);
 
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
+   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo) on delete cascade,
    startDay date not null,
    endDay date not null,
    state number default 0
-)
-
-
+);
 
 create table rb_review(
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-	rentNo number constraint fk_rentNooo references rent(rentNo),
+	rentNo number constraint fk_rentNooo references rent(rentNo) on delete cascade,
 	star number default 0,
 	reviewDate date not null,
 	content clob not null,
 	constraint pk_rb_review primary key(reviewerId, rentNo)
-)
+);
 
-create table rb_report(
-	reportNo number primary key,
-	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
-	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
-	contents clob not null,
-	reportDate date not null
-)
 
 create table donation(
    donation_bicycle_no number primary key,
@@ -140,26 +136,43 @@ create table donation(
    status number default 0,
    address varchar2(300) not null,
    title varchar2(100) not null
-)
-create table rb_review(
-   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-   rentNo number constraint fk_rentNooo references rent(rentNo),
-   star number default 0,
-   reviewDate date not null,
-   cotent clob not null,
-   constraint pk_rb_review primary key(reviewerId, rentNo)
+);
+
+create table story(
+donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
+story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
+title varchar2(100) not null,
+detail clob not null,
+constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
 )
 
 create table heart(
 	id varchar2(100) constraint fk_heart_id references rb_member(id),
-	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo),
+	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo) on delete cascade,
 	constraint pk_heart primary key(id,bicycleNo)
-)
+);
 
---테이블 수정
-alter table rb_member modify address varchar2(300);
-alter table bicycle modify address varchar2(300);
-alter table bicycle add title varchar2(100) not null;
+create table rb_report(
+	reportNo number primary key,
+	reportTitle varchar2(100) not null,
+	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
+	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
+	contents clob not null,
+	reportDate date not null
+);
+--alter table rb_report
+--add reportTitle varchar2(100) not null
+
+
+CREATE TABLE rb_boardreply (
+      brdno number default 0,
+      reno number primary key,
+      retitle varchar(100) not null,
+      rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
+      rememo varchar(500) not null,
+      redate date not null
+);
+
 
 --카테고리 데이터 삽입
 insert into category(categoryNo, categoryName) values(1, 'MTB');
@@ -173,7 +186,7 @@ insert into category(categoryNo, categoryName) values(7, '기타');
 -- 위로는 절대 건드리지 말것!!
 
 -----------------rent table 컬럼 수정-----------------------
-alter table rent modify(state number default 0);
+
 
 delete from rent
 select * from rent
@@ -186,13 +199,12 @@ select bicycle_seq.nextval from dual
 
 select * from BICYCLE
 ------------------------------------donation 테이블 수정---
+
 delete from donation
-alter table donation
-add (address varchar2(300) not null)
-alter table donation
-add (title varchar2(100) not null)
-alter table donation
-modify (status number default 0)
+
+delete from rb_member where id = 'ter1943'
+
+
 select * from donation
 select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.rnum 
 from (select donationbicycleno,donorId,address,detail,picture,
@@ -209,128 +221,24 @@ alter table donation
 drop column donorId
 alter table donation
 add donor_id varchar2(100) not null
+
+-----story 등록
+insert into story (donation_bicycle_no,story_id,title,detail)
+values(27,'ttt342','저 공유가 필요합니다','요즘 쉬느라 자전거를 타고싶네요 저 주세요')
+--story 검색
+select s.story_id as id, s.title, s.detail, r.picture as photo
+from (select story_id, title, detail from story where donation_bicycle_no=27) s,rb_member r
+where s.story_id=r.id
+delete from STORY
+alter table story
+add constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
+ 
+
 -------------------------------------------------------------
-
-<<<<<<< HEAD
-
-select count(*)
-   		from heart
-   		where id='java1' and bicycleNo=14
-
-=======
-<<<<<<< HEAD
-select count(*)
-   		from heart
-   		where id='java1' and bicycleNo=14
-
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-   donationBicycleNo number primary key,
-   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
-   detail clob not null,
-   picture varchar2(300) not null,
-   status number default 0,
-   address varchar2(300) not null
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-
-
-
-==================================================
-
-
-------------종봉---------------------------------------------
-insert into CATEGORY values(category_seq.nextval,'미니벨로')
-update category set CATEGORYNAME='MTB' where CATEGORYNO=1;
-
-select * from category
-
-select * from bicycle
-
-select * from bicycle
-
-
-select * from category
-
-select * from BICYCLE
-
---자전거 등록
-insert into category values(category_seq.nextval,'MTB')
-insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거',1)
-insert into bicycle values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
-<<<<<<< HEAD
-
-=======
---자전거 삭제
-delete from bicycle where bicycleNo=1 cascade;
-
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
-insert into bicycle values(1,'java','판교',100000,5000,'애끼는자전거',1)
-
-insert into bicycle(bicycleNo, memberId ,address ,purchasePrice ,rentPrice , detail ,categoryNo) values(bicycle_seq.nextval,'java','판교',100000,5000,'애끼는자전거2',1)
---대여가능일 등록
-insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
-insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(1,to_date('2017-05-28','yyyy/mm/dd'),to_date('2017-05-30','yyyy/mm/dd'));
-insert into POSSIBLE_DAY(bicycleNo,startDay, endDay) values(2,to_date('2017-05-25','yyyy/mm/dd'),to_date('2017-05-26','yyyy/mm/dd'));
---사진등록
-insert into bicycle_photo values(1,'bicycle/photo1.jpg','bicycle/photo2.jpg','bicycle/photo3.jpg')
---위도경도 등록
-insert into 
---대여가능일 조회
-select bicycleNo,to_char(startDay) from POSSIBLE_DAY;
-delete from possible_day where bicycleNo=1;
-select * from possible_day where to_date('2017-05-28')>=startDay and to_date('2017-05-29')<=endDay ;
---주소와 날짜로 자전거 검색
-select * from bicycle where address='판교';
-select * from bicycle b, possible_day p where address like '%'||'판교'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay;
-select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay from bicycle b, possible_day p where address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-28')>=p.startDay and to_date('2017-05-29')<=p.endDay;
---사진까지 조회
-select b.bicycleNo, b.memberId ,b.address ,b.purchasePrice ,b.rentPrice , b.detail ,b.categoryNo,p.startDay,p.endDay ,bp.photo1,bp.photo2,bp.photo3
-from bicycle b, possible_day p, bicycle_photo bp 
-where b.address like '%'||'판'||'%' and b.bicycleNo=p.bicycleNo and to_date('2017-05-26')>=p.startDay and to_date('2017-05-26')<=p.endDay and b.bicycleNo=bp.bicycleNo;
-select * from category
-select * from POSSIBLE_DAY;
-select * from bicycle
-select * from bicycle_photo
-insert into bicycle_photo values(2,'bicycle/64_Chrysanthemum.jpg','bicycle/64_Desert.jpg','bicycle/64_Hydrangeas.jpg')
-delete from bicycle_photo where bicycleNo=2;
-
---map에 좌표 등록
-insert into map values(1,'33.450701','126.570667');
-insert into map values(2,'33.450701','126.570667');
-alter table bicycle modify address varchar2(300)
---좌표까지 조회
-select * from rb_member
-
-------------종봉----------------------------------------------
-
------------------------------석희---------------------------------
 select * from rb_report;
-alter table rb_report
-add reportTitle varchar2(100) not null
-
-create table rb_report(
-	reportNo number primary key,
-	reportTitle varchar2(100) not null,
-	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
-	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
-	contents clob not null,
-	reportDate date not null
-)
-
-CREATE TABLE rb_boardreply (
-      brdno number default 0,
-      reno number primary key,
-      retitle varchar(100) not null,
-      rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
-      rememo varchar(500) not null,
-      redate date not null
-)
 
 
+select * from rent
 
 select * from rb_report
 ================================= 등록 테스트 =================================
@@ -645,6 +553,7 @@ drop sequence category_seq;
 drop sequence bicycle_seq;
 drop sequence rent_seq;
 drop sequence report_seq;
+
 drop sequence donation_seq;
 
 alter table rb_member modify address varchar2(300);

@@ -87,4 +87,8 @@ public interface BicycleService {
 	void heartOff(HeartVO hvo);
 
 	void heartOn(HeartVO hvo);
+
+	List<BicycleVO> getHeartList(String id);
+
+	void deleteBicycle(int bicycleNo);
 }

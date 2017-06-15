@@ -133,6 +133,11 @@ public class BicycleServiceImpl implements BicycleService {
 		return bicycleDAOImpl.findAddressById(id);
 	}
 	
+	@Override
+	public void deleteBicycle(int bicycleNo){
+		bicycleDAOImpl.deleteBicycle(bicycleNo);
+	}
+	
 	///////////////impl2//////////////////////////
 	@Override
 	public List<BicycleVO> getBicycleListByAddressAndDay(String address,String startDay,String endDay){		

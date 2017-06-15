@@ -148,10 +148,11 @@ public class BicycleController {
 	}
 	
 	@RequestMapping("bicycle/deleteBicycle.do")
-	public String deleteBicycle(String memberId, int bicycleNo, String password){
-		//삭제
-		
-		return "";
+	public String deleteBicycle(int bicycleNo){
+		System.out.println("deleteBicycle 실행");
+		System.out.println(bicycleNo);
+		bicycleServiceImpl.deleteBicycle(bicycleNo);
+		return "mypage/mypage_main.tiles";
 	}
 	
 	

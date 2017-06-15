@@ -71,6 +71,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="findAddressById" resultType="String">
       select address from rb_member where id=#{value}
    </select>
+   
+   <delete id="deleteBicycle" parameterType="int">
+   		delete from bicycle where bicycleNo=#{value} 
+   </delete>
    <!-- 종봉 자전거 검색 -->
    <!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
       resultType="bicycleVO">

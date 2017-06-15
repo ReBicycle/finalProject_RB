@@ -494,7 +494,7 @@ tr:hover{background-color:#f5f5f5}
                                                          --%>
                                                      </td>
                                                   </c:if>
-                                       <c:if test = "${rList.state ==2}">
+                                       			<c:if test = "${rList.state == 2}">
                                                      <td>
                                                         <input type = "button" class =" btn btn-warning" value = "대여 불가">
                                                         

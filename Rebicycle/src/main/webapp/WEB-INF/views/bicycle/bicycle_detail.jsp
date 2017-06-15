@@ -547,11 +547,13 @@ section.awSlider>img {
    .plus-img,.check-img,.cal-img {
    width: 30px;
    height: 30px;
-   margin: 0 auto 10px;
+   margin: 10px auto 10px;
+   
    display: block;
    -moz-border-radius: 50%;
    -webkit-border-radius: 50%;
    border-radius: 50%;
+  
    }
 </style>
 

@@ -61,4 +61,17 @@ public class BoardDAOImpl implements BoardDAO{
 		System.out.println("return List       "+sqlSessionTemplate.selectList("board.findBoardReplyNo",brv) );
 		return sqlSessionTemplate.selectList("board.findBoardReplyNo",brv);
 	}
+	@Override
+	public void boardCommentUpdate(BoardReplyVO brv){
+		System.out.println("댓글수정 DAO 테스트"+brv);
+		sqlSessionTemplate.update("board.boardCommentUpdate",brv);
+	}
+	@Override
+	public BoardReplyVO boardUpdateCommentView(int reno){
+		return (BoardReplyVO)sqlSessionTemplate.selectOne("board.boardUpdateReportView",reno);
+	}
+	@Override
+	public void boardCommentDelete(int reno){
+		sqlSessionTemplate.delete("board.boardCommentDelete",reno);
+	}
 }

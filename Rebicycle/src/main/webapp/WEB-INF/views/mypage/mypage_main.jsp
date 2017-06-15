@@ -174,6 +174,31 @@ tr:hover{background-color:#f5f5f5}
          }
       });
       
+      $("#hListForm").on("click","#deleteHeart",function(){
+    	  var no = $("#heartRentNo").val();
+			$.ajax({
+				type:"get",
+				url:"${pageContext.request.contextPath }/deleteHeartMypage.do",
+				data:"id=${sessionScope.mvo.id}&bicycleNo="+no,
+				success:function(data){
+						alert("내가 찜한 자전거에서 삭제!");
+						$("#hListForm").html();
+						var info="";
+						for(var i=0; i<data.length;i++){
+							info+="<div class='col-md-4'  style='padding-bottom: 5%;'>";
+							info+="<a href='${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo="+data[i].bicycleNo+"}'>";
+							info+="<img src='${pageContext.request.contextPath}/resources/upload/bicycle/"+data[i].photoVO.photo1+"'  style='width: 100%'>";
+							info+="</a><div style='padding-top: 5p'>";
+							info+=data[i].title;
+							info+="<font size='1px' color='#999999'  id='deleteHeart'>&nbsp;&nbsp;X&nbsp;&nbsp;</font>";
+							info+="<input type='hidden' id='heartRentNo' value='"+data[i].bicycleNo+"'/></div></div>";
+						}//for
+						$("#hListForm").html(info);
+						return;
+				}//success
+			});//ajax
+		});//click
+      
       function newMap(){
          var map = {};
               map.value = {};
@@ -490,8 +515,8 @@ tr:hover{background-color:#f5f5f5}
                                                   <c:if test = "${rList.state ==1}">
                                                      <td>
                                                         <input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
-                                                        <%-- <a href ="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${rList.bicycleVO.bicycleNo}&rentNo=${rList.rentNo}"> 후기별점작성</a>
-                                                         --%>
+                                                        <%-- <input type = "button" id = "writeBtn" class =" btn btn-success" value = "신고하기" onclick = "toReport(${rList.bicycleVO.bicycleNo})"> --%>
+                                                         
                                                      </td>
                                                   </c:if>
                                        			<c:if test = "${rList.state == 2}">
@@ -503,7 +528,7 @@ tr:hover{background-color:#f5f5f5}
 
                                                   <c:if test="${rList.state == 3}">
                                                      <td>
-                                                        <input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료">
+                                                        <input type = "button" id = "" class =" btn btn-success" value = "후기작성 완료"  onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
                                                         
                                                      </td>
                                                   </c:if>   
@@ -529,40 +554,20 @@ tr:hover{background-color:#f5f5f5}
                          <div class="panel-body">
                              <span>
                                  <h1 class="panel-title pull-left" style="font-size:30px">내가 찜한 내역<i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
-                                 
-                                 <div class="dropdown pull-right">
-                                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                         --등록자전거--
-                                         <span class="caret"></span>
-                                     </button>
-                                     
-                                    <%--  ${requestScope.bicycleList} --%>
-                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                          <li><a id = "resetList">-----전체-----</a></li>
-                                       <c:forEach items="${requestScope.registerList}" var = "registerList" varStatus = "order">
-                                    
-                                            <li>
-                                               <a id = "successList${order.count}">${registerList.title}
-                                                <input type = "hidden" id = "successBicycleNo${order.count}"  value ="${registerList.bicycleNo}"></a>
-                                            </li>
-         
-                                          </c:forEach>
-                                       </ul>
-                                 </div>
                              </span>
                              <br><br>
-                             <div align = "left" id ="">
-                                  <table>
-                                    <thead>
-                                       <tr>
-                                          <th>No</th><th>Id</th><th>startDay</th><th>endDay</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody id = "">
-                                       
-                                       
-                                    </tbody>
-                                 </table>
+                             <div class="col-lg-12" id="hListForm">
+                                  <c:forEach items="${requestScope.heartList}" var="hList">                                  
+                                  	<div class="col-md-4"  style="padding-bottom: 5%;">
+                                  	<a href="${pageContext.request.contextPath}/bicycle/bicycle_findBicycleByNo.do?bicycleNo=${hList.bicycleNo}">
+                                  		<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${hList.photoVO.photo1}"  style="width: 100%"> 
+                                  	</a>
+                                  	<div class=""  style="padding-top: 5px">
+                                  		${hList.title}   <font size="1px" color="#999999"  id="deleteHeart">&nbsp;X</font> 
+                                  		<input type="hidden" id="heartRentNo" value="${hList.bicycleNo}" />
+                                  	</div>   
+                                  	</div>                                  	
+                                  </c:forEach>
                                </div>
                             
                          </div>

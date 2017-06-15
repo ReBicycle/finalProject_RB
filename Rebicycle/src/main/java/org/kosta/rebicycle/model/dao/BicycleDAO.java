@@ -119,5 +119,9 @@ public interface BicycleDAO {
 	int findRefuseRequest(String id);
 	//빌려주는 사람이 받은 요청
 	int findGetRequest(String id);
+
+	List<HeartVO> getHeartList(String id);
+	
+	void deleteBicycle(int bicycleNo);
 }	
 

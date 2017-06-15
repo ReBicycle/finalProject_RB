@@ -85,21 +85,21 @@ create table bicycle(
 )
 
 create table bicycle_photo(
-   bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo),
+   bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo) on delete cascade,
    photo1 varchar2(100) not null,
    photo2 varchar2(100) null,
    photo3 varchar2(100) null
 )
 
 create table possible_day(
-   bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo),
+   bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo) on delete cascade,
    startDay date not null,
    endDay date not null,
    constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
 )
 
 create table map(
-   bicycleNo number primary key constraint fk_bicycle_no_map references bicycle(bicycleNo),
+   bicycleNo number primary key constraint fk_bicycle_no_map references bicycle(bicycleNo) on delete cascade,
    latitude varchar2(100) not null,
    longitude varchar2(100) not null
 )
@@ -107,7 +107,7 @@ create table map(
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
-   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo),
+   bicycleNo number not null constraint fk_bicycle_no_deal references bicycle(bicycleNo) on delete cascade,
    startDay date not null,
    endDay date not null,
    state number default 0
@@ -115,7 +115,7 @@ create table rent(
 
 create table rb_review(
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-	rentNo number constraint fk_rentNooo references rent(rentNo),
+	rentNo number constraint fk_rentNooo references rent(rentNo) on delete cascade,
 	star number default 0,
 	reviewDate date not null,
 	content clob not null,
@@ -145,7 +145,7 @@ constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
 
 create table heart(
 	id varchar2(100) constraint fk_heart_id references rb_member(id),
-	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo),
+	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo) on delete cascade,
 	constraint pk_heart primary key(id,bicycleNo)
 )
 
@@ -197,7 +197,11 @@ select bicycle_seq.nextval from dual
 
 select * from BICYCLE
 ------------------------------------donation 테이블 수정---
+
 delete from donation
+
+delete from rb_member where id = 'ter1943'
+
 
 select * from donation
 select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.rnum 
@@ -232,7 +236,7 @@ add constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
 select * from rb_report;
 
 
-
+select * from rent
 
 select * from rb_report
 ================================= 등록 테스트 =================================

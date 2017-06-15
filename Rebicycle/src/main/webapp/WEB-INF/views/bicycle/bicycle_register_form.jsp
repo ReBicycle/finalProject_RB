@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
     
 <script type="text/javascript">
@@ -23,10 +22,10 @@
 						info+=data[2] + "원 </font>";
 					}
 					$("#calResult").html(info);
-				} //success
-			});//ajax
+				} 
+			});
 		});
-	});//ready
+	});
 </script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -80,29 +79,28 @@
         }).open();
     }
 </script>
-
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
 <script type="text/javascript">
-function findGeo(){
-	// 주소-좌표 변환 객체를 생성합니다
-   	var geocoder = new daum.maps.services.Geocoder();
-
-    // 주소로 좌표를 검색합니다
-    geocoder.addr2coord($("#roadAddress").val(), function(status, result) {
-
-   		// 정상적으로 검색이 완료됐으면 
-		if (status === daum.maps.services.Status.OK) {
-			var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
-			var latitude=JSON.stringify(coords.hb);
-            var longitude=JSON.stringify(coords.gb);
-    		//hb:위도 , qb: 경도
-    		$("#lat").val(latitude);	
-    		$("#lon").val(longitude);
-		}
-    });   
-}
-	 
+	function findGeo(){
+		// 주소-좌표 변환 객체를 생성합니다
+	   	var geocoder = new daum.maps.services.Geocoder();
+	
+	    // 주소로 좌표를 검색합니다
+	    geocoder.addr2coord($("#roadAddress").val(), function(status, result) {
+	
+	   		// 정상적으로 검색이 완료됐으면 
+			if (status === daum.maps.services.Status.OK) {
+				var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+				var latitude=JSON.stringify(coords.hb);
+	            var longitude=JSON.stringify(coords.gb);
+	    		//hb:위도 , qb: 경도
+	    		$("#lat").val(latitude);	
+	    		$("#lon").val(longitude);
+			}
+	    });   
+	}
 </script>
+
 <script type="text/javascript">
 	var oTbl;
 	//Row 추가
@@ -160,7 +158,7 @@ function findGeo(){
 	        }
 		});
 		
-		$("#addTable").on("click","#checkBtn",function(){
+		$("#addTable").on("change",".id_endDay",function(){
 			var stCount = $(".id_startDay").length;
 			var stid = "id_startDay";
 			var endid = "id_endDay";
@@ -220,7 +218,7 @@ function findGeo(){
 		});
 	});
 </script>
-  
+
 <div class="container">
 <br><br><br>
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -229,7 +227,7 @@ function findGeo(){
                 <div class="panel-title">자전거 등록</div>
             </div>
             <div class="panel-body" > 
-				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/bicycle/registerBicycle.do">
+				<form id="registerForm" class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/bicycle/registerBicycle.do">
 				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
 				    
 				    <!-- 사진 -->
@@ -334,7 +332,6 @@ function findGeo(){
 								<tr>
 									<td align="center">
 										<input name="addButton" type="button" style="cursor:hand" onClick="insRow()" value="추가">
-										<input type="button" style="cursor:hand" id="checkBtn" value="체크">
 										<input type=button value='삭제' onClick='delete_row()' style='cursor:hand'>
 									</td>
 								</tr>
@@ -351,7 +348,7 @@ function findGeo(){
 				    <div class="form-group"> 
 				        <div class="aab controls col-md-3 "></div>
 				        <div class="controls col-md-8 "><br>
-				            <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" />
+				            <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info"/>
 				        </div>
 				    </div> 
 				</form>

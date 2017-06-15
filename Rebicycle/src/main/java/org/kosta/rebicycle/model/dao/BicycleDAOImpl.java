@@ -94,6 +94,10 @@ public class BicycleDAOImpl implements BicycleDAO {
 		return template.selectOne("bicycle.findAddressById", id);
 	}
 	
+	@Override
+	public void deleteBicycle(int bicycleNo){
+		template.delete("bicycle.deleteBicycle", bicycleNo);
+	}
 	//////// ////impl2///////////
 	@Override
 	public void writeReview(ReviewVO reviewVO){
@@ -282,5 +286,9 @@ public class BicycleDAOImpl implements BicycleDAO {
 	@Override
 	public void changeState(int rentNo) {
 		template.update("bicycle.changeState", rentNo);
+	}
+	@Override
+	public List<HeartVO> getHeartList(String id) {
+		return template.selectList("bicycle.getHeartList", id);
 	}
 }

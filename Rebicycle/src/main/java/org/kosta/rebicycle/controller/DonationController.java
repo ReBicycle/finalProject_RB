@@ -25,12 +25,18 @@ public class DonationController {
 			if(nowPage!=null)
 				page=nowPage;
 			ListVO listVO=donationService.getDonationList(page);
-			System.out.println(listVO.getdonationList().get(0).getPicture());
 			return new ModelAndView("donation/donation_list.tiles","listVO",listVO);
 		}
-		/*@RequestMapping("")
-		public String donationRegister(DonationVO dvo){
-			return "";
+		@RequestMapping("donation/donation_register.do")
+		public ModelAndView donationRegister(DonationVO dvo,String roadAddress, String jibunAddress, String detailAddress ){
+			String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
+			dvo.setAddress(address);
+				donationService.registerDonation(dvo);
+			return new ModelAndView("redirect:donation_detail.do?donationbicycleno="+dvo.getDonationBicycleNo());
 		}
-	*/
+		@RequestMapping("donation/donation_detail.do")
+		public ModelAndView findDonationDetailByNo(String donationbicycleno){
+			
+			return new ModelAndView("donation/donation_detail.tiles","donationVO",donationService.findDonationDetailByNo(donationbicycleno));
+		}
 }

@@ -17,7 +17,7 @@ function dateCheck(){
 	var today=year+"-"+month+"-"+day;
 	var startDay=document.searchForm.startDay.value;
 	var endDay=document.searchForm.endDay.value;
-	if(today>startDay){
+	if(today !=""&&startDay!=""&&today>startDay){
 		alert("오늘 날짜 이후를 선택하여 주세요.");
 		return false;
 	}

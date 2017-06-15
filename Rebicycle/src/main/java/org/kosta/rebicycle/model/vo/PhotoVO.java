@@ -10,6 +10,13 @@ public class PhotoVO {
 		// TODO Auto-generated constructor stub
 	}
 
+	public PhotoVO(String photo1, String photo2, String photo3) {
+		super();
+		this.photo1 = photo1;
+		this.photo2 = photo2;
+		this.photo3 = photo3;
+	}
+
 	public PhotoVO(int bicycleNo, String photo1, String photo2, String photo3) {
 		super();
 		this.bicycleNo = bicycleNo;

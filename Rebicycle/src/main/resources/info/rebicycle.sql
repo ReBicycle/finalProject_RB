@@ -124,10 +124,12 @@ create table rb_review(
 
 
 create table donation(
-   donationBicycleNo number primary key,
-   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   donation_bicycle_no number primary key,
+   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
-   picture varchar2(300) not null,
+   photo1 varchar2(100) not null,
+   photo2 varchar2(100) not null,
+   photo3 varchar2(100) not null,
    status number default 0,
    address varchar2(300) not null,
    title varchar2(100) not null
@@ -198,10 +200,17 @@ select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.rnum
 from (select donationbicycleno,donorId,address,detail,picture,
  row_number() over(order by donationbicycleno desc) rnum from donation where status=0) D
  where rnum between 1 and 1
-select count(*)from donation
+select donation_seq.nextval from dual
 
-insert into donation (donationBicycleNo,donorId,detail,picture,address,title)
-values(donation_seq.nextval,'spring','아끼는 건데 너 줄게 ','1_photo1.jpg','판교역주변','안쓰는 자전거 나눔해요~!')
+insert into donation (donation_bicycle_no,donor_id,detail,photo1,photo2,photo3,address,title)
+values(donation_seq.nextval,'spring','아끼는 건데 너 줄게 ','1_photo1.jpg','1_photo1.jpg','1_photo1.jpg','판교역주변','안쓰는 자전거 나눔해요~!')
+
+alter table donation 
+add donation_bicycle_no number primary key
+alter table donation
+drop column donorId
+alter table donation
+add donor_id varchar2(100) not null
 -------------------------------------------------------------
 select * from rb_report;
 
@@ -630,6 +639,8 @@ where r.bicycleNo = b.bicycleNo and b.memberId = 'java' and (r.state = 0 or r.st
 select r.*, b.bicycleNo, b.memberId, b.title,m.id
 from rent r, bicycle b,rb_member m
 where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id  and r.state = 0 or r.state = 2 order by r.rentNo desc
+
+select * from rent
 
 commit
 

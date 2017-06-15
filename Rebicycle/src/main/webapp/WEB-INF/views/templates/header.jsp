@@ -137,7 +137,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 						href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
 					</li>
 					<li class="page-scroll"><a
-						href="${pageContext.request.contextPath}/donation/donation_register_form.do">donation</a>
+						href="${pageContext.request.contextPath}/donation/donation_list.do">기부</a>
 					</li>
 
 					<c:if test="${sessionScope.mvo!=null}">
@@ -153,10 +153,10 @@ function spawnNotification(theBody,theIcon,theTitle) {
 								<a href="${pageContext.request.contextPath}/mypage/mypage_main.do"><font color="black">Request</font>
 								<span class="badge badge-success">${totalRequest.findGetRequest}</span>
 								</a> 
-								<a href="#"><font color="black">Accept</font>
+								<a href="${pageContext.request.contextPath}/mypage/mypage_main.do"><font color="black">Accept</font>
 								<span class="badge badge-info">${totalRequest.findAcceptRequest}</span>
 								</a> 
-								<a href="#"><font color="black">Refuse</font>
+								<a href="${pageContext.request.contextPath}/mypage/mypage_main.do"><font color="black">Refuse</font>
 								<span class="badge badge-warning">${totalRequest.findRefuseRequest}</span>
 								</a>
 							</div>

@@ -104,7 +104,6 @@ create table map(
    longitude varchar2(100) not null
 )
 
-
 create table rent(
    rentNo number primary key,
    renterId varchar2(100) not null constraint fk_renter_id references rb_member(id),
@@ -164,10 +163,6 @@ CREATE TABLE rb_boardreply (
 )
 
 
---테이블 수정
-alter table rb_member modify address varchar2(300);
-alter table bicycle modify address varchar2(300);
-alter table bicycle add title varchar2(100) not null;
 
 --카테고리 데이터 삽입
 insert into category(categoryNo, categoryName) values(1, 'MTB');
@@ -194,7 +189,11 @@ select bicycle_seq.nextval from dual
 
 select * from BICYCLE
 ------------------------------------donation 테이블 수정---
+
 delete from donation
+
+delete from rb_member where id = 'ter1943'
+
 
 select * from donation
 select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.rnum 
@@ -216,7 +215,7 @@ add donor_id varchar2(100) not null
 select * from rb_report;
 
 
-
+select * from rent
 
 select * from rb_report
 ================================= 등록 테스트 =================================

@@ -52,9 +52,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -148,10 +148,11 @@ public class BicycleController {
 	}
 	
 	@RequestMapping("bicycle/deleteBicycle.do")
-	public String deleteBicycle(String memberId, int bicycleNo, String password){
-		//삭제
-		
-		return "";
+	public String deleteBicycle(int bicycleNo){
+		System.out.println("deleteBicycle 실행");
+		System.out.println(bicycleNo);
+		bicycleServiceImpl.deleteBicycle(bicycleNo);
+		return "mypage/mypage_main.tiles";
 	}
 	
 	

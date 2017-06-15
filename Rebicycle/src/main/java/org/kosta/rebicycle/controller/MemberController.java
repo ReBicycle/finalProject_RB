@@ -181,12 +181,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("member/passwordCheck.do")
-	public String passworwdCheck(String memberId, int bicycleNo, String password, Model model){
+	public String passwordCheck(String memberId, int bicycleNo, String password, Model model){
 		MemberVO mvo = memberService.findMemberById(memberId);
 		if(mvo.getPassword().equals(password)){
 			model.addAttribute("memberId", memberId);
 			model.addAttribute("bicycleNo", bicycleNo);
-			return "bicycle/deleteBicycle.do"; 			
+			return "redirect:../bicycle/deleteBicycle.do"; 			
 		} else {
 			return "member/member_password_check_fail.tiles";
 		}

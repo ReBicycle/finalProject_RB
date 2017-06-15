@@ -102,7 +102,7 @@ function showDivs(n) {
                         <p style="font-size: 15px"></p>
        		   </div>    
            </div> 
-        <button class="btn success" style="width:100%" onclick="document.getElementById('id01').style.display='block'" style="width:auto;"><h4><strong>사연신청</strong></h4></button>
+        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="document.getElementById('id01').style.display='block'"><h4><strong>사연신청</strong></h4></button>
         <%--modal --%>
         <div id="id01" class="modal" align="center" >
   <form method="post" class="modal-content animate mainbox"  action="${pageContext.request.contextPath}/donation/donation_story_register.do?donationBicycleNo=${requestScope.donationVO.donationBicycleNo}" >
@@ -180,24 +180,20 @@ function showDivs(n) {
          
         </div>
         
-         
+         <%-- 사연있어요 영역 --%>
         <div class="panel panel-default">
             <div class="panel-heading"> 
                 <div class="panel-title" style="color:#31708f;"><h5><strong>사연있어요</strong></h5></div>
             </div>  
             	<div class="panel-body" align="left" style="margin-left: 50px;"> 
-				  <br><br><br>
-				  <table>
+			
 				  <c:forEach items="${requestScope.donationVO.storyList }" var="list">
-				  
-				  <tr>
-					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:150px;height:150px;" class="w3-circle">
-				  		${list.title }
-				  </tr>
+				
+					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:100px;height:100px;" class="w3-circle">
+				  		${list.title}
+		
 				  </c:forEach> 
 				  
-				  </table>
-				  <br><br><br>
                  </div>    
          
         </div>

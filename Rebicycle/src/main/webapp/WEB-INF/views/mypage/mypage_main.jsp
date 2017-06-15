@@ -490,7 +490,7 @@ tr:hover{background-color:#f5f5f5}
                                                   <c:if test = "${rList.state ==1}">
                                                      <td>
                                                         <input type = "button" id = "writeBtn" class =" btn btn-success" value = "후기/별점 작성" onclick = "toDetail(${rList.bicycleVO.bicycleNo},${rList.rentNo})">
-                                                        <input type = "button" id = "writeBtn" class =" btn btn-success" value = "신고하기" onclick = "toReport(${rList.bicycleVO.bicycleNo})">
+                                                        <%-- <input type = "button" id = "writeBtn" class =" btn btn-success" value = "신고하기" onclick = "toReport(${rList.bicycleVO.bicycleNo})"> --%>
                                                          
                                                      </td>
                                                   </c:if>

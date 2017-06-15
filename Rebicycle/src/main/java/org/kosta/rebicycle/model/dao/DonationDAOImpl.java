@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.kosta.rebicycle.model.vo.DonationVO;
 import org.kosta.rebicycle.model.vo.PagingBean;
 import org.kosta.rebicycle.model.vo.PhotoVO;
+import org.kosta.rebicycle.model.vo.StoryVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,8 @@ public class DonationDAOImpl implements DonationDAO {
 		address = address.substring(index);
 		address2=address.replaceAll("%", " ");
 		dvo.setAddress(address2);
+		dvo.setStoryList(template.selectList("donation.findStoryListByDonationBicycleNo", dvo.getDonationBicycleNo()));
+		System.out.println("도네이션 디테일 검색 결과 "+dvo);
 		return dvo ;
 	}
 	@Override
@@ -88,5 +91,9 @@ public class DonationDAOImpl implements DonationDAO {
 	public int getDonationBicycleNo() {
 		
 		return template.selectOne("donation.getDonationBicycleNo");
+	}
+	@Override
+	public void donationStoryRegister(StoryVO svo) {
+		template.insert("donation.donationStoryRegister",svo);
 	}
 }

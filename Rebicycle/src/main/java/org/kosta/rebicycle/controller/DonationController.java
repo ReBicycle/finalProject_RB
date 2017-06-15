@@ -1,12 +1,17 @@
 package org.kosta.rebicycle.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import javax.annotation.Resource;
 
+import org.apache.tiles.request.Request;
 import org.kosta.rebicycle.model.service.DonationService;
 import org.kosta.rebicycle.model.vo.DonationVO;
 import org.kosta.rebicycle.model.vo.ListVO;
+import org.kosta.rebicycle.model.vo.StoryVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -32,11 +37,18 @@ public class DonationController {
 			String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 			dvo.setAddress(address);
 				donationService.registerDonation(dvo);
-			return new ModelAndView("redirect:donation_detail.do?donationbicycleno="+dvo.getDonationBicycleNo());
+			return new ModelAndView("redirect:donation_detail.do?donationBicycleNo="+dvo.getDonationBicycleNo());
 		}
 		@RequestMapping("donation/donation_detail.do")
-		public ModelAndView findDonationDetailByNo(String donationbicycleno){
+		public ModelAndView findDonationDetailByNo(String donationBicycleNo){
 			
-			return new ModelAndView("donation/donation_detail.tiles","donationVO",donationService.findDonationDetailByNo(donationbicycleno));
+			return new ModelAndView("donation/donation_detail.tiles","donationVO",donationService.findDonationDetailByNo(donationBicycleNo));
+		}
+		@RequestMapping(method=RequestMethod.POST,value="donation/donation_story_register.do")
+		public String donationStoryRegister(StoryVO svo){
+			System.out.println("컨트롤러 테스트 "+svo.getDonationBicycleNo()+" "+svo.getTitle()+" "+svo.getId()+" "+svo.getDetail());
+				donationService.donationStoryRegister(svo);
+			return "redirect:donation_detail.do?donationBicycleNo="+svo.getDonationBicycleNo();
+			
 		}
 }

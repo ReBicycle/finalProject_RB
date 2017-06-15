@@ -27,15 +27,15 @@ opacity: 1;
   width: 100%;
   opacity: 0;
   transition: .5s ease;
-  background-color: #008CBA;
+  background-color: #f5f5f5;
 }
 
 .content:hover .overlay {
-  opacity: 0.9;
+  opacity: 0.9; 
 }
 
 .text {
-  color: white;
+  color: black;
   font-size: 20px;
   position: absolute;
   top: 50%;

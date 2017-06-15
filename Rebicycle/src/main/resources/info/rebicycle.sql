@@ -189,7 +189,11 @@ select bicycle_seq.nextval from dual
 
 select * from BICYCLE
 ------------------------------------donation 테이블 수정---
+
 delete from donation
+
+delete from rb_member where id = 'ter1943'
+
 
 select * from donation
 select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.rnum 
@@ -211,7 +215,7 @@ add donor_id varchar2(100) not null
 select * from rb_report;
 
 
-
+select * from rent
 
 select * from rb_report
 ================================= 등록 테스트 =================================

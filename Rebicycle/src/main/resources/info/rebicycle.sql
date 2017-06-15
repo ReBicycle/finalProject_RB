@@ -66,12 +66,15 @@ create table rb_member(
    email varchar2(100) not null,
    account varchar2(100),
    picture varchar2(300) not null
-)
+  
+);
+
+
 
 create table category(
    categoryNo number primary key,
    categoryName varchar2(100) not null
-)
+);
 
 create table bicycle(
    bicycleNo number primary key,
@@ -82,27 +85,27 @@ create table bicycle(
    rentPrice number not null,
    detail clob not null,
    categoryNo number not null constraint fk_rb_category_no references category(categoryNo)
-)
+);
 
 create table bicycle_photo(
    bicycleNo number primary key constraint fk_bicycle_no_pic references bicycle(bicycleNo) on delete cascade,
    photo1 varchar2(100) not null,
    photo2 varchar2(100) null,
    photo3 varchar2(100) null
-)
+);
 
 create table possible_day(
    bicycleNo number not null constraint fk_bicycle_no_possible_day references bicycle(bicycleNo) on delete cascade,
    startDay date not null,
    endDay date not null,
    constraint pk_possible_day primary key(bicycleNo, startDay, endDay)
-)
+);
 
 create table map(
    bicycleNo number primary key constraint fk_bicycle_no_map references bicycle(bicycleNo) on delete cascade,
    latitude varchar2(100) not null,
    longitude varchar2(100) not null
-)
+);
 
 create table rent(
    rentNo number primary key,
@@ -111,7 +114,7 @@ create table rent(
    startDay date not null,
    endDay date not null,
    state number default 0
-)
+);
 
 create table rb_review(
 	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
@@ -120,7 +123,7 @@ create table rb_review(
 	reviewDate date not null,
 	content clob not null,
 	constraint pk_rb_review primary key(reviewerId, rentNo)
-)
+);
 
 
 create table donation(
@@ -133,7 +136,7 @@ create table donation(
    status number default 0,
    address varchar2(300) not null,
    title varchar2(100) not null
-)
+);
 
 create table story(
 donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
@@ -147,7 +150,7 @@ create table heart(
 	id varchar2(100) constraint fk_heart_id references rb_member(id),
 	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo) on delete cascade,
 	constraint pk_heart primary key(id,bicycleNo)
-)
+);
 
 create table rb_report(
 	reportNo number primary key,
@@ -156,7 +159,7 @@ create table rb_report(
 	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
 	contents clob not null,
 	reportDate date not null
-)
+);
 --alter table rb_report
 --add reportTitle varchar2(100) not null
 
@@ -168,8 +171,7 @@ CREATE TABLE rb_boardreply (
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,
       redate date not null
-)
-
+);
 
 
 --카테고리 데이터 삽입

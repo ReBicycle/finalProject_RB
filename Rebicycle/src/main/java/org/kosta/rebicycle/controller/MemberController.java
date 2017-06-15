@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.MemberVO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +32,15 @@ public class MemberController {
 	private MemberService memberService;
 	@Resource
 	private BicycleService service;
+	@Resource
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@RequestMapping("login_fail.do")
+    public String loginFail(){
+    	return "member/login_fail.tiles";
+    }
 	
-	@RequestMapping(method=RequestMethod.POST,value="login.do")
+	/*@RequestMapping(method=RequestMethod.POST,value="login.do")
 	public String login(MemberVO mvo, HttpServletRequest request){
 		System.out.println("sdadsads login.do");
 		MemberVO loginVO = memberService.login(mvo);
@@ -69,7 +77,7 @@ public class MemberController {
 		
 		
 		return path;
-	}
+	}*/
 	
 	@RequestMapping("member/logout.do")
 	public String logout(HttpServletRequest request){
@@ -78,7 +86,7 @@ public class MemberController {
 			session.invalidate();
 		return "home.tiles";
 	}
-	
+
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value = "memberRegister.do")

@@ -109,6 +109,9 @@ public interface BicycleDAO {
 
 	List<RentVO> findRentSuccessById(String id);
 
+
+	List<RentVO> findRentRequestByBicycleNo(int bicycleNo);
+
 	void changeState(int rentNo);
 
 	//빌리고자 하는 사람이 보낸 요청들 상태 - 수락,거절
@@ -118,5 +121,7 @@ public interface BicycleDAO {
 	int findGetRequest(String id);
 
 	List<HeartVO> getHeartList(String id);
+	
+	void deleteBicycle(int bicycleNo);
 }	
 

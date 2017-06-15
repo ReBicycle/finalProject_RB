@@ -2,11 +2,13 @@ package org.kosta.rebicycle.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
@@ -27,20 +29,45 @@ public class MemberController {
 	//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	@Resource
 	private MemberService memberService;
+	@Resource
+	private BicycleService service;
 	
 	@RequestMapping(method=RequestMethod.POST,value="login.do")
 	public String login(MemberVO mvo, HttpServletRequest request){
-		System.out.println("login.do");
+		System.out.println("sdadsads login.do");
 		MemberVO loginVO = memberService.login(mvo);
 		HttpSession session = request.getSession();
 		String path = "";
 		if(loginVO !=null){
 			session.setAttribute("mvo", loginVO);
 			System.out.println("로그인성공");
+			if(session!=null){
+				MemberVO vo=(MemberVO) session.getAttribute("mvo");
+				//각각의 요청을 구분하기 위해 따로 받음
+				System.out.println("2020202020 : " +vo.getId());
+				int findGetRequest=service.findGetRequest(vo.getId());
+				
+				int findAcceptRequest=service.findAcceptRequest(vo.getId());
+				int findRefuseRequest=service.findRefuseRequest(vo.getId());
+				int Total=findGetRequest+findAcceptRequest+findRefuseRequest;
+				
+				HashMap<String, Integer> totalRequest=new HashMap<>();
+				
+				totalRequest.put("findGetRequest", findGetRequest);
+				totalRequest.put("findAcceptRequest", findAcceptRequest);
+				totalRequest.put("findRefuseRequest", findRefuseRequest);
+				totalRequest.put("total", Total);
+				
+				session.setAttribute("totalRequest", totalRequest);
+				System.out.println("test       "+totalRequest);
+			}
 			path = "redirect:home.do";
 		}else{
 			path = "member/login_fail";
 		}
+		
+		
+		
 		return path;
 	}
 	
@@ -155,4 +182,18 @@ public class MemberController {
 		session.setAttribute("mvo", newVO);
 		return "redirect:../home.do";
 	}
+	
+	@RequestMapping("member/passwordCheck.do")
+	public String passwordCheck(String memberId, int bicycleNo, String password, Model model){
+		MemberVO mvo = memberService.findMemberById(memberId);
+		if(mvo.getPassword().equals(password)){
+			model.addAttribute("memberId", memberId);
+			model.addAttribute("bicycleNo", bicycleNo);
+			return "redirect:../bicycle/deleteBicycle.do"; 			
+		} else {
+			return "member/member_password_check_fail.tiles";
+		}
+	}
+	
+	
 }

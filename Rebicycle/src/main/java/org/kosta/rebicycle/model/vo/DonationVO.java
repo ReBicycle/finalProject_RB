@@ -1,34 +1,40 @@
 package org.kosta.rebicycle.model.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class DonationVO {
-	private String id;
+	private String donorId;
 	private int donationBicycleNo;
 	private String detail;
-	private String picture;
+	private PhotoVO photoVO;
 	private String address;
 	private String status;
 	private String title;
+	private List<MultipartFile> file;
 	public DonationVO() {
 		super();
 	}
-	
-	public DonationVO(String id, int donationBicycleNo, String detail, String picture, String address, String status,
-			String title) {
+
+	public DonationVO(String donorId, int donationBicycleNo, String detail, PhotoVO photoVO, String address,
+			String status, String title, List<MultipartFile> file) {
 		super();
-		this.id = id;
+		this.donorId = donorId;
 		this.donationBicycleNo = donationBicycleNo;
 		this.detail = detail;
-		this.picture = picture;
+		this.photoVO = photoVO;
 		this.address = address;
 		this.status = status;
 		this.title = title;
+		this.file = file;
 	}
 
-	public String getId() {
-		return id;
+	public String getDonorId() {
+		return donorId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setDonorId(String donorId) {
+		this.donorId = donorId;
 	}
 	public int getDonationBicycleNo() {
 		return donationBicycleNo;
@@ -42,11 +48,11 @@ public class DonationVO {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public String getPicture() {
-		return picture;
+	public PhotoVO getPhotoVO() {
+		return photoVO;
 	}
-	public void setPicture(String picture) {
-		this.picture = picture;
+	public void setPhotoVO(PhotoVO photoVO) {
+		this.photoVO = photoVO;
 	}
 	public String getAddress() {
 		return address;
@@ -60,22 +66,30 @@ public class DonationVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public List<MultipartFile> getFile() {
+		return file;
+	}
+
+	public void setFile(List<MultipartFile> file) {
+		this.file = file;
 	}
 
 	@Override
 	public String toString() {
-		return "DonationVO [id=" + id + ", donationBicycleNo=" + donationBicycleNo + ", detail=" + detail + ", picture="
-				+ picture + ", address=" + address + ", status=" + status + ", title=" + title + "]";
+		return "DonationVO [donorId=" + donorId + ", donationBicycleNo=" + donationBicycleNo + ", detail=" + detail
+				+ ", photoVO=" + photoVO + ", address=" + address + ", status=" + status + ", title=" + title
+				+ ", file=" + file + "]";
 	}
 
-	
+
+
 
 
 

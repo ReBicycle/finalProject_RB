@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.rebicycle.model.service.BicycleService;
+import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.CalendarBean;
 import org.kosta.rebicycle.model.vo.CalendarManager;
@@ -21,7 +22,6 @@ import org.kosta.rebicycle.model.vo.RentVO;
 import org.kosta.rebicycle.model.vo.ReviewVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +31,8 @@ public class BicycleController {
 	  
 	@Resource
 	private BicycleService  bicycleServiceImpl;
+	@Resource
+	private MemberService memberServiceImpl;
 	
 	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/registerBicycle.do")
@@ -82,6 +84,7 @@ public class BicycleController {
 		map.put("address", bicycleServiceImpl.findAddressById(memberId));
 		return map;
 	}
+	
 	//자전거 수정
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/modifyBicycle.do")
 	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
@@ -132,14 +135,34 @@ public class BicycleController {
 		return calList;
 	}
 	
-	//소영 bicycle_search_list_test로
-		@RequestMapping("listViewTest.do")
-		public String listViewTest(Model model){
-			ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) bicycleServiceImpl.findBicycleList();
-			model.addAttribute("bList", bList);
-			return "bicycle/bicycle_search_list_test.tiles";
-			
+	@RequestMapping("bicycle/bicycleDeleteForm.do")
+	public String bicycleDeleteForm(String memberId, int bicycleNo, Model model){
+		ArrayList<RentVO> rvoList = (ArrayList<RentVO>) bicycleServiceImpl.findRentRequestByBicycleNo(bicycleNo);
+		if(rvoList.isEmpty()){
+			model.addAttribute("memberId", memberId);
+			model.addAttribute("bicycleNo", bicycleNo);
+			return "bicycle/bicycle_delete_ok.tiles";			
+		} else {
+			return "bicycle/bicycle_delete_fail.tiles";
 		}
+	}
+	
+	@RequestMapping("bicycle/deleteBicycle.do")
+	public String deleteBicycle(int bicycleNo){
+		System.out.println("deleteBicycle 실행");
+		System.out.println(bicycleNo);
+		bicycleServiceImpl.deleteBicycle(bicycleNo);
+		return "mypage/mypage_main.tiles";
+	}
+	
+	//소영 bicycle_search_list_test로
+	@RequestMapping("listViewTest.do")
+	public String listViewTest(Model model){
+		ArrayList<BicycleVO> bList = (ArrayList<BicycleVO>) bicycleServiceImpl.findBicycleList();
+		model.addAttribute("bList", bList);
+		return "bicycle/bicycle_search_list_test.tiles";
+		
+	}
 		
 	///상세보기로 보낼 정보 처리 컨트롤러
 	@RequestMapping("bicycle/bicycle_findBicycleByNo.do")

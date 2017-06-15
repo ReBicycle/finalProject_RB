@@ -73,7 +73,7 @@
                 </tr>
             </thead>
             <tbody>
-            <c:forEach items="${requestScope.brv}" var="brv">
+            <c:forEach items="${requestScope.brv}" var="brv" varStatus="order">
                 <tr>
                     <td align="left">${brv.rewriter}</td>
             	    <td align="left">${brv.rememo}</td>
@@ -82,7 +82,7 @@
             	    <button type="button" class="btn-danger">삭제</button></td>
                 </tr>
                 <tr>
-                	<td colspan="3"><textarea class="updateCommentArea">1111</textarea></td>
+                	<td colspan="3"><textarea class="updateCommentArea${order.count}">1111</textarea></td>
                 </tr>
                 </c:forEach> 
                 </tbody>
@@ -120,5 +120,8 @@
             </div>
          </div>
     </div>
+    
+    
+
 </div>
 

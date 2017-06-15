@@ -352,7 +352,7 @@ insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDat
 			) r where rnum between 1 and 5 order by reportNo desc;
 ============================================================================================
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
-values(50,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+values(3,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
 values(51,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
@@ -395,6 +395,24 @@ insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDat
 values(70,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
 values(71,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(72,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(73,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(74,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(75,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(76,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(77,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(78,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(79,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+
 --------------------------------- 성공 -----------------------------------------------------
 			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
@@ -423,6 +441,7 @@ CREATE TABLE rb_boardreply (
       rememo varchar(500) not null,
       redate date not null
 )
+drop table rb_boardreply
 --brdno(게시판 넘버)를 rb_report를 fk로 뒀을때 댓글이 달려있는 게시물이 삭제 안됨--
 CREATE TABLE rb_boardreply (
       brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo),
@@ -440,6 +459,7 @@ insert into rb_boardreply(brdno,reno,rewriter,rememo,redate)
  		values(90,1,'jobman','크로캉~ 부슈우~~~~',sysdate)
 
 create sequence rb_boardreply_seq;
+
 select * from rb_boardreply;
 
 select

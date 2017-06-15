@@ -174,7 +174,7 @@ tr:hover{background-color:#f5f5f5}
          }
       });
       
-      $(".deleteHeart").on("click",function(){
+      $("#hListForm").on("click","#deleteHeart",function(){
     	  var no = $("#heartRentNo").val();
 			$.ajax({
 				type:"get",
@@ -190,7 +190,7 @@ tr:hover{background-color:#f5f5f5}
 							info+="<img src='${pageContext.request.contextPath}/resources/upload/bicycle/"+data[i].photoVO.photo1+"'  style='width: 100%'>";
 							info+="</a><div style='padding-top: 5p'>";
 							info+=data[i].title;
-							info+="<font size='1px' color='#999999'  class='deleteHeart'>&nbsp;&nbsp;X&nbsp;&nbsp;</font>";
+							info+="<font size='1px' color='#999999'  id='deleteHeart'>&nbsp;&nbsp;X&nbsp;&nbsp;</font>";
 							info+="<input type='hidden' id='heartRentNo' value='"+data[i].bicycleNo+"'/></div></div>";
 						}//for
 						$("#hListForm").html(info);
@@ -563,7 +563,7 @@ tr:hover{background-color:#f5f5f5}
                                   		<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${hList.photoVO.photo1}"  style="width: 100%"> 
                                   	</a>
                                   	<div class=""  style="padding-top: 5px">
-                                  		${hList.title}   <font size="1px" color="#999999"  class="deleteHeart">&nbsp;X</font> 
+                                  		${hList.title}   <font size="1px" color="#999999"  id="deleteHeart">&nbsp;X</font> 
                                   		<input type="hidden" id="heartRentNo" value="${hList.bicycleNo}" />
                                   	</div>   
                                   	</div>                                  	

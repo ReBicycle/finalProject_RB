@@ -278,4 +278,8 @@ public class BicycleDAOImpl implements BicycleDAO {
 	public void changeState(int rentNo) {
 		template.update("bicycle.changeState", rentNo);
 	}
+	@Override
+	public List<HeartVO> getHeartList(String id) {
+		return template.selectList("bicycle.getHeartList", id);
+	}
 }

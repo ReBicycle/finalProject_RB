@@ -1,9 +1,12 @@
 package org.kosta.rebicycle.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.service.BicycleService;
+import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.HeartVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.RentVO;
@@ -64,8 +67,7 @@ public class ReviewController {
 	}
 	@RequestMapping("heartOnOff.do")
 	@ResponseBody
-	public String heartOnOff(String id, int bicycleNo){
-		HeartVO hvo = new HeartVO(id,bicycleNo);
+	public String heartOnOff(HeartVO hvo){
 		boolean flag = serviceImpl.heartCheck(hvo);
 		if(flag){
 			serviceImpl.heartOff(hvo);
@@ -76,4 +78,13 @@ public class ReviewController {
 			return "on";
 		}
 	}
+	@RequestMapping("deleteHeartMypage.do")
+	@ResponseBody
+	public List<BicycleVO>  deleteHeartMypage(HeartVO hvo){
+		serviceImpl.heartOff(hvo);
+		List<BicycleVO> list = serviceImpl.getHeartList(hvo.getId());
+		return list;
+	}
+	
+	
 }

@@ -450,4 +450,13 @@ public class BicycleServiceImpl implements BicycleService {
 			}
 		}
 	}
+	@Override
+	public List<BicycleVO> getHeartList(String id) {
+		List<HeartVO> heartlist = bicycleDAOImpl.getHeartList(id);
+		List<BicycleVO> bheartList = new ArrayList<BicycleVO>();
+		for(int i=0; i<heartlist.size(); i++){
+			bheartList.add(findBicycleDetailByNo(heartlist.get(i).getBicycleNo()));
+		}
+		return bheartList;
+	}
 }

@@ -48,6 +48,10 @@ function showDivs(n) {
 .success:hover {background-color: #d9cff7;
 			color: white;
 }
+.story:hover{
+  opacity: 0.9;
+  background-color:#f5f5f5;
+}
 
 <%-- 모달css--%>
 
@@ -72,10 +76,23 @@ function showDivs(n) {
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */
-    height: 75%;
+    width: 40%; /* Could be more or less, depending on screen size */
+    height:80%; 
+}
+.close {
+    position: absolute;
+    right: 20%;  
+    top: 10%;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
 }
 
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
 </style>
 
 <div class="container">       
@@ -185,13 +202,46 @@ function showDivs(n) {
             <div class="panel-heading"> 
                 <div class="panel-title" style="color:#31708f;"><h5><strong>사연있어요</strong></h5></div>
             </div>  
-            	<div class="panel-body" align="left" style="margin-left: 50px;"> 
+            	<div class="panel-body w3-row" align="left" style="margin-left: 50px;max-height: 500px;"> 
 			
 				  <c:forEach items="${requestScope.donationVO.storyList }" var="list">
+				<div class="story w3-half w3-padding" onclick="document.getElementById('${list.id}').style.display='block'"> 
 				
-					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:100px;height:100px;" class="w3-circle">
-				  		${list.title}
-		
+					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" align="left"  width="40%" style="width:100px;height:100px;" class="w3-circle">
+				  		<span style="text-align:center;color:#31708f;"  width="60%" >${list.title}</span>
+				</div>
+				<%--모달내용 --%>
+				  <div id="${list.id}" class="modal" align="center" >
+				   <span onclick="document.getElementById('${list.id}').style.display='none'" class="close" title="Close Modal" >×</span>
+						<div class="modal-content animate mainbox" >
+							<div class=" panel panel-default" style="height: 100%;" >
+							 		<div class="panel-heading">
+                							<div class="panel-title"><strong>${list.id }님의 사연</strong></div>
+            						</div>
+            						<div class="panel-body">
+            					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:100px;height:100px;margin-top:10px;margin-bottom:20px;" class="w3-circle">
+            						  <!-- Title -->
+				    					<div id="div_id_title" class="form-group required" style="margin-bottom: 50px"> 
+				       						 <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
+				        					<div class="controls col-md-8 "> 
+				            				<span>${list.title}</span>
+				       						 </div>
+				    					</div>
+				    					 <!-- Detail -->
+				   						 <div id="div_id_detail" class="form-group required" >
+				         						<label for="id_detail" class="control-label col-md-3  requiredField">상세내용</label>
+				         						<div class="controls col-md-8 "> 
+				        						<textarea class="input-md textinput textInput form-control" name="detail"  required="required"  style="height:170px;" readonly="readonly">${list.detail}</textarea>
+				        						
+				        						</div>
+				    					</div>
+				    					
+				    					
+            						</div>
+						
+							</div>
+						</div>
+				  </div><%--모달 끝 --%>
 				  </c:forEach> 
 				  
                  </div>    

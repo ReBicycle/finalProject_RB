@@ -467,4 +467,8 @@ public class BicycleServiceImpl implements BicycleService {
 		}
 		return bheartList;
 	}
+	@Override
+	public void deleteRent(int rentNo) {
+		bicycleDAOImpl.deleteRent(rentNo);
+	}
 }

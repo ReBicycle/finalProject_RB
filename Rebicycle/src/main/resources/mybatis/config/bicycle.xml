@@ -433,4 +433,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	  where rentNo = #{value}
    </update>
    
+   <delete id = "deleteRent">
+   	delete rent
+   	where rentNo = #{value}
+   </delete>
+   
 </mapper>

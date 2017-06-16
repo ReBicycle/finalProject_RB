@@ -1,4 +1,4 @@
-drop table rb_review;
+ㅏㅏdrop table rb_review;
 drop table rb_boardreply;
 drop table rb_report;
 drop table donation;
@@ -11,14 +11,12 @@ drop table bicycle;
 drop table category;
 drop table rb_member;
 
-
 drop sequence category_seq;
 drop sequence bicycle_seq;
 drop sequence rent_seq;
 drop sequence report_boardreply_seq;
 drop sequence report_seq;
 drop sequence donation_seq;
-
 
  
 delete from rb_review;
@@ -117,14 +115,13 @@ create table rent(
 );
 
 create table rb_review(
-	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-	rentNo number constraint fk_rentNooo references rent(rentNo) on delete cascade,
-	star number default 0,
-	reviewDate date not null,
-	content clob not null,
-	constraint pk_rb_review primary key(reviewerId, rentNo)
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo) on delete cascade,
+   star number default 0,
+   reviewDate date not null,
+   content clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
 );
-
 
 create table donation(
    donation_bicycle_no number primary key,
@@ -144,21 +141,22 @@ story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id)
 title varchar2(100) not null,
 detail clob not null,
 constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
-);
+)
+
 
 create table heart(
-	id varchar2(100) constraint fk_heart_id references rb_member(id),
-	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo) on delete cascade,
-	constraint pk_heart primary key(id,bicycleNo)
+   id varchar2(100) constraint fk_heart_id references rb_member(id),
+   bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo) on delete cascade,
+   constraint pk_heart primary key(id,bicycleNo)
 );
 
 create table rb_report(
-	reportNo number primary key,
-	reportTitle varchar2(100) not null,
-	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
-	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
-	contents clob not null,
-	reportDate date not null
+   reportNo number primary key,
+   reportTitle varchar2(100) not null,
+   reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
+   blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
+   contents clob not null,
+   reportDate date not null
 );
 --alter table rb_report
 --add reportTitle varchar2(100) not null
@@ -167,7 +165,6 @@ create table rb_report(
 CREATE TABLE rb_boardreply (
       brdno number default 0,
       reno number primary key,
-      retitle varchar(100) not null,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,
       redate date not null

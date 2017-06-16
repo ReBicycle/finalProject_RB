@@ -22,7 +22,7 @@ public interface BoardDAO {
 
 	void deleteReport(int reportNo);
 
-	void commentWrite(BoardReplyVO bvo);
+	void commentWrite(BoardReplyVO brv);
 
 	BoardReplyVO findBoardReplyNo(int brdno);
 

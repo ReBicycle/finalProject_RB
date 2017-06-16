@@ -77,19 +77,19 @@
             <thead>
                 <tr class="bg-primary">
                 	<th width="20">NO</th>
-                    <th width="30">작성자</th>
-                    <th width="250">내용</th>
+                    <th width="70">작성자</th>
+                    <th width="200">내용</th>
                     <th width="50">작성일시</th>
                     <th width="80"></th>
                 </tr>
             </thead>
             <tbody>
-            <c:forEach items="${requestScope.brv}" var="brv" varStatus="order">
+            <c:forEach items="${requestScope.brv}" var="brv">
                 <tr>
-                	<td align="left" class="reno">${brv.reno}</td>
-                    <td align="left">${brv.rewriter}</td>
-            	    <td align="left">${brv.rememo}</td>
-                    <td align="left">${brv.redate}</td>
+                	<td align="left" class="reno" width="20">${brv.reno}</td>
+                    <td align="left" width="30">${brv.rewriter}</td>
+            	    <td align="left" width="250">${brv.rememo}</td>
+                    <td align="left" width="50">${brv.redate}</td>
                     <td>
                     	<button type="button" class="updateBtn-primary">수정</button><br>
                     	<form action="${pageContext.request.contextPath}/boardCommentDelete.do" method="post" class="boardCommentDelete">
@@ -132,7 +132,7 @@
         					<br style="clear:both">
             				<div class="form-group col-md-5">                                
                 			<label id="messageLabel" for="message">Message </label>
-                			<input type="hidden" name="brdno" value="<c:out value="${requestScope.brv.brdno}"/>"> 
+                			<input type="hidden" name="brdno" value="<c:out value="${requestScope.rvo.reportNo}"/>"> 
                 			<!-- <input class="form-control input-sm " type="text" name="retitle" placeholder="Title"> -->
                 			<input class="form-control input-sm " type="text" name="rewriter" value="${sessionScope.mvo.id}" readonly="readonly">
                 			<textarea class="form-control input-sm " type="textarea" id="message" name="rememo" placeholder="Message" maxlength="140" rows="7"></textarea>

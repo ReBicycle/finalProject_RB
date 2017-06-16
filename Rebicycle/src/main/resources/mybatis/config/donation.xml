@@ -27,7 +27,7 @@ select count(*) from donation
 <select id="getDonationList" parameterType="pagingBean" resultMap="donationRM">
 select d.donation_bicycle_no,d.donor_id,d.address, d.detail,d.photo1,d.title
 from (select donation_bicycle_no,donor_id,address,detail,photo1,title,
- row_number() over(order by donation_bicycle_no desc) rnum from donation where story_id='n') D
+ row_number() over(order by donation_bicycle_no desc) rnum from donation) D
  where rnum between #{startRowNumber} and #{endRowNumber}
 </select>
 <select id="findDonationDetailByNo" parameterType="int" resultMap="donationRM">

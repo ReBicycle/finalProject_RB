@@ -45,16 +45,21 @@ public class DonationController {
 		@RequestMapping(method=RequestMethod.POST,value="donation/donation_story_register.do")
 		public String donationStoryRegister(StoryVO svo){
 			System.out.println("컨트롤러 테스트 "+svo.getDonationBicycleNo()+" "+svo.getTitle()+" "+svo.getId()+" "+svo.getDetail());
-				donationService.donationStoryRegister(svo);
+			try{	
+			donationService.donationStoryRegister(svo);
+			}catch(Exception e){
+			return "story_register_fail.tiles?donationBicycleNo="+svo.getDonationBicycleNo();
+		}
 			return "redirect:donation_detail.do?donationBicycleNo="+svo.getDonationBicycleNo();
 			
 		}
 		@RequestMapping("donation/selectStory.do")
 		@ResponseBody
 		public String selectStory(DonationVO dvo){
-			String flag="false";
 			System.out.println("사연선택테스트"+dvo.getStoryId()+" "+dvo.getDonationBicycleNo());
+			
 			donationService.selectStory(dvo);
-			return flag;
+			
+			return "ok";
 		}
 }

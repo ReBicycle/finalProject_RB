@@ -80,7 +80,7 @@ input[type=search] {
    
     <c:forEach items="${requestScope.listVO.donationList}" var="list">
     
-    <div class="content w3-half w3-padding" > 
+    <div class="content w3-half w3-padding" style="width:33%;height:40%">
     <a href="${pageContext.request.contextPath}/donation/donation_detail.do?donationBicycleNo=${list.donationBicycleNo}">
      <img src="${pageContext.request.contextPath}/resources/upload/donation/${list.photoVO.photo1}" style="width:70%;"> 
     	 	<div class="overlay">

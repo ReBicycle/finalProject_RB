@@ -328,11 +328,9 @@ section.awSlider>img {
 		            	  exit_for:
 		                  for(var j=0; j< data.length; j++){
 		                     //가능한 날짜일 경우 flag에 =1 한다.
-		                     
-		                     if(((data[j].startDay<=startendDay[i-1].get("startDay")) && (startendDay[i-1].get("endDay")<=data[j].endDay))	){
+		                     if(((data[j].startDay<=startendDay[i-1].get("startDay")) && (startendDay[i-1].get("endDay")<=data[j].endDay))){
 		                    	 flag=1;
-		                         content = ("<font color='blue'>가능</font><br>");
-		                         
+		                         content = ("<font color='blue'>가능</font><br>");		                    
 		                         //?번 입력날짜가 possible_day 테이블의 데이터 범위안에 들어오면 "가능"
 		                         //exit_for 을 사용하지 않으면 
 		                         //다음 possible_day 와 비교결과 아래의 "else" 영역으로 넘어가 
@@ -342,14 +340,17 @@ section.awSlider>img {
 		                     }else{ 
 		                    	 result = (i-1);
 		                    	 content = ("<font color='red'>"+result+"번 날짜 불가능</font><br>");
-		                    	 $("#startDay"+[i-1]).focus();
-		                    	 $("#startDay"+[i-1]).val("");
-		                    	 $("#endDay"+[i-1]).val("");
-		                    	 
 		                    	 checkFlag[i-1] = false;
 		                    	 //alert("test" + checkFlag[i-1]);
-		                     }
+		                     }                  
 		                  }
+		            	 
+		            	 if(flag==0){
+	                    	 $("#startDay"+[i-1]).focus();
+	                    	 $("#startDay"+[i-1]).val("");
+	                    	 $("#endDay"+[i-1]).val("");
+	                     }
+		            	 
 		                  $("#checkResult").html(content);      
 			      	 } //success    		     
 			     });//ajax		        
@@ -547,11 +548,13 @@ section.awSlider>img {
    .plus-img,.check-img,.cal-img {
    width: 30px;
    height: 30px;
-   margin: 0 auto 10px;
+   margin: 10px auto 10px;
+   
    display: block;
    -moz-border-radius: 50%;
    -webkit-border-radius: 50%;
    border-radius: 50%;
+  
    }
 </style>
 

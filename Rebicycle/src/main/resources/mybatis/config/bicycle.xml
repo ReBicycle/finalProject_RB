@@ -71,6 +71,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="findAddressById" resultType="String">
       select address from rb_member where id=#{value}
    </select>
+   
+   <delete id="deleteBicycle" parameterType="int">
+   		delete from bicycle where bicycleNo=#{value} 
+   </delete>
    <!-- 종봉 자전거 검색 -->
    <!-- <select id="getBicycleListByAddressAndDay" parameterType="map"
       resultType="bicycleVO">
@@ -246,7 +250,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       where r.bicycleNo = b.bicycleNo and b.memberId = #{value}  and (r.state = 0 or r.state = 2) order by r.rentNo desc
    </select>
    
-   
+   <select id="findRentRequestByBicycleNo" resultMap = "rentMap">
+      select r.*, b.bicycleNo, b.memberId, b.title
+      from rent r, bicycle b
+      where r.bicycleNo = b.bicycleNo and b.bicycleNo = #{value} and r.state = 0 order by r.rentNo desc
+   </select>
    
    <select id = "findRentByRentNo" resultMap = "rentMap">
       select rentNo,bicycleNo, renterId, startDay, endDay
@@ -377,7 +385,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		from heart
    		where id=#{id} and bicycleNo=#{bicycleNo} 
    </select>
-
+	<delete id="heartOff">
+   		delete from heart
+   		where id=#{id} and bicycleNo=#{bicycleNo} 
+   </delete>
+   <insert id="heartOn">
+   		 insert into heart(id,bicycleNo) 
+   		 values(#{id},#{bicycleNo})
+   </insert>
+   <select id="getHeartList"  resultType="heartVO">
+   		select bicycleNo
+   		from heart
+   		where id=#{value}
+   </select>
+   
+   
    <!-- 빌리고자 하는 사람 보낸 요청들 -->
    <!-- 1. 수락 받을 경우(1) / 2. 거절/불가능할 경우 /(2) -->
    <!-- 내가 빌리는 , 빌려주는 사람이면,, -->
@@ -403,14 +425,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and m.id=b.memberId and r.state=0
    </select>	
    
-   <delete id="heartOff">
-   		delete from heart
-   		where id=#{id} and bicycleNo=#{bicycleNo} 
-   </delete>
-   <insert id="heartOn">
-   		 insert into heart(id,bicycleNo) 
-   		 values(#{id},#{bicycleNo})
-   </insert>
+   
    
    <update id = "changeState">
    	  update rent

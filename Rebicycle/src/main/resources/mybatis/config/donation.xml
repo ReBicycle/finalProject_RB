@@ -5,18 +5,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 
  <mapper namespace="donation">   
-<insert id="donationBicycle" parameterType="bicycleVO">
-	insert into donation (donationBicycleNo,donorId,detail,picture,address )
-values(donation_seq.nextval,#{memberVO.id},#{detail},#{photoVO.photo1},#{address})
+ <resultMap type="donationVO" id="donationRM">
+ <result column="donation_bicycle_no" property="donationBicycleNo"/>
+ <result column="donor_id" property="donorId"/>
+ <result column="photo1" property="photoVO.photo1"/>
+ <result column="photo2" property="photoVO.photo2"/>
+ <result column="photo3" property="photoVO.photo3"/>	
+ <result column="picture" property="donorPhoto"/>
+ </resultMap>
+ <select id="getDonationBicycleNo" resultType="int">
+	select donation_seq.nextval from dual
+</select>
+<insert id="registerDonation" parameterType="donationVO">
+	insert into donation(donation_bicycle_no,donor_id,address,title,detail,photo1,photo2,photo3)
+	values(#{donationBicycleNo},#{donorId},#{address},#{title},#{detail},#{photoVO.photo1},#{photoVO.photo2},#{photoVO.photo3})
 </insert> 	
 <select id="getTotalContentsNo" resultType="string">
 select count(*) from donation
 </select>
-<select id="getDonationList" parameterType="pagingBean" resultType="donationVO">
-select d.donationbicycleno,d.donorId,d.address, d.detail,d.picture,d.title
-from (select donationbicycleno,donorId,address,detail,picture,title,
- row_number() over(order by donationbicycleno desc) rnum from donation where status=0) D
+<select id="getDonationList" parameterType="pagingBean" resultMap="donationRM">
+select d.donation_bicycle_no,d.donor_id,d.address, d.detail,d.photo1,d.title
+from (select donation_bicycle_no,donor_id,address,detail,photo1,title,
+ row_number() over(order by donation_bicycle_no desc) rnum from donation where status=0) D
  where rnum between #{startRowNumber} and #{endRowNumber}
+</select>
+<select id="findDonationDetailByNo" parameterType="int" resultMap="donationRM">
+	select d.donation_bicycle_no,d.donor_id,d.address,d.detail,d.photo1,d.photo2,d.photo3,d.title, r.picture 
+	from (select donation_bicycle_no,donor_id, address, detail,photo1,photo2,photo3,title from donation where donation_bicycle_no=#{value}) d,rb_member r
+	where d.donor_id=r.id
+</select>
+<insert id="donationStoryRegister" parameterType="storyVO">
+insert into story (donation_bicycle_no,story_id,title,detail)
+values(#{donationBicycleNo},#{id},#{title},#{detail})
+</insert>
+<select id="findStoryListByDonationBicycleNo" parameterType="int" resultType="storyVO">
+select s.story_id as id, s.title, s.detail, r.picture as photo
+from (select story_id, title, detail from story where donation_bicycle_no=#{value}) s,rb_member r
+where s.story_id=r.id
 </select>
 
  </mapper>

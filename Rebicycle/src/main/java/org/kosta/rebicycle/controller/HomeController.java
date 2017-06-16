@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
-import org.kosta.rebicycle.model.vo.RentVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,29 +23,34 @@ public class HomeController {
 		private BicycleService service;
 		@RequestMapping("home.do")
 		public String home(HttpServletRequest request){
+			
+			
+		
+				if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberVO){
+						HttpSession session = request.getSession();
+						
+						MemberVO pvo = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+						session.setAttribute("mvo", pvo);
+						int findGetRequest=service.findGetRequest(pvo.getId());
+						
+						int findAcceptRequest=service.findAcceptRequest(pvo.getId());
+						int findRefuseRequest=service.findRefuseRequest(pvo.getId());
+						int Total=findGetRequest+findAcceptRequest+findRefuseRequest;
+						
+						HashMap<String, Integer> totalRequest=new HashMap<>();
+						
+						totalRequest.put("findGetRequest", findGetRequest);
+						totalRequest.put("findAcceptRequest", findAcceptRequest);
+						totalRequest.put("findRefuseRequest", findRefuseRequest);
+						totalRequest.put("total", Total);
+						
+						session.setAttribute("totalRequest", totalRequest);
+					}
+			
 			return "home.tiles";
 		}
 		@RequestMapping("member_login.do")
-		public String showLoginForm(HttpServletRequest request){
-			
-			HttpSession session=request.getSession(false);
-			if(session!=null){
-				MemberVO vo=(MemberVO) session.getAttribute("mvo");
-				//각각의 요청을 구분하기 위해 따로 받음
-				int findGetRequest=service.findGetRequest(vo.getId());
-				int findAcceptRequest=service.findAcceptRequest(vo.getId());
-				int findRefuseRequest=service.findRefuseRequest(vo.getId());
-				int Total=findGetRequest+findAcceptRequest+findRefuseRequest;
-				
-				HashMap<String, Integer> totalRequest=new HashMap<>();
-				
-				totalRequest.put("findGetRequest", findGetRequest);
-				totalRequest.put("findAcceptRequest", findAcceptRequest);
-				totalRequest.put("findRefuseRequest", findRefuseRequest);
-				totalRequest.put("total", Total);
-				
-				session.setAttribute("totalRequest", totalRequest);
-			}
+		public String showLoginForm(){
 			return "member/member_login.tiles";
 		}
 		@RequestMapping("{dirName}/{viewName}.do")

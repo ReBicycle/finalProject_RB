@@ -627,6 +627,7 @@ section.awSlider>img {
                		<!-- <div class="col-lg-8 col-lg-offset-2"> -->
                		<div class="col-lg-10 col-lg-offset-1">
                   		<form name="rentForm" id="rentForm" action="${pageContext.request.contextPath}/bicycle/rentRegister.do" method="post">
+	                    	<c:if test="${sessionScope.mvo.id != requestScope.findBvo.memberVO.id}">
 	                    	<table id = "addTable">                   
                    				<div class="row control-group">
 		                           	<!-- input 달력 -->
@@ -675,6 +676,7 @@ section.awSlider>img {
                      				</div>
                     			</div>
                   			</div>
+	                       	</c:if>	
 	                       		
                        		<div class="row control-group">
                         		<div class="form-group col-xs-12 floating-label-form-group controls">

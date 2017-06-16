@@ -133,7 +133,7 @@ create table donation(
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
    photo3 varchar2(100) not null,
-   status number default 0,
+   story_id varchar2(100) default 'no' constraint fk_story_id references story(story_id),
    address varchar2(300) not null,
    title varchar2(100) not null
 );
@@ -230,10 +230,13 @@ select s.story_id as id, s.title, s.detail, r.picture as photo
 from (select story_id, title, detail from story where donation_bicycle_no=27) s,rb_member r
 where s.story_id=r.id
 delete from STORY
-alter table story
-add constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
- 
-
+alter table donation
+add  story_id varchar2(100) default 'n'
+alter table donation
+drop column  story_id
+ select * from donation where story_id='n'
+update RB_MEMBER
+set password='1234' where id='spring'
 -------------------------------------------------------------
 select * from rb_report;
 

@@ -14,6 +14,8 @@ public interface DonationService {
 
 	void donationStoryRegister(StoryVO svo);
 
+	void selectStory(DonationVO dvo);
+
 
 
 }

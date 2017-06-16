@@ -1,10 +1,7 @@
 package org.kosta.rebicycle.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import javax.annotation.Resource;
 
-import org.apache.tiles.request.Request;
 import org.kosta.rebicycle.model.service.DonationService;
 import org.kosta.rebicycle.model.vo.DonationVO;
 import org.kosta.rebicycle.model.vo.ListVO;
@@ -12,6 +9,7 @@ import org.kosta.rebicycle.model.vo.StoryVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -50,5 +48,13 @@ public class DonationController {
 				donationService.donationStoryRegister(svo);
 			return "redirect:donation_detail.do?donationBicycleNo="+svo.getDonationBicycleNo();
 			
+		}
+		@RequestMapping("donation/selectStory.do")
+		@ResponseBody
+		public String selectStory(DonationVO dvo){
+			String flag="false";
+			System.out.println("사연선택테스트"+dvo.getStoryId()+" "+dvo.getDonationBicycleNo());
+			donationService.selectStory(dvo);
+			return flag;
 		}
 }

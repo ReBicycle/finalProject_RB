@@ -42,6 +42,11 @@ private DonationDAO donationDAO;
 		donationDAO.donationStoryRegister(svo);
 		
 	}
+	@Override
+	public void selectStory(DonationVO dvo) {
+	donationDAO.selectStory(dvo);
+		
+	}
 	
 	
 }

@@ -30,4 +30,10 @@ public interface BoardService {
 
 	List<BoardReplyVO> getReplyList(int brv);
 
+	void boardCommentUpdate(BoardReplyVO brv);
+
+	BoardReplyVO boardUpdateCommentView(int reno);
+
+	void boardCommentDelete(int reno);
+
 }

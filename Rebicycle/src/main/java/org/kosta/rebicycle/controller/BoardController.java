@@ -100,11 +100,30 @@ public class BoardController {
 		
 		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+brv.getBrdno());
 	}
+	@RequestMapping(value="boardCommentUpdate.do" , method=RequestMethod.POST)
+	public ModelAndView updateComment(BoardReplyVO brv, HttpServletRequest request) {
+		System.out.println("댓글수정 테스트"+brv);
+		boardService.boardCommentUpdate(brv);
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+brv.getBrdno());
+	}
+	@RequestMapping("boardCommentDelete.do")
+	public ModelAndView boardCommentDelete(int reno, BoardReplyVO brv) {		
+		boardService.boardCommentDelete(reno);		
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+brv.getBrdno());
+	}
 	//참고용
-	/*@RequestMapping(value="write.do" , method=RequestMethod.POST)
-	public ModelAndView write(HttpServletRequest request, ReportVO rvo){
-	boardService.write(rvo);
-	System.out.println("fdjsklfjskldfjlsk"+ rvo);
-	return new ModelAndView("redirect:findReportNo.do?reportNo="+rvo.getReportNo());
-}*/
+	/*@RequestMapping("boardUpdateReportView.do")
+	public String updateReportView(int reportNo, HttpServletRequest request){
+		System.out.println("수정페이지 GO!!GO!!"+reportNo);
+		ReportVO rvo=boardService.boardDetail(reportNo);
+		request.setAttribute("rvo", rvo);
+		return "board/board_update.tiles";
+	}
+	@RequestMapping(value="updateReport.do" , method=RequestMethod.POST)
+	public ModelAndView updateReport(ReportVO rvo, HttpServletRequest request) {
+		boardService.updateReport(rvo);
+		System.out.println("업데이트"+rvo);
+		request.setAttribute("rvo", rvo);
+		return new ModelAndView("redirect:boardDetail.do?reportNo="+rvo.getReportNo());
+	}*/
 }

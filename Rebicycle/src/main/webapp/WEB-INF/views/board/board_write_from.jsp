@@ -36,7 +36,7 @@ $(document).ready(function(){
         	<input type="text" class="form-control" name="reporterId" id="reporterId" value="${sessionScope.mvo.id}" readonly="readonly">
         	<br>
         <div class="required-field-block">
-            <textarea rows="3" class="form-control" placeholder="Message" name="contents" id="contents"></textarea>
+            <textarea rows="3" class="form-control" placeholder="Message" name="contents" id="contents" style="resize: none"></textarea>
         </div>
         <br>
         <button type="button" class="btn btn-success btn-lg btn3d" id="writeBtn"><span class="glyphicon glyphicon-ok"></span>신고하기</button>

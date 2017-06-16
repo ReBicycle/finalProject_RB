@@ -44,7 +44,7 @@ $(document).ready(function(){
                      Data <input class="form-control" value="${requestScope.rvo.reportDate}" name="reportDate" type="text" readonly="readonly"/>
                   </div>
                   <div class="form-group">
-                     Content <textarea class="form-control" cols="40" name="contents" rows="5">${requestScope.rvo.contents}</textarea>
+                     Content <textarea class="form-control" cols="40" name="contents" rows="5" style="resize: none">${requestScope.rvo.contents}</textarea>
                   </div>
                   <%-- <c:if test="${requestScope.rvo.reporterId==sessionScope.mvo.id}">
                   <button type="button" class="btn btn-info" id="updateBtn">UpDate</button>

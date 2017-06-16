@@ -377,6 +377,8 @@ select * from rb_boardreply
 
 drop table rb_boardreply;
 drop sequence rb_boardreply_seq;
+
+update rb_boardreply set brdno=121,rewriter='jobman',rememo='미스떠 블루dasda',redate=sysdate where reno=1
 -----------------------------석희---------------------------------
 
 

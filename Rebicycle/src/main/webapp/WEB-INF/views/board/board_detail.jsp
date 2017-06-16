@@ -91,6 +91,7 @@
             	    <td align="left" width="250">${brv.rememo}</td>
                     <td align="left" width="50">${brv.redate}</td>
                     <td>
+                    <c:if test="${brv.rewriter==sessionScope.mvo.id}">
                     	<button type="button" class="updateBtn-primary">수정</button><br>
                     	<form action="${pageContext.request.contextPath}/boardCommentDelete.do" method="post" class="boardCommentDelete">
                 			<input type="hidden" name="brdno" value="<c:out value="${brv.brdno}"/>">
@@ -100,6 +101,7 @@
             	    		<input type="hidden" name="redate" value="<c:out value="${brv.redate}"/>">
             	    		<button type="button" class="btn-danger">삭제</button>
             	    	</form>
+            	    </c:if>
             	    </td>
                 </tr>
                 

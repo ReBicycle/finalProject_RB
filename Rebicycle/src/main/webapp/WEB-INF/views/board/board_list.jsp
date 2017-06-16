@@ -18,7 +18,7 @@ th, td {
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-	}
+	
 		$("#reportBtn").click(function(){
 
 			if(${sessionScope.mvo!=null}){

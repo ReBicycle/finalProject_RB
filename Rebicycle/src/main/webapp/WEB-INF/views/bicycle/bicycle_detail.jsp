@@ -361,9 +361,6 @@ section.awSlider>img {
         
         $("#plusImg").click(function(){
         	
-        	//alert(clickCount);
-        	alert("cat     "+clickCount)
-        	alert("test dog      "+checkFlag[clickCount+1])
         	if(checkFlag[clickCount+1]==false){
 	 			alert("가능일 확인 절차가 필요합니다!");
 	 			return false;

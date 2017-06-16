@@ -54,7 +54,7 @@ public class BoardController {
 		request.setAttribute("rvo",rvo);
 		/*request.setAttribute("brv", brv);*/
 		System.out.println(rvo);
-		return new ModelAndView("board/board_detail.tiles");
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+reportNo);
 	}
 	//로그인 후 자신이 작성한 신고 글 수정 페이지로 넘어가는 컨트롤러
 	@RequestMapping("boardUpdateReportView.do")
@@ -69,7 +69,7 @@ public class BoardController {
 		boardService.updateReport(rvo);
 		System.out.println("업데이트"+rvo);
 		/*request.setAttribute("rvo", rvo);*/
-		return new ModelAndView("redirect:boardDetail.do?reportNo="+rvo.getReportNo());
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+rvo.getReportNo());
 	}
 	@RequestMapping("deleteReport.do")
 	public ModelAndView deleteReport(int reportNo) {		

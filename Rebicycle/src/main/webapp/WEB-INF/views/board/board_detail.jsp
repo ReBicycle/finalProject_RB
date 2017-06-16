@@ -77,8 +77,8 @@
             <thead>
                 <tr class="bg-primary">
                 	<th width="20">NO</th>
-                    <th width="30">작성자</th>
-                    <th width="250">내용</th>
+                    <th width="70">작성자</th>
+                    <th width="200">내용</th>
                     <th width="50">작성일시</th>
                     <th width="80"></th>
                 </tr>
@@ -86,10 +86,10 @@
             <tbody>
             <c:forEach items="${requestScope.brv}" var="brv">
                 <tr>
-                	<td align="left" class="reno">${brv.reno}</td>
-                    <td align="left">${brv.rewriter}</td>
-            	    <td align="left">${brv.rememo}</td>
-                    <td align="left">${brv.redate}</td>
+                	<td align="left" class="reno" width="20">${brv.reno}</td>
+                    <td align="left" width="30">${brv.rewriter}</td>
+            	    <td align="left" width="250">${brv.rememo}</td>
+                    <td align="left" width="50">${brv.redate}</td>
                     <td>
                     	<button type="button" class="updateBtn-primary">수정</button><br>
                     	<form action="${pageContext.request.contextPath}/boardCommentDelete.do" method="post" class="boardCommentDelete">

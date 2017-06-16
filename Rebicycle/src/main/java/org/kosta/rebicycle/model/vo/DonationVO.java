@@ -11,7 +11,7 @@ public class DonationVO {
 	private String detail;
 	private PhotoVO photoVO;
 	private String address;
-	private String status;
+	private String storyId;
 	private String title;
 	private List<MultipartFile> file;
 	private List<StoryVO> storyList;
@@ -20,20 +20,20 @@ public class DonationVO {
 	}
 
 	public DonationVO(String donorId, int donationBicycleNo, String detail, PhotoVO photoVO, String address,
-			String status, String title, List<MultipartFile> file) {
+			String storyId, String title, List<MultipartFile> file) {
 		super();
 		this.donorId = donorId;
 		this.donationBicycleNo = donationBicycleNo;
 		this.detail = detail;
 		this.photoVO = photoVO;
 		this.address = address;
-		this.status = status;
+		this.storyId = storyId;
 		this.title = title;
 		this.file = file;
 	}
 	
 	public DonationVO(String donorId, String donorPhoto, int donationBicycleNo, String detail, PhotoVO photoVO,
-			String address, String status, String title, List<MultipartFile> file) {
+			String address, String storyId, String title, List<MultipartFile> file) {
 		super();
 		this.donorId = donorId;
 		this.donorPhoto = donorPhoto;
@@ -41,13 +41,13 @@ public class DonationVO {
 		this.detail = detail;
 		this.photoVO = photoVO;
 		this.address = address;
-		this.status = status;
+		this.storyId = storyId;
 		this.title = title;
 		this.file = file;
 	}
 
 	public DonationVO(String donorId, String donorPhoto, int donationBicycleNo, String detail, PhotoVO photoVO,
-			String address, String status, String title, List<MultipartFile> file, List<StoryVO> storyList) {
+			String address, String storyId, String title, List<MultipartFile> file, List<StoryVO> storyList) {
 		super();
 		this.donorId = donorId;
 		this.donorPhoto = donorPhoto;
@@ -55,7 +55,7 @@ public class DonationVO {
 		this.detail = detail;
 		this.photoVO = photoVO;
 		this.address = address;
-		this.status = status;
+		this.storyId = storyId;
 		this.title = title;
 		this.file = file;
 		this.storyList = storyList;
@@ -91,11 +91,11 @@ public class DonationVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getStatus() {
-		return status;
+	public String getStoryId() {
+		return storyId;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStoryId(String storyId) {
+		this.storyId = storyId;
 	}
 	public String getTitle() {
 		return title;
@@ -132,7 +132,7 @@ public class DonationVO {
 	public String toString() {
 		return "DonationVO [donorId=" + donorId + ", donorPhoto=" + donorPhoto + ", donationBicycleNo="
 				+ donationBicycleNo + ", detail=" + detail + ", photoVO=" + photoVO + ", address=" + address
-				+ ", status=" + status + ", title=" + title + ", file=" + file + ", storyList=" + storyList + "]";
+				+ ", storyId=" + storyId + ", title=" + title + ", file=" + file + ", storyList=" + storyList + "]";
 	}
 
 

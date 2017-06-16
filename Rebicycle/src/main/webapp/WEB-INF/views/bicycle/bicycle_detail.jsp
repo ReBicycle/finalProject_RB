@@ -313,7 +313,7 @@ section.awSlider>img {
                  dayMap.put("startDay",$("#startDay"+i).val());
                  dayMap.put("endDay",$("#endDay"+i).val());
                  startendDay[i]=dayMap;
-                 checkFlag[i] = true;
+                 //checkFlag[i] = true;
                  
                  //alert("checkFlag i번째 - checkImg click" + checkFlag[i]);
 		         $.ajax({
@@ -335,6 +335,8 @@ section.awSlider>img {
 		                         //exit_for 을 사용하지 않으면 
 		                         //다음 possible_day 와 비교결과 아래의 "else" 영역으로 넘어가 
 		                         //결국 불가능이 된다.
+		                         checkFlag[i] = true;
+		                         alert("test         "  +  checkFlag[i])
 		                         break exit_for;
 		                        
 		                     }else{ 
@@ -359,12 +361,15 @@ section.awSlider>img {
         
         
         $("#plusImg").click(function(){
-        	checkFlag[clickCount+1] = false;
+        	
         	//alert(clickCount);
-        	if(checkFlag[clickCount]==false){
+        	alert("cat     "+clickCount)
+        	alert("test dog      "+checkFlag[clickCount+1])
+        	if(checkFlag[clickCount+1]==false){
 	 			alert("가능일 확인 절차가 필요합니다!");
 	 			return false;
 	 		}
+        	checkFlag[clickCount+1] = false;
            //day N:N 검사에서 id에 0,1,2,,, 를 붙이기 위해 
            //clickCount 변수에 +1 을 한다
            

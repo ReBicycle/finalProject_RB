@@ -4,15 +4,12 @@ import javax.annotation.Resource;
 
 import org.kosta.rebicycle.model.dao.MemberDAO;
 import org.kosta.rebicycle.model.vo.MemberVO;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Resource
 	private MemberDAO memberDAO;
-	@Resource
-	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public MemberVO login(MemberVO mvo) {
@@ -21,8 +18,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void registerMember(MemberVO vo) {
-		String encodedPwd = passwordEncoder.encode(vo.getPassword());
-		vo.setPassword(encodedPwd);
+		
 		memberDAO.registerMember(vo);
 		
 	}

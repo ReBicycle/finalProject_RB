@@ -35,6 +35,25 @@ function showDivs(n) {
   dots[slideIndex-1].className += " w3-opacity-off";
 }
 </script> 
+<script type="text/javascript">
+function selectStory(id,no){
+	alert(id+" "+no);
+	if(confirm("사연을 채택하시겠습니까?")){
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=function(){
+			if(xhr.status==200&&xhr.readychangestatus==4)
+			alert("채택이 완료되었습니다");
+		}
+		xhr.open("post","${pageContext.request.contextPath}/donation/selectStory.do");
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xhr.send("storyId="+id+"&donationBicycleNo="+no);
+	}
+	else{
+		return false;
+	}
+	
+}
+</script>
 <style>
 .btn {  
     border: none; /* Remove borders */ 
@@ -235,6 +254,13 @@ function showDivs(n) {
 				        						
 				        						</div>
 				    					</div>
+				    					<c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId&&requestScope.donationVO.status==0}">
+				    					<div class="form-group" style="margin-bottom: 30px;"> 
+				       						 <div class="aab controls col-md-12"></div>
+				        					<button type="button" onclick="selectStory('${list.id}','${param.donationBicycleNo}')" class="btn btn-primary btn btn-info" style="font-size: 15px;">사연채택</button>
+										</div> 
+				    					</c:if>
+				    					
 				    					
 				    					
             						</div>

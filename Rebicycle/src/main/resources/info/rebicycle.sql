@@ -127,13 +127,13 @@ create table rb_review(
 
 
 create table donation(
-   donationBicycleNo number primary key,
-   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   donation_bicycle_no number primary key,
+   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
    photo3 varchar2(100) not null,
-   story_id varchar2(100) default 'n' constraint fk_story_id references story(story_id),
+   story_id varchar2(100) default 'n',
    address varchar2(300) not null,
    title varchar2(100) not null
 )

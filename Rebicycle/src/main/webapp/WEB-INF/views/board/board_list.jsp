@@ -18,6 +18,7 @@ th, td {
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+	}
 		$("#reportBtn").click(function(){
 
 			if(${sessionScope.mvo!=null}){
@@ -57,7 +58,7 @@ th, td {
 		</div>
 		
 		<br><br>
-		
+
 		<table class="table table-hover">
 			<thead>
 				<tr>

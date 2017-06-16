@@ -84,7 +84,7 @@
                 </tr>
             </thead>
             <tbody>
-            <c:forEach items="${requestScope.brv}" var="brv" varStatus="order">
+            <c:forEach items="${requestScope.brv}" var="brv">
                 <tr>
                 	<td align="left" class="reno">${brv.reno}</td>
                     <td align="left">${brv.rewriter}</td>
@@ -132,7 +132,7 @@
         					<br style="clear:both">
             				<div class="form-group col-md-5">                                
                 			<label id="messageLabel" for="message">Message </label>
-                			<input type="hidden" name="brdno" value="<c:out value="${requestScope.brv.brdno}"/>"> 
+                			<input type="hidden" name="brdno" value="<c:out value="${requestScope.rvo.reportNo}"/>"> 
                 			<!-- <input class="form-control input-sm " type="text" name="retitle" placeholder="Title"> -->
                 			<input class="form-control input-sm " type="text" name="rewriter" value="${sessionScope.mvo.id}" readonly="readonly">
                 			<textarea class="form-control input-sm " type="textarea" id="message" name="rememo" placeholder="Message" maxlength="140" rows="7"></textarea>

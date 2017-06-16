@@ -11,14 +11,12 @@ drop table bicycle;
 drop table category;
 drop table rb_member;
 
-
 drop sequence category_seq;
 drop sequence bicycle_seq;
 drop sequence rent_seq;
 drop sequence report_boardreply_seq;
 drop sequence report_seq;
 drop sequence donation_seq;
-
 
  
 delete from rb_review;
@@ -125,7 +123,6 @@ create table rb_review(
 	constraint pk_rb_review primary key(reviewerId, rentNo)
 );
 
-
 create table donation(
    donationBicycleNo number primary key,
    donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
@@ -133,13 +130,13 @@ create table donation(
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
    photo3 varchar2(100) not null,
-   story_id varchar2(100) default 'n' constraint fk_story_id references story(story_id),
+   status number default 0,
    address varchar2(300) not null,
    title varchar2(100) not null
-)
+);
 
 create table story(
-donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
+donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donationBicycleNo),
 story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
 title varchar2(100) not null,
 detail clob not null,
@@ -167,7 +164,6 @@ create table rb_report(
 CREATE TABLE rb_boardreply (
       brdno number default 0,
       reno number primary key,
-      retitle varchar(100) not null,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,
       redate date not null

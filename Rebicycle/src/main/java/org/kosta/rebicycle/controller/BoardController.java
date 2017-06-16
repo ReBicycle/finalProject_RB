@@ -49,10 +49,10 @@ public class BoardController {
 		System.out.println("컨트롤러 시작"+reportNo);
 		ReportVO rvo=boardService.boardDetail(reportNo);
 		System.out.println("2  **");
-		List<BoardReplyVO> brv=boardService.getReplyList(reportNo);
-		System.out.println("댓글    "+brv);
+		/*List<BoardReplyVO> brv=boardService.getReplyList(reportNo);*/
+		/*System.out.println("댓글    "+brv);*/
 		request.setAttribute("rvo",rvo);
-		request.setAttribute("brv", brv);
+		/*request.setAttribute("brv", brv);*/
 		System.out.println(rvo);
 		return new ModelAndView("board/board_detail.tiles");
 	}
@@ -94,6 +94,7 @@ public class BoardController {
 	}
 	@RequestMapping(value="commentWrite.do", method=RequestMethod.POST)
 	public ModelAndView commentWrite(HttpServletRequest request, BoardReplyVO brv){
+		System.out.println("댓글 컨트롤러 테스트"+ brv);
 		boardService.commentWrite(brv);
 		System.out.println("댓글이다아아아아~~~~~~~      "+ brv);
 		/*request.setAttribute("brv", brv);*/

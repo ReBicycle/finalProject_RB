@@ -52,8 +52,9 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSessionTemplate.selectOne("board.findBoardReplyNo",brdno);
 	}
 	@Override
-	public void commentWrite(BoardReplyVO bvo){
-		sqlSessionTemplate.insert("board.commentWrite",bvo);
+	public void commentWrite(BoardReplyVO brv){
+		sqlSessionTemplate.insert("board.commentWrite",brv);
+		System.out.println("댓글 다오 테스트"+brv);
 	}
 	@Override
 	public List<BoardReplyVO> getReplyList(int brv){

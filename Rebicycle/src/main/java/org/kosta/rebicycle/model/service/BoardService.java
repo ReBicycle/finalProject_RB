@@ -24,7 +24,7 @@ public interface BoardService {
 
 	ReportVO findReportNo(int reportNo);
 
-	void commentWrite(BoardReplyVO bvo);
+	void commentWrite(BoardReplyVO brv);
 
 	BoardReplyVO findBoardReplyNo(int brdno);
 

@@ -336,7 +336,6 @@ section.awSlider>img {
 		                         //다음 possible_day 와 비교결과 아래의 "else" 영역으로 넘어가 
 		                         //결국 불가능이 된다.
 		                         checkFlag[i] = true;
-		                         alert("test         "  +  checkFlag[i])
 		                         break exit_for;
 		                        
 		                     }else{ 

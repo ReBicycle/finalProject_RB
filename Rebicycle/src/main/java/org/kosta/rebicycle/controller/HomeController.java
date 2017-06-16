@@ -23,9 +23,6 @@ public class HomeController {
 		private BicycleService service;
 		@RequestMapping("home.do")
 		public String home(HttpServletRequest request){
-			
-			
-		
 				if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberVO){
 						HttpSession session = request.getSession();
 						

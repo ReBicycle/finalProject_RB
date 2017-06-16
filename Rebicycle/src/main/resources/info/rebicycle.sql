@@ -7,6 +7,8 @@ drop table possible_day;
 drop table bicycle_photo;
 drop table map;
 drop table heart;
+drop table donation;
+drop table story;
 drop table bicycle;
 drop table category;
 drop table rb_member;
@@ -130,7 +132,7 @@ create table donation(
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
    photo3 varchar2(100) not null,
-   status number default 0,
+   story_id varchar2(100) default 'n',
    address varchar2(300) not null,
    title varchar2(100) not null
 )

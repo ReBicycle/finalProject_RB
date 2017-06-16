@@ -67,8 +67,7 @@ th, td {
 										<td class="text-center" width="150px">${rvo.reportNo}</td>
 										<td class="text-center" width="150px"><c:choose>
 												<c:when test="${sessionScope.mvo!=null}">
-													<a
-														href="${pageContext.request.contextPath}/boardDetail.do?reportNo=${rvo.reportNo}">${rvo.reportTitle}</a>
+													<a href="${pageContext.request.contextPath}/boardDetail.do?reportNo=${rvo.reportNo}">${rvo.reportTitle}</a>
 												</c:when>
 												<c:otherwise>
 			    								${rvo.reportTitle}

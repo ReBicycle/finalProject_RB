@@ -144,7 +144,7 @@ story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id)
 title varchar2(100) not null,
 detail clob not null,
 constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
-)
+);
 
 create table heart(
 	id varchar2(100) constraint fk_heart_id references rb_member(id),

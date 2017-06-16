@@ -91,4 +91,6 @@ public interface BicycleService {
 	List<BicycleVO> getHeartList(String id);
 
 	void deleteBicycle(int bicycleNo);
+
+	void deleteRent(int rentNo);
 }

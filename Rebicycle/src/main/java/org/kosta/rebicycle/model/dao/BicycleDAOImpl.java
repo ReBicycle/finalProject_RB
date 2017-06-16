@@ -291,4 +291,9 @@ public class BicycleDAOImpl implements BicycleDAO {
 	public List<HeartVO> getHeartList(String id) {
 		return template.selectList("bicycle.getHeartList", id);
 	}
+	@Override
+	public void deleteRent(int rentNo) {
+		template.delete("bicycle.deleteRent", rentNo);
+		
+	}
 }

@@ -120,6 +120,12 @@ public class MypageController {
 		return "redirect:mypage/mypage_main.do";
 	}
 
+	@RequestMapping("deleteRent.do")
+	public String deleteRent(String rentNo){
+		
+		bicycleService.deleteRent(Integer.parseInt(rentNo));
+		return "redirect:mypage/mypage_main.do";
+	}
 	
 
 }

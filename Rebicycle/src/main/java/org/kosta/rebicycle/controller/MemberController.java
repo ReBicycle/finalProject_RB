@@ -32,8 +32,6 @@ public class MemberController {
 	private MemberService memberService;
 	@Resource
 	private BicycleService service;
-	@Resource
-	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("login_fail.do")
     public String loginFail(){

@@ -236,7 +236,7 @@ alter table donation
 drop column  story_id
  select * from donation where story_id='n'
 update RB_MEMBER
-set password='1234' where id='spring'
+set password='1234' where id='dahyun'
 -------------------------------------------------------------
 select * from rb_report;
 

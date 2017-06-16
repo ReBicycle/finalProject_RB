@@ -40,9 +40,13 @@ function selectStory(id,no){
 	alert(id+" "+no);
 	if(confirm("사연을 채택하시겠습니까?")){
 		var xhr=new XMLHttpRequest();
-		xhr.onreadystatechange=function(){
-			if(xhr.status==200&&xhr.readychangestatus==4)
-			alert("채택이 완료되었습니다");
+		xhr.onreadystatechange=function(data){
+			if(xhr.status==200&&xhr.readychangestatus==4){
+				if(data=="ok")
+				alert("채택이 완료되었습니다");
+				location.href="${pageContext.request.contextPath}/donation/donation_detail.do?donationBicycleNo="+no;
+			}
+			
 		}
 		xhr.open("post","${pageContext.request.contextPath}/donation/selectStory.do");
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
@@ -53,6 +57,25 @@ function selectStory(id,no){
 	}
 	
 }
+function storyCheck(){
+ 	var story=document.getElementById('${sessionScope.mvo.id}');
+	if(story==null){
+		 document.getElementById('id01').style.display='block';
+	}else{
+		alert("이미 사연이 존재합니다!");
+		return false;
+	} 
+	
+}
+</script>
+<script>
+$(document).ready(function(){
+	$("#cancleBtn").click(function(){
+		$("#storyForm")[0].reset();  
+		$("#id01").css("display","none");
+	});
+	
+});
 </script>
 <style>
 .btn {  
@@ -137,11 +160,16 @@ function selectStory(id,no){
                         <h3><strong>기부 수</strong></h3>
                         <p style="font-size: 15px"></p>
        		   </div>    
-           </div> 
-        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="document.getElementById('id01').style.display='block'"><h4><strong>사연신청</strong></h4></button>
+           </div>
+        <c:if test="${sessionScope.mvo.id!=requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">   
+        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="storyCheck()"><h4><strong>사연신청</strong></h4></button>
+        </c:if>
+        <c:if test="${requestScope.donationVO.storyId!='n'}">
+        	<h4><strong>당첨자</strong> &nbsp;&nbsp;${requestScope.donationVO.storyId}</h4>
+        </c:if>
         <%--modal --%>
         <div id="id01" class="modal" align="center" >
-  <form method="post" class="modal-content animate mainbox"  action="${pageContext.request.contextPath}/donation/donation_story_register.do?donationBicycleNo=${requestScope.donationVO.donationBicycleNo}" >
+  <form method="post" class="modal-content animate mainbox" id="storyForm" action="${pageContext.request.contextPath}/donation/donation_story_register.do?donationBicycleNo=${requestScope.donationVO.donationBicycleNo}" >
     <div class=" panel panel-default" style="height: 100%;">
     <%--내용물영역 --%>
             <div class="panel-heading">
@@ -175,8 +203,8 @@ function selectStory(id,no){
            
    <%--버튼영역 --%>
             <div class="form-group" style="margin-bottom: 30px;"> 
-				        <div class="aab controls col-md-12"></div>
-				        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
+				        <div class="aab controls col-md-12"></div> 
+				        <button type="button" id="cancleBtn"  class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
 				         <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" style="font-size: 15px;"/>
 			</div> 
        
@@ -254,7 +282,7 @@ function selectStory(id,no){
 				        						
 				        						</div>
 				    					</div>
-				    					<c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId&&requestScope.donationVO.status==0}">
+				    					<c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">
 				    					<div class="form-group" style="margin-bottom: 30px;"> 
 				       						 <div class="aab controls col-md-12"></div>
 				        					<button type="button" onclick="selectStory('${list.id}','${param.donationBicycleNo}')" class="btn btn-primary btn btn-info" style="font-size: 15px;">사연채택</button>

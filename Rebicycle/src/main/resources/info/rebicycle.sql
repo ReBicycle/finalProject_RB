@@ -7,6 +7,8 @@ drop table possible_day;
 drop table bicycle_photo;
 drop table map;
 drop table heart;
+drop table donation;
+drop table story;
 drop table bicycle;
 drop table category;
 drop table rb_member;
@@ -124,8 +126,8 @@ create table rb_review(
 );
 
 create table donation(
-   donationBicycleNo number primary key,
-   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   donation_bicycle_no number primary key,
+   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
@@ -136,7 +138,7 @@ create table donation(
 );
 
 create table story(
-donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donationBicycleNo),
+donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
 story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
 title varchar2(100) not null,
 detail clob not null,

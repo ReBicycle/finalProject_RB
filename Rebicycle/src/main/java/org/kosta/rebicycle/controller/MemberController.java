@@ -32,8 +32,6 @@ public class MemberController {
 	private MemberService memberService;
 	@Resource
 	private BicycleService service;
-	@Resource
-	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("login_fail.do")
     public String loginFail(){
@@ -49,6 +47,28 @@ public class MemberController {
 		if(loginVO !=null){
 			session.setAttribute("mvo", loginVO);
 			System.out.println("로그인성공");
+<<<<<<< HEAD
+			
+			if(session!=null){
+				MemberVO vo=(MemberVO) session.getAttribute("mvo");
+				//각각의 요청을 구분하기 위해 따로 받음
+				int findGetRequest=service.findGetRequest(vo.getId());
+				int findAcceptRequest=service.findAcceptRequest(vo.getId());
+				int findRefuseRequest=service.findRefuseRequest(vo.getId());
+				int Total=findGetRequest+findAcceptRequest+findRefuseRequest;
+				
+				HashMap<String, Integer> totalRequest=new HashMap<>();
+				
+				totalRequest.put("findGetRequest", findGetRequest);
+				totalRequest.put("findAcceptRequest", findAcceptRequest);
+				totalRequest.put("findRefuseRequest", findRefuseRequest);
+				totalRequest.put("total", Total);
+				
+				session.setAttribute("totalRequest", totalRequest);
+				System.out.println("test       "+totalRequest);
+			}
+			
+=======
 			if(session!=null){
 				MemberVO vo=(MemberVO) session.getAttribute("mvo");
 				//각각의 요청을 구분하기 위해 따로 받음
@@ -69,6 +89,7 @@ public class MemberController {
 				session.setAttribute("totalRequest", totalRequest);
 				System.out.println("test       "+totalRequest);
 			}
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 			path = "redirect:home.do";
 		}else{
 			path = "member/login_fail";

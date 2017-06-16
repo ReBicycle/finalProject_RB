@@ -123,5 +123,7 @@ public interface BicycleDAO {
 	List<HeartVO> getHeartList(String id);
 	
 	void deleteBicycle(int bicycleNo);
+
+	void deleteRent(int rentNo);
 }	
 

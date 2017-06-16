@@ -102,6 +102,7 @@
             	    	</form>
             	    </td>
                 </tr>
+                
                 <tr align="left">
                 	<td colspan="5" class="updateCommentArea">
                 		<form action="${pageContext.request.contextPath}/boardCommentUpdate.do" method="post" class="boardCommentUpdate">
@@ -117,6 +118,7 @@
                 <%-- <tr>
                 	<td colspan="3"><textarea class="updateCommentArea">${brv.rememo}</textarea></td>
                 </tr> --%>
+
                 </c:forEach> 
                 </tbody>
                 </table>
@@ -153,5 +155,8 @@
             </div>
          </div>
     </div>
+    
+    
+
 </div>
 

@@ -19,7 +19,6 @@ th, td {
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#reportBtn").click(function(){
-
 			if(${sessionScope.mvo!=null}){
 				location.href="${pageContext.request.contextPath}/board/board_write_from.do";
 			}else{

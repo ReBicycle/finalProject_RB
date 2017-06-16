@@ -18,7 +18,6 @@ th, td {
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-	}
 		$("#reportBtn").click(function(){
 
 			if(${sessionScope.mvo!=null}){
@@ -26,7 +25,6 @@ th, td {
 			}else{
 				alert("로그인시에만 사용가능한 기능입니다!! 로그인 후 사용해주세요!!");
 			}
-			
 		});//click
 	});//ready
 </script>

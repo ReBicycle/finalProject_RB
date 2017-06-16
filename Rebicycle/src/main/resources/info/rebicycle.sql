@@ -135,7 +135,7 @@ create table donation(
    story_id varchar2(100) default 'n',
    address varchar2(300) not null,
    title varchar2(100) not null
-)
+);
 
 create table story(
 donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
@@ -143,7 +143,7 @@ story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id)
 title varchar2(100) not null,
 detail clob not null,
 constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
-)
+);
 
 
 create table heart(

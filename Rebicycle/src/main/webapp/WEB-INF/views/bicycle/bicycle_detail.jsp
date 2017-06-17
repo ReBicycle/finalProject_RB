@@ -748,7 +748,7 @@ section.awSlider>img {
 										<div class="panel-heading">
 											<div>
 												<h4>
-													<strong>리뷰 수정하기</strong>
+													<strong>상세정보</strong>
 												</h4>
 											</div>
 										</div>

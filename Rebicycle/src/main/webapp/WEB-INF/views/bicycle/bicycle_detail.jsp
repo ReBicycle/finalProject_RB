@@ -127,12 +127,12 @@ section.awSlider>img {
 }
 
 <%-- 모달css--%>
-
+ 
 /* The Modal background */
-.modal {
+.modal { 
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 5; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -150,6 +150,20 @@ section.awSlider>img {
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */
     height: 75%;
+}
+.close {
+    position: absolute;
+    right: 20%;  
+    top: 10%;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
 }
 
 </style>
@@ -720,9 +734,72 @@ section.awSlider>img {
                         		<div class="form-group col-xs-12 floating-label-form-group controls">
                            			<!-- <label for="name">ID</label> -->
 									<h4 align="left">ID</h4>
-                           			<h4><a data-toggle="modal" data-target="#myModal">${requestScope.findBvo.memberVO.id}</a></h4>
+                           			<h4><a onclick="document.getElementById('id02').style.display='block';">${requestScope.findBvo.memberVO.id}</a></h4>
                         		</div>
                      		</div>
+                     		
+                     		
+                     		<!-- Modal -->
+                     		<div id="id02" class="modal" align="center">
+                     			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal" >×</span>
+								<div class="modal-content animate mainbox">
+									<div class=" panel panel-default" style="height: 100%;">
+										<%--내용물영역 --%>
+										<div class="panel-heading">
+											<div>
+												<h4>
+													<strong>리뷰 수정하기</strong>
+												</h4>
+											</div>
+										</div>
+										
+										<div class="panel-body">
+											<div class="row control-group">
+													<div
+														class="form-group col-xs-12 floating-label-form-group controls">
+														<label for="email">Email Address</label>
+														<h4 align="left">Email Address</h4>
+														<p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
+													</div>
+												</div>
+
+												<div class="row control-group">
+													<div
+														class="form-group col-xs-12 floating-label-form-group controls">
+														<label for="phone">Phone Number</label>
+														<h4 align="left">Phone Number</h4>
+														<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
+													</div>
+												</div>
+
+												<div class="row control-group">
+													<div
+														class="form-group col-xs-12 floating-label-form-group controls">
+														<label for="phone">Share Address</label>
+														<h4 align="left">Share Address</h4>
+														<c:set var="addr" value="${requestScope.findBvo.address}" />
+														<c:set var="addd" value="${fn:split(addr, '%') }" />
+														<c:forEach items="${addd }" var="addd">
+															<p style="font-size: 15px">${addd }</p>
+														</c:forEach>
+													</div>
+												</div>
+
+											<div class="row control-group">
+												<div
+													class="form-group col-xs-12 floating-label-form-group controls">
+													<!-- <label for="message">Detail</label> -->
+													<h4 align="left">Detail</h4>
+													<h4>
+														<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
+													</h4>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
                      		
                      		
 
@@ -739,7 +816,7 @@ section.awSlider>img {
 
 							<hr>
 
-								<!-- Modal -->
+								<%-- <!-- Modal -->
 								<div class="modal fade" id="myModal" role="dialog">
 									<div class="modal-dialog">
 
@@ -802,9 +879,19 @@ section.awSlider>img {
 										</div>
 
 									</div>
-								</div>
-                     
-                     		<c:forEach items="${requestScope.findBvo.possibleList}" var="possibleDay" varStatus="order">
+								</div> --%>
+
+
+
+							
+
+
+
+
+
+
+
+							<c:forEach items="${requestScope.findBvo.possibleList}" var="possibleDay" varStatus="order">
 								<div id="possible${order.count}">
 									<input type="hidden" class="possibleStartDay${order.count}" value="${possibleDay.startDay}" id="pStartDay${order.count}">
                            			<input type="hidden" class="possibleEndDay${order.count}" value="${possibleDay.endDay}" id="pEndDay${order.count}">
@@ -960,4 +1047,4 @@ section.awSlider>img {
             </c:forEach>            
          </div>
       </div>
-      <br>
+<br>

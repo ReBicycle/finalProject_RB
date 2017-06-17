@@ -1,4 +1,4 @@
-ㅏㅏdrop table rb_review;
+drop table rb_review;
 drop table rb_boardreply;
 drop table rb_report;
 drop table donation;

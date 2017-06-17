@@ -79,7 +79,7 @@
                 	<th width="20">NO</th>
                     <th width="70">작성자</th>
                     <th width="200">내용</th>
-                    <th width="50">작성일시</th>
+                    <th width="50">날짜</th>
                     <th width="80"></th>
                 </tr>
             </thead>

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
 	@Resource
 	private MemberDAO memberDAO;
-
+	
 	@Override
 	public MemberVO login(MemberVO mvo) {
 		return memberDAO.login(mvo);
@@ -18,6 +18,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void registerMember(MemberVO vo) {
+		
 		memberDAO.registerMember(vo);
 		
 	}

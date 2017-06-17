@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.MemberVO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,17 +23,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberController {
 
 	
-	private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	//private String uploadPath="C:\\Users\\kosta\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 
 	//private String uploadPath="C:\\Users\\소영\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	//종봉
-	//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	@Resource
 	private MemberService memberService;
 	@Resource
 	private BicycleService service;
+
+	@RequestMapping("login_fail.do")
+    public String loginFail(){
+    	return "member/login_fail.tiles";
+    }
 	
-	@RequestMapping(method=RequestMethod.POST,value="login.do")
+	/*@RequestMapping(method=RequestMethod.POST,value="login.do")
 	public String login(MemberVO mvo, HttpServletRequest request){
 		System.out.println("sdadsads login.do");
 		MemberVO loginVO = memberService.login(mvo);
@@ -41,6 +47,28 @@ public class MemberController {
 		if(loginVO !=null){
 			session.setAttribute("mvo", loginVO);
 			System.out.println("로그인성공");
+<<<<<<< HEAD
+			
+			if(session!=null){
+				MemberVO vo=(MemberVO) session.getAttribute("mvo");
+				//각각의 요청을 구분하기 위해 따로 받음
+				int findGetRequest=service.findGetRequest(vo.getId());
+				int findAcceptRequest=service.findAcceptRequest(vo.getId());
+				int findRefuseRequest=service.findRefuseRequest(vo.getId());
+				int Total=findGetRequest+findAcceptRequest+findRefuseRequest;
+				
+				HashMap<String, Integer> totalRequest=new HashMap<>();
+				
+				totalRequest.put("findGetRequest", findGetRequest);
+				totalRequest.put("findAcceptRequest", findAcceptRequest);
+				totalRequest.put("findRefuseRequest", findRefuseRequest);
+				totalRequest.put("total", Total);
+				
+				session.setAttribute("totalRequest", totalRequest);
+				System.out.println("test       "+totalRequest);
+			}
+			
+=======
 			if(session!=null){
 				MemberVO vo=(MemberVO) session.getAttribute("mvo");
 				//각각의 요청을 구분하기 위해 따로 받음
@@ -61,6 +89,7 @@ public class MemberController {
 				session.setAttribute("totalRequest", totalRequest);
 				System.out.println("test       "+totalRequest);
 			}
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 			path = "redirect:home.do";
 		}else{
 			path = "member/login_fail";
@@ -69,7 +98,7 @@ public class MemberController {
 		
 		
 		return path;
-	}
+	}*/
 	
 	@RequestMapping("member/logout.do")
 	public String logout(HttpServletRequest request){
@@ -78,7 +107,7 @@ public class MemberController {
 			session.invalidate();
 		return "home.tiles";
 	}
-	
+
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value = "memberRegister.do")

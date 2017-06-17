@@ -52,13 +52,27 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSessionTemplate.selectOne("board.findBoardReplyNo",brdno);
 	}
 	@Override
-	public void commentWrite(BoardReplyVO bvo){
-		sqlSessionTemplate.insert("board.commentWrite",bvo);
+	public void commentWrite(BoardReplyVO brv){
+		sqlSessionTemplate.insert("board.commentWrite",brv);
+		System.out.println("댓글 다오 테스트"+brv);
 	}
 	@Override
 	public List<BoardReplyVO> getReplyList(int brv){
 		System.out.println("dao     "+brv);
 		System.out.println("return List       "+sqlSessionTemplate.selectList("board.findBoardReplyNo",brv) );
 		return sqlSessionTemplate.selectList("board.findBoardReplyNo",brv);
+	}
+	@Override
+	public void boardCommentUpdate(BoardReplyVO brv){
+		System.out.println("댓글수정 DAO 테스트"+brv);
+		sqlSessionTemplate.update("board.boardCommentUpdate",brv);
+	}
+	@Override
+	public BoardReplyVO boardUpdateCommentView(int reno){
+		return (BoardReplyVO)sqlSessionTemplate.selectOne("board.boardUpdateReportView",reno);
+	}
+	@Override
+	public void boardCommentDelete(int reno){
+		sqlSessionTemplate.delete("board.boardCommentDelete",reno);
 	}
 }

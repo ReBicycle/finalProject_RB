@@ -1,10 +1,7 @@
 package org.kosta.rebicycle.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import javax.annotation.Resource;
 
-import org.apache.tiles.request.Request;
 import org.kosta.rebicycle.model.service.DonationService;
 import org.kosta.rebicycle.model.vo.DonationVO;
 import org.kosta.rebicycle.model.vo.ListVO;
@@ -12,6 +9,7 @@ import org.kosta.rebicycle.model.vo.StoryVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -47,8 +45,21 @@ public class DonationController {
 		@RequestMapping(method=RequestMethod.POST,value="donation/donation_story_register.do")
 		public String donationStoryRegister(StoryVO svo){
 			System.out.println("컨트롤러 테스트 "+svo.getDonationBicycleNo()+" "+svo.getTitle()+" "+svo.getId()+" "+svo.getDetail());
-				donationService.donationStoryRegister(svo);
+			try{	
+			donationService.donationStoryRegister(svo);
+			}catch(Exception e){
+			return "story_register_fail.tiles?donationBicycleNo="+svo.getDonationBicycleNo();
+		}
 			return "redirect:donation_detail.do?donationBicycleNo="+svo.getDonationBicycleNo();
 			
+		}
+		@RequestMapping("donation/selectStory.do")
+		@ResponseBody
+		public String selectStory(DonationVO dvo){
+			System.out.println("사연선택테스트"+dvo.getStoryId()+" "+dvo.getDonationBicycleNo());
+			
+			donationService.selectStory(dvo);
+			
+			return "ok";
 		}
 }

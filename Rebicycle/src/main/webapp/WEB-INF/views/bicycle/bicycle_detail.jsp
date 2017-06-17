@@ -343,7 +343,7 @@ section.awSlider>img {
                  dayMap.put("startDay",$("#startDay"+i).val());
                  dayMap.put("endDay",$("#endDay"+i).val());
                  startendDay[i]=dayMap;
-                 checkFlag[i] = true;
+                 //checkFlag[i] = true;
                  
                  //alert("checkFlag i번째 - checkImg click" + checkFlag[i]);
 		         $.ajax({
@@ -365,6 +365,7 @@ section.awSlider>img {
 		                         //exit_for 을 사용하지 않으면 
 		                         //다음 possible_day 와 비교결과 아래의 "else" 영역으로 넘어가 
 		                         //결국 불가능이 된다.
+		                         checkFlag[i] = true;
 		                         break exit_for;
 		                        
 		                     }else{ 
@@ -389,12 +390,12 @@ section.awSlider>img {
         
         
         $("#plusImg").click(function(){
-        	checkFlag[clickCount+1] = false;
-        	//alert(clickCount);
-        	if(checkFlag[clickCount]==false){
+        	
+        	if(checkFlag[clickCount+1]==false){
 	 			alert("가능일 확인 절차가 필요합니다!");
 	 			return false;
 	 		}
+        	checkFlag[clickCount+1] = false;
            //day N:N 검사에서 id에 0,1,2,,, 를 붙이기 위해 
            //clickCount 변수에 +1 을 한다
            
@@ -639,6 +640,8 @@ section.awSlider>img {
 		
   	</div>
    
+   <br><br><br>
+   
    <!-- 달력 -->
    	<div class="row">
       	<div class="col-sm-6" style="height: 150%">
@@ -656,6 +659,7 @@ section.awSlider>img {
                		<!-- <div class="col-lg-8 col-lg-offset-2"> -->
                		<div class="col-lg-10 col-lg-offset-1">
                   		<form name="rentForm" id="rentForm" action="${pageContext.request.contextPath}/bicycle/rentRegister.do" method="post">
+	                    	
 	                    	<table id = "addTable">                   
                    				<div class="row control-group">
 		                           	<!-- input 달력 -->
@@ -704,60 +708,97 @@ section.awSlider>img {
                      				</div>
                     			</div>
                   			</div>
+	                      
+	                       		
+	                       	<hr>
 	                       		
                        		<div class="row control-group">
                         		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="name">ID</label>
-                           			<h4 align="left">ID</h4>
-                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.id}</p>
+                           			<!-- <label for="name">ID</label> -->
+									<h4 align="left">ID</h4>
+                           			<h4><a data-toggle="modal" data-target="#myModal">${requestScope.findBvo.memberVO.id}</a></h4>
                         		</div>
                      		</div>
                      		
-                     		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="name">Price</label>
-                           			<h4 align="left">Price</h4>
-                           			<p class="help-block text-danger" id = "rentPrice">${requestScope.findBvo.rentPrice}</p>
-                        		</div>
-                     		</div>
-	                     
-	                     
-                     		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="email">Email Address</label>
-                           			<h4 align="left">Email Address</h4>
-                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
-                        		</div>
-                     		</div>
-                     
-                     		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="phone">Phone Number</label>
-                           			<h4 align="left">Phone Number</h4>
-                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
-                        		</div>
-                     		</div>
-	                     
-                     		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="phone">Share Address</label>
-                           			<h4 align="left">Share Address</h4>
-                           			<c:set var="addr" value="${requestScope.findBvo.address}"/>       
-									<c:set var="addd" value="${fn:split(addr, '%') }" />
-									<c:forEach items="${addd }" var="addd">
-										<p style="font-size: 15px">${addd }</p>
-									</c:forEach>
-                        		</div>
-                     		</div>
-	                     
-                     
-	                     	<div class="row control-group">
-	                        	<div class="form-group col-xs-12 floating-label-form-group controls">
-		                           	<label for="message">Detail</label>
-		                           	<h4 align="left">Detail</h4>
-		                           	<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
-		                        </div>
+                     		
+
+							<hr>
+
+							<div class="row control-group">
+								<div
+									class="form-group col-xs-12 floating-label-form-group controls">
+									<!-- <label for="name">Price</label> -->
+									<h4 align="left">Price</h4>
+									<h4><p class="help-block text-danger" id="rentPrice">${requestScope.findBvo.rentPrice}</p></h4>
+								</div>
 							</div>
+
+							<hr>
+
+								<!-- Modal -->
+								<div class="modal fade" id="myModal" role="dialog">
+									<div class="modal-dialog">
+
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Detail Infomation</h4>
+											</div>
+											<div class="modal-body">
+												
+
+
+												<div class="row control-group">
+													<div
+														class="form-group col-xs-12 floating-label-form-group controls">
+														<label for="email">Email Address</label>
+														<h4 align="left">Email Address</h4>
+														<p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
+													</div>
+												</div>
+
+												<div class="row control-group">
+													<div
+														class="form-group col-xs-12 floating-label-form-group controls">
+														<label for="phone">Phone Number</label>
+														<h4 align="left">Phone Number</h4>
+														<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
+													</div>
+												</div>
+
+												<div class="row control-group">
+													<div
+														class="form-group col-xs-12 floating-label-form-group controls">
+														<label for="phone">Share Address</label>
+														<h4 align="left">Share Address</h4>
+														<c:set var="addr" value="${requestScope.findBvo.address}" />
+														<c:set var="addd" value="${fn:split(addr, '%') }" />
+														<c:forEach items="${addd }" var="addd">
+															<p style="font-size: 15px">${addd }</p>
+														</c:forEach>
+													</div>
+												</div>
+
+											<div class="row control-group">
+												<div
+													class="form-group col-xs-12 floating-label-form-group controls">
+													<!-- <label for="message">Detail</label> -->
+													<h4 align="left">Detail</h4>
+													<h4>
+														<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
+													</h4>
+												</div>
+											</div>
+										</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Close</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
                      
                      		<c:forEach items="${requestScope.findBvo.possibleList}" var="possibleDay" varStatus="order">
 								<div id="possible${order.count}">

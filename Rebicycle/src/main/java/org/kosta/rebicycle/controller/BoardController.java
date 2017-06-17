@@ -49,12 +49,12 @@ public class BoardController {
 		System.out.println("컨트롤러 시작"+reportNo);
 		ReportVO rvo=boardService.boardDetail(reportNo);
 		System.out.println("2  **");
-		List<BoardReplyVO> brv=boardService.getReplyList(reportNo);
-		System.out.println("댓글    "+brv);
+		/*List<BoardReplyVO> brv=boardService.getReplyList(reportNo);*/
+		/*System.out.println("댓글    "+brv);*/
 		request.setAttribute("rvo",rvo);
-		request.setAttribute("brv", brv);
+		/*request.setAttribute("brv", brv);*/
 		System.out.println(rvo);
-		return new ModelAndView("board/board_detail.tiles");
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+reportNo);
 	}
 	//로그인 후 자신이 작성한 신고 글 수정 페이지로 넘어가는 컨트롤러
 	@RequestMapping("boardUpdateReportView.do")
@@ -69,7 +69,7 @@ public class BoardController {
 		boardService.updateReport(rvo);
 		System.out.println("업데이트"+rvo);
 		/*request.setAttribute("rvo", rvo);*/
-		return new ModelAndView("redirect:boardDetail.do?reportNo="+rvo.getReportNo());
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+rvo.getReportNo());
 	}
 	@RequestMapping("deleteReport.do")
 	public ModelAndView deleteReport(int reportNo) {		
@@ -94,17 +94,37 @@ public class BoardController {
 	}
 	@RequestMapping(value="commentWrite.do", method=RequestMethod.POST)
 	public ModelAndView commentWrite(HttpServletRequest request, BoardReplyVO brv){
+		System.out.println("댓글 컨트롤러 테스트"+ brv);
 		boardService.commentWrite(brv);
 		System.out.println("댓글이다아아아아~~~~~~~      "+ brv);
 		/*request.setAttribute("brv", brv);*/
 		
 		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+brv.getBrdno());
 	}
+	@RequestMapping(value="boardCommentUpdate.do" , method=RequestMethod.POST)
+	public ModelAndView updateComment(BoardReplyVO brv, HttpServletRequest request) {
+		System.out.println("댓글수정 테스트"+brv);
+		boardService.boardCommentUpdate(brv);
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+brv.getBrdno());
+	}
+	@RequestMapping("boardCommentDelete.do")
+	public ModelAndView boardCommentDelete(int reno, BoardReplyVO brv) {		
+		boardService.boardCommentDelete(reno);		
+		return new ModelAndView("redirect:findBoardReplyNo.do?brdno="+brv.getBrdno());
+	}
 	//참고용
-	/*@RequestMapping(value="write.do" , method=RequestMethod.POST)
-	public ModelAndView write(HttpServletRequest request, ReportVO rvo){
-	boardService.write(rvo);
-	System.out.println("fdjsklfjskldfjlsk"+ rvo);
-	return new ModelAndView("redirect:findReportNo.do?reportNo="+rvo.getReportNo());
-}*/
+	/*@RequestMapping("boardUpdateReportView.do")
+	public String updateReportView(int reportNo, HttpServletRequest request){
+		System.out.println("수정페이지 GO!!GO!!"+reportNo);
+		ReportVO rvo=boardService.boardDetail(reportNo);
+		request.setAttribute("rvo", rvo);
+		return "board/board_update.tiles";
+	}
+	@RequestMapping(value="updateReport.do" , method=RequestMethod.POST)
+	public ModelAndView updateReport(ReportVO rvo, HttpServletRequest request) {
+		boardService.updateReport(rvo);
+		System.out.println("업데이트"+rvo);
+		request.setAttribute("rvo", rvo);
+		return new ModelAndView("redirect:boardDetail.do?reportNo="+rvo.getReportNo());
+	}*/
 }

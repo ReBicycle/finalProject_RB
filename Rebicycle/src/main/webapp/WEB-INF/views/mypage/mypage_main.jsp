@@ -260,6 +260,12 @@ tr:hover{background-color:#f5f5f5}
 		location.href = "${pageContext.request.contextPath}/bicycle/bicycleDeleteForm.do?memberId="+m+"&bicycleNo="+b;
 	}
    
+	function deleteRent(rentNo){
+		var r = rentNo;
+		if(confirm("빌린 내역에서 삭제하시겠습니까?")){
+			location.href = "${pageContext.request.contextPath}/deleteRent.do?rentNo="+r;
+		}
+	}
 </script>
 
 <style>
@@ -522,7 +528,7 @@ tr:hover{background-color:#f5f5f5}
                                        			<c:if test = "${rList.state == 2}">
                                                      <td>
                                                         <input type = "button" class =" btn btn-warning" value = "대여 불가">
-                                                        
+                                                        <input type = "button" class =" btn btn-warning" value = "삭제" onclick = "deleteRent(${rList.rentNo})">
                                                      </td>
                                                   </c:if>
 

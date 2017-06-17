@@ -125,6 +125,33 @@ section.awSlider>img {
    transform: scale(1.1);
    opacity: .5;
 }
+
+<%-- 모달css--%>
+
+/* The Modal background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+    height: 75%;
+}
+
 </style>
 <!-- 이미지 슬라이드 스크립트 -->
 <script type="text/javascript">
@@ -267,7 +294,7 @@ section.awSlider>img {
         		location.href="${pageContext.request.contextPath}/deleteReview.do?rentNo="+no;
         	}       		
         });
-        $(".updateReview").click(function(){
+       /*  $(".updateReview").click(function(){
         	if(confirm('리뷰를 수정하시겠습니까?')){
         		var no = $("#rentNo").val();
         		var content = $("#content").val();
@@ -280,7 +307,10 @@ section.awSlider>img {
         	       location.href="${pageContext.request.contextPath}/updateReview.do?rentNo="+no+"&star="+star+"&content="+newcontent;
         	    }
         	}       		
-        }); 
+        });  */
+        $(".updateReview").click(function(){
+        	document.getElementById('id01').style.display='block';
+        })
         
          //day N:N - 사용가능 결과 변수
         var checkDayResultl=null;
@@ -815,8 +845,59 @@ section.awSlider>img {
             	 <input type="hidden" id="rentNo" value="${rList.rentVO.rentNo}" />
             	 <input type="hidden" id="content" value="${rList.content}" />
             	 <input type="hidden" id="star" value="${rList.star}" />
-            	 <font size="1px" color="#999999"  class="updateReview"> 수정&nbsp;|</font>
+            	 <font size="1px" color="#999999"  class="updateReview" > 수정&nbsp;|</font>
             	 <font size="1px" color="#999999"  class="deleteReview"> 삭제</font>
+        <%--modal --%>
+        <div id="id01" class="modal" align="center" >
+  			<form method="post" class="modal-content animate mainbox"  action="${pageContext.request.contextPath}/updateReview.do?rentNo=${rList.rentVO.rentNo}" >
+  				<div class=" panel panel-default" style="height: 100%;">
+   				<%--내용물영역 --%>
+   					 <div class="panel-heading">
+   					 	<div><h4><strong>리뷰 수정하기</strong></h4></div>
+            		</div>
+           			<div class="panel-body">
+            	   		<!-- star -->
+				    	<div id="div_id_title" class="form-group required"> 
+				        <label for="id_title" class="control-label col-md-3  requiredField">별점</label> 
+				        <div class="controls col-md-8 "> 
+				            <p class="star_rating" style="padding-top:20px; padding-left: 30%">
+                     			<a href="#" class="on"></a>
+                      			<a href="#" class="on"></a>
+                      			<a href="#" class="on"></a>
+                      			<a href="#" class="on"></a>
+                      			<a href="#" class="on"></a>
+                  			</p>
+				        </div>
+				    </div>
+				    
+				    <!-- 아이디 -->
+				    <div id="div_id_memberId" class="form-group required"> 
+				        <label for="id_memberId" class="control-label col-md-3  requiredField">아이디</label> 
+				        <div class="controls col-md-8 "> 
+				            <input class="input-md textinput textInput form-control" id="id_memberId" name="id" style="margin-bottom: 30px" type="text" value="${sessionScope.mvo.id }" readonly="readonly">
+				        </div>
+				    </div>
+         	
+				    <!-- Detail -->
+				    <div id="div_id_detail" class="form-group required">
+				         <label for="id_detail" class="control-label col-md-3  requiredField">리뷰내용</label>
+				         <div class="controls col-md-8 ">
+				        	<input class="input-md textinput textInput form-control" name="review_update_content" value="${rList.content}" required="required"  style="margin-bottom: 20px;height:120px;"></input>
+				        </div>
+				    </div>
+             </div>
+           
+   <%--버튼영역 --%>
+            <div class="form-group" style="margin-bottom: 30px;"> 
+				        <div class="aab controls col-md-12"></div>
+				        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
+				         <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" style="font-size: 15px;"/>
+			</div> 
+       
+    </div>
+  </form>
+</div>
+        <%--modal end --%>
             	</c:if>
                   </div>
                   <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     

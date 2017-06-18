@@ -637,7 +637,11 @@ section.awSlider>img {
 										<div class="panel-heading">
 											<div>
 												<h4>
+<<<<<<< HEAD
 													<strong>Detail Information</strong>
+=======
+													<strong>상세정보</strong>
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
 												</h4>
 											</div>
 										</div>

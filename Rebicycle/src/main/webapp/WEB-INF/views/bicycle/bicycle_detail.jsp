@@ -2,80 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- 달력 스크립트 -->
-<script type="text/javascript">
-	$(function() {
-      	$('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
-			.popover({
-				container : 'body',
-				content : 'Hello World',
-				html : true,
-				placement : 'bottom',
-				template : '<div class="popover calendar-event-popover" role="tooltip"><div class="arrow"></div><h4 class="popover-title"></h4><div class="popover-content"></div></div>'
-			});
 
-      $('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
-            .on(
-                  'show.bs.popover',
-                  function() {
-                     var attending = parseInt($(this).find(
-                           'div.progress>.progress-bar').attr(
-                           'aria-valuenow')), total = parseInt($(this)
-                           .find('div.progress>.progress-bar').attr(
-                                 'aria-valuemax')), remaining = total
-                           - attending, displayAttending = attending
-                           - $(this).find('div.attending').children().length, html = [
-                           '<button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>',
-                           '<h4>' + $(this).find('h4').text()
-                                 + '</h4>',
-                           '<div class="desc">'
-                                 + $(this).find('div.desc').html()
-                                 + '</div>',
-                           '<div class="location">'
-                                 + $(this).find('div.location')
-                                       .html() + '</div>',
-                           '<div class="datetime">'
-                                 + $(this).find('div.datetime')
-                                       .html() + '</div>',
-                           '<div class="space">Attending <span class="pull-right">Available spots</span></div>',
-                           '<div class="attending">',
-                           $(this).find('div.attending').html(),
-                           '<span class="attending-overflow">+'
-                                 + displayAttending + '</span>',
-                           '<span class="pull-right">' + remaining
-                                 + '</span>', '</div>',
-                           '<a href="#signup" class="btn btn-success" role="button">Sign up</a>' ]
-                           .join('\n');
-
-                     $(this).attr('title', $(this).find('h4').text());
-                     $(this).attr('data-content', html);
-                  });
-
-      $('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
-            .on(
-                  'shown.bs.popover',
-                  function() {
-                     var $popup = $(this);
-                     $('.popover:last-child').find('.close').on('click',
-                           function(event) {
-                              $popup.popover('hide');
-                           });
-                  });
-      
-      $(".plus-img").click(function(){
-           var size = $("div[id^='possible']").size();                    
-           for(var i = 1; i<=size;i++){}
-            //alert($("div[id^='possible']").find(".possibleStartDay"+i).val());
-       });
-      
-      $("#rentForm").submit(function(){      
-         var startDay = $("#startDay").val();
-         var endDay = $("#endDay").val();
-         //alert($("div[id^='possible']").text());
-         
-      });
-   });
-</script>
 <!-- 이미지 슬라이드 -->
 <style type="text/css">
 section.awSlider .carousel {
@@ -192,9 +119,10 @@ section.awSlider>img {
       
       $('#calendar').fullCalendar({
          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'prev,next today',
+            left: 'title',
+            center:'possibleDay'
+            /* right: 'month,agendaWeek,agendaDay' */
          },
          //defaultDate: '2017-05-12',
          navLinks: true, // can click day/week names to navigate views
@@ -489,6 +417,8 @@ section.awSlider>img {
                }                       
             });           
          });
+         //id 위에 detail information 
+         $('[data-toggle="tooltip"]').tooltip(); 
          
          //javascript 에서 map 기능을 사용하기 위함
          function newMap() {
@@ -528,60 +458,6 @@ section.awSlider>img {
         
    });
 </script>
-
-<!-- 이미지 슬라이드 -->
-<style type="text/css">
-
-
-
-section.awSlider .carousel {
-   display: table;
-   z-index: 2;
-   -moz-box-shadow: 0 0 4px #444;
-   -webkit-box-shadow: 0 0 4px #444;
-   box-shadow: 0 0 15px rgba(1, 1, 1, .5);
-}
-
-section.awSlider {
-   margin: 30px auto;
-   padding: 30px;
-   position: relative;
-   display: table;
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-}
-
-section.awSlider:hover>img {
-   -ms-transform: scale(1.2);
-   -webkit-transform: scale(1.2);
-   transform: scale(1.2);
-   opacity: 1;
-}
-
-section.awSlider img {
-   pointer-events: none;
-}
-
-section.awSlider>img {
-   position: absolute;
-   top: 30px;
-   z-index: 1;
-   transition: all .3s;
-   filter: blur(1.8vw);
-   -webkit-filter: blur(2vw);
-   -moz-filter: blur(2vw);
-   -o-filter: blur(2vw);
-   -ms-filter: blur(2vw);
-   -ms-transform: scale(1.1);
-   -webkit-transform: scale(1.1);
-   transform: scale(1.1);
-   opacity: .5;
-}
-</style> 
 <!-- main css -->
 <style>
    body {
@@ -607,10 +483,9 @@ section.awSlider>img {
    }
 </style>
 
-<br>
-<br>
-<br>
+<br><br><br>
 <div class="container">
+
    	<section class="awSlider">
       	<div class="carousel slide" data-ride="carousel">
          	<!-- Indicators -->
@@ -651,7 +526,7 @@ section.awSlider>img {
    	<div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
 		    <label for="name">TITLE</label>
-		    <h3 align="center">- TITLE -</h3>
+		    <h3 align="center">TITLE</h3>
 		    <p class="help-block text-danger">${requestScope.findBvo.title}</p>
 		</div>
 		
@@ -662,14 +537,18 @@ section.awSlider>img {
    
    <!-- 달력 -->
    	<div class="row">
+   		
       	<div class="col-sm-6" style="height: 150%">
+      	<h3 class="title text-center" style="margin-top: 0px;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Possible Day</h3>
+         	<br><br>
          	<div id="calendar"></div>
       	</div>
-      	<div class="col-sm-6"></div>
-      	
+
+      	 
       	<!-- 예약 부분 -->
       	<div class="col-sm-6">
-         	<h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>
+         	<h3 class="title text-center" style="margin-top: 0px;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Reservation</h3>
+         	<br><br>
          	<div align="center">
 
             	<!-- 예약 폼 -->
@@ -726,20 +605,30 @@ section.awSlider>img {
                      				</div>
                     			</div>
                   			</div>
-	                      
-	                       		
-	                       	<hr>
-	                       		
-                       		<div class="row control-group">
+	                      	                       		
+	                       	<hr>                		
+                     		
+                     		<div class="row control-group">
                         		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<!-- <label for="name">ID</label> -->
 									<h4 align="left">ID</h4>
-                           			<h4><a onclick="document.getElementById('id02').style.display='block';">${requestScope.findBvo.memberVO.id}</a></h4>
+                           			<h5><a onclick="document.getElementById('id02').style.display='block';" style="float:center;" data-toggle="tooltip" title="Detail Information">${requestScope.findBvo.memberVO.id}</a>
+                           			</h5>
                         		</div>
                      		</div>
-                     		
-                     		
-                     		<!-- Modal -->
+
+							<div class="row control-group">
+								<div class="form-group col-xs-12 floating-label-form-group controls">
+									<label for="phone">Address</label>
+									<h4 align="left">Address</h4>
+									<c:set var="addr" value="${requestScope.findBvo.address}" />
+									<c:set var="addd" value="${fn:split(addr, '%') }" />
+									<c:forEach items="${addd }" var="addd">
+										<p style="font-size: 15px">${addd }</p>
+									</c:forEach>
+								</div>
+							</div>
+
+							<!-- Modal -->
                      		<div id="id02" class="modal" align="center">
                      			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal" >×</span>
 								<div class="modal-content animate mainbox">
@@ -748,149 +637,44 @@ section.awSlider>img {
 										<div class="panel-heading">
 											<div>
 												<h4>
-													<strong>리뷰 수정하기</strong>
+													<strong>Detail Information</strong>
 												</h4>
 											</div>
 										</div>
 										
 										<div class="panel-body">
-											<div class="row control-group">
-													<div
-														class="form-group col-xs-12 floating-label-form-group controls">
-														<label for="email">Email Address</label>
-														<h4 align="left">Email Address</h4>
-														<p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
-													</div>
-												</div>
 
-												<div class="row control-group">
-													<div
-														class="form-group col-xs-12 floating-label-form-group controls">
-														<label for="phone">Phone Number</label>
-														<h4 align="left">Phone Number</h4>
-														<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
-													</div>
-												</div>
 
-												<div class="row control-group">
-													<div
-														class="form-group col-xs-12 floating-label-form-group controls">
-														<label for="phone">Share Address</label>
-														<h4 align="left">Share Address</h4>
-														<c:set var="addr" value="${requestScope.findBvo.address}" />
-														<c:set var="addd" value="${fn:split(addr, '%') }" />
-														<c:forEach items="${addd }" var="addd">
-															<p style="font-size: 15px">${addd }</p>
-														</c:forEach>
-													</div>
-												</div>
-
-											<div class="row control-group">
-												<div
-													class="form-group col-xs-12 floating-label-form-group controls">
-													<!-- <label for="message">Detail</label> -->
-													<h4 align="left">Detail</h4>
-													<h4>
-														<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
-													</h4>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</div>
-                     		
-                     		
-
-							<hr>
-
-							<div class="row control-group">
-								<div
-									class="form-group col-xs-12 floating-label-form-group controls">
-									<!-- <label for="name">Price</label> -->
-									<h4 align="left">Price</h4>
-									<h4><p class="help-block text-danger" id="rentPrice">${requestScope.findBvo.rentPrice}</p></h4>
-								</div>
-							</div>
-
-							<hr>
-
-								<%-- <!-- Modal -->
-								<div class="modal fade" id="myModal" role="dialog">
-									<div class="modal-dialog">
-
-										<!-- Modal content-->
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-												<h4 class="modal-title">Detail Infomation</h4>
-											</div>
-											<div class="modal-body">
+											<table class="table table-hover">
 												
-
-
-												<div class="row control-group">
-													<div
-														class="form-group col-xs-12 floating-label-form-group controls">
-														<label for="email">Email Address</label>
-														<h4 align="left">Email Address</h4>
-														<p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
-													</div>
-												</div>
-
-												<div class="row control-group">
-													<div
-														class="form-group col-xs-12 floating-label-form-group controls">
-														<label for="phone">Phone Number</label>
-														<h4 align="left">Phone Number</h4>
-														<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
-													</div>
-												</div>
-
-												<div class="row control-group">
-													<div
-														class="form-group col-xs-12 floating-label-form-group controls">
-														<label for="phone">Share Address</label>
-														<h4 align="left">Share Address</h4>
-														<c:set var="addr" value="${requestScope.findBvo.address}" />
-														<c:set var="addd" value="${fn:split(addr, '%') }" />
-														<c:forEach items="${addd }" var="addd">
-															<p style="font-size: 15px">${addd }</p>
-														</c:forEach>
-													</div>
-												</div>
-
-											<div class="row control-group">
-												<div
-													class="form-group col-xs-12 floating-label-form-group controls">
-													<!-- <label for="message">Detail</label> -->
-													<h4 align="left">Detail</h4>
-													<h4>
-														<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
-													</h4>
-												</div>
-											</div>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.memberVO.id}</td>
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.memberVO.email}</td>
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.memberVO.phone}</td>
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.rentPrice}</td>									
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.detail}</td>
+													</tr>
+									
+											</table>
+											
 										</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default"
-													data-dismiss="modal">Close</button>
-											</div>
-										</div>
-
 									</div>
-								</div> --%>
-
-
-
+								</div>
+							</div>
 							
-
-
-
-
-
-
-
 							<c:forEach items="${requestScope.findBvo.possibleList}" var="possibleDay" varStatus="order">
 								<div id="possible${order.count}">
 									<input type="hidden" class="possibleStartDay${order.count}" value="${possibleDay.startDay}" id="pStartDay${order.count}">
@@ -898,32 +682,42 @@ section.awSlider>img {
                         		</div>
                      		</c:forEach>
 
-	                		<br><br>
-	                  
 	                     	<div id="success"></div>
                      		<c:if test="${sessionScope.mvo.id != requestScope.findBvo.memberVO.id}">
 	                     		<div class="row">
 	                        		<div class="form-group col-xs-12" align="center">
 	                        			<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-			                        	<button type="submit" class="btn btn-success btn-lg" id="rentBtn">빌리기</button>
+			                        	<button type="submit" class="btn btn-success btn-lg" id="rentBtn">RENT</button>
 	                        		</div>
 	                     		</div>
 							</c:if>
+							
+							<hr>
+							
                   		</form>
                		</div>
             	</div>
          	</div>
       	</div>
    	</div>
-</div>
-<br>
-<br>
-<br>
-<br>
+<!-- </div> -->
+<br><br><br><br>
+
 <!-- 리뷰 -->
       <div id="banner-wrapper">
       <div align="left" style="padding-left: 15%; font-size: 15px">
-         총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+      	<div class="col-sm-12 style="height: 150%">
+      	<h3 class="title text-left" style="margin-top: 0px;">
+      	<span class="glyphicon glyphicon-comment"></span>
+      	&nbsp;&nbsp;&nbsp;Review&nbsp;
+      	<span class="label label-danger">${fn:length(requestScope.reviewList)}
+      	</span>
+      	</h3>
+         	<br><br>
+     	</div>
+   	
+   		<hr>
+   	
          <c:if test="${fn:length(requestScope.reviewList)!=0}">
          <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
          <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
@@ -1047,4 +841,5 @@ section.awSlider>img {
             </c:forEach>            
          </div>
       </div>
+     <!--  </div> -->
 <br>

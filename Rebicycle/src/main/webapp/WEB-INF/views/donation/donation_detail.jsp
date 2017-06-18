@@ -37,7 +37,7 @@ function showDivs(n) {
 </script> 
 <script type="text/javascript">
 function selectStory(id,no){
-	alert(id+" "+no);
+
 	if(confirm("사연을 채택하시겠습니까?")){
 		var xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=function(data){

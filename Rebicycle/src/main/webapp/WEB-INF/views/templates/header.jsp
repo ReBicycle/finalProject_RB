@@ -90,8 +90,10 @@ function spawnNotification(theBody,theIcon,theTitle) {
 					<span class="sr-only">Toggle navigation</span> Menu <i
 						class="fa fa-bars"></i>
 				</button>
-				<a class="navbar-brand"
-					href="${pageContext.request.contextPath}/home.do">Rebicycle</a>
+				<%-- <a class="navbar-brand"
+					href="${pageContext.request.contextPath}/home.do">Rebicycle</a> --%>
+					<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/home.do" style="padding: 10px;"><img src="${pageContext.request.contextPath}/resources/img/rebicycle_logo4.png" width="200px" style="padding-bottom: ;"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -105,7 +107,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							<li class="page-scroll"><a
 								href="${pageContext.request.contextPath}/member/login.do">login</a>
 							</li>
-							<li class="page-scroll"><a
+							<li style="color: #E8402E" class="page-scroll"><a
 								href="${pageContext.request.contextPath}/member/register_member_form.do">join</a>
 							</li>
 						</c:when>
@@ -113,18 +115,18 @@ function spawnNotification(theBody,theIcon,theTitle) {
 						<c:otherwise>
 							<li class="dropdown"><a id="designA" class="dropdown-toggle"
 								data-toggle="dropdown" href="#">${sessionScope.mvo.name} 님
-									로그인 <span class="caret"></span>
+								<span class="caret"></span>
 							</a>
-								<ul class="dropdown-menu" style="background-color: #546da2;">
+								<ul class="dropdown-menu" style="background-color: white;;">
 									<li><a
-										href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+										href="${pageContext.request.contextPath}/member/logout.do">logout</a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/member/memberModifyForm.do">회원정보수정</a></li>
+										href="${pageContext.request.contextPath}/member/memberModifyForm.do">edit profile</a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/mypage/mypage_main.do">마이페이지</a></li>
+										href="${pageContext.request.contextPath}/mypage/mypage_main.do">mypage</a></li>
 								</ul></li>
-							<li class="page-scroll"><a
-								href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
+							<li class="page-scroll" ><a
+								href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do"><font style="color:#E8402E ">자전거등록하기</font></a>
 							</li>
 							<%-- <li class="page-scroll">
 	                        <a href="${pageContext.request.contextPath}/error123.do">에러테스트</a>
@@ -140,7 +142,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 						href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
 					</li>
 					<li class="page-scroll"><a
-						href="${pageContext.request.contextPath}/donation/donation_list.do">기부</a>
+						href="${pageContext.request.contextPath}/donation/donation_list.do">donation</a>
 					</li>
 
 					<c:if test="${sessionScope.mvo!=null}">

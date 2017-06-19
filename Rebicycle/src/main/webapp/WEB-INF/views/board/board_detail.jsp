@@ -21,16 +21,26 @@
 		$("#registComment").click(function(){
 			$("#board_comment_write").submit();
 		});//registComment click
-		$("#comment").on("click",".updateBtn-primary",function(){
-			$(".updateCommentArea").toggle(function(){
-				
-			}); //updateComment toggle
-		});//btn-primary click
+		/* $(this).parent().parent().children(".reno").text().on("click",".updateBtn-primary",function(){
+			if(confirm("댓글을 수정하시겠습니까?"))
+					location.href="${pageContext.request.contextPath}/boardReplyUpdateView.do?reno=$(this).parent().parent().children(".reno").text()";
+		});//btn-primary click */
+		$(".updateBtn-primary").click(function(){
+			$(this).parent().parent().next().children(".updateCommentArea").toggle();
+			/* alert($(this).parent().parent().children(".reno").text()); */
+		});// updateBtn-primary click
 		/* $(".updateBtn-primary").click(function(){
 			alert(1);
 			$(this).parent().parent().next().children(".updateCommentArea").toggle();
 		}); */
-		
+		$(".btnCommentUpdate").click(function(){
+			if(confirm("댓글을 수정하시겠습니까?"))
+				$(this).parent(".boardCommentUpdate").submit();
+		});//btnCommentUpdate click
+		$(".btn-danger").click(function(){
+			if(confirm("댓글을 삭제하시겠습니까?"))
+				$(this).parent(".boardCommentDelete").submit();
+		});
 	});//ready
 </script>
 <br><br><br>
@@ -66,24 +76,51 @@
              <table class="table table-striped table-hover " id="comment">
             <thead>
                 <tr class="bg-primary">
-                    <th width="30">작성자</th>
-                    <th width="280">내용</th>
-                    <th width="50">작성일시</th>
-                    <th></th>
+                	<th width="20">NO</th>
+                    <th width="70">작성자</th>
+                    <th width="200">내용</th>
+                    <th width="50">날짜</th>
+                    <th width="80"></th>
                 </tr>
             </thead>
             <tbody>
             <c:forEach items="${requestScope.brv}" var="brv">
                 <tr>
-                    <td align="left">${brv.rewriter}</td>
-            	    <td align="left">${brv.rememo}</td>
-                    <td align="left">${brv.redate}</td>
-                    <td><button type="button" class="updateBtn-primary">수정</button>
-            	    <button type="button" class="btn-danger">삭제</button></td>
+                	<td align="left" class="reno" width="20">${brv.reno}</td>
+                    <td align="left" width="30">${brv.rewriter}</td>
+            	    <td align="left" width="250">${brv.rememo}</td>
+                    <td align="left" width="50">${brv.redate}</td>
+                    <td>
+                    <c:if test="${brv.rewriter==sessionScope.mvo.id}">
+                    	<button type="button" class="updateBtn-primary">수정</button><br>
+                    	<form action="${pageContext.request.contextPath}/boardCommentDelete.do" method="post" class="boardCommentDelete">
+                			<input type="hidden" name="brdno" value="<c:out value="${brv.brdno}"/>">
+                			<input type="hidden" name="reno" value="<c:out value="${brv.reno}"/>">
+                			<input type="hidden" name="rewriter" value="<c:out value="${brv.rewriter}"/>">
+                			<input type="hidden" name="rememo" value="<c:out value="${brv.rememo}"/>">
+            	    		<input type="hidden" name="redate" value="<c:out value="${brv.redate}"/>">
+            	    		<button type="button" class="btn-danger">삭제</button>
+            	    	</form>
+            	    </c:if>
+            	    </td>
                 </tr>
-                <tr>
-                	<td colspan="3"><textarea class="updateCommentArea">1111</textarea></td>
-                </tr>
+                
+                <tr align="left">
+                	<td colspan="5" class="updateCommentArea">
+                		<form action="${pageContext.request.contextPath}/boardCommentUpdate.do" method="post" class="boardCommentUpdate">
+                			<input type="hidden" name="brdno" value="<c:out value="${brv.brdno}"/>">
+                			<input type="hidden" name="reno" value="<c:out value="${brv.reno}"/>">
+                			<input type="hidden" name="rewriter" value="<c:out value="${brv.rewriter}"/>">
+            	    		<textarea style="resize: none" cols="62" rows="5" name="rememo">${brv.rememo}</textarea><br>
+            	    		<input type="hidden" name="redate" value="<c:out value="${brv.redate}"/>">
+            	    		<button type="button" class="btnCommentUpdate">수정 완료</button>
+            	    	</form>
+            		</td>
+            	</tr>
+                <%-- <tr>
+                	<td colspan="3"><textarea class="updateCommentArea">${brv.rememo}</textarea></td>
+                </tr> --%>
+
                 </c:forEach> 
                 </tbody>
                 </table>
@@ -120,5 +157,8 @@
             </div>
          </div>
     </div>
+    
+    
+
 </div>
 

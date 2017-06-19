@@ -60,12 +60,27 @@ public class BoardServiceImpl implements BoardService{
 		return boardDAO.findBoardReplyNo(brdno);
 	}
 	@Override
-	public void commentWrite(BoardReplyVO bvo){
-		boardDAO.commentWrite(bvo);
+	public void commentWrite(BoardReplyVO brv){
+		System.out.println("댓글 서비스 테스트"+ brv);
+		boardDAO.commentWrite(brv);
 	}
 	@Override
 	public List<BoardReplyVO> getReplyList(int brv){
 		System.out.println("servic			"+brv);
 		return boardDAO.getReplyList(brv);
+	}
+	@Override
+	public void boardCommentUpdate(BoardReplyVO brv){
+		System.out.println("댓글수정 서비스 테스트"+brv);
+		boardDAO.boardCommentUpdate(brv);
+	}
+	@Override
+	public BoardReplyVO boardUpdateCommentView(int reno){
+		boardDAO.boardUpdateCommentView(reno);
+		return boardDAO.boardUpdateCommentView(reno);
+	}
+	@Override
+	public void boardCommentDelete(int reno){
+		boardDAO.boardCommentDelete(reno);
 	}
 }

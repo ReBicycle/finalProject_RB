@@ -1,8 +1,19 @@
 package org.kosta.rebicycle.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,11 +22,14 @@ import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.RentVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Controller
 public class MypageController {
@@ -28,7 +42,7 @@ public class MypageController {
 	public String mypageMain(HttpServletRequest request,Model model){
 		//System.out.println("mypageMainController");
 		HttpSession session = request.getSession(false);
-		
+		this.notice();
 		//아이디로 회원정보 불러오기
 		MemberVO vo = (MemberVO) session.getAttribute("mvo");
 		MemberVO findVO = memberService.findMemberById(vo.getId());
@@ -100,6 +114,7 @@ public class MypageController {
 	@RequestMapping("rentOk.do")
 	@Transactional
 	public String rentOk(String rentNo){
+		System.out.println("*******************test*******************");
 		//System.out.println("test       rentOk    "+rentNo);
 		
 		RentVO rvo = bicycleService.findRentByRentNo(Integer.parseInt(rentNo));
@@ -120,6 +135,34 @@ public class MypageController {
 		return "redirect:mypage/mypage_main.do";
 	}
 
+	@RequestMapping("deleteRent.do")
+	public String deleteRent(String rentNo){
+		bicycleService.deleteRent(Integer.parseInt(rentNo));
+		return "redirect:mypage/mypage_main.do";
+	}
 	
-
+	public void notice(){
+		
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberVO){
+			HttpSession session = request.getSession();
+			
+			MemberVO pvo = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			session.setAttribute("mvo", pvo);
+			int findGetRequest=bicycleService.findGetRequest(pvo.getId());
+			
+			int findAcceptRequest=bicycleService.findAcceptRequest(pvo.getId());
+			int findRefuseRequest=bicycleService.findRefuseRequest(pvo.getId());
+			int Total=findGetRequest+findAcceptRequest+findRefuseRequest;
+			
+			HashMap<String, Integer> totalRequest=new HashMap<>();
+			
+			totalRequest.put("findGetRequest", findGetRequest);
+			totalRequest.put("findAcceptRequest", findAcceptRequest);
+			totalRequest.put("findRefuseRequest", findRefuseRequest);
+			totalRequest.put("total", Total);
+			
+			session.setAttribute("totalRequest", totalRequest);
+		}
+	}
 }

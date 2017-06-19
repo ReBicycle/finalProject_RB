@@ -7,10 +7,11 @@ drop table possible_day;
 drop table bicycle_photo;
 drop table map;
 drop table heart;
+drop table donation;
+drop table story;
 drop table bicycle;
 drop table category;
 drop table rb_member;
-
 
 drop sequence category_seq;
 drop sequence bicycle_seq;
@@ -18,7 +19,6 @@ drop sequence rent_seq;
 drop sequence report_boardreply_seq;
 drop sequence report_seq;
 drop sequence donation_seq;
-
 
  
 delete from rb_review;
@@ -117,14 +117,13 @@ create table rent(
 );
 
 create table rb_review(
-	reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
-	rentNo number constraint fk_rentNooo references rent(rentNo) on delete cascade,
-	star number default 0,
-	reviewDate date not null,
-	content clob not null,
-	constraint pk_rb_review primary key(reviewerId, rentNo)
+   reviewerId varchar2(100) constraint fk_reviewer_idid references rb_member(id),
+   rentNo number constraint fk_rentNooo references rent(rentNo) on delete cascade,
+   star number default 0,
+   reviewDate date not null,
+   content clob not null,
+   constraint pk_rb_review primary key(reviewerId, rentNo)
 );
-
 
 create table donation(
    donation_bicycle_no number primary key,
@@ -133,7 +132,7 @@ create table donation(
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
    photo3 varchar2(100) not null,
-   status number default 0,
+   story_id varchar2(100) default 'n',
    address varchar2(300) not null,
    title varchar2(100) not null
 );
@@ -144,21 +143,22 @@ story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id)
 title varchar2(100) not null,
 detail clob not null,
 constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
-)
+);
+
 
 create table heart(
-	id varchar2(100) constraint fk_heart_id references rb_member(id),
-	bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo) on delete cascade,
-	constraint pk_heart primary key(id,bicycleNo)
+   id varchar2(100) constraint fk_heart_id references rb_member(id),
+   bicycleNo  number constraint fk_heart_nol references bicycle(bicycleNo) on delete cascade,
+   constraint pk_heart primary key(id,bicycleNo)
 );
 
 create table rb_report(
-	reportNo number primary key,
-	reportTitle varchar2(100) not null,
-	reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
-	blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
-	contents clob not null,
-	reportDate date not null
+   reportNo number primary key,
+   reportTitle varchar2(100) not null,
+   reporterId varchar2(100) not null constraint fk_rb_reporterId references rb_member(id),
+   blackId varchar2(100) not null constraint fk_rb_blackId references rb_member(id),
+   contents clob not null,
+   reportDate date not null
 );
 --alter table rb_report
 --add reportTitle varchar2(100) not null
@@ -167,7 +167,6 @@ create table rb_report(
 CREATE TABLE rb_boardreply (
       brdno number default 0,
       reno number primary key,
-      retitle varchar(100) not null,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,
       redate date not null
@@ -230,10 +229,13 @@ select s.story_id as id, s.title, s.detail, r.picture as photo
 from (select story_id, title, detail from story where donation_bicycle_no=27) s,rb_member r
 where s.story_id=r.id
 delete from STORY
-alter table story
-add constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
- 
-
+alter table donation
+add  story_id varchar2(100) default 'n'
+alter table donation
+drop column  story_id
+ select * from donation where story_id='n'
+update RB_MEMBER
+set password='1234' where id='dahyun'
 -------------------------------------------------------------
 select * from rb_report;
 
@@ -260,7 +262,7 @@ insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDat
 			) r where rnum between 1 and 5 order by reportNo desc;
 ============================================================================================
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
-values(50,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+values(3,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
 values(51,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
@@ -303,6 +305,24 @@ insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDat
 values(70,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
 insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
 values(71,'응가 자전거','java','jobman','거대한 응가 자전거',sysdate);
+
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(72,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(73,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(74,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(75,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(76,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(77,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(78,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
+values(79,'응가 자전거','java','ajax','거대한 응가 자전거',sysdate);
+
 --------------------------------- 성공 -----------------------------------------------------
 			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
 			SELECT row_number() over(order by reportNo desc) as rnum,reportNo,reportTitle,reporterId,blackId,contents,
@@ -331,6 +351,7 @@ CREATE TABLE rb_boardreply (
       rememo varchar(500) not null,
       redate date not null
 )
+drop table rb_boardreply
 --brdno(게시판 넘버)를 rb_report를 fk로 뒀을때 댓글이 달려있는 게시물이 삭제 안됨--
 CREATE TABLE rb_boardreply (
       brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo),
@@ -348,6 +369,7 @@ insert into rb_boardreply(brdno,reno,rewriter,rememo,redate)
  		values(90,1,'jobman','크로캉~ 부슈우~~~~',sysdate)
 
 create sequence rb_boardreply_seq;
+
 select * from rb_boardreply;
 
 select
@@ -359,6 +381,8 @@ select * from rb_boardreply
 
 drop table rb_boardreply;
 drop sequence rb_boardreply_seq;
+
+update rb_boardreply set brdno=121,rewriter='jobman',rememo='미스떠 블루dasda',redate=sysdate where reno=1
 -----------------------------석희---------------------------------
 
 

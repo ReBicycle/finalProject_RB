@@ -24,10 +24,16 @@ public interface BoardService {
 
 	ReportVO findReportNo(int reportNo);
 
-	void commentWrite(BoardReplyVO bvo);
+	void commentWrite(BoardReplyVO brv);
 
 	BoardReplyVO findBoardReplyNo(int brdno);
 
 	List<BoardReplyVO> getReplyList(int brv);
+
+	void boardCommentUpdate(BoardReplyVO brv);
+
+	BoardReplyVO boardUpdateCommentView(int reno);
+
+	void boardCommentDelete(int reno);
 
 }

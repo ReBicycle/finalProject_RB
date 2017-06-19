@@ -63,6 +63,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			redate from rb_boardreply 
 			c where brdno=#{value}
 	</select>
+	<update id="boardCommentUpdate" parameterType="boardReplyVO">
+		update rb_boardreply set rememo=#{rememo},redate=sysdate where reno=#{reno}
+	</update>
+	<select id="boardUpdateCommentView" resultType="boardReplyVO">
+		select
+		c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD') as 
+		redate from rb_boardreply 
+		c where reno=${value}
+	</select>
+	<delete id="boardCommentDelete">
+		delete from rb_boardreply where reno=#{value}
+	</delete>
  </mapper>
  
  

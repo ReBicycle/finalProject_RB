@@ -25,4 +25,6 @@ public interface DonationDAO {
 
 	void donationStoryRegister(StoryVO svo);
 
+	void selectStory(DonationVO dvo);
+
 }

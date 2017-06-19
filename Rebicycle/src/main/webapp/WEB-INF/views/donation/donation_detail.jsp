@@ -35,6 +35,48 @@ function showDivs(n) {
   dots[slideIndex-1].className += " w3-opacity-off";
 }
 </script> 
+<script type="text/javascript">
+function selectStory(id,no){
+
+	if(confirm("사연을 채택하시겠습니까?")){
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=function(data){
+			if(xhr.status==200&&xhr.readychangestatus==4){
+				if(data=="ok")
+				alert("채택이 완료되었습니다");
+				location.href="${pageContext.request.contextPath}/donation/donation_detail.do?donationBicycleNo="+no;
+			}
+			
+		}
+		xhr.open("post","${pageContext.request.contextPath}/donation/selectStory.do");
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xhr.send("storyId="+id+"&donationBicycleNo="+no);
+	}
+	else{
+		return false;
+	}
+	
+}
+function storyCheck(){
+ 	var story=document.getElementById('${sessionScope.mvo.id}');
+	if(story==null){
+		 document.getElementById('id01').style.display='block';
+	}else{
+		alert("이미 사연이 존재합니다!");
+		return false;
+	} 
+	
+}
+</script>
+<script>
+$(document).ready(function(){
+	$("#cancleBtn").click(function(){
+		$("#storyForm")[0].reset();  
+		$("#id01").css("display","none");
+	});
+	
+});
+</script>
 <style>
 .btn {  
     border: none; /* Remove borders */ 
@@ -47,6 +89,10 @@ function showDivs(n) {
 .success {background-color: #f5f5f5;} 
 .success:hover {background-color: #d9cff7;
 			color: white;
+}
+.story:hover{
+  opacity: 0.9;
+  background-color:#f5f5f5;
 }
 
 <%-- 모달css--%>
@@ -72,10 +118,23 @@ function showDivs(n) {
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */
-    height: 75%;
+    width: 40%; /* Could be more or less, depending on screen size */
+    height:80%; 
+}
+.close {
+    position: absolute;
+    right: 20%;  
+    top: 10%;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
 }
 
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
 </style>
 
 <div class="container">       
@@ -101,11 +160,16 @@ function showDivs(n) {
                         <h3><strong>기부 수</strong></h3>
                         <p style="font-size: 15px"></p>
        		   </div>    
-           </div> 
-        <button class="btn success" style="width:100%" onclick="document.getElementById('id01').style.display='block'" style="width:auto;"><h4><strong>사연신청</strong></h4></button>
+           </div>
+        <c:if test="${sessionScope.mvo.id!=requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">   
+        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="storyCheck()"><h4><strong>사연신청</strong></h4></button>
+        </c:if>
+        <c:if test="${requestScope.donationVO.storyId!='n'}">
+        	<h4><strong>당첨자</strong> &nbsp;&nbsp;${requestScope.donationVO.storyId}</h4>
+        </c:if>
         <%--modal --%>
         <div id="id01" class="modal" align="center" >
-  <form method="post" class="modal-content animate mainbox"  action="${pageContext.request.contextPath}/donation/donation_story_register.do?donationBicycleNo=${requestScope.donationVO.donationBicycleNo}" >
+  <form method="post" class="modal-content animate mainbox" id="storyForm" action="${pageContext.request.contextPath}/donation/donation_story_register.do?donationBicycleNo=${requestScope.donationVO.donationBicycleNo}" >
     <div class=" panel panel-default" style="height: 100%;">
     <%--내용물영역 --%>
             <div class="panel-heading">
@@ -139,8 +203,8 @@ function showDivs(n) {
            
    <%--버튼영역 --%>
             <div class="form-group" style="margin-bottom: 30px;"> 
-				        <div class="aab controls col-md-12"></div>
-				        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
+				        <div class="aab controls col-md-12"></div> 
+				        <button type="button" id="cancleBtn"  class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
 				         <input type="submit" name="register_bicycle" value="등록" class="btn btn-primary btn btn-info" id="submit-id-signup" style="font-size: 15px;"/>
 			</div> 
        
@@ -180,24 +244,60 @@ function showDivs(n) {
          
         </div>
         
-         
+         <%-- 사연있어요 영역 --%>
         <div class="panel panel-default">
             <div class="panel-heading"> 
                 <div class="panel-title" style="color:#31708f;"><h5><strong>사연있어요</strong></h5></div>
             </div>  
-            	<div class="panel-body" align="left" style="margin-left: 50px;"> 
-				  <br><br><br>
-				  <table>
+            	<div class="panel-body w3-row" align="left" style="margin-left: 50px;max-height: 500px;"> 
+			
 				  <c:forEach items="${requestScope.donationVO.storyList }" var="list">
-				  
-				  <tr>
-					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:150px;height:150px;" class="w3-circle">
-				  		${list.title }
-				  </tr>
+				<div class="story w3-half w3-padding" onclick="document.getElementById('${list.id}').style.display='block'"> 
+				
+					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" align="left"  width="40%" style="width:100px;height:100px;" class="w3-circle">
+				  		<span style="text-align:center;color:#31708f;"  width="60%" >${list.title}</span>
+				</div>
+				<%--모달내용 --%>
+				  <div id="${list.id}" class="modal" align="center" >
+				   <span onclick="document.getElementById('${list.id}').style.display='none'" class="close" title="Close Modal" >×</span>
+						<div class="modal-content animate mainbox" >
+							<div class=" panel panel-default" style="height: 100%;" >
+							 		<div class="panel-heading">
+                							<div class="panel-title"><strong>${list.id }님의 사연</strong></div>
+            						</div>
+            						<div class="panel-body">
+            					<img src="${pageContext.request.contextPath}/resources/upload/member/${list.photo}" style="width:100px;height:100px;margin-top:10px;margin-bottom:20px;" class="w3-circle">
+            						  <!-- Title -->
+				    					<div id="div_id_title" class="form-group required" style="margin-bottom: 50px"> 
+				       						 <label for="id_title" class="control-label col-md-3  requiredField">제목</label> 
+				        					<div class="controls col-md-8 "> 
+				            				<span>${list.title}</span>
+				       						 </div>
+				    					</div>
+				    					 <!-- Detail -->
+				   						 <div id="div_id_detail" class="form-group required" >
+				         						<label for="id_detail" class="control-label col-md-3  requiredField">상세내용</label>
+				         						<div class="controls col-md-8 "> 
+				        						<textarea class="input-md textinput textInput form-control" name="detail"  required="required"  style="height:170px;" readonly="readonly">${list.detail}</textarea>
+				        						
+				        						</div>
+				    					</div>
+				    					<c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">
+				    					<div class="form-group" style="margin-bottom: 30px;"> 
+				       						 <div class="aab controls col-md-12"></div>
+				        					<button type="button" onclick="selectStory('${list.id}','${param.donationBicycleNo}')" class="btn btn-primary btn btn-info" style="font-size: 15px;">사연채택</button>
+										</div> 
+				    					</c:if>
+				    					
+				    					
+				    					
+            						</div>
+						
+							</div>
+						</div>
+				  </div><%--모달 끝 --%>
 				  </c:forEach> 
 				  
-				  </table>
-				  <br><br><br>
                  </div>    
          
         </div>

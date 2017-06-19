@@ -3,7 +3,9 @@ package org.kosta.rebicycle.model.dao;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -95,5 +97,9 @@ public class DonationDAOImpl implements DonationDAO {
 	@Override
 	public void donationStoryRegister(StoryVO svo) {
 		template.insert("donation.donationStoryRegister",svo);
+	}
+	@Override
+	public void selectStory(DonationVO dvo) {
+		template.update("donation.selectStory",dvo);
 	}
 }

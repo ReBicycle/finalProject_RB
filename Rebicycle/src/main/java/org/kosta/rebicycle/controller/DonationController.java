@@ -57,9 +57,7 @@ public class DonationController {
 		@ResponseBody
 		public String selectStory(DonationVO dvo){
 			System.out.println("사연선택테스트"+dvo.getStoryId()+" "+dvo.getDonationBicycleNo());
-			
 			donationService.selectStory(dvo);
-			
 			return "ok";
 		}
 }

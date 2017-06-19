@@ -41,7 +41,7 @@ function selectStory(id,no){
 	if(confirm("사연을 채택하시겠습니까?")){
 		var xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=function(data){
-			if(xhr.status==200&&xhr.readychangestatus==4){
+			if(xhr.status==200&&xhr.readyState==4){
 				if(data=="ok")
 				alert("채택이 완료되었습니다");
 				location.href="${pageContext.request.contextPath}/donation/donation_detail.do?donationBicycleNo="+no;

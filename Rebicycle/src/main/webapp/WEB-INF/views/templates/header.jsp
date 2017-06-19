@@ -126,12 +126,12 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							<li class="page-scroll"><a
 								href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do">자전거등록</a>
 							</li>
-							<li class="page-scroll">
+							<%-- <li class="page-scroll">
 	                        <a href="${pageContext.request.contextPath}/error123.do">에러테스트</a>
 	                    	</li>
 							<li class="page-scroll"><a
 								href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
-							</li>
+							</li> --%>
 						</c:otherwise>
 					</c:choose>
 

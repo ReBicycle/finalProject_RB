@@ -12,7 +12,7 @@
 				location.href="${pageContext.request.contextPath}/boardUpdateReportView.do?reportNo=${requestScope.rvo.reportNo}";
 		});//upadteBtn click
 		$("#deleteBtn").click(function(){
-			if(confirm("게시글을 삭제하시겠습니까?"))
+			if(confirm("게시글을 삭제하시겠습니까? \n ※게시물에 작성된 댓글도 함께 삭제 됩니다!!※"))
 				location.href="${pageContext.request.contextPath}/deleteReport.do?reportNo=${requestScope.rvo.reportNo}";
 		});//deleteBtn
 		$("#commentBtn").click(function(){

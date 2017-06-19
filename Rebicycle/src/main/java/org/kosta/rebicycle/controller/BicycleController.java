@@ -350,14 +350,9 @@ public class BicycleController {
 			
 			//String ResultOfEndDay=endYearOfDay+"-"+endMonthOfDay+"-"+endDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
-			possibleTotalDay.put("title", "예약 가능");
+			/*possibleTotalDay.put("title", "예약 가능");*/
 			possibleTotalDay.put("start", possibleStartDay[i]);
-			possibleTotalDay.put("end", possibleEndDay[i]);
-			
-			System.out.println("@@@ title   "+possibleTotalDay.get("title"));
-			System.out.println("@@@ start   "+possibleTotalDay.get("start"));
-			System.out.println("@@@ end     "+possibleTotalDay.get("end"));
-		
+			possibleTotalDay.put("end", possibleEndDay[i]);		
 			possibleDayList.add(possibleTotalDay);
 		}
 

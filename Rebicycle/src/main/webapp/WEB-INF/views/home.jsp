@@ -33,19 +33,30 @@ function dateCheck(){
   <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 @import url(http://fonts.googleapis.com/earlyaccess/jejuhallasan.css);
+
+#city1{
+ style="width: 100%; 
+ height:50%; 
+ background-color: black;
+ padding: 0px;
+}
+#city2{
+padding: 0px;
+}
+
 .image {
   opacity: 0.9;
-  width: 390px;
   transition: .5s ease;
   backface-visibility: hidden;
   position: relative;
+  margin-bottom: 0px;
 }
 .middle {
    opacity: 0.3;
-  width: 390px;
-  height:260px;
+   width:100%;
+   height:100%;
   transition: .5s ease;
-  background-color: black;
+  background-color: white;
   position: absolute;
   top:0%
 }
@@ -53,10 +64,10 @@ function dateCheck(){
 transition: .5s ease;
   position: absolute;
   color: white;
-  font-size: 60px;
+  font-size: 40px;
 font-family: 'Jeju Gothic', serif;
- top: 60%;
- left: 65%;
+ top: 70%;
+ left: 75%;
 }
 .middle:hover .image {
   opacity: 1;
@@ -71,18 +82,17 @@ font-family: 'Jeju Gothic', serif;
   </style>
     <!-- Header -->
   <%--  <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/portfolio/seoul.jpg'); background-repeat: no-repeat; background-size: cover; " > --%>
-    <header  style="background-color: #f6f8ff" >
-        <div class="container " id="maincontent" tabindex="-1" >
+    <header  style="background-color: white; width: 100%;" >
+        <div class="container " id="maincontent" tabindex="-1" style="width: 100%; padding-bottom: 50px;">
             <div class="row" >
                 <div class="col-lg-12" style="padding-bottom: 200px">
-                    <div class="intro-text"  style="margin-bottom:50px; color:#2c3e50 ">
-                        <h2 style="color: ">Search a bike for you</h2>
-                        <h5>Save money, meet awesome people, and consume less</h5>
-                        	<div  style="margin-top:30px;">
-								<div class="row">
+                    <div class="intro-text"  style="margin-bottom:50px; color:#4d4d4d ">
+                        <h2>Search <font  style="color:#E8402E">bicycles</font> for you</h2>
+                        	<div  style="margin-top:30px;"align="center">
+								<div class="row" align="center">
 
 					        			<form action="${pageContext.request.contextPath}/bicycle_search_list.do"  name="searchForm" onsubmit="return dateCheck()">
-					            		<div class="form-group registration-date" style="width:800px; margin-left:16%;">
+					            		<div class="form-group registration-date" style="width:800px;" align="center">
 					            		<div class="input-group registration-date-time"  >
 					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
 					            		<input class="form-control" name="address" id="" type="text" size="15" required="required">
@@ -103,32 +113,44 @@ font-family: 'Jeju Gothic', serif;
                     </div>
 
                 </div>
-                <div  style="margin-bottom: -20px">
-                	<div class="col-xs-6 col-md-4 col-lg-4 px-0" style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=판교"><img class="image" alt="" src="${pageContext.request.contextPath}/resources/img/pangyo.jpg">
-              	 		<div class="middle"></div> <div class="cityfont">판교</div></a>
+                <div class="col-lg-12" id="city1" >
+                	<div class="col-lg-4" id="city2">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=판교">
+                			<img class="image" alt="" src="${pageContext.request.contextPath}/resources/img/pangyo.jpg"  style="width: 100%;">
+              	 			<div class="middle"></div> <div class="cityfont">판교</div>
+              	 		</a>
               	 	</div>
-                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=잠실"><img   class="image" alt="" src="${pageContext.request.contextPath}/resources/img/jamsil.jpg" >
-                		<div class="middle"></div> <div class="cityfont">잠실</div></a>
+                	<div class="col-lg-4 "  id="city2">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=잠실">
+                			<img   class="image" alt="" src="${pageContext.request.contextPath}/resources/img/jamsil.jpg"  style="width: 100%;">
+                			<div class="middle"></div> <div class="cityfont">잠실</div>
+                		</a>
                 	</div>
-                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=수원"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/suwonsi.jpg" >
-                		<div class="middle"></div> <div class="cityfont">수원</div></a>
+                	<div class="col-lg-4"   id="city2">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=수원">
+                			<img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/suwonsi.jpg"  style="width: 100%;">
+                			<div class="middle"></div> <div class="cityfont">수원</div>
+                		</a>
                 	</div>
                 </div>
-                <div  style="margin-bottom: -20px">
-                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=부산"><img  class="image"  alt="" src="${pageContext.request.contextPath}/resources/img/busan.jpg">
-              	 		<div class="middle"></div> <div class="cityfont">부산</div></a>
+                <div class="col-lg-12"  id="city1"">
+                	<div class="col-lg-4"   id="city2">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=부산">
+                			<img  class="image"  alt="" src="${pageContext.request.contextPath}/resources/img/busan.jpg" style="width: 100%;">
+              	 			<div class="middle"></div> <div class="cityfont">부산</div>
+              	 		</a>
               	 	</div>
-                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=대구"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/daegu.jpg" >
-                		<div class="middle"></div> <div class="cityfont">대구</div></a>
+                	<div class="col-lg-4"   id="city2">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=대구">
+                			<img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/daegu.jpg"  style="width: 100%;">
+                			<div class="middle"></div> <div class="cityfont">대구</div>
+                		</a>
                 	</div>
-                	<div class="col-xs-6 col-md-4 col-lg-4 px-0"  style="margin-bottom: -20px">
-                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=서울시"><img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/seoulsi.jpg" >
-                		<div class="middle"></div> <div class="cityfont">서울</div></a>
+                	<div class="col-lg-4"   id="city2">
+                		<a href="${pageContext.request.contextPath}/bicycle_search_list.do?address=서울시">
+                			<img  class="image" alt="" src="${pageContext.request.contextPath}/resources/img/seoulsi.jpg"  style="width: 100%;">
+                			<div class="middle"></div> <div class="cityfont">서울</div>
+                		</a>
                 	</div>
                 </div>
         </div></div>

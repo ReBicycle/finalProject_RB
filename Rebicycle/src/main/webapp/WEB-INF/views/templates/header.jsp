@@ -90,8 +90,10 @@ function spawnNotification(theBody,theIcon,theTitle) {
 					<span class="sr-only">Toggle navigation</span> Menu <i
 						class="fa fa-bars"></i>
 				</button>
-				<a class="navbar-brand"
-					href="${pageContext.request.contextPath}/home.do">Rebicycle</a>
+				<%-- <a class="navbar-brand"
+					href="${pageContext.request.contextPath}/home.do">Rebicycle</a> --%>
+					<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/home.do"><img src="${pageContext.request.contextPath}/resources/img/rebicycle_logo2.png" width="200px" style="padding-bottom: 50px;"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->

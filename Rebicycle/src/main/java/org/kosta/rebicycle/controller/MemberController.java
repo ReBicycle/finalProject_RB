@@ -121,7 +121,8 @@ public class MemberController {
 	}
 	@RequestMapping(method=RequestMethod.POST,value="memberIdcheckAjax.do")
 	@ResponseBody
-	public String idcheckAjax(String id) {		
+	public String idcheckAjax(String id) {
+		System.out.println("board          "+id);
 		int count=memberService.idcheck(id);
 		//System.out.println(count);
 		return (count==0) ? "ok":"fail"; 		

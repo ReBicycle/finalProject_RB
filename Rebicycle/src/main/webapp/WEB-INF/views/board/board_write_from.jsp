@@ -4,6 +4,8 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	var checkResultId="";
+	var memberId="";
 	$("#writeBtn").click(function(){ 
 		if($("#blackId").val()==""){
 			alert("사기꾼 아이디를 입력해주세요!");
@@ -11,6 +13,9 @@ $(document).ready(function(){
 			alert("본문을 입력하세요!");
 		}else if($("#title").val()==""){
 			alert("제목을 입력해주세요!!");
+		}else if(memberId=="ok"){
+			alert("유효하지 않는 아이디입니다!!");
+			return false;
 		}else{
 			$("#board_write_from").submit();
 		}
@@ -18,6 +23,24 @@ $(document).ready(function(){
 	$("#resetBtn").click(function(){    		
 		$("#board_write_from")[0].reset();
 	});// resetBtn click
+	$("#blackId").keyup(function(){
+		var id=$("#blackId").val().trim();
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/memberIdcheckAjax.do",
+			data:"id="+id,
+			success:function(data){
+				memberId=data;
+				if(data=="ok"){
+					$("#idCheckView").html(id+"유효하지 않는 계정입니다!!").css("color","red");
+					checkResultId=id;
+				}else{
+					$("#idCheckView").html(id+"신고가능한 아이디입니다").css("color","green");		
+					checkResultId="";
+				}
+			}
+		});//ajax
+	});// blackId keyup
 });	//ready
 </script>
 <!-- ------------------------------- 부트스트랩----------------------------------------- -->
@@ -40,6 +63,7 @@ $(document).ready(function(){
         <br>
         <div class="required-field-block">
         	<input type="text" placeholder="BlackID" class="form-control" name="blackId" id="blackId">
+        	<span id = "idCheckView"></span>
         </div>
 		<br>
         	<input type="text" class="form-control" name="reporterId" id="reporterId" value="${sessionScope.mvo.id}" readonly="readonly">

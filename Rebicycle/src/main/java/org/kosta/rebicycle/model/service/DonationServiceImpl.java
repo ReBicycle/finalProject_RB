@@ -47,6 +47,17 @@ private DonationDAO donationDAO;
 	donationDAO.selectStory(dvo);
 		
 	}
+
+	@Override
+	public void donationUpdate(DonationVO dvo) {
+		donationDAO.donationUpdate(dvo);
+		
+	}
+	@Override
+	public void donationDelete(String donationBicycleNo) {
+		donationDAO.donationDelete(donationBicycleNo);
+		
+	}
 	
 	
 }

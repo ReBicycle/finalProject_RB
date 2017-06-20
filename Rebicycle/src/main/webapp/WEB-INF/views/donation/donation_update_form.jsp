@@ -54,6 +54,14 @@
         }).open();
     }
 </script>
+<script>
+function deleteCheck(){
+	if(confirm("삭제하시겠습니까?"))
+		location.href="${pageContext.request.contextPath }/donation/donation_delete.do?donationBicycleNo=${param.donationBicycleNo}";
+	else
+	return false;		
+}
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(":radio[name='select_address']").change(function(){
@@ -90,7 +98,7 @@
                 <div class="panel-title">자전거 기부</div>
             </div>
             <div class="panel-body" > 
-				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/donation/donation_update.do">
+				<form  class="form-horizontal" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath }/donation/donation_update.do?donationBicycleNo=${donationVO.donationBicycleNo}">
 				    <%-- <input type="hidden" name="memberId" value="${sessionScope.memberVO.id }" /> --%>
 				    
 				    <!-- 사진 -->
@@ -98,9 +106,9 @@
 				        <label for="id_photo" class="control-label col-md-3  requiredField">사진</label> 
 				        <div class="controls col-md-8 "> 
 				        
-							<input type="file" name="file[0]" required="required"><br>
-							<input type="file" name="file[1]" required="required"><br>
-							<input type="file" name="file[2]" required="required"><br>
+							<input type="file" name="file[0]" ><br>
+							<input type="file" name="file[1]" ><br>
+							<input type="file" name="file[2]" ><br>
 				        </div>
 				    </div>
 				    
@@ -168,7 +176,7 @@
 				        <div class="aab controls col-md-4 "></div>
 				        <div class="controls col-md-8 "><br>
 				            <input type="submit" name="update_donation" value="수정" class="btn btn-primary btn btn-info" id="submit-id-signup" />
-				            <a href="${pageContext.request.contextPath }/donation/donation_delete.do?donationBicycleNo=${param.donationBicycleNo}"><input type="button" name="delete_donation" value="삭제" class="btn btn-primary btn btn-info" id="submit-id-signup" /></a>
+				           <input type="button" name="delete_donation" value="삭제" class="btn btn-primary btn btn-info" id="deleteBtn" onclick="return deleteCheck()"/>
 				        </div>
 				    </div> 
 				</form>

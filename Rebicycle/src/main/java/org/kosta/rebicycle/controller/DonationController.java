@@ -65,14 +65,16 @@ public class DonationController {
 			return new ModelAndView("donation/donation_update_form.tiles","donationVO",donationService.findDonationDetailByNo(donationBicycleNo));
 		}
 		@RequestMapping("donation/donation_update.do")
-		public String donationUpdate(DonationVO dvo){
+		public String donationUpdate(DonationVO dvo,String donationBicycleNo,String roadAddress, String jibunAddress, String detailAddress ){
+			dvo.setDonationBicycleNo(Integer.parseInt(donationBicycleNo));
+			String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
+			dvo.setAddress(address);
 			donationService.donationUpdate(dvo);
-		
-			return "redirect:donaion_list.do";
+			return "redirect:donation_detail.do?donationBicycleNo="+donationBicycleNo;
 		}
 		@RequestMapping("donation/donation_delete.do")
 		public String donationDelete(String donationBicycleNo){
 			donationService.donationDelete(donationBicycleNo);
-			return "redirect:donation_list.do";
+			return "redirect:../donation_list.do";
 		}
 }

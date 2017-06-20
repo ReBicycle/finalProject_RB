@@ -206,7 +206,7 @@ select * from BICYCLE
 ------------------------------------donation 테이블 수정---
 
 delete from donation
-
+delete from story
 delete from rb_member where id = 'ter1943'
 
 
@@ -226,6 +226,10 @@ alter table donation
 drop column donorId
 alter table donation
 add donor_id varchar2(100) not null
+alter table donation
+add donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id) on delete cascade
+drop table STORY
+
 
 -----story 등록
 insert into story (donation_bicycle_no,story_id,title,detail)

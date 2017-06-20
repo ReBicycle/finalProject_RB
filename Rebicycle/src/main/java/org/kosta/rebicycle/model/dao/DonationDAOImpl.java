@@ -120,9 +120,7 @@ public class DonationDAOImpl implements DonationDAO {
 			uploadFile(dvo.getFile(), uploadPath,list);
 		}
 	
-		
-		
-
+	
 	}
 	@Override
 	public void donationDelete(String donationBicycleNo) {

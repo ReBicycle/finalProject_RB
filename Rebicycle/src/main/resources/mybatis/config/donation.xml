@@ -54,7 +54,7 @@ delete from donation where donation_bicycle_no=#{value}
 update donation set title=#{title}, detail=#{detail}, address=#{address}
 where donation_bicycle_no=#{donationBicycleNo}
 </update>
- </mapper>
+</mapper>
  
  
  

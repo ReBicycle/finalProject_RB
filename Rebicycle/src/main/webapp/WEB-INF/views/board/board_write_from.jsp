@@ -14,7 +14,8 @@ $(document).ready(function(){
 		}else if($("#title").val()==""){
 			alert("제목을 입력해주세요!!");
 		}else if(memberId=="ok"){
-			alert("유효하지 않는 아이디입니다!!");
+			// 만약 없는 아이디를 입력했다면 memberId가 ok이고 alert가 작동한다 그리고 신고 작성이 안됨.
+			alert($("#blackId").val()+"    이 아이디는 유효하지 않는 아이디입니다!!");
 			return false;
 		}else{
 			$("#board_write_from").submit();
@@ -24,6 +25,8 @@ $(document).ready(function(){
 		$("#board_write_from")[0].reset();
 	});// resetBtn click
 	$("#blackId").keyup(function(){
+		// 존재하는 계정을 신고해야되기때문에 ajax로 해당 아이디의 유무를 확인해준다.
+		// 존재하지 않으면 "ok" , 존재한다면 "fail"
 		var id=$("#blackId").val().trim();
 		$.ajax({
 			type:"POST",
@@ -31,6 +34,7 @@ $(document).ready(function(){
 			data:"id="+id,
 			success:function(data){
 				memberId=data;
+				// ready부분에 memberId 변수를 만들어 주어 그 안에 data를 넣어주었다.
 				if(data=="ok"){
 					$("#idCheckView").html(id+"유효하지 않는 계정입니다!!").css("color","red");
 					checkResultId=id;

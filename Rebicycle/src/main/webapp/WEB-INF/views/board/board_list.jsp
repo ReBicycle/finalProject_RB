@@ -18,14 +18,14 @@ th, td {
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+		//reportBtn(상세페이지 버튼)을 클릭시 로그인 상태가 아니라면 이동이 되지 않는다.
 		$("#reportBtn").click(function(){
 			if(${sessionScope.mvo!=null}){
 				location.href="${pageContext.request.contextPath}/board/board_write_from.do";
 			}else{
 				alert("로그인시에만 사용가능한 기능입니다. 로그인 후 사용해주세요.");
-			}
+			}//else
 		});//click
-		
 	});//ready
 </script>
 
@@ -68,6 +68,7 @@ th, td {
 					<th>Report Date</th>
 				</tr>
 			</thead>
+			<!-- 게시판 리스트 부분 로그인 되어있다는 조건하에 title를 누르면 해당 번호의 게시물의 상세 페이지로 넘어간다 -->
 			<tbody>
 				<c:forEach var="rvo" items="${requestScope.lvo.list}">
 					<tr>
@@ -88,7 +89,7 @@ th, td {
 			</tbody>	
 		</table>
 
-		
+		<!-- 페이징 빈 라인 ----------------------------------------------------- -->
 		<nav aria-label="Page navigation" id="div1" style="float:center">
 			<ul class="pager">
 

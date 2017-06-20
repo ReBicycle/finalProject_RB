@@ -55,7 +55,7 @@ select * from donation;
 select * from rb_report;
 select * from rb_boardreply;
 select * from rb_review;
-
+select * from donation;
 --테이블 생성
 create table rb_member(
    id varchar2(100) primary key,
@@ -128,29 +128,26 @@ create table rb_review(
 create table donation(
    donation_bicycle_no number primary key,
    donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id),
-<<<<<<< HEAD
+
    detail clob not null,
-=======
-   detail clob not null,
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
+
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
    photo3 varchar2(100) not null,
-<<<<<<< HEAD
-   status number default 0,
-=======
+
    story_id varchar2(100) default 'n',
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
    address varchar2(300) not null,
    title varchar2(100) not null
 )
 
 create table story(
-donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
-story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
-title varchar2(100) not null,
-detail clob not null,
-constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
+	donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
+	story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
+	title varchar2(100) not null,
+	detail clob not null,
+	constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
 )
 
 

@@ -60,4 +60,19 @@ public class DonationController {
 			donationService.selectStory(dvo);
 			return "ok";
 		}
+		@RequestMapping("donation/donation_update_form.do")
+		public ModelAndView donationUpdateForm(String donationBicycleNo){
+			return new ModelAndView("donation/donation_update_form.tiles","donationVO",donationService.findDonationDetailByNo(donationBicycleNo));
+		}
+		@RequestMapping("donation/donation_update.do")
+		public String donationUpdate(DonationVO dvo){
+			donationService.donationUpdate(dvo);
+		
+			return "redirect:donaion_list.do";
+		}
+		@RequestMapping("donation/donation_delete.do")
+		public String donationDelete(String donationBicycleNo){
+			donationService.donationDelete(donationBicycleNo);
+			return "redirect:donation_list.do";
+		}
 }

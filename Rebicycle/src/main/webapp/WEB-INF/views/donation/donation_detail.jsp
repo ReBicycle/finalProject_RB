@@ -161,8 +161,12 @@ $(document).ready(function(){
                         <p style="font-size: 15px"></p>
        		   </div>    
            </div>
+         <c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId}">
+          <a href="${pageContext.request.contextPath}/donation/donation_update_form.do?donationBicycleNo=${param.donationBicycleNo}"><button class="btn success" style="width:100%;margin-bottom:50px; "><h4><strong>수정/삭제</strong></h4></button><br>
+         </a>
+         </c:if>
         <c:if test="${sessionScope.mvo.id!=requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">   
-        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="storyCheck()"><h4><strong>사연신청</strong></h4></button>
+        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="storyCheck()"><h4><strong>사연신청</strong></h4></button><br>
         </c:if>
         <c:if test="${requestScope.donationVO.storyId!='n'}">
         	<h4><strong>당첨자</strong> &nbsp;&nbsp;${requestScope.donationVO.storyId}</h4>

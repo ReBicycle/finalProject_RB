@@ -127,7 +127,7 @@ create table rb_review(
 
 create table donation(
    donation_bicycle_no number primary key,
-   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id) on delete cascade,
 
    detail clob not null,
 
@@ -143,8 +143,8 @@ create table donation(
 )
 
 create table story(
-	donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
-	story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
+	donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no) on delete cascade,
+	story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id) on delete cascade,
 	title varchar2(100) not null,
 	detail clob not null,
 	constraint pk_story_no_id primary key(donation_bicycle_no,story_id)

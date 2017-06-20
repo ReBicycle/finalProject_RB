@@ -363,6 +363,7 @@ CREATE TABLE rb_boardreply (
 )
 drop table rb_boardreply
 --brdno(게시판 넘버)를 rb_report를 fk로 뒀을때 댓글이 달려있는 게시물이 삭제 안됨--
+select * from RB_BOARDREPLY
 CREATE TABLE rb_boardreply (
       brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo),
       reno number primary key,
@@ -700,4 +701,3 @@ where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id
 select * from rent
 
 commit
-

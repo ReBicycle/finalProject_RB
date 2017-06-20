@@ -165,7 +165,7 @@ create table rb_report(
 
 
 CREATE TABLE rb_boardreply (
-      brdno number default 0,
+      brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo) on delete cascade,
       reno number primary key,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,

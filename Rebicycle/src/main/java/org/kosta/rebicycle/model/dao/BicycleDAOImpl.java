@@ -1,7 +1,7 @@
 package org.kosta.rebicycle.model.dao;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -190,11 +190,11 @@ public class BicycleDAOImpl implements BicycleDAO {
 	}
 	@Override
 	public void updatePossibleCalendarVOType3(HashMap<String, CalendarVO> calendarMap) {
-		System.out.println("111111111");
+		//System.out.println("111111111");
 		template.insert("bicycle.updatePossibleCalendarVOType3", calendarMap);	
-		System.out.println("222222222");
+		//System.out.println("222222222");
 		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
-		System.out.println("333333333");
+		//sSystem.out.println("333333333");
 	}
 	@Override
 	public CalendarVO getPossibleCVO(CalendarVO calendarVO) {
@@ -208,9 +208,10 @@ public class BicycleDAOImpl implements BicycleDAO {
 	///////////impl5//////////////
 	@Override
 	public List<BicycleVO> getBicycleListByAddressAndDay(String address,String startDay,String endDay){
+		Calendar cal= Calendar.getInstance();
+		cal.setTime(new Date());
 		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-		Date currentTime = new Date ();
-		String mTime = mSimpleDateFormat.format ( currentTime );
+		String mTime = mSimpleDateFormat.format(cal.getTime());
 		if(startDay==null||startDay.equals(""))
 			startDay=mTime;
 		if(endDay==null||endDay.equals(""))

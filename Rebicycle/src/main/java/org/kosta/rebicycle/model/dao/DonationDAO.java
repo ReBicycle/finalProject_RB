@@ -27,4 +27,8 @@ public interface DonationDAO {
 
 	void selectStory(DonationVO dvo);
 
+	void donationUpdate(DonationVO dvo);
+
+	void donationDelete(String donationBicycleNo);
+
 }

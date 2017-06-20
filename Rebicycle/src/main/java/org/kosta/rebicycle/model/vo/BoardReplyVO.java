@@ -1,15 +1,17 @@
 package org.kosta.rebicycle.model.vo;
 
 public class BoardReplyVO {
-	private int brdno;
-	private int reno;
-	private String rewriter;
-	private String rememo;
-	private String redate;
+	private int brdno; // 게시판 넘버
+	private int reno; // 댓글 넘버
+	private String rewriter; // 댓글 작성자
+	private String rememo; // 댓글 내용
+	private String redate; // 댓글 작성 시간
+	// 기본 생성자
 	public BoardReplyVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	// 객체 생성자
 	public BoardReplyVO(int brdno, int reno, String rewriter, String rememo, String redate) {
 		super();
 		this.brdno = brdno;
@@ -18,6 +20,7 @@ public class BoardReplyVO {
 		this.rememo = rememo;
 		this.redate = redate;
 	}
+	// 겟터 & 셋터
 	public int getBrdno() {
 		return brdno;
 	}
@@ -49,6 +52,7 @@ public class BoardReplyVO {
 		this.redate = redate;
 	}
 	@Override
+	// toString
 	public String toString() {
 		return "BoardReplyVO [brdno=" + brdno + ", reno=" + reno + ", rewriter=" + rewriter + ", rememo=" + rememo
 				+ ", redate=" + redate + "]";

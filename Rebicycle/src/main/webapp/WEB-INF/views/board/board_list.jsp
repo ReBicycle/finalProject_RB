@@ -22,9 +22,10 @@ th, td {
 			if(${sessionScope.mvo!=null}){
 				location.href="${pageContext.request.contextPath}/board/board_write_from.do";
 			}else{
-				alert("로그인시에만 사용가능한 기능입니다!! 로그인 후 사용해주세요!!");
+				alert("로그인시에만 사용가능한 기능입니다. 로그인 후 사용해주세요.");
 			}
 		});//click
+		
 	});//ready
 </script>
 
@@ -42,6 +43,7 @@ th, td {
 				<!-- <span class="label label-warning">신고</span> -->
 				신고 게시판<i class="fa fa-exclamation-triangle" aria-hidden="true"
 					style="color: red;"></i>
+					
 			</h1>
 		</span> <br> <br>
 
@@ -72,8 +74,7 @@ th, td {
 						<td class="text-center" width="150px">${rvo.reportNo}</td>
 						<td class="text-center" width="150px"><c:choose>
 								<c:when test="${sessionScope.mvo!=null}">
-									<a
-										href="${pageContext.request.contextPath}/boardDetail.do?reportNo=${rvo.reportNo}">${rvo.reportTitle}</a>
+									<a href="${pageContext.request.contextPath}/boardDetail.do?reportNo=${rvo.reportNo}">${rvo.reportTitle}</a>
 								</c:when>
 								<c:otherwise>
 			    								${rvo.reportTitle}
@@ -125,7 +126,7 @@ th, td {
 		
 	</div>
 </div>
-<br><br>
+<br>
 <!-- container -->
        
        

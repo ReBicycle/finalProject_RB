@@ -47,7 +47,14 @@ where s.story_id=r.id
 <update id="selectStory" parameterType="donationVO">
 update donation set story_id=#{storyId} where donation_bicycle_no=#{donationBicycleNo}
 </update>
- </mapper>
+<delete id="donationDelete" parameterType="int">
+delete from donation where donation_bicycle_no=#{value}
+</delete>
+<update id="donationUpdate" parameterType="donationVO">
+update donation set title=#{title}, detail=#{detail}, address=#{address}
+where donation_bicycle_no=#{donationBicycleNo}
+</update>
+</mapper>
  
  
  

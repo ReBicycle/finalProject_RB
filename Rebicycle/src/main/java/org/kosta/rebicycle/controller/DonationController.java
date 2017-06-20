@@ -22,7 +22,7 @@ public class DonationController {
 				
 			return "donation/donation_register_form.tiles";
 		}
-		@RequestMapping("donation/donation_list.do")
+		@RequestMapping("donation_list.do")
 		public ModelAndView getDonationList(String nowPage){
 			String page="1";
 			if(nowPage!=null)
@@ -57,9 +57,24 @@ public class DonationController {
 		@ResponseBody
 		public String selectStory(DonationVO dvo){
 			System.out.println("사연선택테스트"+dvo.getStoryId()+" "+dvo.getDonationBicycleNo());
-			
 			donationService.selectStory(dvo);
-			
 			return "ok";
+		}
+		@RequestMapping("donation/donation_update_form.do")
+		public ModelAndView donationUpdateForm(String donationBicycleNo){
+			return new ModelAndView("donation/donation_update_form.tiles","donationVO",donationService.findDonationDetailByNo(donationBicycleNo));
+		}
+		@RequestMapping("donation/donation_update.do")
+		public String donationUpdate(DonationVO dvo,String donationBicycleNo,String roadAddress, String jibunAddress, String detailAddress ){
+			dvo.setDonationBicycleNo(Integer.parseInt(donationBicycleNo));
+			String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
+			dvo.setAddress(address);
+			donationService.donationUpdate(dvo);
+			return "redirect:donation_detail.do?donationBicycleNo="+donationBicycleNo;
+		}
+		@RequestMapping("donation/donation_delete.do")
+		public String donationDelete(String donationBicycleNo){
+			donationService.donationDelete(donationBicycleNo);
+			return "redirect:../donation_list.do";
 		}
 }

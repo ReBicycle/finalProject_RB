@@ -84,19 +84,21 @@ appearance: none;
   
   </script>
   <%--지도 --%>
-   <div class="col-sm-6" id="map" style="height:650px;margin-top:35px;"></div>
-   <%--지도 --%>
-   <%-- 검색 리스트 --%>
-   <div class="col-sm-6" style="height:650px;background-color:white;overflow:auto;overflow-x:hidden;margin-top:35px;" >
+  <div	class="col-sm-6">
+   <div id="map" style="height:520px;margin-top:35px;"></div>
+   </div>
+   <%--지도 --%>   
+   <%-- 검색 리스트 --%>  
+   <div class="col-sm-6" style="height:520px;background-color:white;overflow:auto;overflow-x:hidden;margin-top:35px;" >
 
 <div class="panel panel-default">
            <!--  <div class="panel-heading" style="background-color:#153a6d;"> 
                 <div class="panel-title" ></div>
-            </div>   -->
-            	<div class="panel-body" style="min-height: 650px;"> 
+            </div>   --> 
+            	<div class="panel-body" style="min-height: 515px;">  
        				
-                        <div style="float:right;">
-정렬&nbsp;<select id="bikeTypeSelect" >
+ <div style="float:right;">  
+<select id="bikeTypeSelect" >
 	<option value="">종류</option>
 	<option value="1">MTB</option>
 	<option value="2">로드</option>
@@ -106,7 +108,7 @@ appearance: none;
 	<option value="6">어린이용</option>
 	<option value="7">기타</option>
 </select>
-<select id="rentalPrice">
+<select id="rentalPrice" >
 <option value="">가격</option>
 	<option value="low">낮은가격순</option>
 	<option value="high">높은가격순</option>

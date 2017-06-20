@@ -221,6 +221,7 @@ $(document).ready(function(){
                 <div class="panel-title" style="color:#31708f"><h5><strong>${donationVO.title }</strong></h5></div>
             </div> 
             	<div class="panel-body" >
+            	
             	<div class="w3-content w3-display-container" align="center">
   <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:50%">
   <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:50%;display: none;">
@@ -277,14 +278,15 @@ $(document).ready(function(){
 				   						 <div id="div_id_detail" class="form-group required" >
 				         						<label for="id_detail" class="control-label col-md-3  requiredField">상세내용</label>
 				         						<div class="controls col-md-8 "> 
-				        						<textarea class="input-md textinput textInput form-control" name="detail"  required="required"  style="height:170px;" readonly="readonly">${list.detail}</textarea>
+				        						<textarea class="input-md textinput textInput form-control" name="detail"  required="required"  style="height:120px;" readonly="readonly">${list.detail}</textarea>
 				        						
-				        						</div>
+				        						</div> 
 				    					</div>
+				    					<br><br><br>	<br><br><br>
 				    					<c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">
-				    					<div class="form-group" style="margin-bottom: 30px;"> 
+				    					<div class="form-group" style="margin-bottom: 10px;">
 				       						 <div class="aab controls col-md-12"></div>
-				        					<button type="button" onclick="selectStory('${list.id}','${param.donationBicycleNo}')" class="btn btn-primary btn btn-info" style="font-size: 15px;">사연채택</button>
+				        					<button type="button" onclick="selectStory('${list.id}','${param.donationBicycleNo}')" class="btn btn-primary btn btn-info" style="font-size: 14px;">사연채택</button>
 										</div> 
 				    					</c:if>
 				    					

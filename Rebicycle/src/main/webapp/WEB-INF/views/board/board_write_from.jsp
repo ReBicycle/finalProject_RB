@@ -48,7 +48,7 @@ $(document).ready(function(){
 <div class="container">
 <br><br><br><br> 
 	<span>
-		<h1 class="panel-title pull-center" style="font-size: 30px">
+		<h1 class="panel-title pull-center" style="font-size:30px">
 			<!-- <span class="label label-warning">신고</span> -->
 			신고 게시판 작성&nbsp;&nbsp;&nbsp;
 			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

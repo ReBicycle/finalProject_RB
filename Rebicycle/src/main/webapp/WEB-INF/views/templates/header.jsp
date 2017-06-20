@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>   
-<%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+
  <style>
  #designA :hover { 
  background-color: #153a6d;
@@ -142,7 +142,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 						href="${pageContext.request.contextPath}/board_list.do?pageNo=1">board</a>
 					</li>
 					<li class="page-scroll"><a
-						href="${pageContext.request.contextPath}/donation/donation_list.do">donation</a>
+						href="${pageContext.request.contextPath}/donation_list.do">donation</a>
 					</li>
 
 					<c:if test="${sessionScope.mvo!=null}">

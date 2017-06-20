@@ -22,7 +22,7 @@ public class DonationController {
 				
 			return "donation/donation_register_form.tiles";
 		}
-		@RequestMapping("donation/donation_list.do")
+		@RequestMapping("donation_list.do")
 		public ModelAndView getDonationList(String nowPage){
 			String page="1";
 			if(nowPage!=null)

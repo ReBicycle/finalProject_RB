@@ -99,9 +99,9 @@ public class BicycleController {
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
-		String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 
 		//가능일
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();
@@ -350,14 +350,9 @@ public class BicycleController {
 			
 			//String ResultOfEndDay=endYearOfDay+"-"+endMonthOfDay+"-"+endDayOfDay;
 			possibleEndDay[i]=ResultOfEndDay;
-			possibleTotalDay.put("title", "예약 가능");
+			/*possibleTotalDay.put("title", "예약 가능");*/
 			possibleTotalDay.put("start", possibleStartDay[i]);
-			possibleTotalDay.put("end", possibleEndDay[i]);
-			
-			System.out.println("@@@ title   "+possibleTotalDay.get("title"));
-			System.out.println("@@@ start   "+possibleTotalDay.get("start"));
-			System.out.println("@@@ end     "+possibleTotalDay.get("end"));
-		
+			possibleTotalDay.put("end", possibleEndDay[i]);		
 			possibleDayList.add(possibleTotalDay);
 		}
 

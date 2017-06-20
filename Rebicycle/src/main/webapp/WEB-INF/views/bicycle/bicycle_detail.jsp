@@ -2,80 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- 달력 스크립트 -->
-<script type="text/javascript">
-	$(function() {
-      	$('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
-			.popover({
-				container : 'body',
-				content : 'Hello World',
-				html : true,
-				placement : 'bottom',
-				template : '<div class="popover calendar-event-popover" role="tooltip"><div class="arrow"></div><h4 class="popover-title"></h4><div class="popover-content"></div></div>'
-			});
 
-      $('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
-            .on(
-                  'show.bs.popover',
-                  function() {
-                     var attending = parseInt($(this).find(
-                           'div.progress>.progress-bar').attr(
-                           'aria-valuenow')), total = parseInt($(this)
-                           .find('div.progress>.progress-bar').attr(
-                                 'aria-valuemax')), remaining = total
-                           - attending, displayAttending = attending
-                           - $(this).find('div.attending').children().length, html = [
-                           '<button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>',
-                           '<h4>' + $(this).find('h4').text()
-                                 + '</h4>',
-                           '<div class="desc">'
-                                 + $(this).find('div.desc').html()
-                                 + '</div>',
-                           '<div class="location">'
-                                 + $(this).find('div.location')
-                                       .html() + '</div>',
-                           '<div class="datetime">'
-                                 + $(this).find('div.datetime')
-                                       .html() + '</div>',
-                           '<div class="space">Attending <span class="pull-right">Available spots</span></div>',
-                           '<div class="attending">',
-                           $(this).find('div.attending').html(),
-                           '<span class="attending-overflow">+'
-                                 + displayAttending + '</span>',
-                           '<span class="pull-right">' + remaining
-                                 + '</span>', '</div>',
-                           '<a href="#signup" class="btn btn-success" role="button">Sign up</a>' ]
-                           .join('\n');
-
-                     $(this).attr('title', $(this).find('h4').text());
-                     $(this).attr('data-content', html);
-                  });
-
-      $('[data-toggle="calendar"] > .row > .calendar-day > .events > .event')
-            .on(
-                  'shown.bs.popover',
-                  function() {
-                     var $popup = $(this);
-                     $('.popover:last-child').find('.close').on('click',
-                           function(event) {
-                              $popup.popover('hide');
-                           });
-                  });
-      
-      $(".plus-img").click(function(){
-           var size = $("div[id^='possible']").size();                    
-           for(var i = 1; i<=size;i++){}
-            //alert($("div[id^='possible']").find(".possibleStartDay"+i).val());
-       });
-      
-      $("#rentForm").submit(function(){      
-         var startDay = $("#startDay").val();
-         var endDay = $("#endDay").val();
-         //alert($("div[id^='possible']").text());
-         
-      });
-   });
-</script>
 <!-- 이미지 슬라이드 -->
 <style type="text/css">
 section.awSlider .carousel {
@@ -125,6 +52,47 @@ section.awSlider>img {
    transform: scale(1.1);
    opacity: .5;
 }
+
+<%-- 모달css--%>
+ 
+/* The Modal background */
+.modal { 
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 5; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+    height: 75%;
+}
+.close {
+    position: absolute;
+    right: 20%;  
+    top: 10%;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
 </style>
 <!-- 이미지 슬라이드 스크립트 -->
 <script type="text/javascript">
@@ -151,9 +119,10 @@ section.awSlider>img {
       
       $('#calendar').fullCalendar({
          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'prev,next today',
+            left: 'title',
+            center:'possibleDay'
+            /* right: 'month,agendaWeek,agendaDay' */
          },
          //defaultDate: '2017-05-12',
          navLinks: true, // can click day/week names to navigate views
@@ -253,13 +222,23 @@ section.awSlider>img {
            return false;
         });
         $(".on").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
-  
+        
+        
+        $( ".star_rating_modal a" ).click(function() {
+            event.preventDefault();
+            $(this).parent().children("a").removeClass("on");
+            $(this).addClass("onn").prevAll("a").addClass("onn");
+            $(this).parent().children("a").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'>");
+            $(".onn").html("<img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staron.png'>");
+            return false;
+         });       
+        
         $("#reviewSubmit").click(function(){
            if($("#reviewContent").val() == ""){
               alert("리뷰를 입력하세요");
               return false;
            }
-           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".on").length;
+           location.href="${pageContext.request.contextPath}/writeReview.do?bicycleNo=${requestScope.findBvo.bicycleNo}&content="+$("#reviewContent").val()+"&star="+$(".star_rating  .on").length;
         }); 
         $(".deleteReview").click(function(){
         	if(confirm('리뷰를 삭제하시겠습니까?')){
@@ -267,20 +246,17 @@ section.awSlider>img {
         		location.href="${pageContext.request.contextPath}/deleteReview.do?rentNo="+no;
         	}       		
         });
+        $("#updateReviewSubmit").click(function(){        	
+        		var no = $("#modal_rentNo").val();
+        		var content = $("#review_update_content").val();
+        		var star=$(".star_rating_modal .onn").length;
+        		if(star==0)
+        			star=$("#modal_before_star").val();
+        	    location.href="${pageContext.request.contextPath}/updateReview.do?rentNo="+no+"&star="+star+"&content="+content;  		
+        });
         $(".updateReview").click(function(){
-        	if(confirm('리뷰를 수정하시겠습니까?')){
-        		var no = $("#rentNo").val();
-        		var content = $("#content").val();
-        		var star=$("#star").val();
-        	    var newcontent = prompt("리뷰내용수정:", content);
-        	    if (newcontent == null || newcontent == "") {
-        	    	return;
-        	    } else {
-        	    	//alert(newcontent);
-        	       location.href="${pageContext.request.contextPath}/updateReview.do?rentNo="+no+"&star="+star+"&content="+newcontent;
-        	    }
-        	}       		
-        }); 
+        	document.getElementById('id01').style.display='block';
+        })
         
          //day N:N - 사용가능 결과 변수
         var checkDayResultl=null;
@@ -336,7 +312,6 @@ section.awSlider>img {
 		                         //다음 possible_day 와 비교결과 아래의 "else" 영역으로 넘어가 
 		                         //결국 불가능이 된다.
 		                         checkFlag[i] = true;
-		                         alert("test         "  +  checkFlag[i])
 		                         break exit_for;
 		                        
 		                     }else{ 
@@ -362,9 +337,6 @@ section.awSlider>img {
         
         $("#plusImg").click(function(){
         	
-        	//alert(clickCount);
-        	alert("cat     "+clickCount)
-        	alert("test dog      "+checkFlag[clickCount+1])
         	if(checkFlag[clickCount+1]==false){
 	 			alert("가능일 확인 절차가 필요합니다!");
 	 			return false;
@@ -445,6 +417,8 @@ section.awSlider>img {
                }                       
             });           
          });
+         //id 위에 detail information 
+         $('[data-toggle="tooltip"]').tooltip(); 
          
          //javascript 에서 map 기능을 사용하기 위함
          function newMap() {
@@ -484,60 +458,6 @@ section.awSlider>img {
         
    });
 </script>
-
-<!-- 이미지 슬라이드 -->
-<style type="text/css">
-
-
-
-section.awSlider .carousel {
-   display: table;
-   z-index: 2;
-   -moz-box-shadow: 0 0 4px #444;
-   -webkit-box-shadow: 0 0 4px #444;
-   box-shadow: 0 0 15px rgba(1, 1, 1, .5);
-}
-
-section.awSlider {
-   margin: 30px auto;
-   padding: 30px;
-   position: relative;
-   display: table;
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-}
-
-section.awSlider:hover>img {
-   -ms-transform: scale(1.2);
-   -webkit-transform: scale(1.2);
-   transform: scale(1.2);
-   opacity: 1;
-}
-
-section.awSlider img {
-   pointer-events: none;
-}
-
-section.awSlider>img {
-   position: absolute;
-   top: 30px;
-   z-index: 1;
-   transition: all .3s;
-   filter: blur(1.8vw);
-   -webkit-filter: blur(2vw);
-   -moz-filter: blur(2vw);
-   -o-filter: blur(2vw);
-   -ms-filter: blur(2vw);
-   -ms-transform: scale(1.1);
-   -webkit-transform: scale(1.1);
-   transform: scale(1.1);
-   opacity: .5;
-}
-</style> 
 <!-- main css -->
 <style>
    body {
@@ -563,10 +483,9 @@ section.awSlider>img {
    }
 </style>
 
-<br>
-<br>
-<br>
+<br><br><br>
 <div class="container">
+
    	<section class="awSlider">
       	<div class="carousel slide" data-ride="carousel">
          	<!-- Indicators -->
@@ -607,23 +526,29 @@ section.awSlider>img {
    	<div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
 		    <label for="name">TITLE</label>
-		    <h3 align="center">- TITLE -</h3>
+		    <h3 align="center">TITLE</h3>
 		    <p class="help-block text-danger">${requestScope.findBvo.title}</p>
 		</div>
 		
 		
   	</div>
    
+   <br><br><br>
+   
    <!-- 달력 -->
    	<div class="row">
+   		
       	<div class="col-sm-6" style="height: 150%">
+      	<h3 class="title text-center" style="margin-top: 0px;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Possible Day</h3>
+         	<br><br>
          	<div id="calendar"></div>
       	</div>
-      	<div class="col-sm-6"></div>
-      	
+
+      	 
       	<!-- 예약 부분 -->
       	<div class="col-sm-6">
-         	<h3 class="title text-center" style="margin-top: 0px;">Reservation</h3>
+         	<h3 class="title text-center" style="margin-top: 0px;"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Reservation</h3>
+         	<br><br>
          	<div align="center">
 
             	<!-- 예약 폼 -->
@@ -631,6 +556,7 @@ section.awSlider>img {
                		<!-- <div class="col-lg-8 col-lg-offset-2"> -->
                		<div class="col-lg-10 col-lg-offset-1">
                   		<form name="rentForm" id="rentForm" action="${pageContext.request.contextPath}/bicycle/rentRegister.do" method="post">
+	                    	
 	                    	<table id = "addTable">                   
                    				<div class="row control-group">
 		                           	<!-- input 달력 -->
@@ -679,94 +605,123 @@ section.awSlider>img {
                      				</div>
                     			</div>
                   			</div>
-	                       		
-                       		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="name">ID</label>
-                           			<h4 align="left">ID</h4>
-                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.id}</p>
-                        		</div>
-                     		</div>
+	                      	                       		
+	                       	<hr>                		
                      		
                      		<div class="row control-group">
                         		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="name">Price</label>
-                           			<h4 align="left">Price</h4>
-                           			<p class="help-block text-danger" id = "rentPrice">${requestScope.findBvo.rentPrice}</p>
+									<h4 align="left">ID</h4>
+                           			<h5><a onclick="document.getElementById('id02').style.display='block';" style="float:center;" data-toggle="tooltip" title="Detail Information">${requestScope.findBvo.memberVO.id}</a>
+                           			</h5>
                         		</div>
                      		</div>
-	                     
-	                     
-                     		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="email">Email Address</label>
-                           			<h4 align="left">Email Address</h4>
-                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.email}</p>
-                        		</div>
-                     		</div>
-                     
-                     		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="phone">Phone Number</label>
-                           			<h4 align="left">Phone Number</h4>
-                           			<p class="help-block text-danger">${requestScope.findBvo.memberVO.phone}</p>
-                        		</div>
-                     		</div>
-	                     
-                     		<div class="row control-group">
-                        		<div class="form-group col-xs-12 floating-label-form-group controls">
-                           			<label for="phone">Share Address</label>
-                           			<h4 align="left">Share Address</h4>
-                           			<c:set var="addr" value="${requestScope.findBvo.address}"/>       
+
+							<div class="row control-group">
+								<div class="form-group col-xs-12 floating-label-form-group controls">
+									<label for="phone">Address</label>
+									<h4 align="left">Address</h4>
+									<c:set var="addr" value="${requestScope.findBvo.address}" />
 									<c:set var="addd" value="${fn:split(addr, '%') }" />
 									<c:forEach items="${addd }" var="addd">
 										<p style="font-size: 15px">${addd }</p>
 									</c:forEach>
-                        		</div>
-                     		</div>
-	                     
-                     
-	                     	<div class="row control-group">
-	                        	<div class="form-group col-xs-12 floating-label-form-group controls">
-		                           	<label for="message">Detail</label>
-		                           	<h4 align="left">Detail</h4>
-		                           	<p class="help-block text-danger">${requestScope.findBvo.detail}</p>
-		                        </div>
+								</div>
 							</div>
-                     
-                     		<c:forEach items="${requestScope.findBvo.possibleList}" var="possibleDay" varStatus="order">
+
+							<!-- Modal -->
+                     		<div id="id02" class="modal" align="center">
+                     			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal" >×</span>
+								<div class="modal-content animate mainbox">
+									<div class=" panel panel-default" style="height: 100%;">
+										<%--내용물영역 --%>
+										<div class="panel-heading">
+											<div>
+												<h4>
+<<<<<<< HEAD
+													<strong>Detail Information</strong>
+=======
+													<strong>상세정보</strong>
+>>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+												</h4>
+											</div>
+										</div>
+										
+										<div class="panel-body">
+
+
+											<table class="table table-hover">
+												
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.memberVO.id}</td>
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.memberVO.email}</td>
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.memberVO.phone}</td>
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.rentPrice}</td>									
+													</tr>
+													<tr>
+														<th scope="row"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></th>
+														<td>${requestScope.findBvo.detail}</td>
+													</tr>
+									
+											</table>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<c:forEach items="${requestScope.findBvo.possibleList}" var="possibleDay" varStatus="order">
 								<div id="possible${order.count}">
 									<input type="hidden" class="possibleStartDay${order.count}" value="${possibleDay.startDay}" id="pStartDay${order.count}">
                            			<input type="hidden" class="possibleEndDay${order.count}" value="${possibleDay.endDay}" id="pEndDay${order.count}">
                         		</div>
                      		</c:forEach>
 
-	                		<br><br>
-	                  
 	                     	<div id="success"></div>
                      		<c:if test="${sessionScope.mvo.id != requestScope.findBvo.memberVO.id}">
 	                     		<div class="row">
 	                        		<div class="form-group col-xs-12" align="center">
 	                        			<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-			                        	<button type="submit" class="btn btn-success btn-lg" id="rentBtn">빌리기</button>
+			                        	<button type="submit" class="btn btn-success btn-lg" id="rentBtn">RENT</button>
 	                        		</div>
 	                     		</div>
 							</c:if>
+							
+							<hr>
+							
                   		</form>
                		</div>
             	</div>
          	</div>
       	</div>
    	</div>
-</div>
-<br>
-<br>
-<br>
-<br>
+<!-- </div> -->
+<br><br><br><br>
+
 <!-- 리뷰 -->
       <div id="banner-wrapper">
       <div align="left" style="padding-left: 15%; font-size: 15px">
-         총 ${fn:length(requestScope.reviewList)} 개의 리뷰 &nbsp;&nbsp;
+      	<div class="col-sm-12 style="height: 150%">
+      	<h3 class="title text-left" style="margin-top: 0px;">
+      	<span class="glyphicon glyphicon-comment"></span>
+      	&nbsp;&nbsp;&nbsp;Review&nbsp;
+      	<span class="label label-danger">${fn:length(requestScope.reviewList)}
+      	</span>
+      	</h3>
+         	<br><br>
+     	</div>
+   	
+   		<hr>
+   	
          <c:if test="${fn:length(requestScope.reviewList)!=0}">
          <img style='width:10px' src='${pageContext.request.contextPath}/resources/img/staron.png'>
          <fmt:formatNumber value="${requestScope.findBvo.avgRate}" pattern=".00"/>
@@ -820,8 +775,63 @@ section.awSlider>img {
             	 <input type="hidden" id="rentNo" value="${rList.rentVO.rentNo}" />
             	 <input type="hidden" id="content" value="${rList.content}" />
             	 <input type="hidden" id="star" value="${rList.star}" />
-            	 <font size="1px" color="#999999"  class="updateReview"> 수정&nbsp;|</font>
+            	 <font size="1px" color="#999999"  class="updateReview" > 수정&nbsp;|</font>
             	 <font size="1px" color="#999999"  class="deleteReview"> 삭제</font>
+            	 
+        <%--리뷰 수정 modal --%>
+        <div id="id01" class="modal" align="center" >
+  			<form method="post" class="modal-content animate mainbox"  >
+  				<input type="hidden" id="modal_rentNo" value="${rList.rentVO.rentNo}">
+  				<input type="hidden" id="modal_before_star" value="${rList.star}">
+  				<div class=" panel panel-default" style="height: 100%;">
+   				<%--내용물영역 --%>
+   					 <div class="panel-heading">
+   					 	<div><h4><strong>리뷰 수정하기</strong></h4></div>
+            		</div>
+           			<div class="panel-body">
+            	   		<!-- star -->
+				    	<div id="div_id_title" class="form-group required"> 
+				        <label for="id_title" class="control-label col-md-3  requiredField">별점</label> 
+				        <div class="controls col-md-8 "> 
+				            <p class="star_rating_modal" style="padding-top:20px; padding-left: 30%">
+				            	<c:forEach begin="1" end="${rList.star}">
+				            		<a href="#" class="on"></a>
+				            	</c:forEach>
+                     			<c:forEach begin="${rList.star+1}" end="5">
+                      				<a href="#" class=""><img style='width:30px' src='${pageContext.request.contextPath}/resources/img/staroff.png'></a>
+                      			</c:forEach>
+                  			</p>
+                  		</div>
+				    </div>
+				    
+				    <!-- 아이디 -->
+				    <div id="div_id_memberId" class="form-group required"> 
+				        <label for="id_memberId" class="control-label col-md-3  requiredField">아이디</label> 
+				        <div class="controls col-md-8 "> 
+				            <input class="input-md textinput textInput form-control" id="review_update_id" style="margin-bottom: 30px" type="text" value="${sessionScope.mvo.id }" readonly="readonly">
+				        </div>
+				    </div>
+         	
+				    <!-- Detail -->
+				    <div id="div_id_detail" class="form-group required">
+				         <label for="id_detail" class="control-label col-md-3  requiredField">리뷰내용</label>
+				         <div class="controls col-md-8 ">
+				        	<input class="input-md textinput textInput form-control" id="review_update_content" value="${rList.content}" required="required"  style="margin-bottom: 20px;height:120px;"></input>
+				        </div>
+				    </div>
+             </div>
+           
+   <%--버튼영역 --%>
+            <div class="form-group" style="margin-bottom: 30px;"> 
+				        <div class="aab controls col-md-12"></div>
+				        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-primary btn btn-info" style="font-size: 15px;">취소</button>
+				        <input value="수정"  type="button" class="btn btn-primary btn btn-info" id="updateReviewSubmit" style="font-size: 15px;"/>
+			</div> 
+       
+    </div>
+  </form>
+</div>
+        <%--modal end --%>
             	</c:if>
                   </div>
                   <div  style=" float: right; width: 30%; padding:10px; padding-right: 10%" align="right">                     
@@ -835,4 +845,5 @@ section.awSlider>img {
             </c:forEach>            
          </div>
       </div>
-      <br>
+     <!--  </div> -->
+<br>

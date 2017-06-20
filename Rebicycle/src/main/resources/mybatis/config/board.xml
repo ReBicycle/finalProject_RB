@@ -8,9 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<selectKey keyProperty="reportNo" resultType="int" order="BEFORE">
  			select
  			report_seq.nextval from dual
+ 			<!-- report_seq.nextval from dual은 현제 시퀀스 값을 찾기 위해 사용한다 -->
  		</selectKey>
  		insert into rb_report(reportNo,reportTitle,reporterId,blackId,contents,reportDate)
  		values(#{reportNo},#{reportTitle},#{reporterId},#{blackId},#{contents},sysdate)
+ 		<!-- 
+ 		현제 시퀀스 값에 bvo의 정보를 데이터 베이스에 인설트 해준다 
+ 		게시판 번호, 게시판 제목, 신고자, 신고 할 아이디, 내용, 작성 시간....
+ 		-->
  	</insert>
  	<select id="getReportList" resultType="reportVO" parameterType="pagingBean">
 			SELECT r.reportNo,r.reportTitle,r.reportDate,r.reporterId,r.blackId,r.contents FROM(
@@ -24,55 +29,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		rb_report
 	</select>
 	<select id="boardDetail" resultType="reportVO">
+	<!-- 
+		  정보를 조회한다.
+		  rb_report에 b라는 별칭을 지어주며
+		  신고 게시글의 각각의 넘버, 제목, 신고 ID, 신고당한 ID, 작성 날짜, 내용을 reportNo에 맞는 정보를
+		  데이터베이스에서 찾아 준다.
+	 -->
 		select
 		b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
 		reportDate,b.contents from rb_report 
 		b where reportNo=${value}
 	</select>
-		<select id="boardUpdateReportView" resultType="reportVO">
+	<select id="boardUpdateReportView" resultType="reportVO">
+		<!-- 
+			위 sql문과 똑같다 해당 게시물을 수정하기 위해 똑같이 불러와서 수정할 부분만 수정하기 위해
+			사용했다.. 만들고 보니 유지보수성이 떨어지는거 같다.
+		 -->
 		select
 		b.reportNo,b.reportTitle,b.reporterId,b.blackId,to_char(b.reportDate,'YYYY.MM.DD HH:mm:ss') as 
 		reportDate,b.contents from rb_report 
 		b where reportNo=${value}
 	</select>
 	<update id="updateReport" parameterType="reportVO">
+		<!-- 게시판 업데이트 sql문 전부다 입력값으로 수정하게 끔 작성해놨지만
+			  넘버, 작성자, 날짜는 View에서 readonly 처리해놨기 수정되지 않는다.
+		 -->
 		update rb_report set reportTitle=#{reportTitle},blackId=#{blackId},contents=#{contents},reportDate=sysdate where reportNo=#{reportNo}
 	</update>
 	<delete id="deleteReport">
+		<!-- 해당 reportNo의 게시물을 삭제하는 sql문 -->
 		delete from rb_report where reportNo=#{value}
 	</delete>
-	
 	<select id="findBoardReplyNo" resultType="boardReplyVO">
+		<!-- brdno로 해당 댓글 정보를 찾아 온다 -->
 		select
 		brdno,reno,rewriter,rememo,to_char(redate,'YYYY.MM.DD') as redate 
 		from rb_boardreply 
 		where brdno=#{value}
 	</select>
-	
 	<insert id="commentWrite" parameterType="BoardReplyVO">
  		<selectKey keyProperty="reno" resultType="int" order="BEFORE">
+ 		<!-- reno의 현제 시퀀스 값을 찾는다 -->
  			select
  			rb_boardreply_seq.nextval from dual
  		</selectKey>
+ 		<!-- 댓글 작성, 댓글 테이블에 게시판번호, 댓글번호, 작성자, 내용 , 시간을 insert 한다. -->
  		insert into rb_boardreply(brdno,reno,rewriter,rememo,redate)
  		values(#{brdno},#{reno},#{rewriter},#{rememo},sysdate)
  	</insert>
  	<select id="getReplyList" resultType="BoardReplyVO">
+ 	<!-- 각 컬럼에 c라는 별칭을 지어준 후 brdno에 해당하는 정보를 select 한다 -->
 			select
 			c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD') as 
 			redate from rb_boardreply 
 			c where brdno=#{value}
 	</select>
 	<update id="boardCommentUpdate" parameterType="boardReplyVO">
+	<!-- 해당 reno의 정보를 업데이트 (댓글 내용, 댓글 작성 날짜) -->
 		update rb_boardreply set rememo=#{rememo},redate=sysdate where reno=#{reno}
 	</update>
 	<select id="boardUpdateCommentView" resultType="boardReplyVO">
+	<!-- 해당 번호의 댓글의 정보를 찾아서 불러온다 -->
 		select
 		c.brdno,c.reno,c.rewriter,c.rememo,to_char(c.redate,'YYYY.MM.DD') as 
 		redate from rb_boardreply 
 		c where reno=${value}
 	</select>
 	<delete id="boardCommentDelete">
+	<!-- 해당 번호의 댓글을 삭제 -->
 		delete from rb_boardreply where reno=#{value}
 	</delete>
  </mapper>

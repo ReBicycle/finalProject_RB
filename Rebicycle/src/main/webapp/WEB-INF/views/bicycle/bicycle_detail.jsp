@@ -53,7 +53,7 @@ section.awSlider>img {
    opacity: .5;
 }
 
-<%-- 모달css--%>
+<%-- 리뷰 모달css--%>
  
 /* The Modal background */
 .modal { 
@@ -92,6 +92,43 @@ section.awSlider>img {
     color: red;
     cursor: pointer;
 }
+
+<%-- detail information 모달css--%>
+.modal2 { 
+    display: none;
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+.modal2-content {
+    background-color: #ffffff;
+    margin:5% auto 15% auto;
+    border: 1px solid #888;
+    width: 30%; 
+    height: 50%;
+}
+.close2 {
+    position: absolute;
+    right: 37%;  
+    top: 21%;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close2:hover,
+.close2:focus {
+    color: red;
+    cursor: pointer;
+}
+
 
 </style>
 <!-- 이미지 슬라이드 스크립트 -->
@@ -361,7 +398,7 @@ section.awSlider>img {
 				var dayMap=newMap();
 				dayMap.put("startDay",$("#startDay"+i).val());
 				dayMap.put("endDay",$("#endDay"+i).val());
-				startendDay[i]=dayMap;                 
+				startendDay[i]=dayMap;  
 			}                            
               
 			for(var i=0; i<=startLength; i++){
@@ -381,13 +418,13 @@ section.awSlider>img {
                      type:"get",
                      data:"currYear="+ startYear + "&startMonth="+startMonth + "&endMonth="+endMonth+ "&startDay=" + startDay + "&endDay="+endDay,
                      url:"${pageContext.request.contextPath}/getCalendarBean.do",
-                     
                      success:function(data){
                         //alert("총기간" + data);
                         var result = (parseInt(data));
-                        var rentPrice = parseInt($("#rentPrice").text());
+                        var rentPrice = parseInt("${requestScope.findBvo.rentPrice}");
                         var calResult=result*rentPrice;
                         $("#calResult"+dayFlag).html("총대여료 : " + calResult);
+                        //alert("대욜   "+calResult);
                         dayFlag=dayFlag+1; 
                      } //success       
                   });//ajax 
@@ -458,6 +495,34 @@ section.awSlider>img {
         
    });
 </script>
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+  }
+  x[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " w3-opacity-off";
+}
+</script> 
 <!-- main css -->
 <style>
    body {
@@ -486,16 +551,40 @@ section.awSlider>img {
 <br><br><br>
 <div class="container">
 
-   	<section class="awSlider">
-      	<div class="carousel slide" data-ride="carousel">
-         	<!-- Indicators -->
+   	<!-- <section class="awSlider"> -->
+      	<!-- <div class="carousel slide" data-ride="carousel">
+         	Indicators
          	<ol class="carousel-indicators">
 	            <li data-target=".carousel" data-slide-to="0" class="active"></li>
 	            <li data-target=".carousel" data-slide-to="1"></li>
 	            <li data-target=".carousel" data-slide-to="2"></li>
-         	</ol>
+         	</ol> -->
 
-         	<!-- Wrapper for slides -->
+	       
+			<div class="w3-content w3-display-container" align="center">
+  				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="width:50%">
+  				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="width:50%;display: none;">
+ 				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="width:50%;display: none;">
+<!-- 
+  			<button class="w3-button  w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+  			<button class="w3-button  w3-display-right" onclick="plusDivs(1)">&#10095;</button> -->
+    		
+    			<div class="w3-row-padding w3-section">
+      				<img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="width:10%" onclick="currentDiv(1)">
+      				&nbsp;&nbsp;&nbsp;
+      				<img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="width:10%" onclick="currentDiv(2)">
+      				&nbsp;&nbsp;&nbsp;
+      				<img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="width:10%" onclick="currentDiv(3)">
+  				</div>
+  		
+			</div>
+
+
+
+
+
+
+         <%-- 	<!-- Wrapper for slides -->
          	<div class="carousel-inner" role="listbox">
             	<div class="item active">
                	<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="max-width: 100%;" width="500px">
@@ -519,10 +608,10 @@ section.awSlider>img {
          	<a class="right carousel-control" href=".carousel" role="button" data-slide="next"> 
 	         	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 	            <span class="sr-only">İleri</span>
-         	</a>
-      	</div>
-   	</section>
-   <div id="heart"></div>
+         	</a> --%>
+      	<!-- </div> -->
+   	<!-- </section> -->
+   <span id="heart"></span>
    	<div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
 		    <label for="name">TITLE</label>
@@ -628,22 +717,18 @@ section.awSlider>img {
 								</div>
 							</div>
 
-							<!-- Modal -->
-                     		<div id="id02" class="modal" align="center">
-                     			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal" >×</span>
-								<div class="modal-content animate mainbox">
-									<div class=" panel panel-default" style="height: 100%;">
+							<!-- Modal detail information -->
+                     		<div id="id02" class="modal2" align="center">
+								<div class="modal2-content animate mainbox">
+									<div class=" panel panel-default">
 										<%--내용물영역 --%>
 										<div class="panel-heading">
-											<div>
 												<h4>
-<<<<<<< HEAD
-													<strong>Detail Information</strong>
-=======
-													<strong>상세정보</strong>
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+													<strong>Detail Information
+													<span onclick="document.getElementById('id02').style.display='none'" class="close2" title="Close Modal" >×</span>
+													</strong>
 												</h4>
-											</div>
+												
 										</div>
 										
 										<div class="panel-body">
@@ -668,12 +753,13 @@ section.awSlider>img {
 														<td>${requestScope.findBvo.rentPrice}</td>									
 													</tr>
 													<tr>
+
 														<th scope="row"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></th>
 														<td>${requestScope.findBvo.detail}</td>
 													</tr>
-									
+												
 											</table>
-											
+												
 										</div>
 									</div>
 								</div>
@@ -686,12 +772,12 @@ section.awSlider>img {
                         		</div>
                      		</c:forEach>
 
-	                     	<div id="success"></div>
+	                     	
                      		<c:if test="${sessionScope.mvo.id != requestScope.findBvo.memberVO.id}">
 	                     		<div class="row">
 	                        		<div class="form-group col-xs-12" align="center">
 	                        			<input type = "hidden" name = "bicycleNo" value = "${requestScope.findBvo.bicycleNo}">
-			                        	<button type="submit" class="btn btn-success btn-lg" id="rentBtn">RENT</button>
+			                        	<button type="submit" class="btn btn-success btn-md" id="rentBtn"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" style="width: 30px;"></span></button>
 	                        		</div>
 	                     		</div>
 							</c:if>

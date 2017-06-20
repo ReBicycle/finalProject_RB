@@ -221,7 +221,6 @@ $(document).ready(function(){
                 <div class="panel-title" style="color:#31708f"><h5><strong>${donationVO.title }</strong></h5></div>
             </div> 
             	<div class="panel-body" >
-            	
             	<div class="w3-content w3-display-container" align="center">
   <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo1}" style="width:50%">
   <img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/donation/${requestScope.donationVO.photoVO.photo2}" style="width:50%;display: none;">

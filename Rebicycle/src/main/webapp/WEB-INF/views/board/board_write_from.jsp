@@ -25,7 +25,7 @@ $(document).ready(function(){
 <div class="container">
 <br><br><br><br> 
 	<span>
-		<h1 class="panel-title pull-center" style="font-size: 30px">
+		<h1 class="panel-title pull-center" style="font-size:30px">
 			<!-- <span class="label label-warning">신고</span> -->
 			신고 게시판 작성&nbsp;&nbsp;&nbsp;
 			<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -48,8 +48,8 @@ $(document).ready(function(){
             <textarea rows="10" class="form-control" placeholder="Message" name="contents" id="contents" style="resize: none"></textarea>
         </div>
         <br>
-        <button type="button" class="btn btn-success btn-lg btn3d" id="writeBtn"><span class="glyphicon glyphicon-ok"></span>&nbsp;Report</button>
-        <button type="button" class="btn btn-danger btn-lg btn3d" id="resetBtn"><span class="glyphicon glyphicon-remove" ></span>&nbsp;Reset</button>
+        <button type="button" class="btn btn-success btn-lg btn3d" id="writeBtn"><span class="glyphicon glyphicon-ok"></span></button>
+        <button type="button" class="btn btn-danger btn-lg btn3d" id="resetBtn"><span class="glyphicon glyphicon-remove" ></span></button>
     </form>
     </div>
     <br><br><br>

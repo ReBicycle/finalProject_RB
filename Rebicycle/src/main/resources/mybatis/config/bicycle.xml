@@ -182,7 +182,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    
    <select id="findRentById" resultMap="rentMap">
-      select r.rentNo,r.renterId,r.bicycleNo, r.startDay, r.endDay, r.state, b.bicycleNo, b.title 
+      select r.rentNo,r.renterId,r.bicycleNo, to_char(r.startDay,'yyyy-mm-dd') as startDay, to_char(r.endDay,'yyyy-mm-dd') as endDay, r.state, b.bicycleNo, b.title 
       from rent r, bicycle b
       where r.bicycleNo = b.bicycleNo and r.renterId=#{value} order by r.rentNo
    </select>
@@ -232,20 +232,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
       
     <select id="findRentSuccessByBicycleNo" resultMap = "rentMap">
-      select rentNo,renterId,bicycleNo,startDay, endDay, state
+      select rentNo,renterId,bicycleNo,startDay,endDay,state
       from rent 
       where bicycleNo=#{value}  and (state =1 or state =3 )
    </select>
    
 	<select id = "findRentSuccessById" resultMap = "rentMap">
-		select  r.rentNo,r.renterId,r.startDay,r.endDay, m.id, b.memberId
+		select  r.rentNo,r.renterId,to_char(r.startDay,'yyyy-mm-dd') as startDay,to_char(r.endDay,'yyyy-mm-dd') as endDay, m.id, b.memberId
 		from rent r , bicycle b, rb_member m
 		where  r.bicycleNo = b.bicycleNo and b.memberId=m.id 
-		and state =1 and b.memberId =  #{value} order by r.rentNo desc
+		and state =1 and b.memberId =#{value} order by r.rentNo desc
 	</select>
    
    <select id="findRentRequestById" resultMap = "rentMap">
-      select r.*, b.bicycleNo, b.memberId, b.title
+      select r.rentNo,r.renterId,to_char(r.startDay,'yyyy-mm-dd') as startDay,to_char(r.endDay,'yyyy-mm-dd') as endDay,r.state, b.bicycleNo, b.memberId, b.title
       from rent r, bicycle b
       where r.bicycleNo = b.bicycleNo and b.memberId = #{value}  and (r.state = 0 or r.state = 2) order by r.rentNo desc
    </select>

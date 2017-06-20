@@ -69,7 +69,7 @@ input[type=search] {
 .success {background-color: #153a6d;} 
 .success:hover {background-color: #d9edf7;}
 </style>
-<div class="container" style="margin-top: 50px;margin-bottom: 50px"> 
+<div class="container" style="margin-top: 50px;margin-bottom: 50px;min-height: 450px;">
 <div style="margin-top:20px;margin-botton:200px;">
 <input type="search" placeholder="Search..">
  <a href="${pageContext.request.contextPath}/donation/donation_register_form.do"><button class="btn success">검색</button></a>

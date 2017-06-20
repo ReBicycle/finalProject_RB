@@ -16,6 +16,10 @@ public interface DonationService {
 
 	void selectStory(DonationVO dvo);
 
+	void donationUpdate(DonationVO dvo);
+
+	void donationDelete(String donationBicycleNo);
+
 
 
 }

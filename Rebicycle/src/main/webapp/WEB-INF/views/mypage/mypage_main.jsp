@@ -36,19 +36,13 @@ tr:hover{background-color:#f5f5f5}
                  //data[1]
                  var result = "";
                  var table = "";
-                 for(var j = 0; j<data.length;j++){
-                    
-                    
+                 for(var j = 0; j<data.length;j++){            
                      table += "<tr>"+
                               "<td>" + data[j].rentNo + "</td>"+
                               "<td>" + data[j].memberVO.id + "</td>"+
                               "<td>" + data[j].calendarVO.startDay + "</td>"+
                               "<td>" + data[j].calendarVO.endDay + "</td>"+
-                             
-                              "</tr>";
-                                         
-                    
-                    
+                              "</tr>";               
                  }
                  $("#successInfo").html(table); 
               } //success
@@ -65,15 +59,13 @@ tr:hover{background-color:#f5f5f5}
                  var result = "";
                  var table = "";
                  for(var j = 0; j<data.length;j++){
-                    
-                    
+                	 
                      table += "<tr>"+
                               "<td>" + data[j].rentNo + "</td>"+
                               "<td>" + data[j].memberVO.id + "</td>"+
                               "<td>" + data[j].calendarVO.startDay + "</td>"+
                               "<td>" + data[j].calendarVO.endDay + "</td>";
-                              
-                              
+                  
                      if(data[j].state == 2){
                         table += "<td><input type = 'button' id = 'noBtn'  value = '수락불가' class='btn btn-warning' ></td>"+
                                            "</tr>";
@@ -81,9 +73,7 @@ tr:hover{background-color:#f5f5f5}
                         table += "<td><input type = 'button' id = 'okBtn'  value = '수락' class='btn btn-success' ></td>"+
                                  "</tr>";
                     }
-                                         
-                    
-                    
+             
                  }
                  $("#rentInfo").html(table); 
               } //success
@@ -104,28 +94,21 @@ tr:hover{background-color:#f5f5f5}
                   var table = "";
                   for(var j = 0; j<data.length;j++){
                      
-                     
                       table += "<tr>"+
                                "<td>" + data[j].rentNo + "</td>"+
                                "<td>" + data[j].memberVO.id + "</td>"+
                                "<td>" + data[j].calendarVO.startDay + "</td>"+
-                               "<td>" + data[j].calendarVO.endDay + "</td>"+
-                              
+                               "<td>" + data[j].calendarVO.endDay + "</td>"+                              
                                "</tr>";
-                                          
-                     
-                     
+                   
                   }
                   $("#successInfo").html(table); 
                } //success
             });//ajax
         });
-         
-       
-         
+               
          $("#rentList"+j).click(function(){
-            
-             
+           
             var bicycleNo=$(this).children().val();
             $.ajax({
                type:"get",

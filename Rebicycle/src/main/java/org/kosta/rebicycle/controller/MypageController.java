@@ -1,19 +1,9 @@
 package org.kosta.rebicycle.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +12,6 @@ import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
 import org.kosta.rebicycle.model.vo.RentVO;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -144,10 +133,11 @@ public class MypageController {
 	public void notice(){
 		
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberVO){
-			HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		if(session != null){
 			
-			MemberVO pvo = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			MemberVO pvo = (MemberVO)session.getAttribute("mvo");
 			session.setAttribute("mvo", pvo);
 			int findGetRequest=bicycleService.findGetRequest(pvo.getId());
 			

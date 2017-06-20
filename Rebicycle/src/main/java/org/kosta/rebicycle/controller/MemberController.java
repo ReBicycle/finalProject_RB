@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.service.MemberService;
 import org.kosta.rebicycle.model.vo.MemberVO;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,7 @@ public class MemberController {
     	return "member/login_fail.tiles";
     }
 	
-	/*@RequestMapping(method=RequestMethod.POST,value="login.do")
+	@RequestMapping(method=RequestMethod.POST,value="login.do")
 	public String login(MemberVO mvo, HttpServletRequest request){
 		System.out.println("sdadsads login.do");
 		MemberVO loginVO = memberService.login(mvo);
@@ -47,7 +46,7 @@ public class MemberController {
 		if(loginVO !=null){
 			session.setAttribute("mvo", loginVO);
 			System.out.println("로그인성공");
-<<<<<<< HEAD
+
 			
 			if(session!=null){
 				MemberVO vo=(MemberVO) session.getAttribute("mvo");
@@ -68,11 +67,11 @@ public class MemberController {
 				System.out.println("test       "+totalRequest);
 			}
 			
-=======
+
 			if(session!=null){
 				MemberVO vo=(MemberVO) session.getAttribute("mvo");
 				//각각의 요청을 구분하기 위해 따로 받음
-				System.out.println("2020202020 : " +vo.getId());
+				//System.out.println("2020202020 : " +vo.getId());
 				int findGetRequest=service.findGetRequest(vo.getId());
 				
 				int findAcceptRequest=service.findAcceptRequest(vo.getId());
@@ -89,7 +88,7 @@ public class MemberController {
 				session.setAttribute("totalRequest", totalRequest);
 				System.out.println("test       "+totalRequest);
 			}
->>>>>>> branch 'master' of https://github.com/ReBicycle/finalProject_RB.git
+
 			path = "redirect:home.do";
 		}else{
 			path = "member/login_fail";
@@ -98,7 +97,7 @@ public class MemberController {
 		
 		
 		return path;
-	}*/
+	}
 	
 	@RequestMapping("member/logout.do")
 	public String logout(HttpServletRequest request){

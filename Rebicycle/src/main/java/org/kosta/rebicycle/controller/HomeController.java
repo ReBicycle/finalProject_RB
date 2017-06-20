@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.kosta.rebicycle.model.service.BicycleService;
 import org.kosta.rebicycle.model.vo.BicycleVO;
 import org.kosta.rebicycle.model.vo.MemberVO;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,27 +22,6 @@ public class HomeController {
 		private BicycleService service;
 		@RequestMapping("home.do")
 		public String home(HttpServletRequest request){
-				if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberVO){
-						HttpSession session = request.getSession();
-						
-						MemberVO pvo = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-						session.setAttribute("mvo", pvo);
-						int findGetRequest=service.findGetRequest(pvo.getId());
-						
-						int findAcceptRequest=service.findAcceptRequest(pvo.getId());
-						int findRefuseRequest=service.findRefuseRequest(pvo.getId());
-						int Total=findGetRequest+findAcceptRequest+findRefuseRequest;
-						
-						HashMap<String, Integer> totalRequest=new HashMap<>();
-						
-						totalRequest.put("findGetRequest", findGetRequest);
-						totalRequest.put("findAcceptRequest", findAcceptRequest);
-						totalRequest.put("findRefuseRequest", findRefuseRequest);
-						totalRequest.put("total", Total);
-						
-						session.setAttribute("totalRequest", totalRequest);
-					}
-			
 			return "home.tiles";
 		}
 		@RequestMapping("member_login.do")

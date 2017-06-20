@@ -15,6 +15,7 @@ $(document).ready(function(){
 	});//writeBtn click
 	$("#resetBtn").click(function(){    		
 		$("#board_write_from")[0].reset();
+		// 초기화 버튼
 	});// resetBtn click
 });	//ready
 </script>
@@ -46,11 +47,6 @@ $(document).ready(function(){
                   <div class="form-group">
                      Content <textarea class="form-control" cols="40" name="contents" rows="5" style="resize: none">${requestScope.rvo.contents}</textarea>
                   </div>
-                  <%-- <c:if test="${requestScope.rvo.reporterId==sessionScope.mvo.id}">
-                  <button type="button" class="btn btn-info" id="updateBtn">UpDate</button>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
-                  </c:if> --%>
             </div>
          </div>
      </div>

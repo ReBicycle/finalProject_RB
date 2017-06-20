@@ -22,24 +22,27 @@
 	-webkit-border-radius: 50%;
 	border-radius: 50%;
 }
+.btn-block{
+	background-color: #555555;
+}
 </style>    
 <br><br><br>
 
-    <div class="container" style="margin-top:40px">
+    <div class="container" style="margin-top:40px; min-height: 450px;">
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<strong> LOGIN</strong>
-					</div>
 					<div class="panel-body">
 						<form role="form" action="${pageContext.request.contextPath}/login.do" method="POST">
 								<div class="row">
 									<div class="center-block">
-										<img class="profile-img"
-											src="https://t3.ftcdn.net/jpg/01/14/60/02/240_F_114600287_gGMW6jM4l7NYPKlcbRsg8F7mdb18yFUU.jpg?sz=200" alt="">
+										<img class=""
+											src="${pageContext.request.contextPath}/resources/img/rebicycle_login.png" alt="" style="width: 300px; opacity: 80%;"align="middle" >
+											
 									</div>
 								</div>
+									<br>
+									<br>
+									<br>
 								<div class="row">
 	
 									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
@@ -70,11 +73,6 @@
 						
 						</form>
 					</div>
-					<div class="panel-footer ">
-						Don't have an account! <a href="${pageContext.request.contextPath}/member/member_register_form.do" onClick=""> Sign Up Here </a>
-					</div>
-					
-                </div>
 			</div>
 		</div>
 	</div>

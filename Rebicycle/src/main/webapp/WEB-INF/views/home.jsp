@@ -87,7 +87,8 @@ font-family: 'Jeju Gothic', serif;
             <div class="row" >
                 <div class="col-lg-12" style="padding-bottom: 200px">
                     <div class="intro-text"  style="margin-bottom:50px; color:#4d4d4d ">
-                        <h2>Search <font  style="color:#E8402E">bicycles</font> for you</h2>
+                    <%-- <img alt="" src="${pageContext.request.contextPath}/resources/img/rebicycle_login.png" style="width: 300px;"> --%>
+                        <h2>Search <font  style="color:#E8402E">rebicycle</font> for you !</h2>
                         	<div  style="margin-top:30px;"align="center">
 								<div class="row" align="center">
 

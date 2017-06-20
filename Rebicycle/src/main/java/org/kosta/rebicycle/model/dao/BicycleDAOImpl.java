@@ -190,11 +190,11 @@ public class BicycleDAOImpl implements BicycleDAO {
 	}
 	@Override
 	public void updatePossibleCalendarVOType3(HashMap<String, CalendarVO> calendarMap) {
-		System.out.println("111111111");
+		//System.out.println("111111111");
 		template.insert("bicycle.updatePossibleCalendarVOType3", calendarMap);	
-		System.out.println("222222222");
+		//System.out.println("222222222");
 		template.update("bicycle.updatePossibleCalendarVOType2", calendarMap);
-		System.out.println("333333333");
+		//sSystem.out.println("333333333");
 	}
 	@Override
 	public CalendarVO getPossibleCVO(CalendarVO calendarVO) {

@@ -124,8 +124,8 @@ create table rb_review(
 );
 
 create table donation(
-   donationBicycleNo number primary key,
-   donorId varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   donation_bicycle_no number primary key,
+   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id),
    detail clob not null,
    photo1 varchar2(100) not null,
    photo2 varchar2(100) not null,
@@ -133,15 +133,16 @@ create table donation(
    status number default 0,
    address varchar2(300) not null,
    title varchar2(100) not null
-);
+)
 
 create table story(
-donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donationBicycleNo),
+donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
 story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
 title varchar2(100) not null,
 detail clob not null,
 constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
-);
+)
+
 
 create table heart(
 	id varchar2(100) constraint fk_heart_id references rb_member(id),
@@ -182,7 +183,7 @@ insert into category(categoryNo, categoryName) values(7, '기타');
 -- 위로는 절대 건드리지 말것!!
 
 -----------------rent table 컬럼 수정-----------------------
-
+select * from bicycle
 
 delete from rent
 select * from rent

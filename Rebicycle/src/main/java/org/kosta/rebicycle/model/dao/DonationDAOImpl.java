@@ -15,6 +15,7 @@ import org.kosta.rebicycle.model.vo.PhotoVO;
 import org.kosta.rebicycle.model.vo.StoryVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Repository
@@ -101,5 +102,29 @@ public class DonationDAOImpl implements DonationDAO {
 	@Override
 	public void selectStory(DonationVO dvo) {
 		template.update("donation.selectStory",dvo);
+	}
+	
+	@Override
+	@Transactional
+	public void donationUpdate(DonationVO dvo) {
+		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
+		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
+		//개발시에는 워크스페이스 업로드 경로로 준다
+		//종봉
+		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\donation\\";
+		//태형
+		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\donation\\"; 
+		template.update("donation.donationUpdate", dvo);
+		if(dvo.getFile()!=null){
+			List<String> list=uploadFileRename(dvo.getFile(), dvo.getDonationBicycleNo());
+			uploadFile(dvo.getFile(), uploadPath,list);
+		}
+	
+	
+	}
+	@Override
+	public void donationDelete(String donationBicycleNo) {
+	template.delete("donation.donationDelete",Integer.parseInt(donationBicycleNo));
+		
 	}
 }

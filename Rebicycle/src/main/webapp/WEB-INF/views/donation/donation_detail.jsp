@@ -161,8 +161,12 @@ $(document).ready(function(){
                         <p style="font-size: 15px"></p>
        		   </div>    
            </div>
+         <c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId}">
+          <a href="${pageContext.request.contextPath}/donation/donation_update_form.do?donationBicycleNo=${param.donationBicycleNo}"><button class="btn success" style="width:100%;margin-bottom:50px; "><h4><strong>수정/삭제</strong></h4></button><br>
+         </a>
+         </c:if>
         <c:if test="${sessionScope.mvo.id!=requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">   
-        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="storyCheck()"><h4><strong>사연신청</strong></h4></button>
+        <button class="btn success" style="width:100%;margin-bottom:50px; " onclick="storyCheck()"><h4><strong>사연신청</strong></h4></button><br>
         </c:if>
         <c:if test="${requestScope.donationVO.storyId!='n'}">
         	<h4><strong>당첨자</strong> &nbsp;&nbsp;${requestScope.donationVO.storyId}</h4>
@@ -278,14 +282,15 @@ $(document).ready(function(){
 				   						 <div id="div_id_detail" class="form-group required" >
 				         						<label for="id_detail" class="control-label col-md-3  requiredField">상세내용</label>
 				         						<div class="controls col-md-8 "> 
-				        						<textarea class="input-md textinput textInput form-control" name="detail"  required="required"  style="height:170px;" readonly="readonly">${list.detail}</textarea>
+				        						<textarea class="input-md textinput textInput form-control" name="detail"  required="required"  style="height:120px;" readonly="readonly">${list.detail}</textarea>
 				        						
-				        						</div>
+				        						</div> 
 				    					</div>
+				    					<br><br><br>	<br><br><br>
 				    					<c:if test="${sessionScope.mvo.id==requestScope.donationVO.donorId&&requestScope.donationVO.storyId=='n'}">
-				    					<div class="form-group" style="margin-bottom: 30px;"> 
+				    					<div class="form-group" style="margin-bottom: 10px;">
 				       						 <div class="aab controls col-md-12"></div>
-				        					<button type="button" onclick="selectStory('${list.id}','${param.donationBicycleNo}')" class="btn btn-primary btn btn-info" style="font-size: 15px;">사연채택</button>
+				        					<button type="button" onclick="selectStory('${list.id}','${param.donationBicycleNo}')" class="btn btn-primary btn btn-info" style="font-size: 14px;">사연채택</button>
 										</div> 
 				    					</c:if>
 				    					

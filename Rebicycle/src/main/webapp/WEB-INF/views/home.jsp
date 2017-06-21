@@ -4,24 +4,24 @@
 <script src="http://momentjs.com/downloads/moment-timezone-with-data.js"></script>
 <script type="text/javascript">
 function dateCheck(){
-	var now= new Date();
-	var year=now.getFullYear();
-	var month=now.getMonth()+1;
-	if((month+"").length<2){
+	var now= new Date();  //날짜 객체 생성
+	var year=now.getFullYear(); //년도 정보를 받음
+	var month=now.getMonth()+1; //달 정보를 받음 현재달은 +1
+	if((month+"").length<2){ //한자리 달을 0을 붙여 두자리로 
 		month="0"+month;
 	}
 
 	var day=now.getDate();
-	if((day+"").length<2)
+	if((day+"").length<2) //한자리 일을 0을 붙여 두자리로
 		day="0"+day;
-	var today=year+"-"+month+"-"+day;
-	var startDay=document.searchForm.startDay.value;
+	var today=year+"-"+month+"-"+day;  //Date 형식으로 저장
+	var startDay=document.searchForm.startDay.value; 
 	var endDay=document.searchForm.endDay.value;
-	if(today !=""&&startDay!=""&&today>startDay){
+	if(today !=""&&startDay!=""&&today>startDay){ //날짜 값이 널이 아닐 때 오늘날짜와 시작날짜 비교
 		alert("오늘 날짜 이후를 선택하여 주세요.");
 		return false;
 	}
-	 if(startDay>endDay){
+	 if(startDay>endDay){ //시작일과 종료일 비교
 		 alert("시작일과 종료일을 확인하세요!");
 		 return false;
 	 }
@@ -87,7 +87,8 @@ font-family: 'Jeju Gothic', serif;
             <div class="row" >
                 <div class="col-lg-12" style="padding-bottom: 200px">
                     <div class="intro-text"  style="margin-bottom:50px; color:#4d4d4d ">
-                        <h2>Search <font  style="color:#E8402E">bicycles</font> for you</h2>
+                    <%-- <img alt="" src="${pageContext.request.contextPath}/resources/img/rebicycle_login.png" style="width: 300px;"> --%>
+                        <h2>Search <font  style="color:#E8402E">rebicycle</font> for you !</h2>
                         	<div  style="margin-top:30px;"align="center">
 								<div class="row" align="center">
 

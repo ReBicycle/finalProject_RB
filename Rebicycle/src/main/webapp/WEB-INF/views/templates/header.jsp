@@ -93,7 +93,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 				<%-- <a class="navbar-brand"
 					href="${pageContext.request.contextPath}/home.do">Rebicycle</a> --%>
 					<a class="navbar-brand"
-					href="${pageContext.request.contextPath}/home.do" style="padding: 10px;"><img src="${pageContext.request.contextPath}/resources/img/rebicycle_logo4.png" width="200px" style="padding-bottom: ;"></a>
+					href="${pageContext.request.contextPath}/home.do" style="padding:10px; padding-top:5px; "><img src="${pageContext.request.contextPath}/resources/img/rebicycle_logo33.png" width="70px" style="padding-bottom: ;"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -108,7 +108,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 								href="${pageContext.request.contextPath}/member/login.do">login</a>
 							</li>
 							<li style="color: #E8402E" class="page-scroll"><a
-								href="${pageContext.request.contextPath}/member/register_member_form.do">join</a>
+								href="${pageContext.request.contextPath}/member/register_member_form.do"><font style="color:#E8402E ">join</font></a>
 							</li>
 						</c:when>
 
@@ -128,12 +128,12 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							<li class="page-scroll" ><a
 								href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do"><font style="color:#E8402E ">자전거등록하기</font></a>
 							</li>
-							<%-- <li class="page-scroll">
+							<li class="page-scroll">
 	                        <a href="${pageContext.request.contextPath}/error123.do">에러테스트</a>
 	                    	</li>
 							<li class="page-scroll"><a
 								href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
-							</li> --%>
+							</li>
 						</c:otherwise>
 					</c:choose>
 

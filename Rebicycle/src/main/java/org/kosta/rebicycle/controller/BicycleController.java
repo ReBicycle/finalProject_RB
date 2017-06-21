@@ -98,7 +98,7 @@ public class BicycleController {
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		//개발시에는 워크스페이스 업로드 경로로 준다
-		//종봉
+		//종봉  
 		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 		//태형
 		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 

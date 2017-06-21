@@ -127,7 +127,7 @@ create table rb_review(
 
 create table donation(
    donation_bicycle_no number primary key,
-   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id),
+   donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id) on delete cascade,
 
    detail clob not null,
 
@@ -143,8 +143,8 @@ create table donation(
 )
 
 create table story(
-	donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no),
-	story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id),
+	donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no) on delete cascade,
+	story_id varchar2(100)  not null constraint fk_stroy_id references rb_member(id) on delete cascade,
 	title varchar2(100) not null,
 	detail clob not null,
 	constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
@@ -171,7 +171,7 @@ create table rb_report(
 
 
 CREATE TABLE rb_boardreply (
-      brdno number default 0,
+      brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo) on delete cascade,
       reno number primary key,
       rewriter varchar(10) not null constraint fk_rb_rewriter references rb_member(id),
       rememo varchar(500) not null,
@@ -206,7 +206,7 @@ select * from BICYCLE
 ------------------------------------donation 테이블 수정---
 
 delete from donation
-
+delete from story
 delete from rb_member where id = 'ter1943'
 
 
@@ -226,6 +226,10 @@ alter table donation
 drop column donorId
 alter table donation
 add donor_id varchar2(100) not null
+alter table donation
+add donor_id varchar2(100) not null constraint fk_donor_id references rb_member(id) on delete cascade
+drop table STORY
+
 
 -----story 등록
 insert into story (donation_bicycle_no,story_id,title,detail)
@@ -359,6 +363,7 @@ CREATE TABLE rb_boardreply (
 )
 drop table rb_boardreply
 --brdno(게시판 넘버)를 rb_report를 fk로 뒀을때 댓글이 달려있는 게시물이 삭제 안됨--
+select * from RB_BOARDREPLY
 CREATE TABLE rb_boardreply (
       brdno number default 0 constraint fk_rb_brdno references rb_report(reportNo),
       reno number primary key,
@@ -696,4 +701,3 @@ where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id
 select * from rent
 
 commit
-

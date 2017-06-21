@@ -566,10 +566,10 @@ function showDivs(n) {
   		 
 			</div>    
 			<button class="w3-button  w3-display-right" onclick="plusDivs(1)">&#10095;</button> 
-			</div>
+			</div>   
 
-      	<div class="col-sm-2" ><span id="heart"></span></div>  
- 
+      	<div class="col-sm-2" style="height:400px;"></div>  
+ <span id="heart"></span>
 
 
          <%-- 	<!-- Wrapper for slides -->

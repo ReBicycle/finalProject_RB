@@ -20,7 +20,6 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void registerMember(MemberVO vo) {
 		template.insert("member.registerMember", vo);
-		
 	}
 
 	@Override

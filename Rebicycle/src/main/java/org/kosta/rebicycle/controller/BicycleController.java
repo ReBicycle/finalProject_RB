@@ -53,7 +53,7 @@ public class BicycleController {
 		
 		String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 		bvo.setAddress(address);
-		
+
 
 		//가능일 등록
 		List<CalendarVO> calList = new ArrayList<CalendarVO>();

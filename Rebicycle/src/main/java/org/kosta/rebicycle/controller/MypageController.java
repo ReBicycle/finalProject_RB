@@ -44,7 +44,7 @@ public class MypageController {
 
 		//내가빌린내역 불러오기
 		ArrayList<RentVO> rentList = (ArrayList<RentVO>) bicycleService.findRentById(vo.getId());
-		System.out.println("rentListTest" + rentList);
+		System.out.println("TEST 			rentListTest" + rentList);
 		model.addAttribute("rentList", rentList);
 		
 		//거래 성공 내역-빌려준 내역
@@ -57,7 +57,7 @@ public class MypageController {
 		
 		//찜한 자전거 리스트
 		ArrayList<BicycleVO> heartList = (ArrayList<BicycleVO>)bicycleService.getHeartList(vo.getId());
-		System.out.println(heartList);
+		//System.out.println(heartList);
 		model.addAttribute("heartList", heartList);
 		
 		return "mypage/mypage_main.tiles";
@@ -69,7 +69,7 @@ public class MypageController {
 	@ResponseBody 
 	public ArrayList<RentVO> getRentByBicycleNo(String bicycleNo){
 		ArrayList<RentVO> rList = (ArrayList<RentVO>)bicycleService.getRentByBicycleNo(Integer.parseInt(bicycleNo));
-		//System.out.println("rList" + rList);
+		System.out.println("rList" + rList);
 		return rList;
 	}
 	

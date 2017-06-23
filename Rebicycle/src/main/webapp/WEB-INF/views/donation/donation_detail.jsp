@@ -42,7 +42,7 @@ function selectStory(id,no){
 		var xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=function(data){
 			if(xhr.status==200&&xhr.readyState==4){
-				alert(data);
+				//alert(data);
 				alert("채택이 완료되었습니다");
 				location.href="${pageContext.request.contextPath}/donation/donation_detail.do?donationBicycleNo="+no;
 			}
@@ -157,7 +157,7 @@ $(document).ready(function(){
                         <h3><strong>주소</strong></h3>
                         <p style="font-size: 15px">${donationVO.address }</p>
                         <hr>
-                        <h3><strong>기부 수</strong></h3>
+                        <!-- <h3><strong>기부 수</strong></h3> -->
                         <p style="font-size: 15px"></p>
        		   </div>    
            </div>

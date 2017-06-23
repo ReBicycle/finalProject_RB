@@ -143,10 +143,9 @@ public class BicycleController {
 		}
 	}
 	
+	//자전거 삭제
 	@RequestMapping("bicycle/deleteBicycle.do")
 	public String deleteBicycle(int bicycleNo){
-		System.out.println("deleteBicycle 실행");
-		System.out.println(bicycleNo);
 		bicycleServiceImpl.deleteBicycle(bicycleNo);
 		return "mypage/mypage_main.tiles";
 	}

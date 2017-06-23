@@ -42,7 +42,7 @@ public class HomeController {
 		}
 		@RequestMapping("sortByBikeType.do")
 		@ResponseBody
-		public List<BicycleVO> sortByBikeType(HttpServletRequest request,String address,String startDay,String endDay,String bikeType){
+		public List<BicycleVO> sortByBikeType(String address,String startDay,String endDay,String bikeType){
 			System.out.println("타입별 정렬 컨트롤러 실행");
 		if(bikeType==""){
 			return service.getBicycleListByAddressAndDay(address, startDay, endDay);

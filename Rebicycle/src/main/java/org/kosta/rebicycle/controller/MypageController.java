@@ -103,9 +103,6 @@ public class MypageController {
 	@RequestMapping("rentOk.do")
 	@Transactional
 	public String rentOk(String rentNo){
-		System.out.println("*******************test*******************");
-		//System.out.println("test       rentOk    "+rentNo);
-		
 		RentVO rvo = bicycleService.findRentByRentNo(Integer.parseInt(rentNo));
 		// select rentNo,bicycleNo, renterId, startDay, endDay
 		bicycleService.updateRentByRentNo(rentNo);//state == 1로 바꾸는거

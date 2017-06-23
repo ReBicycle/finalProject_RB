@@ -1,7 +1,6 @@
 package org.kosta.rebicycle.model.vo;
 
 public class RentVO {
-	//빌리기 - bicycle.xml 에서 dual을 통해 받는 rentNo 전달을 위함
 	private int rentNo;
 	private BicycleVO bicycleVO;
 	private MemberVO memberVO;

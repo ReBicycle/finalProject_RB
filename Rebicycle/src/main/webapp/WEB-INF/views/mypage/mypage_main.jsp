@@ -497,6 +497,7 @@ tr:hover{background-color:#f5f5f5}
                                                   <td>${rList.bicycleVO.title }</td>
                                                   <td>${rList.calendarVO.startDay }</td>
                                                   <td>${rList.calendarVO.endDay }</td>
+                                                  
                                                   <c:if test= "${rList.state ==0}">
                                                      <td><input type = "button" id = "" class ="btn btn-warning" value = "수락대기상태"></td>
                                                   </c:if>

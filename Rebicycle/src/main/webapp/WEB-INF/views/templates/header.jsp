@@ -168,13 +168,6 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							</li>
 					</c:if>
 					
-					<%-- <li onclick="notifyMe()">
-						<a class="fa fa-bell-o fa-lg" aria-hidden="true">
-							<c:if test="${alertSize!=0}">
-								${alertSize}
-							</c:if>
-						</a>
-					</li> --%>
 
 
 				</ul>

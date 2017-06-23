@@ -27,7 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="memberModify" parameterType="memberVO">
 		update rb_member
-		set password=#{password},name=#{name},phone=#{phone},address=#{address},email=#{email},account=#{account}, picture=#{picture}
+		set password=#{password},name=#{name},phone=#{phone},address=#{address},
+		email=#{email},account=#{account}, picture=#{picture}
 		where id=#{id}
 	</update>
  </mapper>

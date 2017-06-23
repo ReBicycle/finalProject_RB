@@ -1,204 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.14" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <package id="1" language="java" name="org.kosta.rebicycle.model.vo" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="923" y="149"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
-  </package>  
-  <class id="2" language="java" name="org.kosta.rebicycle.model.vo.BicycleVO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo/BicycleVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="338" width="217" x="76" y="75"/>    
+  <class id="1" language="java" name="org.kosta.rebicycle.controller.BicycleController" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/BicycleController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="259" x="240" y="215"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="org.kosta.rebicycle.model.vo.CalendarVO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo/CalendarVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="503" y="244"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="org.kosta.rebicycle.model.vo.DonationVO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo/DonationVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="563" y="613"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="org.kosta.rebicycle.model.vo.MemberVO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo/MemberVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="270" width="301" x="34" y="480"/>    
+  <class id="2" language="java" name="org.kosta.rebicycle.controller.BoardController" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/BoardController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="90" width="190" x="36" y="218"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="org.kosta.rebicycle.model.vo.RentVO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo/RentVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="922" y="397"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="org.kosta.rebicycle.model.vo.ReportVO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo/ReportVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="918" y="768"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="8" language="java" name="org.kosta.rebicycle.model.vo.ReviewVO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/vo/ReviewVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1304" y="399"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="9" language="java" name="org.kosta.rebicycle.model.service.BicycleService" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/service/BicycleService.java" binary="false" 
+  <class id="3" language="java" name="org.kosta.rebicycle.controller.HomeController" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/HomeController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="177" y="951"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="86" width="186" x="70" y="196"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </interface>  
-  <class id="10" language="java" name="org.kosta.rebicycle.model.service.BicycleServiceImpl" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/service/BicycleServiceImpl.java" binary="false" 
+  </class>  
+  <class id="4" language="java" name="org.kosta.rebicycle.controller.DonationController" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/DonationController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="173" y="1104"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="87" width="252" x="756" y="215"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="org.kosta.rebicycle.model.dao.BoardDAOImpl" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/dao/BoardDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="449" y="1100"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+  <class id="5" language="java" name="org.kosta.rebicycle.controller.LoginCheckInterceptor" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/LoginCheckInterceptor.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="70" width="188" x="243" y="74"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="12" language="java" name="org.kosta.rebicycle.model.dao.BoardDAO" project="Rebicycle" 
-    file="/Rebicycle/src/main/java/org/kosta/rebicycle/model/dao/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="450" y="958"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+  <class id="6" language="java" name="org.kosta.rebicycle.controller.MemberController" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/MemberController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="123" width="230" x="515" y="215"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </interface>  
-  <association id="13">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="14" name="memberVO">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="15" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="16">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="17" name="possibleList">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="18" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="19">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="20" name="rentVO">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="21" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="22">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="12"/>  
-  </realization>  
-  <association id="23">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="24" name="memberVO">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="25" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="27" name="bicycleVO">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="28" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="29">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="30" name="memberVO">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="31" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="32">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <association id="33">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="34" name="calendarVO">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="35" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  </class>  
+  <class id="7" language="java" name="org.kosta.rebicycle.controller.MypageController" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/MypageController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="78" width="306" x="46" y="357"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="org.kosta.rebicycle.controller.ReviewHeartController" project="Rebicycle" 
+    file="/Rebicycle/src/main/java/org/kosta/rebicycle/controller/ReviewHeartController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="83" width="324" x="365" y="355"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

@@ -48,7 +48,7 @@
 	<property name="defaultEncoding" value="utf-8"/>
 </bean>
 
-
+<!-- 파일 다운로드를 위한 설정 -->
 <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 <property name="order" value="1"></property>
 </bean>

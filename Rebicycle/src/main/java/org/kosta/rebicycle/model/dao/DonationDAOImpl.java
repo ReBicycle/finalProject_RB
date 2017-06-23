@@ -3,11 +3,10 @@ package org.kosta.rebicycle.model.dao;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.vo.DonationVO;
 import org.kosta.rebicycle.model.vo.PagingBean;
@@ -46,12 +45,13 @@ public class DonationDAOImpl implements DonationDAO {
 		return dvo ;
 	}
 	@Override
-	public void registerDonation(DonationVO dvo) {
+	public void registerDonation(DonationVO dvo, String uploadPath2) {
 		// uploadPath 실제 운영시에 사용할 서버 업로드 경로
 		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
+		String uploadPath = uploadPath2;
 		//개발시에는 워크스페이스 업로드 경로로 준다
 		//종봉
-		String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\donation\\";
+		//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\donation\\";
 		//태형
 		//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\donation\\"; 
 		

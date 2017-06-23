@@ -10,7 +10,7 @@ public interface DonationService {
 
 	DonationVO findDonationDetailByNo(String donationbicycleno);
 
-	void registerDonation(DonationVO dvo);
+	void registerDonation(DonationVO dvo, String uploadPath);
 
 	void donationStoryRegister(StoryVO svo);
 

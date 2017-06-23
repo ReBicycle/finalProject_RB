@@ -34,15 +34,16 @@ public class BicycleController {
 	@Resource
 	private MemberService memberServiceImpl;
 	// uploadPath 실제 운영시에 사용할 서버 업로드 경로
-	//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
+	
 	//개발시에는 워크스페이스 업로드 경로로 준다
 	//종봉
 	//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\";
 	//태형
-	String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
+	//String uploadPath="C:\\Users\\KOSTA\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\bicycle\\"; 
 	//자전거 등록
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/registerBicycle.do")
 	public String registerBicycle(BicycleVO bvo,String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
+		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
 		
@@ -88,6 +89,7 @@ public class BicycleController {
 	//자전거 수정
 	@RequestMapping(method = RequestMethod.POST, value = "bicycle/modifyBicycle.do")
 	public String modifyBicycle(String bicycleNo, BicycleVO bvo, String memberId, int categoryNo, CalendarVO cvo, String roadAddress, String jibunAddress, String detailAddress, HttpServletRequest request){
+		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
 		String stArr[] = request.getParameterValues("startDay");
 		String endArr[] = request.getParameterValues("endDay");
 		bvo.setBicycleNo(Integer.parseInt(bicycleNo));

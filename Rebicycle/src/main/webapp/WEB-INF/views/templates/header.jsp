@@ -128,12 +128,7 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							<li class="page-scroll" ><a
 								href="${pageContext.request.contextPath}/bicycle/bicycle_register_form.do"><font style="color:#E8402E ">자전거등록하기</font></a>
 							</li>
-							<li class="page-scroll">
-	                        <a href="${pageContext.request.contextPath}/error123.do">에러테스트</a>
-	                    	</li>
-							<li class="page-scroll"><a
-								href="${pageContext.request.contextPath}/listViewTest.do">자전거리스트테스트</a>
-							</li>
+							
 						</c:otherwise>
 					</c:choose>
 
@@ -168,13 +163,6 @@ function spawnNotification(theBody,theIcon,theTitle) {
 							</li>
 					</c:if>
 					
-					<%-- <li onclick="notifyMe()">
-						<a class="fa fa-bell-o fa-lg" aria-hidden="true">
-							<c:if test="${alertSize!=0}">
-								${alertSize}
-							</c:if>
-						</a>
-					</li> --%>
 
 
 				</ul>

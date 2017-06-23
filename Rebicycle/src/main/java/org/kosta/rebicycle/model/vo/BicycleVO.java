@@ -6,47 +6,23 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BicycleVO {
-	private int bicycleNo;  
-	/*private String memberId;*/
-	private MemberVO memberVO; //자전거 소유인
-	private ArrayList<CalendarVO> possibleList; //대여가능일
-	
-	private int purchasePrice; //purchasePrice 구매가격
-	
-	private int rentPrice; //일일렌트가격
-	private String detail;//상세정보
-	private String address; //자전거 위치 주소
-	private MapVO map;
-	
-	/*//위치VO?
-	private String latitude; //자전거 위치 위도
-	private String longitude; //자전거 위치 경도
-	*/
-	
-	private List<MultipartFile> file;//걍 파일
-	
-	private PhotoVO photoVO;
-	/*
-	private String photo1;//db에 넣을 파일명
-	private String photo2;
-	private String photo3;
-	*/
-	private CategoryVO categoryVO;
-	
-	/*
-	//categoryVO
-	private int categoryNo;
-	pirvate String categoryName;
+	private int bicycleNo;
+	private MemberVO memberVO;// 자전거 소유인
+	private ArrayList<CalendarVO> possibleList;// 대여가능일
+	private int purchasePrice;// 구매가
+	private int rentPrice;// 대여료
+	private String detail;// 상세정보
+	private String address;// 자전거 위치 주소
+	private MapVO map;// 위치정보
+	private List<MultipartFile> file;// 사진 파일
+	private PhotoVO photoVO;// 사진 이름
+	private CategoryVO categoryVO;// 자전거 종류
+	private String title;// 제목
+	private double avgRate;// 별점 평균
 
-	*/
-	private String title;
-	
-	private double avgRate;
-	
 	public BicycleVO() {
 		super();
 	}
-
 
 	public BicycleVO(int bicycleNo, MemberVO memberVO, ArrayList<CalendarVO> possibleList, int purchasePrice,
 			int rentPrice, String detail, String address, MapVO map, List<MultipartFile> file, PhotoVO photoVO,
@@ -67,21 +43,20 @@ public class BicycleVO {
 		this.avgRate = avgRate;
 	}
 
-
-
 	public BicycleVO(int bicycleNo) {
 		super();
 		this.bicycleNo = bicycleNo;
 	}
 
-
 	public int getBicycleNo() {
 		return bicycleNo;
 	}
-	//빌리기 - rentVO 에 자전거 번호 넣어주기 위해 선언
+
+	// 빌리기 - rentVO 에 자전거 번호 넣어주기 위해 선언
 	public BicycleVO(String bicycleNo) {
 		// TODO Auto-generated constructor stub
 	}
+
 	public ArrayList<CalendarVO> getPossibleList() {
 		return possibleList;
 	}
@@ -102,7 +77,6 @@ public class BicycleVO {
 		this.memberVO = memberVO;
 	}
 
-	
 	public int getPurchasePrice() {
 		return purchasePrice;
 	}
@@ -135,7 +109,6 @@ public class BicycleVO {
 		this.address = address;
 	}
 
-
 	public List<MultipartFile> getFile() {
 		return file;
 	}
@@ -159,7 +132,7 @@ public class BicycleVO {
 	public void setCategoryVO(CategoryVO categoryVO) {
 		this.categoryVO = categoryVO;
 	}
-	
+
 	public MapVO getMap() {
 		return map;
 	}
@@ -168,7 +141,6 @@ public class BicycleVO {
 		this.map = map;
 	}
 
-	
 	public String getTitle() {
 		return title;
 	}
@@ -176,17 +148,14 @@ public class BicycleVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 
 	public double getAvgRate() {
 		return avgRate;
 	}
 
-
 	public void setAvgRate(double avgRate) {
 		this.avgRate = avgRate;
 	}
-
 
 	@Override
 	public String toString() {
@@ -195,7 +164,5 @@ public class BicycleVO {
 				+ address + ", map=" + map + ", file=" + file + ", photoVO=" + photoVO + ", categoryVO=" + categoryVO
 				+ ", title=" + title + ", avgRate=" + avgRate + "]";
 	}
-
-
 
 }

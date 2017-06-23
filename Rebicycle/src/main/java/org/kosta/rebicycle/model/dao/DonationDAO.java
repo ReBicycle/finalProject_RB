@@ -15,7 +15,7 @@ public interface DonationDAO {
 
 	DonationVO findDonationDetailByNo(String donationbicycleno);
 
-	void registerDonation(DonationVO dvo);
+	void registerDonation(DonationVO dvo, String uploadPath);
 
 	void uploadFile(List<MultipartFile> list, String uploadPath, List<String> nameList);
 

@@ -23,7 +23,9 @@ drop sequence donation_seq;
  
 delete from rb_review;
 delete from rb_report;
+delete from story;
 delete from donation;
+delete from RB_BOARDREPLY
 delete from rent;
 delete from possible_day;
 delete from bicycle_photo;
@@ -31,8 +33,7 @@ delete from map;
 delete from bicycle;
 delete from category;
 delete from rb_member;
-delete from RB_BOARDREPLY
-
+delete from heart
 
 
 create sequence category_seq nocache;
@@ -50,7 +51,7 @@ select * from bicycle;
 select * from map;
 select * from bicycle_photo;
 select * from possible_day;
-select * from rent;
+
 select * from donation;
 select * from rb_report;
 select * from rb_boardreply;

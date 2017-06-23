@@ -33,9 +33,9 @@ private DonationDAO donationDAO;
 		return donationDAO.findDonationDetailByNo(donationbicycleno);
 	}
 	@Override
-	public void registerDonation(DonationVO dvo) {
+	public void registerDonation(DonationVO dvo, String uploadPath) {
 		dvo.setDonationBicycleNo(donationDAO.getDonationBicycleNo());
-		donationDAO.registerDonation(dvo);
+		donationDAO.registerDonation(dvo, uploadPath);
 	}
 	@Override
 	public void donationStoryRegister(StoryVO svo) {

@@ -26,7 +26,7 @@ public class MemberController {
 
 	//private String uploadPath="C:\\Users\\소영\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	//종봉
-	String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
+	//String uploadPath="C:\\Users\\Administrator\\git\\finalProject_RB\\Rebicycle\\src\\main\\webapp\\resources\\upload\\";
 	@Resource
 	private MemberService memberService;
 	@Resource
@@ -89,7 +89,7 @@ public class MemberController {
 	
 	@RequestMapping(method=RequestMethod.POST, value = "memberRegister.do")
 	public String memberRegister(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
-		
+		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/member/");
 		System.out.println(vo);
 	
 		MultipartFile file = vo.getUploadFile();
@@ -155,7 +155,7 @@ public class MemberController {
 	@RequestMapping(method=RequestMethod.POST,value="member/memberModify.do")
 	public String memberModify(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
 		//System.out.println("memberModify"+vo.getUploadFile());
-
+		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/member/");
 		//만약 파일을 변경한 경우
 		if(vo.getUploadFile() != null){
 			MultipartFile file = vo.getUploadFile();

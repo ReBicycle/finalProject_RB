@@ -1,6 +1,7 @@
 package org.kosta.rebicycle.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.rebicycle.model.service.DonationService;
 import org.kosta.rebicycle.model.vo.DonationVO;
@@ -31,10 +32,11 @@ public class DonationController {
 			return new ModelAndView("donation/donation_list.tiles","listVO",listVO);
 		}
 		@RequestMapping("donation/donation_register.do")
-		public ModelAndView donationRegister(DonationVO dvo,String roadAddress, String jibunAddress, String detailAddress ){
+		public ModelAndView donationRegister(DonationVO dvo,String roadAddress, String jibunAddress, String detailAddress,HttpServletRequest request){
 			String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 			dvo.setAddress(address);
-				donationService.registerDonation(dvo);
+			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
+			donationService.registerDonation(dvo, uploadPath);
 			return new ModelAndView("redirect:donation_detail.do?donationBicycleNo="+dvo.getDonationBicycleNo());
 		}
 		@RequestMapping("donation/donation_detail.do")

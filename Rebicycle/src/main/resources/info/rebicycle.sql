@@ -31,7 +31,7 @@ delete from map;
 delete from bicycle;
 delete from category;
 delete from rb_member;
-delete from RB_BOARDREPLY
+delete from RB_BOARDREPLY;
 
 
 

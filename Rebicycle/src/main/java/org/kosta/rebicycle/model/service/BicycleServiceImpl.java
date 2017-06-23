@@ -44,12 +44,12 @@ public class BicycleServiceImpl implements BicycleService {
 	@Override
 	@Transactional
 	public void registerBicycle(BicycleVO bvo, List<CalendarVO> calList, String uploadPath, MapVO map) {
-		bicycleDAOImpl.registerBicycle(bvo);
+		bicycleDAOImpl.registerBicycle(bvo); // 자전거 등록
 
 		for (int i = 0; i < calList.size(); i++) {
 			calList.get(i).setBicycleNo(bvo.getBicycleNo());
 		}
-		bicycleDAOImpl.registerPossibleDate(calList);
+		bicycleDAOImpl.registerPossibleDate(calList); // 가능기간 등록
 
 		PhotoVO pvo = new PhotoVO();
 		List<String> list = uploadFile(bvo.getFile(), uploadPath, bvo.getBicycleNo());
@@ -57,10 +57,10 @@ public class BicycleServiceImpl implements BicycleService {
 		pvo.setPhoto1(list.get(0));
 		pvo.setPhoto2(list.get(1));
 		pvo.setPhoto3(list.get(2));
-		bicycleDAOImpl.registerFile(pvo);
+		bicycleDAOImpl.registerFile(pvo); // 사진파일 등록
 
 		map.setBicycleNo(bvo.getBicycleNo());
-		bicycleDAOImpl.registerMap(map);
+		bicycleDAOImpl.registerMap(map); // 위치정보 등록
 	}
 	
 	// 수정

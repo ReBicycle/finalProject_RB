@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <!-- 이미지 슬라이드 -->
 <style type="text/css">
 section.awSlider .carousel {
@@ -546,7 +547,7 @@ function showDivs(n) {
          	<div class="col-sm-2" ></div>   
 	 
 	       <div class="w3-row col-sm-8" align="center" style="max-width:800px;">
-	       <button class="w3-button  w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+	      <!--  <button class="w3-button  w3-display-left" onclick="plusDivs(-1)">&#10094;</button> -->
 			<div class="w3-content w3-display-container" >
   				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="width:50%">
   				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="width:50%;display: none;">
@@ -564,7 +565,7 @@ function showDivs(n) {
   				</div><br>
   		 
 			</div>    
-			<button class="w3-button  w3-display-right" onclick="plusDivs(1)">&#10095;</button> 
+			<!-- <button class="w3-button  w3-display-right" onclick="plusDivs(1)">&#10095;</button>  -->
 			</div>   
 
       	<div class="col-sm-2" style="height:400px;"></div>  

@@ -89,7 +89,7 @@ public class MemberController {
 	
 	@RequestMapping(method=RequestMethod.POST, value = "memberRegister.do")
 	public String memberRegister(MemberVO vo, HttpServletRequest request, String roadAddress, String jibunAddress, String detailAddress){
-		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/member/");
+		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 		System.out.println(vo);
 	
 		MultipartFile file = vo.getUploadFile();

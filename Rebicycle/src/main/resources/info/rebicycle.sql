@@ -25,7 +25,7 @@ delete from rb_review;
 delete from rb_report;
 delete from story;
 delete from donation;
-delete from RB_BOARDREPLY
+delete from RB_BOARDREPLY;
 delete from rent;
 delete from possible_day;
 delete from bicycle_photo;

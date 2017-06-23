@@ -51,6 +51,7 @@ select * from bicycle;
 select * from map;
 select * from bicycle_photo;
 select * from possible_day;
+select * from DONATION;
 
 select * from donation;
 select * from rb_report;

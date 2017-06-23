@@ -35,7 +35,7 @@ public class DonationController {
 		public ModelAndView donationRegister(DonationVO dvo,String roadAddress, String jibunAddress, String detailAddress,HttpServletRequest request){
 			String address = roadAddress + "%" + jibunAddress + "%" + detailAddress;
 			dvo.setAddress(address);
-			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/bicycle/");
+			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/donation/");
 			donationService.registerDonation(dvo, uploadPath);
 			return new ModelAndView("redirect:donation_detail.do?donationBicycleNo="+dvo.getDonationBicycleNo());
 		}

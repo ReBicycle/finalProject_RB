@@ -42,7 +42,8 @@ public class DonationController {
 		@RequestMapping("donation/donation_detail.do")
 		public ModelAndView findDonationDetailByNo(String donationBicycleNo){
 			
-			return new ModelAndView("donation/donation_detail.tiles","donationVO",donationService.findDonationDetailByNo(donationBicycleNo));
+			return new ModelAndView("donation/donation_detail.tiles","donationVO",
+		donationService.findDonationDetailByNo(donationBicycleNo));
 		}
 		@RequestMapping(method=RequestMethod.POST,value="donation/donation_story_register.do")
 		public String donationStoryRegister(StoryVO svo){

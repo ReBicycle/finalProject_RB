@@ -259,7 +259,7 @@ tr:hover{background-color:#f5f5f5}
 </style>
 
  <br><br>
-<div class="mainbody container-fluid" align = "center">
+<div class="mainbody container-fluid" align ="center" style="min-height: 500px;">
 <!--  프로필-->
 
 <div class = "row" style = "padding-left:100px;">

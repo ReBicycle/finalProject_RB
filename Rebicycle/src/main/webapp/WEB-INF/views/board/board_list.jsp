@@ -37,7 +37,7 @@ th, td {
 	<!-- new 신고게시판 -->
 	<br><br><br><br>
 
-	<div class="container">
+	<div class="container" style="min-height:490px;">
 		<span>
 			<h1 class="panel-title pull-center" style="font-size: 30px">
 				<!-- <span class="label label-warning">신고</span> -->

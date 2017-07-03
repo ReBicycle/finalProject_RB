@@ -217,7 +217,7 @@ section.awSlider>img {
 			data:"id=${sessionScope.mvo.id}&bicycleNo=${requestScope.findBvo.bicycleNo}",
 			success:function(data){
 				//alert(data);
-				$("#heart").html("<img alt='찜하기' src='${pageContext.request.contextPath}/resources/img/heart"+data+".png' style='width:35px'>");
+				$("#heartImg").attr("src","${pageContext.request.contextPath}/resources/img/heart"+data+".png");
 			}
 		});
 	   $("#heart").click(function(){
@@ -230,7 +230,7 @@ section.awSlider>img {
 						alert("내 자전거로 찜하기!");
 					else
 						alert("내 자전거에서 삭제!");
-					$("#heart").html("<br><img alt='찜하기' src='${pageContext.request.contextPath}/resources/img/heart"+data+".png' style='width:35px'>");
+					$("#heartImg").attr("src","${pageContext.request.contextPath}/resources/img/heart"+data+".png");
 				}
 			});
 		});
@@ -534,17 +534,10 @@ function showDivs(n) {
 </style>
 
 <br><br><br>
-<div class="container">
+<div class="container"> 
 
-   	<!-- <section class="awSlider"> -->
-      	<!-- <div class="carousel slide" data-ride="carousel">
-         	Indicators
-         	<ol class="carousel-indicators">  
-	            <li data-target=".carousel" data-slide-to="0" class="active"></li>
-	            <li data-target=".carousel" data-slide-to="1"></li>
-	            <li data-target=".carousel" data-slide-to="2"></li>
-         	</ol> -->
-         	<div class="col-sm-2" ></div>   
+   	
+         	<div class="col-sm-2" style="height:400px;"></div>   
 	 
 	       <div class="w3-row col-sm-8" align="center" style="max-width:800px;">
 	      <!--  <button class="w3-button  w3-display-left" onclick="plusDivs(-1)">&#10094;</button> -->
@@ -569,39 +562,12 @@ function showDivs(n) {
 			</div>   
 
       	<div class="col-sm-2" style="height:400px;"></div>  
- <span id="heart"></span>
-
-
-         <%-- 	<!-- Wrapper for slides -->
-         	<div class="carousel-inner" role="listbox">
-            	<div class="item active">
-               	<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="max-width: 100%;" width="500px">
-               		<div class="carousel-caption">${requestScope.findBvo.photoVO.photo1}</div>
-            	</div>
-            	<div class="item">
-               		<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="max-width: 100%;" width="500px">
-               		<div class="carousel-caption">${requestScope.findBvo.photoVO.photo2}</div>
-            	</div>
-            	<div class="item">
-               		<img src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="max-width: 100%;" width="500px">
-               		<div class="carousel-caption">${requestScope.findBvo.photoVO.photo3}</div>
-            	</div>
-         	</div>
-        
-         	<!-- Controls -->
-         	<a class="left carousel-control" href=".carousel" role="button" data-slide="prev"> 
-	         	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-	            <span class="sr-only">Geri</span>
-         	</a>
-         	<a class="right carousel-control" href=".carousel" role="button" data-slide="next"> 
-	         	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-	            <span class="sr-only">İleri</span>
-         	</a> --%>
-      	<!-- </div> -->
-   	<!-- </section> -->  
- 	
+ 
    	<div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
+			<span id="heart"> 
+			<img src="" id="heartImg" style="width:35px">			
+			</span>
 		    <label for="name">TITLE</label>
 		    <h3 align="center">TITLE</h3>
 		    <p class="help-block text-danger">${requestScope.findBvo.title}</p>
@@ -919,6 +885,6 @@ function showDivs(n) {
                </div>
             </c:forEach>            
          </div>
-      </div>
-     <!--  </div> -->
-<br>
+      </div> 
+</div>
+

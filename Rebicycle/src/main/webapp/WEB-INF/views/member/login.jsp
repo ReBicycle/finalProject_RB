@@ -28,7 +28,7 @@
 </style>    
 <br><br><br>
 
-    <div class="container" style="margin-top:40px; min-height: 450px;">
+    <div class="container" style="margin-top:40px; min-height: 500px;">
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 					<div class="panel-body">

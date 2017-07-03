@@ -142,7 +142,7 @@ create table donation(
 
    address varchar2(300) not null,
    title varchar2(100) not null
-)
+);
 
 create table story(
 	donation_bicycle_no number  not null constraint fk_story_bicycle_no references donation(donation_bicycle_no) on delete cascade,
@@ -150,7 +150,7 @@ create table story(
 	title varchar2(100) not null,
 	detail clob not null,
 	constraint pk_story_no_id primary key(donation_bicycle_no,story_id)
-)
+);
 
 
 
@@ -700,6 +700,6 @@ select r.*, b.bicycleNo, b.memberId, b.title,m.id
 from rent r, bicycle b,rb_member m
 where r.bicycleNo = b.bicycleNo and b.memberId = 'ter1943' and b.memberId = m.id  and r.state = 0 or r.state = 2 order by r.rentNo desc
 
-select * from rent
+select * from rb_member
 
 commit

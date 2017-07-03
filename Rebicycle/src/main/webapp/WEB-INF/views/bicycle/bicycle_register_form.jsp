@@ -79,7 +79,7 @@
         }).open();
     }
 </script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=c4a694f8da8eb3b5725921a457f15461&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
 <script type="text/javascript">
 	function findGeo(){
 		// 주소-좌표 변환 객체를 생성합니다
@@ -88,12 +88,13 @@
 	    geocoder.addr2coord($("#roadAddress").val(), function(status, result) {
 	   		// 정상적으로 검색이 완료됐으면 
 			if (status === daum.maps.services.Status.OK) {
+				
 				var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
-				var latitude=JSON.stringify(coords.hb);
-	            var longitude=JSON.stringify(coords.gb);
-	    		//hb:위도 , qb: 경도
-	    		$("#lat").val(latitude);	
-	    		$("#lon").val(longitude);
+				var latitude=JSON.stringify(coords.ib);
+	            var longitude=JSON.stringify(coords.hb);
+	    		//ib:위도 , hb: 경도
+	    		$("#lat").val(latitude);
+	    		$("#lon").val(longitude); 
 			}
 	    });   
 	}

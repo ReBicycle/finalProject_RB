@@ -84,14 +84,13 @@ font-family: 'Jeju Gothic', serif;
   <%--  <header  style="background-image: url('${pageContext.request.contextPath}/resources/img/portfolio/seoul.jpg'); background-repeat: no-repeat; background-size: cover; " > --%>
     <header  style="background-color: white; width: 100%;" >
         <div class="container " id="maincontent" tabindex="-1" style="width: 100%; padding-bottom: 50px;">
-            <div class="row" >
+            <div class="row" > 
                 <div class="col-lg-12" style="padding-bottom: 200px">
                     <div class="intro-text"  style="margin-bottom:50px; color:#4d4d4d ">
                     <%-- <img alt="" src="${pageContext.request.contextPath}/resources/img/rebicycle_login.png" style="width: 300px;"> --%>
                         <h2>Search <font  style="color:#E8402E">rebicycle</font> for you !</h2>
                         	<div  style="margin-top:30px;"align="center">
 								<div class="row" align="center">
-
 					        			<form action="${pageContext.request.contextPath}/bicycle_search_list.do"  name="searchForm" onsubmit="return dateCheck()">
 					            		<div class="form-group registration-date" style="width:800px;" align="center">
 					            		<div class="input-group registration-date-time"  >
@@ -100,11 +99,10 @@ font-family: 'Jeju Gothic', serif;
 					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
 					            		<input class="form-control" name="startDay" id="" type="date" size="" >
 					            		<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-					            		<input class="form-control" name="endDay" id="" type="date"size="" >
+					            		<input class="form-control" name="endDay" id="" type="date" size="" >
 					            		<span class="input-group-btn">
 					                    	<!-- <button class="btn btn-default" type="button" onclick="searchNow()"> Search &nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
 					                    	<input type="submit" class="btn btn-default" value="Search">%nbsp;<button  class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-					                    	
 					                    </span>
 					            	</div>
 					            </div>
@@ -154,7 +152,8 @@ font-family: 'Jeju Gothic', serif;
                 		</a>
                 	</div>
                 </div>
-        </div></div>
+        </div>
+        </div>
     </header>
     
     

@@ -88,7 +88,7 @@ appearance: none;
    <div id="map" style="height:520px;margin-top:35px;"></div>
    </div>
    <%--지도 --%>   
-   <%-- 검색 리스트 --%>  
+   <%-- 검색 리스트 --%> 
    <div class="col-sm-6" style="height:520px;background-color:white;overflow:auto;overflow-x:hidden;margin-top:35px;" >
 
 <div class="panel panel-default">
@@ -150,8 +150,6 @@ appearance: none;
    <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f4cd67b2fb4a9926d16fe85ee8ec2a67&libraries=services"></script>
 
  <script>
- var markers=[];
- var map;
  mapSetting();
 function mapSetting(){
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -161,11 +159,11 @@ function mapSetting(){
     };  
 
 // 지도를 생성합니다    
-map=new daum.maps.Map(mapContainer, mapOption); 
+ var map=new daum.maps.Map(mapContainer, mapOption); 
 // 지도에 확대 축소 컨트롤을 생성한다
 	var zoomControl = new daum.maps.ZoomControl();
 	//범위재설정
-	//var bounds = new daum.maps.LatLngBounds();   
+	var bounds = new daum.maps.LatLngBounds();   
 	// 지도의 우측에 확대 축소 컨트롤을 추가한다
 	map.addControl(zoomControl, daum.maps.ControlPosition.BOTTOMLEFT);
         var positions = [
@@ -225,7 +223,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
                 image : markerImage // 마커 이미지 
             }); 
              
-              //bounds.extend(positions[i].latlng);
+              bounds.extend(positions[i].latlng);
               
               
  			 // 마커 위에 커스텀오버레이를 표시합니다
@@ -250,7 +248,7 @@ map=new daum.maps.Map(mapContainer, mapOption);
               
         }//for문 끝
         
-      //  setBounds();
+        setBounds();
         
        //오버레이를 표시하는 클로저를 만드는 함수입니다 
          function makeOverListener(map, marker, overlay) {
@@ -268,11 +266,11 @@ map=new daum.maps.Map(mapContainer, mapOption);
              };
          }  
          
-        /*  function setBounds() {
+          function setBounds() {
         	    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
         	    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
         	    map.setBounds(bounds);
-        	} */
+        	} 
 
 }//mapSetting
 

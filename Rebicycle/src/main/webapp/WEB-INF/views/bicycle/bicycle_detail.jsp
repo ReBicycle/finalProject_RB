@@ -537,32 +537,32 @@ function showDivs(n) {
 <div class="container"> 
 
    	
-         	<div class="col-sm-2" style="height:400px;"></div>   
-	 
-	       <div class="w3-row col-sm-8" align="center" style="max-width:800px;">
+       
+	  		<div class="col-sm-2" ></div> 
+	       <div class="w3-row col-sm-8" align="center" style="max-height:400px;margin-left:10%;margin-right: 10%;margin-bottom: 50px;"> 
 	      <!--  <button class="w3-button  w3-display-left" onclick="plusDivs(-1)">&#10094;</button> -->
-			<div class="w3-content w3-display-container" >
-  				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="width:50%">
-  				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="width:50%;display: none;">
- 				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="width:50%;display: none;">
+			<div class="w3-content w3-display-container">  
+  				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="width:60%"> 
+  				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="width:60%;display: none;">
+ 				<img class="mySlides" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="width:60%;display: none;">
 
-  			
-  			
-    		
     			<div class="w3-row-padding w3-section">
       				<img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo1}" style="width:10%" onclick="currentDiv(1)">
       				&nbsp;&nbsp;&nbsp;
       				<img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo2}" style="width:10%" onclick="currentDiv(2)">
       				&nbsp;&nbsp;&nbsp;
       				<img class="demo w3-opacity w3-hover-opacity-off" src="${pageContext.request.contextPath}/resources/upload/bicycle/${requestScope.findBvo.photoVO.photo3}" style="width:10%" onclick="currentDiv(3)">
-  				</div><br>
+  				</div><br><br><br>
   		 
-			</div>    
-			<!-- <button class="w3-button  w3-display-right" onclick="plusDivs(1)">&#10095;</button>  -->
+			</div>     
 			</div>   
-
-      	<div class="col-sm-2" style="height:400px;"></div>  
- 
+	
+		<div class="col-sm-2" ></div> 
+ 	<div class="row control-group">
+ 	<div class="form-group col-xs-12 floating-label-form-group controls">
+ 	asdfadsf 
+ 	</div>
+ 	</div>
    	<div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
 			<span id="heart"> 
